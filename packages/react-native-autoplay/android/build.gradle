@@ -137,5 +137,14 @@ dependencies {
 
   // Add a dependency on NitroModules
   implementation project(":react-native-nitro-modules")
+
+  implementation "androidx.car.app:app:1.7.0"
+  if (getExtOrDefault("isAutomotiveApp") == "true") {
+    println("🚗 Enjoy your nitro powered Android Automotive app!")
+    implementation "androidx.car.app:app-automotive:1.7.0"
+  } else {
+    println("☎️ Enjoy your nitro powered Android Auto app!")
+    implementation "androidx.car.app:app-projected:1.7.0"
+  }
 }
 
