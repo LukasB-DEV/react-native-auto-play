@@ -16,7 +16,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun addListenerDidPress(callback: (PressEvent) -> Unit): () -> Unit {
+    override fun addListenerDidPress(callback: (PressEventPayload) -> Unit): () -> Unit {
         didPressListeners.add(callback)
 
         return {
@@ -24,7 +24,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun addListenerDidUpdatePinchGesture(callback: (PinchGestureEvent) -> Unit): () -> Unit {
+    override fun addListenerDidUpdatePinchGesture(callback: (PinchGestureEventPayload) -> Unit): () -> Unit {
         didUpdatePinchGestureListeners.add(callback)
 
         return {
@@ -32,7 +32,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun addListenerDidUpdatePanGestureWithTranslation(callback: (PanGestureWithTranslationEvent) -> Unit): () -> Unit {
+    override fun addListenerDidUpdatePanGestureWithTranslation(callback: (PanGestureWithTranslationEventPayload) -> Unit): () -> Unit {
         didUpdatePanGestureWithTranslationListeners.add(callback)
 
         return {
@@ -40,96 +40,38 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun addListenerWillAppear(
-        templateId: String, callback: (TemplateEvent?) -> Unit
+    override fun addListenerTemplateState(
+        templateId: String, templateState: TemplateState, callback: (TemplateEventPayload?) -> Unit
     ): () -> Unit {
-        val callbacks = willAppearListeners.getOrPut(templateId) { mutableListOf() }
+        val callbacks = templateStateListeners.getOrPut(templateId) { mutableMapOf() }
+            .getOrPut(templateState) { mutableListOf() }
         callbacks.add(callback)
 
         return {
-            willAppearListeners[templateId]?.removeAll { it === callback }
-            if (willAppearListeners[templateId]?.isEmpty() == true) {
-                willAppearListeners.remove(templateId)
-            }
-        }
-    }
-
-    override fun addListenerDidAppear(
-        templateId: String, callback: (TemplateEvent?) -> Unit
-    ): () -> Unit {
-        val callbacks = didAppearListeners.getOrPut(templateId) { mutableListOf() }
-        callbacks.add(callback)
-
-        return {
-            didAppearListeners[templateId]?.removeAll { it === callback }
-            if (didAppearListeners[templateId]?.isEmpty() == true) {
-                didAppearListeners.remove(templateId)
-            }
-        }
-    }
-
-    override fun addListenerWillDisappear(
-        templateId: String, callback: (TemplateEvent?) -> Unit
-    ): () -> Unit {
-        val callbacks = willDisappearListeners.getOrPut(templateId) { mutableListOf() }
-        callbacks.add(callback)
-
-        return {
-            willDisappearListeners[templateId]?.removeAll { it === callback }
-            if (willDisappearListeners[templateId]?.isEmpty() == true) {
-                willDisappearListeners.remove(templateId)
-            }
-        }
-    }
-
-    override fun addListenerDidDisappear(
-        templateId: String, callback: (TemplateEvent?) -> Unit
-    ): () -> Unit {
-        val callbacks = didDisappearListeners.getOrPut(templateId) { mutableListOf() }
-        callbacks.add(callback)
-
-        return {
-            didDisappearListeners[templateId]?.removeAll { it === callback }
-            if (didDisappearListeners[templateId]?.isEmpty() == true) {
-                didDisappearListeners.remove(templateId)
+            templateStateListeners[templateId]?.get(templateState)?.removeAll { it === callback }
+            if (templateStateListeners[templateId]?.isEmpty() == true) {
+                templateStateListeners.remove(templateId)
             }
         }
     }
 
     companion object {
         private val listeners = mutableMapOf<EventName, MutableList<() -> Unit>>()
-        private val didPressListeners = mutableListOf<(PressEvent) -> Unit>()
-        private val didUpdatePinchGestureListeners = mutableListOf<(PinchGestureEvent) -> Unit>()
+        private val didPressListeners = mutableListOf<(PressEventPayload) -> Unit>()
+        private val didUpdatePinchGestureListeners =
+            mutableListOf<(PinchGestureEventPayload) -> Unit>()
         private val didUpdatePanGestureWithTranslationListeners =
-            mutableListOf<(PanGestureWithTranslationEvent) -> Unit>()
+            mutableListOf<(PanGestureWithTranslationEventPayload) -> Unit>()
 
-        private val willAppearListeners =
-            mutableMapOf<String, MutableList<(TemplateEvent?) -> Unit>>()
-        private val didAppearListeners =
-            mutableMapOf<String, MutableList<(TemplateEvent?) -> Unit>>()
-        private val willDisappearListeners =
-            mutableMapOf<String, MutableList<(TemplateEvent?) -> Unit>>()
-        private val didDisappearListeners =
-            mutableMapOf<String, MutableList<(TemplateEvent?) -> Unit>>()
+        private val templateStateListeners =
+            mutableMapOf<String, MutableMap<TemplateState, MutableList<(TemplateEventPayload?) -> Unit>>>()
 
         fun emit(event: EventName) {
             listeners[event]?.forEach { it() }
         }
 
-        fun emitWillAppear(templateId: String) {
-            willAppearListeners[templateId]?.forEach { it(null) }
-        }
-
-        fun emitDidAppear(templateId: String) {
-            didAppearListeners[templateId]?.forEach { it(null) }
-        }
-
-        fun emitWillDisappear(templateId: String) {
-            willDisappearListeners[templateId]?.forEach { it(null) }
-        }
-
-        fun emitDidDisappear(templateId: String) {
-            didDisappearListeners[templateId]?.forEach { it(null) }
+        fun emitTemplateState(templateId: String, templateState: TemplateState) {
+            templateStateListeners[templateId]?.get(templateState)?.forEach { it(null) }
         }
     }
 }

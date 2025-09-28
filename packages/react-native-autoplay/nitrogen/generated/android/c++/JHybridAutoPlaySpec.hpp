@@ -54,13 +54,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
   public:
     // Methods
     std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) override;
-    std::function<void()> addListenerDidPress(const std::function<void(const PressEvent& /* payload */)>& callback) override;
-    std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEvent& /* payload */)>& callback) override;
-    std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEvent& /* payload */)>& callback) override;
-    std::function<void()> addListenerWillAppear(const std::string& templateId, const std::function<void(const std::optional<TemplateEvent>& /* payload */)>& callback) override;
-    std::function<void()> addListenerDidAppear(const std::string& templateId, const std::function<void(const std::optional<TemplateEvent>& /* payload */)>& callback) override;
-    std::function<void()> addListenerWillDisappear(const std::string& templateId, const std::function<void(const std::optional<TemplateEvent>& /* payload */)>& callback) override;
-    std::function<void()> addListenerDidDisappear(const std::string& templateId, const std::function<void(const std::optional<TemplateEvent>& /* payload */)>& callback) override;
+    std::function<void()> addListenerDidPress(const std::function<void(const PressEventPayload& /* payload */)>& callback) override;
+    std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) override;
+    std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) override;
+    std::function<void()> addListenerTemplateState(const std::string& templateId, TemplateState templateState, const std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>& callback) override;
 
   private:
     friend HybridBase;

@@ -1,13 +1,12 @@
 class HybridAutoPlay: HybridAutoPlaySpec {
     private var listeners = [EventName: [String: () -> Void]]()
     private var panGestureListeners = [
-        String: (PanGestureWithTranslationEvent) -> Void
+        String: (PanGestureWithTranslationEventPayload) -> Void
     ]()
-    private var willAppearListeners = [String: [String: (TemplateEvent) -> Void]]()
-    private var didAppearListeners = [String: [String: (TemplateEvent) -> Void]]()
-    private var willDisappearListeners = [String: [String: (TemplateEvent) -> Void]]()
-    private var didDisappearListeners = [String: [String: (TemplateEvent) -> Void]]()
-    
+    private var templateStateListeners = [
+        String: [TemplateState: [String: (TemplateEventPayload?) -> Void]]
+    ]()
+
     func addListener(eventType: EventName, callback: @escaping () -> Void)
         throws -> () -> Void
     {
@@ -20,14 +19,15 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         }
     }
 
-    func addListenerDidPress(callback: @escaping (PressEvent) -> Void) throws
+    func addListenerDidPress(callback: @escaping (PressEventPayload) -> Void)
+        throws
         -> () -> Void
     {
         throw fatalError("addListenerDidPress not supported on this platform")
     }
 
     func addListenerDidUpdatePinchGesture(
-        callback: @escaping (PinchGestureEvent) -> Void
+        callback: @escaping (PinchGestureEventPayload) -> Void
     ) throws -> () -> Void {
         throw fatalError(
             "addListenerDidUpdatePinchGesture not supported on this platform"
@@ -35,7 +35,7 @@ class HybridAutoPlay: HybridAutoPlaySpec {
     }
 
     func addListenerDidUpdatePanGestureWithTranslation(
-        callback: @escaping (PanGestureWithTranslationEvent) -> Void
+        callback: @escaping (PanGestureWithTranslationEventPayload) -> Void
     ) throws -> () -> Void {
         let uuid = UUID().uuidString
         panGestureListeners[uuid] = callback
@@ -45,70 +45,35 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         }
     }
 
-    func addListenerWillAppear(templateId: String, callback: @escaping (TemplateEvent?) -> Void)
-        throws -> () -> Void
-    {
+    func addListenerTemplateState(
+        templateId: String,
+        templateState: TemplateState,
+        callback: @escaping (TemplateEventPayload?) -> Void
+    ) throws -> () -> Void {
         let uuid = UUID().uuidString
-        var callbacks = willAppearListeners[templateId] ?? [:]
-        callbacks[uuid] = callback
-        willAppearListeners[templateId] = callbacks
-        
-        return { [weak self] in
-            guard let self = self else { return }
-            self.willAppearListeners[templateId]?.removeValue(forKey: uuid)
-            if self.willAppearListeners[templateId]?.isEmpty == true {
-                self.willAppearListeners.removeValue(forKey: templateId)
-            }
-        }
-    }
 
-    func addListenerDidAppear(templateId: String, callback: @escaping (TemplateEvent?) -> Void)
-        throws -> () -> Void
-    {
-        let uuid = UUID().uuidString
-        var callbacks = didAppearListeners[templateId] ?? [:]
+        var stateMap = templateStateListeners[templateId] ?? [:]
+        var callbacks = stateMap[templateState] ?? [:]
         callbacks[uuid] = callback
-        didAppearListeners[templateId] = callbacks
-        
-        return { [weak self] in
-            guard let self = self else { return }
-            self.didAppearListeners[templateId]?.removeValue(forKey: uuid)
-            if self.didAppearListeners[templateId]?.isEmpty == true {
-                self.didAppearListeners.removeValue(forKey: templateId)
-            }
-        }
-    }
+        stateMap[templateState] = callbacks
+        templateStateListeners[templateId] = stateMap
 
-    func addListenerWillDisappear(templateId: String, callback: @escaping (TemplateEvent?) -> Void)
-        throws -> () -> Void
-    {
-        let uuid = UUID().uuidString
-        var callbacks = willDisappearListeners[templateId] ?? [:]
-        callbacks[uuid] = callback
-        willDisappearListeners[templateId] = callbacks
-        
         return { [weak self] in
             guard let self = self else { return }
-            self.willDisappearListeners[templateId]?.removeValue(forKey: uuid)
-            if self.willDisappearListeners[templateId]?.isEmpty == true {
-                self.willDisappearListeners.removeValue(forKey: templateId)
+            guard var stateMap = self.templateStateListeners[templateId] else {
+                return
             }
-        }
-    }
-
-    func addListenerDidDisappear(templateId: String, callback: @escaping (TemplateEvent?) -> Void)
-        throws -> () -> Void
-    {
-        let uuid = UUID().uuidString
-        var callbacks = didDisappearListeners[templateId] ?? [:]
-        callbacks[uuid] = callback
-        didDisappearListeners[templateId] = callbacks
-        
-        return { [weak self] in
-            guard let self = self else { return }
-            self.didDisappearListeners[templateId]?.removeValue(forKey: uuid)
-            if self.didDisappearListeners[templateId]?.isEmpty == true {
-                self.didDisappearListeners.removeValue(forKey: templateId)
+            guard var callbacks = stateMap[templateState] else { return }
+            callbacks.removeValue(forKey: uuid)
+            if callbacks.isEmpty {
+                stateMap.removeValue(forKey: templateState)
+            } else {
+                stateMap[templateState] = callbacks
+            }
+            if stateMap.isEmpty {
+                self.templateStateListeners.removeValue(forKey: templateId)
+            } else {
+                self.templateStateListeners[templateId] = stateMap
             }
         }
     }

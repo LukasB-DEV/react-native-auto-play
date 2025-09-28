@@ -10,14 +10,14 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
-// Forward declaration of `PanGestureWithTranslationEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEvent; }
-// Forward declaration of `PinchGestureEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEvent; }
-// Forward declaration of `PressEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEvent; }
-// Forward declaration of `TemplateEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEvent; }
+// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
+// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
+// Forward declaration of `PressEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
+// Forward declaration of `TemplateEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 // Forward declaration of `Translation` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
 // Forward declaration of `Velocity` to properly resolve imports.
@@ -29,10 +29,10 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 
 // Include C++ defined types
 #include "HybridAutoPlaySpec.hpp"
-#include "PanGestureWithTranslationEvent.hpp"
-#include "PinchGestureEvent.hpp"
-#include "PressEvent.hpp"
-#include "TemplateEvent.hpp"
+#include "PanGestureWithTranslationEventPayload.hpp"
+#include "PinchGestureEventPayload.hpp"
+#include "PressEventPayload.hpp"
+#include "TemplateEventPayload.hpp"
 #include "Translation.hpp"
 #include "Velocity.hpp"
 #include <NitroModules/Result.hpp>
@@ -69,48 +69,48 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return Func_void_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::function<void(const PressEvent& /* payload */)>
+  // pragma MARK: std::function<void(const PressEventPayload& /* payload */)>
   /**
-   * Specialized version of `std::function<void(const PressEvent&)>`.
+   * Specialized version of `std::function<void(const PressEventPayload&)>`.
    */
-  using Func_void_PressEvent = std::function<void(const PressEvent& /* payload */)>;
+  using Func_void_PressEventPayload = std::function<void(const PressEventPayload& /* payload */)>;
   /**
-   * Wrapper class for a `std::function<void(const PressEvent& / * payload * /)>`, this can be used from Swift.
+   * Wrapper class for a `std::function<void(const PressEventPayload& / * payload * /)>`, this can be used from Swift.
    */
-  class Func_void_PressEvent_Wrapper final {
+  class Func_void_PressEventPayload_Wrapper final {
   public:
-    explicit Func_void_PressEvent_Wrapper(std::function<void(const PressEvent& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PressEvent& /* payload */)>>(std::move(func))) {}
-    inline void call(PressEvent payload) const noexcept {
+    explicit Func_void_PressEventPayload_Wrapper(std::function<void(const PressEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PressEventPayload& /* payload */)>>(std::move(func))) {}
+    inline void call(PressEventPayload payload) const noexcept {
       _function->operator()(payload);
     }
   private:
-    std::unique_ptr<std::function<void(const PressEvent& /* payload */)>> _function;
+    std::unique_ptr<std::function<void(const PressEventPayload& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_PressEvent create_Func_void_PressEvent(void* _Nonnull swiftClosureWrapper) noexcept;
-  inline Func_void_PressEvent_Wrapper wrap_Func_void_PressEvent(Func_void_PressEvent value) noexcept {
-    return Func_void_PressEvent_Wrapper(std::move(value));
+  Func_void_PressEventPayload create_Func_void_PressEventPayload(void* _Nonnull swiftClosureWrapper) noexcept;
+  inline Func_void_PressEventPayload_Wrapper wrap_Func_void_PressEventPayload(Func_void_PressEventPayload value) noexcept {
+    return Func_void_PressEventPayload_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::function<void(const PinchGestureEvent& /* payload */)>
+  // pragma MARK: std::function<void(const PinchGestureEventPayload& /* payload */)>
   /**
-   * Specialized version of `std::function<void(const PinchGestureEvent&)>`.
+   * Specialized version of `std::function<void(const PinchGestureEventPayload&)>`.
    */
-  using Func_void_PinchGestureEvent = std::function<void(const PinchGestureEvent& /* payload */)>;
+  using Func_void_PinchGestureEventPayload = std::function<void(const PinchGestureEventPayload& /* payload */)>;
   /**
-   * Wrapper class for a `std::function<void(const PinchGestureEvent& / * payload * /)>`, this can be used from Swift.
+   * Wrapper class for a `std::function<void(const PinchGestureEventPayload& / * payload * /)>`, this can be used from Swift.
    */
-  class Func_void_PinchGestureEvent_Wrapper final {
+  class Func_void_PinchGestureEventPayload_Wrapper final {
   public:
-    explicit Func_void_PinchGestureEvent_Wrapper(std::function<void(const PinchGestureEvent& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PinchGestureEvent& /* payload */)>>(std::move(func))) {}
-    inline void call(PinchGestureEvent payload) const noexcept {
+    explicit Func_void_PinchGestureEventPayload_Wrapper(std::function<void(const PinchGestureEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PinchGestureEventPayload& /* payload */)>>(std::move(func))) {}
+    inline void call(PinchGestureEventPayload payload) const noexcept {
       _function->operator()(payload);
     }
   private:
-    std::unique_ptr<std::function<void(const PinchGestureEvent& /* payload */)>> _function;
+    std::unique_ptr<std::function<void(const PinchGestureEventPayload& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_PinchGestureEvent create_Func_void_PinchGestureEvent(void* _Nonnull swiftClosureWrapper) noexcept;
-  inline Func_void_PinchGestureEvent_Wrapper wrap_Func_void_PinchGestureEvent(Func_void_PinchGestureEvent value) noexcept {
-    return Func_void_PinchGestureEvent_Wrapper(std::move(value));
+  Func_void_PinchGestureEventPayload create_Func_void_PinchGestureEventPayload(void* _Nonnull swiftClosureWrapper) noexcept;
+  inline Func_void_PinchGestureEventPayload_Wrapper wrap_Func_void_PinchGestureEventPayload(Func_void_PinchGestureEventPayload value) noexcept {
+    return Func_void_PinchGestureEventPayload_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::optional<Velocity>
@@ -128,63 +128,63 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::function<void(const PanGestureWithTranslationEvent& /* payload */)>
+  // pragma MARK: std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>
   /**
-   * Specialized version of `std::function<void(const PanGestureWithTranslationEvent&)>`.
+   * Specialized version of `std::function<void(const PanGestureWithTranslationEventPayload&)>`.
    */
-  using Func_void_PanGestureWithTranslationEvent = std::function<void(const PanGestureWithTranslationEvent& /* payload */)>;
+  using Func_void_PanGestureWithTranslationEventPayload = std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>;
   /**
-   * Wrapper class for a `std::function<void(const PanGestureWithTranslationEvent& / * payload * /)>`, this can be used from Swift.
+   * Wrapper class for a `std::function<void(const PanGestureWithTranslationEventPayload& / * payload * /)>`, this can be used from Swift.
    */
-  class Func_void_PanGestureWithTranslationEvent_Wrapper final {
+  class Func_void_PanGestureWithTranslationEventPayload_Wrapper final {
   public:
-    explicit Func_void_PanGestureWithTranslationEvent_Wrapper(std::function<void(const PanGestureWithTranslationEvent& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PanGestureWithTranslationEvent& /* payload */)>>(std::move(func))) {}
-    inline void call(PanGestureWithTranslationEvent payload) const noexcept {
+    explicit Func_void_PanGestureWithTranslationEventPayload_Wrapper(std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>>(std::move(func))) {}
+    inline void call(PanGestureWithTranslationEventPayload payload) const noexcept {
       _function->operator()(payload);
     }
   private:
-    std::unique_ptr<std::function<void(const PanGestureWithTranslationEvent& /* payload */)>> _function;
+    std::unique_ptr<std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_PanGestureWithTranslationEvent create_Func_void_PanGestureWithTranslationEvent(void* _Nonnull swiftClosureWrapper) noexcept;
-  inline Func_void_PanGestureWithTranslationEvent_Wrapper wrap_Func_void_PanGestureWithTranslationEvent(Func_void_PanGestureWithTranslationEvent value) noexcept {
-    return Func_void_PanGestureWithTranslationEvent_Wrapper(std::move(value));
+  Func_void_PanGestureWithTranslationEventPayload create_Func_void_PanGestureWithTranslationEventPayload(void* _Nonnull swiftClosureWrapper) noexcept;
+  inline Func_void_PanGestureWithTranslationEventPayload_Wrapper wrap_Func_void_PanGestureWithTranslationEventPayload(Func_void_PanGestureWithTranslationEventPayload value) noexcept {
+    return Func_void_PanGestureWithTranslationEventPayload_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::optional<TemplateEvent>
+  // pragma MARK: std::optional<TemplateEventPayload>
   /**
-   * Specialized version of `std::optional<TemplateEvent>`.
+   * Specialized version of `std::optional<TemplateEventPayload>`.
    */
-  using std__optional_TemplateEvent_ = std::optional<TemplateEvent>;
-  inline std::optional<TemplateEvent> create_std__optional_TemplateEvent_(const TemplateEvent& value) noexcept {
-    return std::optional<TemplateEvent>(value);
+  using std__optional_TemplateEventPayload_ = std::optional<TemplateEventPayload>;
+  inline std::optional<TemplateEventPayload> create_std__optional_TemplateEventPayload_(const TemplateEventPayload& value) noexcept {
+    return std::optional<TemplateEventPayload>(value);
   }
-  inline bool has_value_std__optional_TemplateEvent_(const std::optional<TemplateEvent>& optional) noexcept {
+  inline bool has_value_std__optional_TemplateEventPayload_(const std::optional<TemplateEventPayload>& optional) noexcept {
     return optional.has_value();
   }
-  inline TemplateEvent get_std__optional_TemplateEvent_(const std::optional<TemplateEvent>& optional) noexcept {
+  inline TemplateEventPayload get_std__optional_TemplateEventPayload_(const std::optional<TemplateEventPayload>& optional) noexcept {
     return *optional;
   }
   
-  // pragma MARK: std::function<void(const std::optional<TemplateEvent>& /* payload */)>
+  // pragma MARK: std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>
   /**
-   * Specialized version of `std::function<void(const std::optional<TemplateEvent>&)>`.
+   * Specialized version of `std::function<void(const std::optional<TemplateEventPayload>&)>`.
    */
-  using Func_void_std__optional_TemplateEvent_ = std::function<void(const std::optional<TemplateEvent>& /* payload */)>;
+  using Func_void_std__optional_TemplateEventPayload_ = std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>;
   /**
-   * Wrapper class for a `std::function<void(const std::optional<TemplateEvent>& / * payload * /)>`, this can be used from Swift.
+   * Wrapper class for a `std::function<void(const std::optional<TemplateEventPayload>& / * payload * /)>`, this can be used from Swift.
    */
-  class Func_void_std__optional_TemplateEvent__Wrapper final {
+  class Func_void_std__optional_TemplateEventPayload__Wrapper final {
   public:
-    explicit Func_void_std__optional_TemplateEvent__Wrapper(std::function<void(const std::optional<TemplateEvent>& /* payload */)>&& func): _function(std::make_unique<std::function<void(const std::optional<TemplateEvent>& /* payload */)>>(std::move(func))) {}
-    inline void call(std::optional<TemplateEvent> payload) const noexcept {
+    explicit Func_void_std__optional_TemplateEventPayload__Wrapper(std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>&& func): _function(std::make_unique<std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>>(std::move(func))) {}
+    inline void call(std::optional<TemplateEventPayload> payload) const noexcept {
       _function->operator()(payload);
     }
   private:
-    std::unique_ptr<std::function<void(const std::optional<TemplateEvent>& /* payload */)>> _function;
+    std::unique_ptr<std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_std__optional_TemplateEvent_ create_Func_void_std__optional_TemplateEvent_(void* _Nonnull swiftClosureWrapper) noexcept;
-  inline Func_void_std__optional_TemplateEvent__Wrapper wrap_Func_void_std__optional_TemplateEvent_(Func_void_std__optional_TemplateEvent_ value) noexcept {
-    return Func_void_std__optional_TemplateEvent__Wrapper(std::move(value));
+  Func_void_std__optional_TemplateEventPayload_ create_Func_void_std__optional_TemplateEventPayload_(void* _Nonnull swiftClosureWrapper) noexcept;
+  inline Func_void_std__optional_TemplateEventPayload__Wrapper wrap_Func_void_std__optional_TemplateEventPayload_(Func_void_std__optional_TemplateEventPayload_ value) noexcept {
+    return Func_void_std__optional_TemplateEventPayload__Wrapper(std::move(value));
   }
   
   // pragma MARK: std::shared_ptr<HybridAutoPlaySpec>

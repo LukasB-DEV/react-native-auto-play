@@ -36,19 +36,19 @@ class AndroidAutoScreen(
             ) {
                 when (event) {
                     Lifecycle.Event.ON_CREATE -> {
-                        HybridAutoPlay.emitWillAppear(marker)
+                        HybridAutoPlay.emitTemplateState(marker, TemplateState.WILLAPPEAR)
                     }
 
                     Lifecycle.Event.ON_RESUME -> {
-                        HybridAutoPlay.emitDidAppear(marker)
+                        HybridAutoPlay.emitTemplateState(marker, TemplateState.DIDAPPEAR)
                     }
 
                     Lifecycle.Event.ON_PAUSE -> {
-                        HybridAutoPlay.emitWillDisappear(marker)
+                        HybridAutoPlay.emitTemplateState(marker, TemplateState.WILLDISAPPEAR)
                     }
 
                     Lifecycle.Event.ON_DESTROY -> {
-                        HybridAutoPlay.emitDidDisappear(marker)
+                        HybridAutoPlay.emitTemplateState(marker, TemplateState.DIDDISAPPEAR)
                     }
 
                     else -> {}

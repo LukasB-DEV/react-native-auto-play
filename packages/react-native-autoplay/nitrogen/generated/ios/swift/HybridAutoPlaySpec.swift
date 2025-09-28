@@ -15,13 +15,10 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
 
   // Methods
   func addListener(eventType: EventName, callback: @escaping () -> Void) throws -> () -> Void
-  func addListenerDidPress(callback: @escaping (_ payload: PressEvent) -> Void) throws -> () -> Void
-  func addListenerDidUpdatePinchGesture(callback: @escaping (_ payload: PinchGestureEvent) -> Void) throws -> () -> Void
-  func addListenerDidUpdatePanGestureWithTranslation(callback: @escaping (_ payload: PanGestureWithTranslationEvent) -> Void) throws -> () -> Void
-  func addListenerWillAppear(templateId: String, callback: @escaping (_ payload: TemplateEvent?) -> Void) throws -> () -> Void
-  func addListenerDidAppear(templateId: String, callback: @escaping (_ payload: TemplateEvent?) -> Void) throws -> () -> Void
-  func addListenerWillDisappear(templateId: String, callback: @escaping (_ payload: TemplateEvent?) -> Void) throws -> () -> Void
-  func addListenerDidDisappear(templateId: String, callback: @escaping (_ payload: TemplateEvent?) -> Void) throws -> () -> Void
+  func addListenerDidPress(callback: @escaping (_ payload: PressEventPayload) -> Void) throws -> () -> Void
+  func addListenerDidUpdatePinchGesture(callback: @escaping (_ payload: PinchGestureEventPayload) -> Void) throws -> () -> Void
+  func addListenerDidUpdatePanGestureWithTranslation(callback: @escaping (_ payload: PanGestureWithTranslationEventPayload) -> Void) throws -> () -> Void
+  func addListenerTemplateState(templateId: String, templateState: TemplateState, callback: @escaping (_ payload: TemplateEventPayload?) -> Void) throws -> () -> Void
 }
 
 /// See ``HybridAutoPlaySpec``

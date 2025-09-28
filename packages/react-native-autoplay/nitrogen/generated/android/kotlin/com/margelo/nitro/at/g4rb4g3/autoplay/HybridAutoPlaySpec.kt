@@ -49,66 +49,39 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
-  abstract fun addListenerDidPress(callback: (payload: PressEvent) -> Unit): () -> Unit
+  abstract fun addListenerDidPress(callback: (payload: PressEventPayload) -> Unit): () -> Unit
   
   @DoNotStrip
   @Keep
-  private fun addListenerDidPress_cxx(callback: Func_void_PressEvent): Func_void {
+  private fun addListenerDidPress_cxx(callback: Func_void_PressEventPayload): Func_void {
     val __result = addListenerDidPress(callback)
     return Func_void_java(__result)
   }
   
-  abstract fun addListenerDidUpdatePinchGesture(callback: (payload: PinchGestureEvent) -> Unit): () -> Unit
+  abstract fun addListenerDidUpdatePinchGesture(callback: (payload: PinchGestureEventPayload) -> Unit): () -> Unit
   
   @DoNotStrip
   @Keep
-  private fun addListenerDidUpdatePinchGesture_cxx(callback: Func_void_PinchGestureEvent): Func_void {
+  private fun addListenerDidUpdatePinchGesture_cxx(callback: Func_void_PinchGestureEventPayload): Func_void {
     val __result = addListenerDidUpdatePinchGesture(callback)
     return Func_void_java(__result)
   }
   
-  abstract fun addListenerDidUpdatePanGestureWithTranslation(callback: (payload: PanGestureWithTranslationEvent) -> Unit): () -> Unit
+  abstract fun addListenerDidUpdatePanGestureWithTranslation(callback: (payload: PanGestureWithTranslationEventPayload) -> Unit): () -> Unit
   
   @DoNotStrip
   @Keep
-  private fun addListenerDidUpdatePanGestureWithTranslation_cxx(callback: Func_void_PanGestureWithTranslationEvent): Func_void {
+  private fun addListenerDidUpdatePanGestureWithTranslation_cxx(callback: Func_void_PanGestureWithTranslationEventPayload): Func_void {
     val __result = addListenerDidUpdatePanGestureWithTranslation(callback)
     return Func_void_java(__result)
   }
   
-  abstract fun addListenerWillAppear(templateId: String, callback: (payload: TemplateEvent?) -> Unit): () -> Unit
+  abstract fun addListenerTemplateState(templateId: String, templateState: TemplateState, callback: (payload: TemplateEventPayload?) -> Unit): () -> Unit
   
   @DoNotStrip
   @Keep
-  private fun addListenerWillAppear_cxx(templateId: String, callback: Func_void_std__optional_TemplateEvent_): Func_void {
-    val __result = addListenerWillAppear(templateId, callback)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun addListenerDidAppear(templateId: String, callback: (payload: TemplateEvent?) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerDidAppear_cxx(templateId: String, callback: Func_void_std__optional_TemplateEvent_): Func_void {
-    val __result = addListenerDidAppear(templateId, callback)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun addListenerWillDisappear(templateId: String, callback: (payload: TemplateEvent?) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerWillDisappear_cxx(templateId: String, callback: Func_void_std__optional_TemplateEvent_): Func_void {
-    val __result = addListenerWillDisappear(templateId, callback)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun addListenerDidDisappear(templateId: String, callback: (payload: TemplateEvent?) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerDidDisappear_cxx(templateId: String, callback: Func_void_std__optional_TemplateEvent_): Func_void {
-    val __result = addListenerDidDisappear(templateId, callback)
+  private fun addListenerTemplateState_cxx(templateId: String, templateState: TemplateState, callback: Func_void_std__optional_TemplateEventPayload_): Func_void {
+    val __result = addListenerTemplateState(templateId, templateState, callback)
     return Func_void_java(__result)
   }
 

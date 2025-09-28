@@ -12,14 +12,16 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
-// Forward declaration of `PanGestureWithTranslationEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEvent; }
-// Forward declaration of `PinchGestureEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEvent; }
-// Forward declaration of `PressEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEvent; }
-// Forward declaration of `TemplateEvent` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEvent; }
+// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
+// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
+// Forward declaration of `PressEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
+// Forward declaration of `TemplateEventPayload` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
+// Forward declaration of `TemplateState` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class TemplateState; }
 // Forward declaration of `Translation` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
 // Forward declaration of `Velocity` to properly resolve imports.
@@ -28,10 +30,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
 // Include C++ defined types
 #include "EventName.hpp"
 #include "HybridAutoPlaySpec.hpp"
-#include "PanGestureWithTranslationEvent.hpp"
-#include "PinchGestureEvent.hpp"
-#include "PressEvent.hpp"
-#include "TemplateEvent.hpp"
+#include "PanGestureWithTranslationEventPayload.hpp"
+#include "PinchGestureEventPayload.hpp"
+#include "PressEventPayload.hpp"
+#include "TemplateEventPayload.hpp"
+#include "TemplateState.hpp"
 #include "Translation.hpp"
 #include "Velocity.hpp"
 #include <NitroModules/Result.hpp>

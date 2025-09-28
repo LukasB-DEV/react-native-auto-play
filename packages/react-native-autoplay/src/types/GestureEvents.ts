@@ -5,7 +5,7 @@ type Velocity = { x: number; y: number };
  * @param translation screen coordinate offset
  * @param velocity only reported on iOS/CarPlay
  */
-export type PanGestureWithTranslationEvent = {
+export type PanGestureWithTranslationEventPayload = {
   translation: Translation;
   velocity?: Velocity;
 };
@@ -16,7 +16,7 @@ export type PanGestureWithTranslationEvent = {
  * @param scaleFactor value > 0.0 and < 2.0 when 1.0 means no scaling, > 1.0 zoom in and < 1.0 zoom out, value == 2.0 is a double tap
  * @namespace Android
  */
-export type PinchGestureEvent = {
+export type PinchGestureEventPayload = {
   x: number;
   y: number;
   scaleFactor: number;
@@ -27,7 +27,7 @@ export type PinchGestureEvent = {
  * @param y screen coordinate of the press event
  * @namespace Android
  */
-export type PressEvent = {
+export type PressEventPayload = {
   x: number;
   y: number;
 };

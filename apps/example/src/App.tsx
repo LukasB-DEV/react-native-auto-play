@@ -24,8 +24,12 @@ function AppContent() {
 
     listeners.push(AutoPlay.addListener('didConnect', () => setIsConnected(true)));
     listeners.push(AutoPlay.addListener('didDisconnect', () => setIsConnected(false)));
-    listeners.push(AutoPlay.addListenerDidAppear('root', () => setIsRootVisible(true)));
-    listeners.push(AutoPlay.addListenerWillDisappear('root', () => setIsRootVisible(false)));
+    listeners.push(
+      AutoPlay.addListenerTemplateState('root', 'didAppear', () => setIsRootVisible(true))
+    );
+    listeners.push(
+      AutoPlay.addListenerTemplateState('root', 'willDisappear', () => setIsRootVisible(false))
+    );
 
     return () => {
       for (const remove of listeners) {
