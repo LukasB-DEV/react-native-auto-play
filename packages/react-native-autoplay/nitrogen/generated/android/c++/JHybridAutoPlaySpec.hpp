@@ -58,6 +58,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) override;
     std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) override;
     std::function<void()> addListenerTemplateState(const std::string& templateId, TemplateState templateState, const std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>& callback) override;
+    void createAlertTemplate(const AlertTemplateConfig& config) override;
+    void presentTemplate(const std::string& templateId) override;
+    void dismissTemplate(const std::string& templateId) override;
+    void createMapTemplate(const TemplateConfig& config) override;
+    void setRootTemplate(const std::string& templateId) override;
 
   private:
     friend HybridBase;

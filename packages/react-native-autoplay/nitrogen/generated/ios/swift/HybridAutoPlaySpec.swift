@@ -19,6 +19,11 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func addListenerDidUpdatePinchGesture(callback: @escaping (_ payload: PinchGestureEventPayload) -> Void) throws -> () -> Void
   func addListenerDidUpdatePanGestureWithTranslation(callback: @escaping (_ payload: PanGestureWithTranslationEventPayload) -> Void) throws -> () -> Void
   func addListenerTemplateState(templateId: String, templateState: TemplateState, callback: @escaping (_ payload: TemplateEventPayload?) -> Void) throws -> () -> Void
+  func createAlertTemplate(config: AlertTemplateConfig) throws -> Void
+  func presentTemplate(templateId: String) throws -> Void
+  func dismissTemplate(templateId: String) throws -> Void
+  func createMapTemplate(config: TemplateConfig) throws -> Void
+  func setRootTemplate(templateId: String) throws -> Void
 }
 
 /// See ``HybridAutoPlaySpec``

@@ -84,6 +84,26 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     val __result = addListenerTemplateState(templateId, templateState, callback)
     return Func_void_java(__result)
   }
+  
+  @DoNotStrip
+  @Keep
+  abstract fun createAlertTemplate(config: AlertTemplateConfig): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun presentTemplate(templateId: String): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun dismissTemplate(templateId: String): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun createMapTemplate(config: TemplateConfig): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun setRootTemplate(templateId: String): Unit
 
   private external fun initHybrid(): HybridData
 

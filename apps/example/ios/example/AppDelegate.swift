@@ -31,6 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
+  
+  @objc func getRootViewForAutoplay(
+    moduleName: String,
+    initialProperties: [String: Any]?
+  ) -> UIView? {
+    return reactNativeFactory?.rootViewFactory.view(
+      withModuleName: moduleName,
+      initialProperties: initialProperties
+    )
+  }
 }
 
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {

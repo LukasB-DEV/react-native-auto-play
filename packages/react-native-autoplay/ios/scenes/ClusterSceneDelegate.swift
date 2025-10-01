@@ -10,10 +10,12 @@ import UIKit
 @available(iOS 15.4, *)
 @objc(ClusterSceneDelegate)
 class ClusterSceneDelegate: UIResponder,
-    CPTemplateApplicationInstrumentClusterSceneDelegate
+    CPTemplateApplicationInstrumentClusterSceneDelegate,
+    CPInstrumentClusterControllerDelegate
 {
-
     let clusterId: String
+    var window: UIWindow?
+    var initialProperties: [String: Any] = [:]
 
     override init() {
         self.clusterId = UUID().uuidString
@@ -25,8 +27,9 @@ class ClusterSceneDelegate: UIResponder,
             CPTemplateApplicationInstrumentClusterScene,
         didConnect instrumentClusterController: CPInstrumentClusterController
     ) {
-        let contentStyle = templateApplicationInstrumentClusterScene
-            .contentStyle
+        instrumentClusterController.delegate = self
+        //        let contentStyle = templateApplicationInstrumentClusterScene
+        //            .contentStyle
         //        RNCarPlay.connect(withInstrumentClusterController: instrumentClusterController,
         //                          contentStyle: contentStyle,
         //                          clusterId: clusterId)
@@ -39,6 +42,30 @@ class ClusterSceneDelegate: UIResponder,
             CPInstrumentClusterController
     ) {
         //        RNCarPlay.disconnect(fromInstrumentClusterController: clusterId)
+    }
+
+    func instrumentClusterControllerDidConnect(
+        _ instrumentClusterWindow: UIWindow
+    ) {
+        self.window = instrumentClusterWindow
+        self.initialProperties = [
+            "id": self.clusterId,
+            "colorScheme": instrumentClusterWindow.screen.traitCollection
+                .userInterfaceStyle == .dark ? "dark" : "light",
+            "window": [
+                "height": instrumentClusterWindow.screen.bounds.size.height,
+                "width": instrumentClusterWindow.screen.bounds.size.width,
+                "scale": instrumentClusterWindow.screen.scale,
+            ],
+        ]
+
+        ViewUtils.showLaunchScreen(window: instrumentClusterWindow)
+    }
+
+    func instrumentClusterControllerDidDisconnectWindow(
+        _ instrumentClusterWindow: UIWindow
+    ) {
+        self.window = nil
     }
 
     func contentStyleDidChange(_ contentStyle: UIUserInterfaceStyle) {

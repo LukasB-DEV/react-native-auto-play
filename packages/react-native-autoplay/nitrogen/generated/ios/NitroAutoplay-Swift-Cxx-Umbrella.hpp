@@ -8,6 +8,14 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+// Forward declaration of `AlertStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+// Forward declaration of `AlertTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
+// Forward declaration of `BaseEvent` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct BaseEvent; }
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
@@ -18,6 +26,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslati
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
 // Forward declaration of `PressEventPayload` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
+// Forward declaration of `TemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateConfig; }
 // Forward declaration of `TemplateEventPayload` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 // Forward declaration of `TemplateState` to properly resolve imports.
@@ -28,11 +38,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
 
 // Include C++ defined types
+#include "AlertAction.hpp"
+#include "AlertStyle.hpp"
+#include "AlertTemplateConfig.hpp"
+#include "BaseEvent.hpp"
 #include "EventName.hpp"
 #include "HybridAutoPlaySpec.hpp"
 #include "PanGestureWithTranslationEventPayload.hpp"
 #include "PinchGestureEventPayload.hpp"
 #include "PressEventPayload.hpp"
+#include "TemplateConfig.hpp"
 #include "TemplateEventPayload.hpp"
 #include "TemplateState.hpp"
 #include "Translation.hpp"
@@ -43,6 +58,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
 #include <memory>
 #include <optional>
 #include <string>
+#include <vector>
 
 // C++ helpers for Swift
 #include "NitroAutoplay-Swift-Cxx-Bridge.hpp"

@@ -57,14 +57,14 @@
     "@types/jest": "^29.5.12",
     "@types/react": "^19.1.03",
     "nitrogen": "*",
-    "react": "19.1.0",
-    "react-native": "0.81.1",
-    "react-native-nitro-modules": "*",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
     "react-native-nitro-modules": "*"
+  },
+  "dependencies": {
+    "react-native-uuid": "^2.0.3"
   }
 }

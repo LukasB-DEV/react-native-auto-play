@@ -1,3 +1,4 @@
+
 # iOS Development Team Setup
 
 This project uses a local `Development.xcconfig` file for code signing for the example app. This file **should not be committed** to Git.
@@ -107,4 +108,19 @@ Paste this into your Info.plist and adjust it to your needs. Check [Apple docs](
 			</array>
 		</dict>
 	</dict>
+````
+
+# MapTemplate setup
+if you want to make use of the MapTemplate and render react components you need to add this to your AppDelegate.swift
+
+````
+  @objc func getRootViewForAutoplay(
+    moduleName: String,
+    initialProperties: [String: Any]?
+  ) -> UIView? {
+    return reactNativeFactory?.rootViewFactory.view(
+      withModuleName: moduleName,
+      initialProperties: initialProperties
+    )
+  }
 ````

@@ -25,6 +25,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslati
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class TemplateState; }
 // Forward declaration of `TemplateEventPayload` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
+// Forward declaration of `AlertTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
+// Forward declaration of `TemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateConfig; }
 
 #include <functional>
 #include "EventName.hpp"
@@ -35,6 +39,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 #include "TemplateState.hpp"
 #include "TemplateEventPayload.hpp"
 #include <optional>
+#include "AlertTemplateConfig.hpp"
+#include "TemplateConfig.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
 
@@ -72,6 +78,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       virtual std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) = 0;
       virtual std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) = 0;
       virtual std::function<void()> addListenerTemplateState(const std::string& templateId, TemplateState templateState, const std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>& callback) = 0;
+      virtual void createAlertTemplate(const AlertTemplateConfig& config) = 0;
+      virtual void presentTemplate(const std::string& templateId) = 0;
+      virtual void dismissTemplate(const std::string& templateId) = 0;
+      virtual void createMapTemplate(const TemplateConfig& config) = 0;
+      virtual void setRootTemplate(const std::string& templateId) = 0;
 
     protected:
       // Hybrid Setup

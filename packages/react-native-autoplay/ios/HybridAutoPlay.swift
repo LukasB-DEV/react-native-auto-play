@@ -1,21 +1,55 @@
+import React
+
 class HybridAutoPlay: HybridAutoPlaySpec {
-    private var listeners = [EventName: [String: () -> Void]]()
-    private var panGestureListeners = [
+    private static var listeners = [EventName: [String: () -> Void]]()
+    private static var panGestureListeners = [
         String: (PanGestureWithTranslationEventPayload) -> Void
     ]()
-    private var templateStateListeners = [
+    private static var templateStateListeners = [
         String: [TemplateState: [String: (TemplateEventPayload?) -> Void]]
     ]()
+
+    private static var isJsReady = false
+    private static var eventQueue: [EventName] = []
+    private static var jsBundleObserver: NSObjectProtocol?
+
+    override init() {
+        // we listen for the bundle loaded notification to make sure we
+        // emit events that were recevied before js was ready
+        // captures only basic events like connect, disconnect...
+        
+        let name =
+            RCTIsNewArchEnabled()
+            ? Notification.Name("RCTInstanceDidLoadBundle")
+            : Notification.Name("RCTJavaScriptDidLoadNotification")
+
+        HybridAutoPlay.jsBundleObserver = NotificationCenter.default
+            .addObserver(
+                forName: name,
+                object: nil,
+                queue: nil,
+            ) { notification in
+                HybridAutoPlay.isJsReady = true
+
+                HybridAutoPlay.eventQueue.forEach {
+                    HybridAutoPlay.emit(event: $0)
+                }
+
+                if let observer = HybridAutoPlay.jsBundleObserver {
+                    NotificationCenter.default.removeObserver(observer)
+                }
+            }
+    }
 
     func addListener(eventType: EventName, callback: @escaping () -> Void)
         throws -> () -> Void
     {
         let uuid = UUID().uuidString
-        listeners[eventType, default: [:]][uuid] = callback
+        HybridAutoPlay.listeners[eventType, default: [:]][uuid] = callback
 
         return { [weak self] in
             guard let self = self else { return }
-            self.listeners[eventType]?.removeValue(forKey: uuid)
+            HybridAutoPlay.listeners[eventType]?.removeValue(forKey: uuid)
         }
     }
 
@@ -38,10 +72,10 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         callback: @escaping (PanGestureWithTranslationEventPayload) -> Void
     ) throws -> () -> Void {
         let uuid = UUID().uuidString
-        panGestureListeners[uuid] = callback
+        HybridAutoPlay.panGestureListeners[uuid] = callback
 
-        return { [weak self] in
-            self?.panGestureListeners.removeValue(forKey: uuid)
+        return {
+            HybridAutoPlay.panGestureListeners.removeValue(forKey: uuid)
         }
     }
 
@@ -52,15 +86,16 @@ class HybridAutoPlay: HybridAutoPlaySpec {
     ) throws -> () -> Void {
         let uuid = UUID().uuidString
 
-        var stateMap = templateStateListeners[templateId] ?? [:]
+        var stateMap = HybridAutoPlay.templateStateListeners[templateId] ?? [:]
         var callbacks = stateMap[templateState] ?? [:]
         callbacks[uuid] = callback
         stateMap[templateState] = callbacks
-        templateStateListeners[templateId] = stateMap
+        HybridAutoPlay.templateStateListeners[templateId] = stateMap
 
-        return { [weak self] in
-            guard let self = self else { return }
-            guard var stateMap = self.templateStateListeners[templateId] else {
+        return {
+            guard
+                var stateMap = HybridAutoPlay.templateStateListeners[templateId]
+            else {
                 return
             }
             guard var callbacks = stateMap[templateState] else { return }
@@ -71,10 +106,54 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                 stateMap[templateState] = callbacks
             }
             if stateMap.isEmpty {
-                self.templateStateListeners.removeValue(forKey: templateId)
+                HybridAutoPlay.templateStateListeners.removeValue(
+                    forKey: templateId
+                )
             } else {
-                self.templateStateListeners[templateId] = stateMap
+                HybridAutoPlay.templateStateListeners[templateId] = stateMap
             }
         }
+    }
+
+    static func emitTemplateState(
+        templateId: String,
+        templateState: TemplateState,
+        animated: Bool = false
+    ) {
+        HybridAutoPlay.templateStateListeners.first { $0.key == templateId }?
+            .value[templateState]?.values.forEach {
+                $0(TemplateEventPayload(animated: animated))
+            }
+    }
+
+    static func emit(event: EventName) {
+        if !HybridAutoPlay.isJsReady {
+            HybridAutoPlay.eventQueue.append(event)
+            return
+        }
+
+        HybridAutoPlay.listeners[event]?.values.forEach {
+            $0()
+        }
+    }
+
+    func createAlertTemplate(config: AlertTemplateConfig) throws {
+        //TODO
+    }
+
+    func presentTemplate(templateId: String) throws {
+        //TODO
+    }
+
+    func dismissTemplate(templateId: String) throws {
+        //TODO
+    }
+
+    func createMapTemplate(config: TemplateConfig) throws {
+        //TODO
+    }
+
+    func setRootTemplate(templateId: String) throws {
+        SceneStore.getScene(moduleName: templateId)?.setRootTemplate()
     }
 }

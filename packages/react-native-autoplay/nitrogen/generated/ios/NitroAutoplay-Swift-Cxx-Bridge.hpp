@@ -8,6 +8,12 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+// Forward declaration of `AlertStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+// Forward declaration of `BaseEvent` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct BaseEvent; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
 // Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
@@ -28,6 +34,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
 namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 
 // Include C++ defined types
+#include "AlertAction.hpp"
+#include "AlertStyle.hpp"
+#include "BaseEvent.hpp"
 #include "HybridAutoPlaySpec.hpp"
 #include "PanGestureWithTranslationEventPayload.hpp"
 #include "PinchGestureEventPayload.hpp"
@@ -40,6 +49,8 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include <functional>
 #include <memory>
 #include <optional>
+#include <string>
+#include <vector>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -187,6 +198,95 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return Func_void_std__optional_TemplateEventPayload__Wrapper(std::move(value));
   }
   
+  // pragma MARK: std::vector<std::string>
+  /**
+   * Specialized version of `std::vector<std::string>`.
+   */
+  using std__vector_std__string_ = std::vector<std::string>;
+  inline std::vector<std::string> create_std__vector_std__string_(size_t size) noexcept {
+    std::vector<std::string> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<AlertStyle>
+  /**
+   * Specialized version of `std::optional<AlertStyle>`.
+   */
+  using std__optional_AlertStyle_ = std::optional<AlertStyle>;
+  inline std::optional<AlertStyle> create_std__optional_AlertStyle_(const AlertStyle& value) noexcept {
+    return std::optional<AlertStyle>(value);
+  }
+  inline bool has_value_std__optional_AlertStyle_(const std::optional<AlertStyle>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline AlertStyle get_std__optional_AlertStyle_(const std::optional<AlertStyle>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::vector<AlertAction>
+  /**
+   * Specialized version of `std::vector<AlertAction>`.
+   */
+  using std__vector_AlertAction_ = std::vector<AlertAction>;
+  inline std::vector<AlertAction> create_std__vector_AlertAction_(size_t size) noexcept {
+    std::vector<AlertAction> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<AlertAction>>
+  /**
+   * Specialized version of `std::optional<std::vector<AlertAction>>`.
+   */
+  using std__optional_std__vector_AlertAction__ = std::optional<std::vector<AlertAction>>;
+  inline std::optional<std::vector<AlertAction>> create_std__optional_std__vector_AlertAction__(const std::vector<AlertAction>& value) noexcept {
+    return std::optional<std::vector<AlertAction>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_AlertAction__(const std::optional<std::vector<AlertAction>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<AlertAction> get_std__optional_std__vector_AlertAction__(const std::optional<std::vector<AlertAction>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::function<void(const BaseEvent& /* e */)>
+  /**
+   * Specialized version of `std::function<void(const BaseEvent&)>`.
+   */
+  using Func_void_BaseEvent = std::function<void(const BaseEvent& /* e */)>;
+  /**
+   * Wrapper class for a `std::function<void(const BaseEvent& / * e * /)>`, this can be used from Swift.
+   */
+  class Func_void_BaseEvent_Wrapper final {
+  public:
+    explicit Func_void_BaseEvent_Wrapper(std::function<void(const BaseEvent& /* e */)>&& func): _function(std::make_unique<std::function<void(const BaseEvent& /* e */)>>(std::move(func))) {}
+    inline void call(BaseEvent e) const noexcept {
+      _function->operator()(e);
+    }
+  private:
+    std::unique_ptr<std::function<void(const BaseEvent& /* e */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_BaseEvent create_Func_void_BaseEvent(void* _Nonnull swiftClosureWrapper) noexcept;
+  inline Func_void_BaseEvent_Wrapper wrap_Func_void_BaseEvent(Func_void_BaseEvent value) noexcept {
+    return Func_void_BaseEvent_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(const BaseEvent& /* e */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const BaseEvent& / * e * /)>>`.
+   */
+  using std__optional_std__function_void_const_BaseEvent_____e______ = std::optional<std::function<void(const BaseEvent& /* e */)>>;
+  inline std::optional<std::function<void(const BaseEvent& /* e */)>> create_std__optional_std__function_void_const_BaseEvent_____e______(const std::function<void(const BaseEvent& /* e */)>& value) noexcept {
+    return std::optional<std::function<void(const BaseEvent& /* e */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_BaseEvent_____e______(const std::optional<std::function<void(const BaseEvent& /* e */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const BaseEvent& /* e */)> get_std__optional_std__function_void_const_BaseEvent_____e______(const std::optional<std::function<void(const BaseEvent& /* e */)>>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::shared_ptr<HybridAutoPlaySpec>
   /**
    * Specialized version of `std::shared_ptr<HybridAutoPlaySpec>`.
@@ -206,6 +306,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   }
   inline Result_std__function_void____ create_Result_std__function_void____(const std::exception_ptr& error) noexcept {
     return Result<std::function<void()>>::withError(error);
+  }
+  
+  // pragma MARK: Result<void>
+  using Result_void_ = Result<void>;
+  inline Result_void_ create_Result_void_() noexcept {
+    return Result<void>::withValue();
+  }
+  inline Result_void_ create_Result_void_(const std::exception_ptr& error) noexcept {
+    return Result<void>::withError(error);
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift

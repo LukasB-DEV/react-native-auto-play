@@ -23,6 +23,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class TemplateState; }
 // Forward declaration of `TemplateEventPayload` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
+// Forward declaration of `AlertTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
+// Forward declaration of `AlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+// Forward declaration of `AlertStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+// Forward declaration of `BaseEvent` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct BaseEvent; }
+// Forward declaration of `TemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateConfig; }
 
 #include <functional>
 #include "JFunc_void.hpp"
@@ -48,6 +58,18 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 #include "TemplateEventPayload.hpp"
 #include "JFunc_void_std__optional_TemplateEventPayload_.hpp"
 #include "JTemplateEventPayload.hpp"
+#include "AlertTemplateConfig.hpp"
+#include "JAlertTemplateConfig.hpp"
+#include <vector>
+#include "AlertAction.hpp"
+#include "JAlertAction.hpp"
+#include "AlertStyle.hpp"
+#include "JAlertStyle.hpp"
+#include "BaseEvent.hpp"
+#include "JFunc_void_BaseEvent.hpp"
+#include "JBaseEvent.hpp"
+#include "TemplateConfig.hpp"
+#include "JTemplateConfig.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
 
@@ -149,6 +171,26 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
         };
       }
     }();
+  }
+  void JHybridAutoPlaySpec::createAlertTemplate(const AlertTemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JAlertTemplateConfig> /* config */)>("createAlertTemplate");
+    method(_javaPart, JAlertTemplateConfig::fromCpp(config));
+  }
+  void JHybridAutoPlaySpec::presentTemplate(const std::string& templateId) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("presentTemplate");
+    method(_javaPart, jni::make_jstring(templateId));
+  }
+  void JHybridAutoPlaySpec::dismissTemplate(const std::string& templateId) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("dismissTemplate");
+    method(_javaPart, jni::make_jstring(templateId));
+  }
+  void JHybridAutoPlaySpec::createMapTemplate(const TemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JTemplateConfig> /* config */)>("createMapTemplate");
+    method(_javaPart, JTemplateConfig::fromCpp(config));
+  }
+  void JHybridAutoPlaySpec::setRootTemplate(const std::string& templateId) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("setRootTemplate");
+    method(_javaPart, jni::make_jstring(templateId));
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay

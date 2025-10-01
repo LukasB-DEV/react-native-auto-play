@@ -21,6 +21,7 @@
 #include "JFunc_void_PinchGestureEventPayload.hpp"
 #include "JFunc_void_PanGestureWithTranslationEventPayload.hpp"
 #include "JFunc_void_std__optional_TemplateEventPayload_.hpp"
+#include "JFunc_void_BaseEvent.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
@@ -38,6 +39,7 @@ int initialize(JavaVM* vm) {
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_PinchGestureEventPayload_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_PanGestureWithTranslationEventPayload_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_std__optional_TemplateEventPayload__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_BaseEvent_cxx::registerNatives();
 
     // Register Nitro Hybrid Objects
     HybridObjectRegistry::registerHybridObjectConstructor(

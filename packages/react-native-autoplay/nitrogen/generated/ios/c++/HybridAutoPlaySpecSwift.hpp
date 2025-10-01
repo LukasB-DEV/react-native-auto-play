@@ -28,6 +28,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class TemplateState; }
 // Forward declaration of `TemplateEventPayload` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
+// Forward declaration of `AlertTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
+// Forward declaration of `AlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+// Forward declaration of `AlertStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+// Forward declaration of `BaseEvent` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct BaseEvent; }
+// Forward declaration of `TemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateConfig; }
 
 #include <functional>
 #include "EventName.hpp"
@@ -40,6 +50,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 #include <string>
 #include "TemplateState.hpp"
 #include "TemplateEventPayload.hpp"
+#include "AlertTemplateConfig.hpp"
+#include <vector>
+#include "AlertAction.hpp"
+#include "AlertStyle.hpp"
+#include "BaseEvent.hpp"
+#include "TemplateConfig.hpp"
 
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
 
@@ -121,6 +137,36 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       }
       auto __value = std::move(__result.value());
       return __value;
+    }
+    inline void createAlertTemplate(const AlertTemplateConfig& config) override {
+      auto __result = _swiftPart.createAlertTemplate(config);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void presentTemplate(const std::string& templateId) override {
+      auto __result = _swiftPart.presentTemplate(templateId);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void dismissTemplate(const std::string& templateId) override {
+      auto __result = _swiftPart.dismissTemplate(templateId);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void createMapTemplate(const TemplateConfig& config) override {
+      auto __result = _swiftPart.createMapTemplate(config);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void setRootTemplate(const std::string& templateId) override {
+      auto __result = _swiftPart.setRootTemplate(templateId);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
     }
 
   private:

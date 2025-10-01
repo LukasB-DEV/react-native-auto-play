@@ -19,6 +19,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       prototype.registerHybridMethod("addListenerDidUpdatePinchGesture", &HybridAutoPlaySpec::addListenerDidUpdatePinchGesture);
       prototype.registerHybridMethod("addListenerDidUpdatePanGestureWithTranslation", &HybridAutoPlaySpec::addListenerDidUpdatePanGestureWithTranslation);
       prototype.registerHybridMethod("addListenerTemplateState", &HybridAutoPlaySpec::addListenerTemplateState);
+      prototype.registerHybridMethod("createAlertTemplate", &HybridAutoPlaySpec::createAlertTemplate);
+      prototype.registerHybridMethod("presentTemplate", &HybridAutoPlaySpec::presentTemplate);
+      prototype.registerHybridMethod("dismissTemplate", &HybridAutoPlaySpec::dismissTemplate);
+      prototype.registerHybridMethod("createMapTemplate", &HybridAutoPlaySpec::createMapTemplate);
+      prototype.registerHybridMethod("setRootTemplate", &HybridAutoPlaySpec::setRootTemplate);
     });
   }
 

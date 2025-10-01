@@ -11,6 +11,9 @@ import UIKit
 class DashboardSceneDelegate: UIResponder,
     CPTemplateApplicationDashboardSceneDelegate
 {
+    let moduleName = "AutoPlayDashboard"
+    var window: UIWindow?
+    var initialProperties: [String: Any] = [:]
 
     func templateApplicationDashboardScene(
         _ templateApplicationDashboardScene:
@@ -18,6 +21,19 @@ class DashboardSceneDelegate: UIResponder,
         didConnect dashboardController: CPDashboardController,
         to window: UIWindow
     ) {
+        self.window = window
+        self.initialProperties = [
+            "id": self.moduleName,
+            "colorScheme": window.screen.traitCollection
+                .userInterfaceStyle == .dark ? "dark" : "light",
+            "window": [
+                "height": window.screen.bounds.size.height,
+                "width": window.screen.bounds.size.width,
+                "scale": window.screen.scale,
+            ],
+        ]
+
+        ViewUtils.showLaunchScreen(window: window)
         // RNCarPlay.connect(withDashboardController: dashboardController, window: window)
     }
 
