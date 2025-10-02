@@ -42,14 +42,7 @@ public extension PanGestureWithTranslationEventPayload {
   var velocity: Velocity? {
     @inline(__always)
     get {
-      return { () -> Velocity? in
-        if bridge.has_value_std__optional_Velocity_(self.__velocity) {
-          let __unwrapped = bridge.get_std__optional_Velocity_(self.__velocity)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }()
+      return self.__velocity.value
     }
     @inline(__always)
     set {

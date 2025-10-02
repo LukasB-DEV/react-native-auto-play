@@ -27,13 +27,9 @@ public extension AlertTemplateConfig {
       return __vector
     }(), { () -> bridge.std__optional_std__vector_AlertAction__ in
       if let __unwrappedValue = actions {
-        return bridge.create_std__optional_std__vector_AlertAction__({ () -> bridge.std__vector_AlertAction_ in
-          var __vector = bridge.create_std__vector_AlertAction_(__unwrappedValue.count)
-          for __item in __unwrappedValue {
-            __vector.push_back(__item)
-          }
-          return __vector
-        }())
+        return bridge.create_std__optional_std__vector_AlertAction__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_AlertAction_ in
+          return bridge.copy_std__vector_AlertAction_(__pointer.baseAddress!, __unwrappedValue.count)
+        })
       } else {
         return .init()
       }
@@ -108,7 +104,11 @@ public extension AlertTemplateConfig {
       return { () -> [AlertAction]? in
         if bridge.has_value_std__optional_std__vector_AlertAction__(self.__actions) {
           let __unwrapped = bridge.get_std__optional_std__vector_AlertAction__(self.__actions)
-          return __unwrapped.map({ __item in __item })
+          return { () -> [AlertAction] in
+            let __data = bridge.get_data_std__vector_AlertAction_(__unwrapped)
+            let __size = __unwrapped.size()
+            return Array(UnsafeBufferPointer(start: __data, count: __size))
+          }()
         } else {
           return nil
         }
@@ -118,13 +118,9 @@ public extension AlertTemplateConfig {
     set {
       self.__actions = { () -> bridge.std__optional_std__vector_AlertAction__ in
         if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__vector_AlertAction__({ () -> bridge.std__vector_AlertAction_ in
-            var __vector = bridge.create_std__vector_AlertAction_(__unwrappedValue.count)
-            for __item in __unwrappedValue {
-              __vector.push_back(__item)
-            }
-            return __vector
-          }())
+          return bridge.create_std__optional_std__vector_AlertAction__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_AlertAction_ in
+            return bridge.copy_std__vector_AlertAction_(__pointer.baseAddress!, __unwrappedValue.count)
+          })
         } else {
           return .init()
         }

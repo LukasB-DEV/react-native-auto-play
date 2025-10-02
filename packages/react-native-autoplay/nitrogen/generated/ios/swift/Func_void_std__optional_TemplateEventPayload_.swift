@@ -23,14 +23,7 @@ public final class Func_void_std__optional_TemplateEventPayload_ {
 
   @inline(__always)
   public func call(payload: bridge.std__optional_TemplateEventPayload_) -> Void {
-    self.closure({ () -> TemplateEventPayload? in
-      if bridge.has_value_std__optional_TemplateEventPayload_(payload) {
-        let __unwrapped = bridge.get_std__optional_TemplateEventPayload_(payload)
-        return __unwrapped
-      } else {
-        return nil
-      }
-    }())
+    self.closure(payload.value)
   }
 
   /**

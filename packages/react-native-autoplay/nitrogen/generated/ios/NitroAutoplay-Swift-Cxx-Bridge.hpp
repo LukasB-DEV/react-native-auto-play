@@ -44,6 +44,7 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include "TemplateEventPayload.hpp"
 #include "Translation.hpp"
 #include "Velocity.hpp"
+#include <NitroModules/FastVectorCopy.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <functional>
@@ -75,7 +76,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   private:
     std::unique_ptr<std::function<void()>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void create_Func_void(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_Wrapper wrap_Func_void(Func_void value) noexcept {
     return Func_void_Wrapper(std::move(value));
   }
@@ -97,7 +98,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const PressEventPayload& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_PressEventPayload create_Func_void_PressEventPayload(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_PressEventPayload create_Func_void_PressEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_PressEventPayload_Wrapper wrap_Func_void_PressEventPayload(Func_void_PressEventPayload value) noexcept {
     return Func_void_PressEventPayload_Wrapper(std::move(value));
   }
@@ -119,7 +120,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const PinchGestureEventPayload& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_PinchGestureEventPayload create_Func_void_PinchGestureEventPayload(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_PinchGestureEventPayload create_Func_void_PinchGestureEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_PinchGestureEventPayload_Wrapper wrap_Func_void_PinchGestureEventPayload(Func_void_PinchGestureEventPayload value) noexcept {
     return Func_void_PinchGestureEventPayload_Wrapper(std::move(value));
   }
@@ -156,7 +157,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_PanGestureWithTranslationEventPayload create_Func_void_PanGestureWithTranslationEventPayload(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_PanGestureWithTranslationEventPayload create_Func_void_PanGestureWithTranslationEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_PanGestureWithTranslationEventPayload_Wrapper wrap_Func_void_PanGestureWithTranslationEventPayload(Func_void_PanGestureWithTranslationEventPayload value) noexcept {
     return Func_void_PanGestureWithTranslationEventPayload_Wrapper(std::move(value));
   }
@@ -193,7 +194,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const std::optional<TemplateEventPayload>& /* payload */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_std__optional_TemplateEventPayload_ create_Func_void_std__optional_TemplateEventPayload_(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_std__optional_TemplateEventPayload_ create_Func_void_std__optional_TemplateEventPayload_(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__optional_TemplateEventPayload__Wrapper wrap_Func_void_std__optional_TemplateEventPayload_(Func_void_std__optional_TemplateEventPayload_ value) noexcept {
     return Func_void_std__optional_TemplateEventPayload__Wrapper(std::move(value));
   }
@@ -229,10 +230,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::vector<AlertAction>`.
    */
   using std__vector_AlertAction_ = std::vector<AlertAction>;
-  inline std::vector<AlertAction> create_std__vector_AlertAction_(size_t size) noexcept {
-    std::vector<AlertAction> vector;
-    vector.reserve(size);
-    return vector;
+  inline std::vector<AlertAction> copy_std__vector_AlertAction_(const AlertAction* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
+    return margelo::nitro::FastVectorCopy<AlertAction>(data, size);
+  }
+  inline const AlertAction* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_AlertAction_(const std::vector<AlertAction>& vector) noexcept {
+    return vector.data();
   }
   
   // pragma MARK: std::optional<std::vector<AlertAction>>
@@ -267,7 +269,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const BaseEvent& /* e */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_BaseEvent create_Func_void_BaseEvent(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_BaseEvent create_Func_void_BaseEvent(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_BaseEvent_Wrapper wrap_Func_void_BaseEvent(Func_void_BaseEvent value) noexcept {
     return Func_void_BaseEvent_Wrapper(std::move(value));
   }
@@ -292,8 +294,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridAutoPlaySpec>`.
    */
   using std__shared_ptr_HybridAutoPlaySpec_ = std::shared_ptr<HybridAutoPlaySpec>;
-  std::shared_ptr<HybridAutoPlaySpec> create_std__shared_ptr_HybridAutoPlaySpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType) noexcept;
+  std::shared_ptr<HybridAutoPlaySpec> create_std__shared_ptr_HybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType) noexcept;
   
   // pragma MARK: std::weak_ptr<HybridAutoPlaySpec>
   using std__weak_ptr_HybridAutoPlaySpec_ = std::weak_ptr<HybridAutoPlaySpec>;
