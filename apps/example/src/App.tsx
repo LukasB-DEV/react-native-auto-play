@@ -1,5 +1,4 @@
-import { AutoPlay } from '@g4rb4g3/react-native-autoplay';
-import type { RemoveListener } from '@g4rb4g3/react-native-autoplay/lib/types/Event';
+import { AutoPlay, type RemoveListener } from '@g4rb4g3/react-native-autoplay';
 import { useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';

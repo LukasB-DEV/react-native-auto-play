@@ -11,7 +11,6 @@ const config = mergeConfig(defaultConfig, {
   resolver: {
     ...defaultConfig.resolver,
     nodeModulesPaths: [path.resolve(__dirname, '../../node_modules')],
-    blockList: ['../../packages/react-native-autoplay/node_modules'],
   },
 });
 
