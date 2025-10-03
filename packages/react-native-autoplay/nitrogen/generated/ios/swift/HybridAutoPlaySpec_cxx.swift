@@ -130,86 +130,6 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func addListenerDidPress(callback: bridge.Func_void_PressEventPayload) -> bridge.Result_std__function_void____ {
-    do {
-      let __result = try self.__implementation.addListenerDidPress(callback: { () -> (PressEventPayload) -> Void in
-        let __wrappedFunction = bridge.wrap_Func_void_PressEventPayload(callback)
-        return { (__payload: PressEventPayload) -> Void in
-          __wrappedFunction.call(__payload)
-        }
-      }())
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
-  public final func addListenerDidUpdatePinchGesture(callback: bridge.Func_void_PinchGestureEventPayload) -> bridge.Result_std__function_void____ {
-    do {
-      let __result = try self.__implementation.addListenerDidUpdatePinchGesture(callback: { () -> (PinchGestureEventPayload) -> Void in
-        let __wrappedFunction = bridge.wrap_Func_void_PinchGestureEventPayload(callback)
-        return { (__payload: PinchGestureEventPayload) -> Void in
-          __wrappedFunction.call(__payload)
-        }
-      }())
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
-  public final func addListenerDidUpdatePanGestureWithTranslation(callback: bridge.Func_void_PanGestureWithTranslationEventPayload) -> bridge.Result_std__function_void____ {
-    do {
-      let __result = try self.__implementation.addListenerDidUpdatePanGestureWithTranslation(callback: { () -> (PanGestureWithTranslationEventPayload) -> Void in
-        let __wrappedFunction = bridge.wrap_Func_void_PanGestureWithTranslationEventPayload(callback)
-        return { (__payload: PanGestureWithTranslationEventPayload) -> Void in
-          __wrappedFunction.call(__payload)
-        }
-      }())
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
-  public final func addListenerTemplateState(templateId: std.string, callback: bridge.Func_void_TemplateEventPayload) -> bridge.Result_std__function_void____ {
-    do {
-      let __result = try self.__implementation.addListenerTemplateState(templateId: String(templateId), callback: { () -> (TemplateEventPayload) -> Void in
-        let __wrappedFunction = bridge.wrap_Func_void_TemplateEventPayload(callback)
-        return { (__payload: TemplateEventPayload) -> Void in
-          __wrappedFunction.call(__payload)
-        }
-      }())
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
   public final func addListenerRenderState(mapTemplateId: std.string, callback: bridge.Func_void_VisibilityState) -> bridge.Result_std__function_void____ {
     do {
       let __result = try self.__implementation.addListenerRenderState(mapTemplateId: String(mapTemplateId), callback: { () -> (VisibilityState) -> Void in
@@ -263,24 +183,42 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func createMapTemplate(config: NitroMapTemplateConfig) -> bridge.Result_void_ {
+  public final func createMapTemplate(config: NitroMapTemplateConfig) -> bridge.Result_std__function_void____ {
     do {
-      try self.__implementation.createMapTemplate(config: config)
-      return bridge.create_Result_void_()
+      let __result = try self.__implementation.createMapTemplate(config: config)
+      let __resultCpp = { () -> bridge.Func_void in
+        let __closureWrapper = Func_void(__result)
+        return bridge.create_Func_void(__closureWrapper.toUnsafe())
+      }()
+      return bridge.create_Result_std__function_void____(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
+      return bridge.create_Result_std__function_void____(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func setRootTemplate(templateId: std.string) -> bridge.Result_void_ {
+  public final func setRootTemplate(templateId: std.string) -> bridge.Result_std__shared_ptr_Promise_std__optional_std__string____ {
     do {
-      try self.__implementation.setRootTemplate(templateId: String(templateId))
-      return bridge.create_Result_void_()
+      let __result = try self.__implementation.setRootTemplate(templateId: String(templateId))
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__optional_std__string___ in
+        let __promise = bridge.create_std__shared_ptr_Promise_std__optional_std__string___()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__optional_std__string___(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__optional_std__string_ in
+              if let __unwrappedValue = __result {
+                return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+              } else {
+                return .init()
+              }
+            }()) })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_std__optional_std__string____(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_std__optional_std__string____(__exceptionPtr)
     }
   }
 }

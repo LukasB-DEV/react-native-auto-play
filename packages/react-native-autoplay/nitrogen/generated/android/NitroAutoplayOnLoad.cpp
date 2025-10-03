@@ -17,11 +17,9 @@
 
 #include "JHybridAutoPlaySpec.hpp"
 #include "JFunc_void.hpp"
-#include "JFunc_void_PressEventPayload.hpp"
-#include "JFunc_void_PinchGestureEventPayload.hpp"
-#include "JFunc_void_PanGestureWithTranslationEventPayload.hpp"
-#include "JFunc_void_TemplateEventPayload.hpp"
 #include "JFunc_void_VisibilityState.hpp"
+#include "JFunc_void_std__optional_bool_.hpp"
+#include "JFunc_void_Point_std__optional_Point_.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
@@ -35,11 +33,9 @@ int initialize(JavaVM* vm) {
     // Register native JNI methods
     margelo::nitro::at::g4rb4g3::autoplay::JHybridAutoPlaySpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_PressEventPayload_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_PinchGestureEventPayload_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_PanGestureWithTranslationEventPayload_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_TemplateEventPayload_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_VisibilityState_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_std__optional_bool__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_Point_std__optional_Point__cxx::registerNatives();
 
     // Register Nitro Hybrid Objects
     HybridObjectRegistry::registerHybridObjectConstructor(

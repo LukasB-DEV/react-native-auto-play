@@ -14,18 +14,6 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
-// Forward declaration of `PressEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
-// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
-// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
-// Forward declaration of `Translation` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
-// Forward declaration of `Velocity` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
-// Forward declaration of `TemplateEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
@@ -36,23 +24,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
+// Forward declaration of `Point` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 
 #include <functional>
 #include "EventName.hpp"
-#include "PressEventPayload.hpp"
-#include "PinchGestureEventPayload.hpp"
-#include "PanGestureWithTranslationEventPayload.hpp"
-#include "Translation.hpp"
-#include "Velocity.hpp"
-#include <optional>
 #include <string>
-#include "TemplateEventPayload.hpp"
 #include "VisibilityState.hpp"
 #include "AlertTemplateConfig.hpp"
 #include <vector>
 #include "AlertAction.hpp"
+#include <optional>
 #include "AlertStyle.hpp"
 #include "NitroMapTemplateConfig.hpp"
+#include "Point.hpp"
+#include <NitroModules/Promise.hpp>
 
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
 
@@ -103,38 +89,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::function<void()> addListenerDidPress(const std::function<void(const PressEventPayload& /* payload */)>& callback) override {
-      auto __result = _swiftPart.addListenerDidPress(callback);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
-    inline std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) override {
-      auto __result = _swiftPart.addListenerDidUpdatePinchGesture(callback);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
-    inline std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) override {
-      auto __result = _swiftPart.addListenerDidUpdatePanGestureWithTranslation(callback);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
-    inline std::function<void()> addListenerTemplateState(const std::string& templateId, const std::function<void(const TemplateEventPayload& /* payload */)>& callback) override {
-      auto __result = _swiftPart.addListenerTemplateState(templateId, callback);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
     inline std::function<void()> addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) override {
       auto __result = _swiftPart.addListenerRenderState(mapTemplateId, callback);
       if (__result.hasError()) [[unlikely]] {
@@ -161,17 +115,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
         std::rethrow_exception(__result.error());
       }
     }
-    inline void createMapTemplate(const NitroMapTemplateConfig& config) override {
+    inline std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) override {
       auto __result = _swiftPart.createMapTemplate(std::forward<decltype(config)>(config));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
     }
-    inline void setRootTemplate(const std::string& templateId) override {
+    inline std::shared_ptr<Promise<std::optional<std::string>>> setRootTemplate(const std::string& templateId) override {
       auto __result = _swiftPart.setRootTemplate(templateId);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
     }
 
   private:

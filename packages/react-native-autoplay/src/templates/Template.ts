@@ -8,30 +8,30 @@ export interface TemplateConfig {
    * Fired before template appears
    * @param e Event
    */
-  onWillAppear?(): void;
+  onWillAppear?(animated?: boolean): void;
 
   /**
    * Fired before template disappears
    * @param e Event
    */
-  onWillDisappear?(): void;
+  onWillDisappear?(animated?: boolean): void;
 
   /**
    * Fired after template appears
    * @param e Event
    */
-  onDidAppear?(): void;
+  onDidAppear?(animated?: boolean): void;
 
   /**
    * Fired after template disappears
    * @param e Event
    */
-  onDidDisappear?(): void;
+  onDidDisappear?(animated?: boolean): void;
 
   /**
    * Fired when popToRootTemplate finished
    */
-  onPoppedToRoot?(): void;
+  onPoppedToRoot?(animated?: boolean): void;
 }
 
 export class Template<P> {
@@ -43,4 +43,6 @@ export class Template<P> {
   constructor(public config: TemplateConfig & P) {
     this.templateId = config.id;
   }
+
+  public destroy() {}
 }

@@ -15,14 +15,6 @@
 
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
-// Forward declaration of `PressEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
-// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
-// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
-// Forward declaration of `TemplateEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
@@ -32,14 +24,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig;
 
 #include <functional>
 #include "EventName.hpp"
-#include "PressEventPayload.hpp"
-#include "PinchGestureEventPayload.hpp"
-#include "PanGestureWithTranslationEventPayload.hpp"
 #include <string>
-#include "TemplateEventPayload.hpp"
 #include "VisibilityState.hpp"
 #include "AlertTemplateConfig.hpp"
 #include "NitroMapTemplateConfig.hpp"
+#include <optional>
+#include <NitroModules/Promise.hpp>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
 
@@ -73,16 +63,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     public:
       // Methods
       virtual std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) = 0;
-      virtual std::function<void()> addListenerDidPress(const std::function<void(const PressEventPayload& /* payload */)>& callback) = 0;
-      virtual std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) = 0;
-      virtual std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) = 0;
-      virtual std::function<void()> addListenerTemplateState(const std::string& templateId, const std::function<void(const TemplateEventPayload& /* payload */)>& callback) = 0;
       virtual std::function<void()> addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) = 0;
       virtual void createAlertTemplate(const AlertTemplateConfig& config) = 0;
       virtual void presentTemplate(const std::string& templateId) = 0;
       virtual void dismissTemplate(const std::string& templateId) = 0;
-      virtual void createMapTemplate(const NitroMapTemplateConfig& config) = 0;
-      virtual void setRootTemplate(const std::string& templateId) = 0;
+      virtual std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) = 0;
+      virtual std::shared_ptr<Promise<std::optional<std::string>>> setRootTemplate(const std::string& templateId) = 0;
 
     protected:
       // Hybrid Setup

@@ -21,43 +21,43 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     };
   }
   
-  // pragma MARK: std::function<void(const PressEventPayload& /* payload */)>
-  Func_void_PressEventPayload create_Func_void_PressEventPayload(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_PressEventPayload::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const PressEventPayload& payload) mutable -> void {
-      swiftClosure.call(payload);
-    };
-  }
-  
-  // pragma MARK: std::function<void(const PinchGestureEventPayload& /* payload */)>
-  Func_void_PinchGestureEventPayload create_Func_void_PinchGestureEventPayload(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_PinchGestureEventPayload::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const PinchGestureEventPayload& payload) mutable -> void {
-      swiftClosure.call(payload);
-    };
-  }
-  
-  // pragma MARK: std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>
-  Func_void_PanGestureWithTranslationEventPayload create_Func_void_PanGestureWithTranslationEventPayload(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_PanGestureWithTranslationEventPayload::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const PanGestureWithTranslationEventPayload& payload) mutable -> void {
-      swiftClosure.call(payload);
-    };
-  }
-  
-  // pragma MARK: std::function<void(const TemplateEventPayload& /* payload */)>
-  Func_void_TemplateEventPayload create_Func_void_TemplateEventPayload(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_TemplateEventPayload::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const TemplateEventPayload& payload) mutable -> void {
-      swiftClosure.call(payload);
-    };
-  }
-  
   // pragma MARK: std::function<void(VisibilityState /* payload */)>
   Func_void_VisibilityState create_Func_void_VisibilityState(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = NitroAutoplay::Func_void_VisibilityState::fromUnsafe(swiftClosureWrapper);
     return [swiftClosure = std::move(swiftClosure)](VisibilityState payload) mutable -> void {
       swiftClosure.call(static_cast<int>(payload));
+    };
+  }
+  
+  // pragma MARK: std::function<void(std::optional<bool> /* animated */)>
+  Func_void_std__optional_bool_ create_Func_void_std__optional_bool_(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__optional_bool_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](std::optional<bool> animated) mutable -> void {
+      swiftClosure.call(animated);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>
+  Func_void_Point_std__optional_Point_ create_Func_void_Point_std__optional_Point_(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_Point_std__optional_Point_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const Point& translation, const std::optional<Point>& velocity) mutable -> void {
+      swiftClosure.call(translation, velocity);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::optional<std::string>& /* result */)>
+  Func_void_std__optional_std__string_ create_Func_void_std__optional_std__string_(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__optional_std__string_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::optional<std::string>& result) mutable -> void {
+      swiftClosure.call(result);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::exception_ptr& error) mutable -> void {
+      swiftClosure.call(error);
     };
   }
   

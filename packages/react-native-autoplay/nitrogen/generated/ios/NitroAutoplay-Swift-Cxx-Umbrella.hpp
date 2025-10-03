@@ -20,18 +20,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
 // Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
-// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
-// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
-// Forward declaration of `PressEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
-// Forward declaration of `TemplateEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
-// Forward declaration of `Translation` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
-// Forward declaration of `Velocity` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
+// Forward declaration of `Point` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 
@@ -42,13 +32,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "EventName.hpp"
 #include "HybridAutoPlaySpec.hpp"
 #include "NitroMapTemplateConfig.hpp"
-#include "PanGestureWithTranslationEventPayload.hpp"
-#include "PinchGestureEventPayload.hpp"
-#include "PressEventPayload.hpp"
-#include "TemplateEventPayload.hpp"
-#include "Translation.hpp"
-#include "Velocity.hpp"
+#include "Point.hpp"
 #include "VisibilityState.hpp"
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <functional>

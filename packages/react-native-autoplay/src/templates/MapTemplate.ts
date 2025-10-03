@@ -7,7 +7,11 @@ import { Template, type TemplateConfig } from './Template';
 export type AutoPlayCluster = string & { __brand: 'uuid' };
 export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayCluster;
 
-export interface NitroMapTemplateConfig extends TemplateConfig {}
+type Point = { x: number; y: number };
+
+export interface NitroMapTemplateConfig extends TemplateConfig {
+  onDidUpdatePanGestureWithTranslation?: (translation: Point, velocity?: Point) => void;
+}
 
 export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id'> & {
   /**
@@ -25,6 +29,8 @@ export class MapTemplate extends Template<MapTemplateConfig> {
     return 'map';
   }
 
+  private cleanup: () => void;
+
   constructor(config: MapTemplateConfig) {
     super(config);
 
@@ -37,10 +43,15 @@ export class MapTemplate extends Template<MapTemplateConfig> {
       () => (props) => React.createElement(component, { ...props, template })
     );
 
-    AutoPlay.createMapTemplate(rest);
+    this.cleanup = AutoPlay.createMapTemplate(rest);
   }
 
   public setRootTemplate() {
     AutoPlay.setRootTemplate(this.templateId);
+  }
+
+  public destroy() {
+    this.cleanup();
+    super.destroy();
   }
 }

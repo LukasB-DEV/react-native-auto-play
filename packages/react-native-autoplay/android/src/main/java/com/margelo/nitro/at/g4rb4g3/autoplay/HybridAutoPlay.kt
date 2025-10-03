@@ -1,5 +1,9 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay
 
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.TemplateStore
+import com.margelo.nitro.core.Promise
+
 class HybridAutoPlay : HybridAutoPlaySpec() {
     override fun addListener(
         eventType: EventName, callback: () -> Unit
@@ -13,48 +17,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         return {
             listeners[eventType]?.removeAll { it === callback }
-        }
-    }
-
-    override fun addListenerDidPress(callback: (PressEventPayload) -> Unit): () -> Unit {
-        didPressListeners.add(callback)
-
-        return {
-            didPressListeners.removeAll { it === callback }
-        }
-    }
-
-    override fun addListenerDidUpdatePinchGesture(callback: (PinchGestureEventPayload) -> Unit): () -> Unit {
-        didUpdatePinchGestureListeners.add(callback)
-
-        return {
-            didUpdatePinchGestureListeners.removeAll { it === callback }
-        }
-    }
-
-    override fun addListenerDidUpdatePanGestureWithTranslation(callback: (PanGestureWithTranslationEventPayload) -> Unit): () -> Unit {
-        didUpdatePanGestureWithTranslationListeners.add(callback)
-
-        return {
-            didUpdatePanGestureWithTranslationListeners.removeAll { it === callback }
-        }
-    }
-
-    override fun addListenerTemplateState(
-        templateId: String, callback: (TemplateEventPayload) -> Unit
-    ): () -> Unit {
-        val callbacks = templateStateListeners.getOrPut(templateId) {
-            mutableListOf()
-        }
-        callbacks.add(callback)
-
-        return {
-            templateStateListeners[templateId]?.let {
-                it.remove(callback)
-                if (it.isEmpty()) {
-                    templateStateListeners.remove(templateId)
-                }
-            }
         }
     }
 
@@ -92,34 +54,62 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         // TODO
     }
 
-    override fun createMapTemplate(config: NitroMapTemplateConfig) {
-        addListenerTemplateState(config.id) { state ->
-            when (state.state) {
-                VisibilityState.WILLAPPEAR -> config.onWillAppear?.let { it() }
-                VisibilityState.DIDAPPEAR -> config.onDidAppear?.let { it() }
-                VisibilityState.WILLDISAPPEAR -> config.onWillDisappear?.let { it() }
-                VisibilityState.DIDDISAPPEAR -> config.onDidDisappear?.let { it() }
+    override fun createMapTemplate(config: NitroMapTemplateConfig): () -> Unit {
+        val removeTemplateStateListener = addListenerTemplateState(config.id) { state ->
+            when (state) {
+                VisibilityState.WILLAPPEAR -> config.onWillAppear?.let { it(null) }
+                VisibilityState.DIDAPPEAR -> config.onDidAppear?.let { it(null) }
+                VisibilityState.WILLDISAPPEAR -> config.onWillDisappear?.let { it(null) }
+                VisibilityState.DIDDISAPPEAR -> config.onDidDisappear?.let { it(null) }
             }
+        }
+
+        val template = MapTemplate(config)
+        TemplateStore.addTemplate(config.id, template)
+
+        return {
+            removeTemplateStateListener()
         }
     }
 
-    override fun setRootTemplate(templateId: String) {
-        // TODO
+    override fun setRootTemplate(templateId: String): Promise<String?> {
+        return Promise.async {
+            val screen = AndroidAutoScreen.getScreen(AndroidAutoSession.ROOT_SESSION)
+                ?: return@async "setRootTemplate failed, no screen found"
+            val template = TemplateStore.getTemplate(templateId)
+                ?: return@async "setRootTemplate failed, specified template not found"
+
+            screen.setTemplate(template.template, true, true)
+            return@async null
+        }
     }
 
     companion object {
         val TAG = "HybridAutoPlay"
         private val listeners = mutableMapOf<EventName, MutableList<() -> Unit>>()
-        private val didPressListeners = mutableListOf<(PressEventPayload) -> Unit>()
-        private val didUpdatePinchGestureListeners =
-            mutableListOf<(PinchGestureEventPayload) -> Unit>()
-        private val didUpdatePanGestureWithTranslationListeners =
-            mutableListOf<(PanGestureWithTranslationEventPayload) -> Unit>()
 
         private val templateStateListeners =
-            mutableMapOf<String, MutableList<(TemplateEventPayload) -> Unit>>()
+            mutableMapOf<String, MutableList<(VisibilityState) -> Unit>>()
         private val renderStateListeners =
             mutableMapOf<String, MutableList<(VisibilityState) -> Unit>>()
+
+        fun addListenerTemplateState(
+            templateId: String, callback: (VisibilityState) -> Unit
+        ): () -> Unit {
+            val callbacks = templateStateListeners.getOrPut(templateId) {
+                mutableListOf()
+            }
+            callbacks.add(callback)
+
+            return {
+                templateStateListeners[templateId]?.let {
+                    it.remove(callback)
+                    if (it.isEmpty()) {
+                        templateStateListeners.remove(templateId)
+                    }
+                }
+            }
+        }
 
         fun emit(event: EventName) {
             listeners[event]?.forEach { it() }
@@ -127,7 +117,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         fun emitTemplateState(templateId: String, templateState: VisibilityState) {
             templateStateListeners[templateId]?.forEach {
-                it(TemplateEventPayload(null, templateState))
+                it(templateState)
             }
         }
 

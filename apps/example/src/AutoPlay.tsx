@@ -28,6 +28,9 @@ const registerRunnable = () => {
     onDidAppear: () => console.log('onDidAppear'),
     onWillDisappear: () => console.log('onWillDisappear'),
     onDidDisappear: () => console.log('onDidDisappear'),
+    onDidUpdatePanGestureWithTranslation: ({ x, y }) => {
+      console.log('*** onDidUpdatePanGestureWithTranslation', x, y);
+    },
   });
 
   const onConnect = () => {

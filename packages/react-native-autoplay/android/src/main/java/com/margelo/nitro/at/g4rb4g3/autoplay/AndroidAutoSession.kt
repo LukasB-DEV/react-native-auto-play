@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
+import androidx.car.app.ScreenManager
 import androidx.car.app.Session
 import androidx.car.app.SessionInfo
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -28,13 +29,11 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
     private val clusterTemplateId = if (isCluster) UUID.randomUUID().toString() else null
     private val marker = clusterTemplateId ?: ROOT_SESSION
 
-    private lateinit var screen: AndroidAutoScreen
-
     override fun onCreateScreen(intent: Intent): Screen {
-        screen = AndroidAutoScreen(carContext, isCluster, marker)
+        val screen = AndroidAutoScreen(carContext, isCluster, marker)
 
         sessions.put(
-            marker, ScreenContext(carContext = carContext, session = this, screen = screen, state = VisibilityState.DIDDISAPPEAR)
+            marker, ScreenContext(carContext = carContext, session = this, state = VisibilityState.DIDDISAPPEAR)
         )
 
         lifecycle.addObserver(sessionLifecycleObserver)
@@ -110,7 +109,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
     }
 
     data class ScreenContext(
-        val carContext: CarContext, val screen: AndroidAutoScreen, val session: AndroidAutoSession, var state: VisibilityState
+        val carContext: CarContext, val session: AndroidAutoSession, var state: VisibilityState
     )
 
     companion object {
@@ -134,10 +133,6 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
 
         fun getRootContext(): CarContext? {
             return sessions.get(ROOT_SESSION)?.carContext
-        }
-
-        fun getScreen(marker: String): AndroidAutoScreen? {
-            return sessions.get(marker)?.screen
         }
     }
 }

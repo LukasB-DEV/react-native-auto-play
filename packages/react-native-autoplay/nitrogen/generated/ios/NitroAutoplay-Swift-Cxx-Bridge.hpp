@@ -14,18 +14,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
-// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
-// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
-// Forward declaration of `PressEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
-// Forward declaration of `TemplateEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
-// Forward declaration of `Translation` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
-// Forward declaration of `Velocity` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
+// Forward declaration of `Point` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 
@@ -37,14 +27,11 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include "AlertAction.hpp"
 #include "AlertStyle.hpp"
 #include "HybridAutoPlaySpec.hpp"
-#include "PanGestureWithTranslationEventPayload.hpp"
-#include "PinchGestureEventPayload.hpp"
-#include "PressEventPayload.hpp"
-#include "TemplateEventPayload.hpp"
-#include "Translation.hpp"
-#include "Velocity.hpp"
+#include "Point.hpp"
 #include "VisibilityState.hpp"
 #include <NitroModules/FastVectorCopy.hpp>
+#include <NitroModules/Promise.hpp>
+#include <NitroModules/PromiseHolder.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <functional>
@@ -79,124 +66,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_Wrapper wrap_Func_void(Func_void value) noexcept {
     return Func_void_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::function<void(const PressEventPayload& /* payload */)>
-  /**
-   * Specialized version of `std::function<void(const PressEventPayload&)>`.
-   */
-  using Func_void_PressEventPayload = std::function<void(const PressEventPayload& /* payload */)>;
-  /**
-   * Wrapper class for a `std::function<void(const PressEventPayload& / * payload * /)>`, this can be used from Swift.
-   */
-  class Func_void_PressEventPayload_Wrapper final {
-  public:
-    explicit Func_void_PressEventPayload_Wrapper(std::function<void(const PressEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PressEventPayload& /* payload */)>>(std::move(func))) {}
-    inline void call(PressEventPayload payload) const noexcept {
-      _function->operator()(payload);
-    }
-  private:
-    std::unique_ptr<std::function<void(const PressEventPayload& /* payload */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_PressEventPayload create_Func_void_PressEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_PressEventPayload_Wrapper wrap_Func_void_PressEventPayload(Func_void_PressEventPayload value) noexcept {
-    return Func_void_PressEventPayload_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::function<void(const PinchGestureEventPayload& /* payload */)>
-  /**
-   * Specialized version of `std::function<void(const PinchGestureEventPayload&)>`.
-   */
-  using Func_void_PinchGestureEventPayload = std::function<void(const PinchGestureEventPayload& /* payload */)>;
-  /**
-   * Wrapper class for a `std::function<void(const PinchGestureEventPayload& / * payload * /)>`, this can be used from Swift.
-   */
-  class Func_void_PinchGestureEventPayload_Wrapper final {
-  public:
-    explicit Func_void_PinchGestureEventPayload_Wrapper(std::function<void(const PinchGestureEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PinchGestureEventPayload& /* payload */)>>(std::move(func))) {}
-    inline void call(PinchGestureEventPayload payload) const noexcept {
-      _function->operator()(payload);
-    }
-  private:
-    std::unique_ptr<std::function<void(const PinchGestureEventPayload& /* payload */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_PinchGestureEventPayload create_Func_void_PinchGestureEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_PinchGestureEventPayload_Wrapper wrap_Func_void_PinchGestureEventPayload(Func_void_PinchGestureEventPayload value) noexcept {
-    return Func_void_PinchGestureEventPayload_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::optional<Velocity>
-  /**
-   * Specialized version of `std::optional<Velocity>`.
-   */
-  using std__optional_Velocity_ = std::optional<Velocity>;
-  inline std::optional<Velocity> create_std__optional_Velocity_(const Velocity& value) noexcept {
-    return std::optional<Velocity>(value);
-  }
-  inline bool has_value_std__optional_Velocity_(const std::optional<Velocity>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline Velocity get_std__optional_Velocity_(const std::optional<Velocity>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>
-  /**
-   * Specialized version of `std::function<void(const PanGestureWithTranslationEventPayload&)>`.
-   */
-  using Func_void_PanGestureWithTranslationEventPayload = std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>;
-  /**
-   * Wrapper class for a `std::function<void(const PanGestureWithTranslationEventPayload& / * payload * /)>`, this can be used from Swift.
-   */
-  class Func_void_PanGestureWithTranslationEventPayload_Wrapper final {
-  public:
-    explicit Func_void_PanGestureWithTranslationEventPayload_Wrapper(std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>>(std::move(func))) {}
-    inline void call(PanGestureWithTranslationEventPayload payload) const noexcept {
-      _function->operator()(payload);
-    }
-  private:
-    std::unique_ptr<std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_PanGestureWithTranslationEventPayload create_Func_void_PanGestureWithTranslationEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_PanGestureWithTranslationEventPayload_Wrapper wrap_Func_void_PanGestureWithTranslationEventPayload(Func_void_PanGestureWithTranslationEventPayload value) noexcept {
-    return Func_void_PanGestureWithTranslationEventPayload_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::optional<bool>
-  /**
-   * Specialized version of `std::optional<bool>`.
-   */
-  using std__optional_bool_ = std::optional<bool>;
-  inline std::optional<bool> create_std__optional_bool_(const bool& value) noexcept {
-    return std::optional<bool>(value);
-  }
-  inline bool has_value_std__optional_bool_(const std::optional<bool>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::function<void(const TemplateEventPayload& /* payload */)>
-  /**
-   * Specialized version of `std::function<void(const TemplateEventPayload&)>`.
-   */
-  using Func_void_TemplateEventPayload = std::function<void(const TemplateEventPayload& /* payload */)>;
-  /**
-   * Wrapper class for a `std::function<void(const TemplateEventPayload& / * payload * /)>`, this can be used from Swift.
-   */
-  class Func_void_TemplateEventPayload_Wrapper final {
-  public:
-    explicit Func_void_TemplateEventPayload_Wrapper(std::function<void(const TemplateEventPayload& /* payload */)>&& func): _function(std::make_unique<std::function<void(const TemplateEventPayload& /* payload */)>>(std::move(func))) {}
-    inline void call(TemplateEventPayload payload) const noexcept {
-      _function->operator()(payload);
-    }
-  private:
-    std::unique_ptr<std::function<void(const TemplateEventPayload& /* payload */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_TemplateEventPayload create_Func_void_TemplateEventPayload(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_TemplateEventPayload_Wrapper wrap_Func_void_TemplateEventPayload(Func_void_TemplateEventPayload value) noexcept {
-    return Func_void_TemplateEventPayload_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::function<void(VisibilityState /* payload */)>
@@ -274,19 +143,179 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::optional<std::function<void()>>
+  // pragma MARK: std::optional<bool>
   /**
-   * Specialized version of `std::optional<std::function<void()>>`.
+   * Specialized version of `std::optional<bool>`.
    */
-  using std__optional_std__function_void____ = std::optional<std::function<void()>>;
-  inline std::optional<std::function<void()>> create_std__optional_std__function_void____(const std::function<void()>& value) noexcept {
-    return std::optional<std::function<void()>>(value);
+  using std__optional_bool_ = std::optional<bool>;
+  inline std::optional<bool> create_std__optional_bool_(const bool& value) noexcept {
+    return std::optional<bool>(value);
   }
-  inline bool has_value_std__optional_std__function_void____(const std::optional<std::function<void()>>& optional) noexcept {
+  inline bool has_value_std__optional_bool_(const std::optional<bool>& optional) noexcept {
     return optional.has_value();
   }
-  inline std::function<void()> get_std__optional_std__function_void____(const std::optional<std::function<void()>>& optional) noexcept {
+  inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
     return *optional;
+  }
+  
+  // pragma MARK: std::function<void(std::optional<bool> /* animated */)>
+  /**
+   * Specialized version of `std::function<void(std::optional<bool>)>`.
+   */
+  using Func_void_std__optional_bool_ = std::function<void(std::optional<bool> /* animated */)>;
+  /**
+   * Wrapper class for a `std::function<void(std::optional<bool> / * animated * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__optional_bool__Wrapper final {
+  public:
+    explicit Func_void_std__optional_bool__Wrapper(std::function<void(std::optional<bool> /* animated */)>&& func): _function(std::make_unique<std::function<void(std::optional<bool> /* animated */)>>(std::move(func))) {}
+    inline void call(std::optional<bool> animated) const noexcept {
+      _function->operator()(animated);
+    }
+  private:
+    std::unique_ptr<std::function<void(std::optional<bool> /* animated */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__optional_bool_ create_Func_void_std__optional_bool_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__optional_bool__Wrapper wrap_Func_void_std__optional_bool_(Func_void_std__optional_bool_ value) noexcept {
+    return Func_void_std__optional_bool__Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(std::optional<bool> /* animated */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(std::optional<bool> / * animated * /)>>`.
+   */
+  using std__optional_std__function_void_std__optional_bool_____animated______ = std::optional<std::function<void(std::optional<bool> /* animated */)>>;
+  inline std::optional<std::function<void(std::optional<bool> /* animated */)>> create_std__optional_std__function_void_std__optional_bool_____animated______(const std::function<void(std::optional<bool> /* animated */)>& value) noexcept {
+    return std::optional<std::function<void(std::optional<bool> /* animated */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_std__optional_bool_____animated______(const std::optional<std::function<void(std::optional<bool> /* animated */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(std::optional<bool> /* animated */)> get_std__optional_std__function_void_std__optional_bool_____animated______(const std::optional<std::function<void(std::optional<bool> /* animated */)>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<Point>
+  /**
+   * Specialized version of `std::optional<Point>`.
+   */
+  using std__optional_Point_ = std::optional<Point>;
+  inline std::optional<Point> create_std__optional_Point_(const Point& value) noexcept {
+    return std::optional<Point>(value);
+  }
+  inline bool has_value_std__optional_Point_(const std::optional<Point>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline Point get_std__optional_Point_(const std::optional<Point>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>
+  /**
+   * Specialized version of `std::function<void(const Point&, const std::optional<Point>&)>`.
+   */
+  using Func_void_Point_std__optional_Point_ = std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>;
+  /**
+   * Wrapper class for a `std::function<void(const Point& / * translation * /, const std::optional<Point>& / * velocity * /)>`, this can be used from Swift.
+   */
+  class Func_void_Point_std__optional_Point__Wrapper final {
+  public:
+    explicit Func_void_Point_std__optional_Point__Wrapper(std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>&& func): _function(std::make_unique<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>(std::move(func))) {}
+    inline void call(Point translation, std::optional<Point> velocity) const noexcept {
+      _function->operator()(translation, velocity);
+    }
+  private:
+    std::unique_ptr<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_Point_std__optional_Point_ create_Func_void_Point_std__optional_Point_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_Point_std__optional_Point__Wrapper wrap_Func_void_Point_std__optional_Point_(Func_void_Point_std__optional_Point_ value) noexcept {
+    return Func_void_Point_std__optional_Point__Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const Point& / * translation * /, const std::optional<Point>& / * velocity * /)>>`.
+   */
+  using std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______ = std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>;
+  inline std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> create_std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______(const std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>& value) noexcept {
+    return std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______(const std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)> get_std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______(const std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<std::string>
+  /**
+   * Specialized version of `std::optional<std::string>`.
+   */
+  using std__optional_std__string_ = std::optional<std::string>;
+  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) noexcept {
+    return std::optional<std::string>(value);
+  }
+  inline bool has_value_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::shared_ptr<Promise<std::optional<std::string>>>
+  /**
+   * Specialized version of `std::shared_ptr<Promise<std::optional<std::string>>>`.
+   */
+  using std__shared_ptr_Promise_std__optional_std__string___ = std::shared_ptr<Promise<std::optional<std::string>>>;
+  inline std::shared_ptr<Promise<std::optional<std::string>>> create_std__shared_ptr_Promise_std__optional_std__string___() noexcept {
+    return Promise<std::optional<std::string>>::create();
+  }
+  inline PromiseHolder<std::optional<std::string>> wrap_std__shared_ptr_Promise_std__optional_std__string___(std::shared_ptr<Promise<std::optional<std::string>>> promise) noexcept {
+    return PromiseHolder<std::optional<std::string>>(std::move(promise));
+  }
+  
+  // pragma MARK: std::function<void(const std::optional<std::string>& /* result */)>
+  /**
+   * Specialized version of `std::function<void(const std::optional<std::string>&)>`.
+   */
+  using Func_void_std__optional_std__string_ = std::function<void(const std::optional<std::string>& /* result */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::optional<std::string>& / * result * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__optional_std__string__Wrapper final {
+  public:
+    explicit Func_void_std__optional_std__string__Wrapper(std::function<void(const std::optional<std::string>& /* result */)>&& func): _function(std::make_unique<std::function<void(const std::optional<std::string>& /* result */)>>(std::move(func))) {}
+    inline void call(std::optional<std::string> result) const noexcept {
+      _function->operator()(result);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::optional<std::string>& /* result */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__optional_std__string_ create_Func_void_std__optional_std__string_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__optional_std__string__Wrapper wrap_Func_void_std__optional_std__string_(Func_void_std__optional_std__string_ value) noexcept {
+    return Func_void_std__optional_std__string__Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
+  /**
+   * Specialized version of `std::function<void(const std::exception_ptr&)>`.
+   */
+  using Func_void_std__exception_ptr = std::function<void(const std::exception_ptr& /* error */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::exception_ptr& / * error * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__exception_ptr_Wrapper final {
+  public:
+    explicit Func_void_std__exception_ptr_Wrapper(std::function<void(const std::exception_ptr& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::exception_ptr& /* error */)>>(std::move(func))) {}
+    inline void call(std::exception_ptr error) const noexcept {
+      _function->operator()(error);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::exception_ptr& /* error */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
+    return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::shared_ptr<HybridAutoPlaySpec>
@@ -317,6 +346,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   }
   inline Result_void_ create_Result_void_(const std::exception_ptr& error) noexcept {
     return Result<void>::withError(error);
+  }
+  
+  // pragma MARK: Result<std::shared_ptr<Promise<std::optional<std::string>>>>
+  using Result_std__shared_ptr_Promise_std__optional_std__string____ = Result<std::shared_ptr<Promise<std::optional<std::string>>>>;
+  inline Result_std__shared_ptr_Promise_std__optional_std__string____ create_Result_std__shared_ptr_Promise_std__optional_std__string____(const std::shared_ptr<Promise<std::optional<std::string>>>& value) noexcept {
+    return Result<std::shared_ptr<Promise<std::optional<std::string>>>>::withValue(value);
+  }
+  inline Result_std__shared_ptr_Promise_std__optional_std__string____ create_Result_std__shared_ptr_Promise_std__optional_std__string____(const std::exception_ptr& error) noexcept {
+    return Result<std::shared_ptr<Promise<std::optional<std::string>>>>::withError(error);
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift

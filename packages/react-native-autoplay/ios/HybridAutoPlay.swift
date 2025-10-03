@@ -1,15 +1,11 @@
-import React
+import CarPlay
+import NitroModules
 
 class HybridAutoPlay: HybridAutoPlaySpec {
     private static var listeners = [EventName: [String: () -> Void]]()
-    private static var panGestureListeners = [
-        String: (PanGestureWithTranslationEventPayload) -> Void
-    ]()
-
     private static var templateStateListeners = [
         String: [(TemplateEventPayload) -> Void]
     ]()
-
     private static var renderStateListeners = [
         String: [(VisibilityState) -> Void]
     ]()
@@ -26,32 +22,6 @@ class HybridAutoPlay: HybridAutoPlaySpec {
 
         return {
             HybridAutoPlay.listeners[eventType]?.removeValue(forKey: uuid)
-        }
-    }
-
-    func addListenerDidPress(callback: @escaping (PressEventPayload) -> Void)
-        throws
-        -> () -> Void
-    {
-        throw fatalError("addListenerDidPress not supported on this platform")
-    }
-
-    func addListenerDidUpdatePinchGesture(
-        callback: @escaping (PinchGestureEventPayload) -> Void
-    ) throws -> () -> Void {
-        throw fatalError(
-            "addListenerDidUpdatePinchGesture not supported on this platform"
-        )
-    }
-
-    func addListenerDidUpdatePanGestureWithTranslation(
-        callback: @escaping (PanGestureWithTranslationEventPayload) -> Void
-    ) throws -> () -> Void {
-        let uuid = UUID().uuidString
-        HybridAutoPlay.panGestureListeners[uuid] = callback
-
-        return {
-            HybridAutoPlay.panGestureListeners.removeValue(forKey: uuid)
         }
     }
 
@@ -119,12 +89,64 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         //TODO
     }
 
-    func createMapTemplate(config: NitroMapTemplateConfig) throws {
-        //TODO
+    func createMapTemplate(config: NitroMapTemplateConfig) throws -> () -> Void
+    {
+        let removeTemplateStateListener = try? addListenerTemplateState(
+            templateId: config.id
+        ) { state in
+            switch state.state {
+            case .willappear:
+                config.onWillAppear?(state.animated)
+            case .didappear:
+                config.onDidAppear?(state.animated)
+            case .willdisappear:
+                config.onWillDisappear?(state.animated)
+            case .diddisappear:
+                config.onDidDisappear?(state.animated)
+            }
+        }
+
+        let template = MapTemplate(config: config)
+        TemplateStore.addTemplate(template: template, templateId: config.id)
+
+        return {
+            removeTemplateStateListener?()
+            TemplateStore.removeTemplate(templateId: config.id)
+        }
     }
 
-    func setRootTemplate(templateId: String) throws {
-        SceneStore.getScene(moduleName: templateId)?.setRootTemplate()
+    func setRootTemplate(templateId: String) throws -> Promise<String?> {
+        return Promise.async {
+            guard
+                let template = TemplateStore.getCPTemplate(
+                    templateId: templateId
+                ),
+                let scene = SceneStore.getScene(
+                    moduleName: SceneStore.rootModuleName
+                ),
+                let interfaceController = SceneStore.interfaceController
+            else {
+                return
+                    "Failed to set root template: Template or scene or interfaceController not found, did you call a craeteXXXTemplate function?"
+            }
+
+            if template is CPMapTemplate {
+                await MainActor.run {
+                    scene.initRootView()
+                }
+            }
+
+            do {
+                try await interfaceController.setRootTemplate(
+                    template,
+                    animated: false
+                )
+            } catch (let error) {
+                return "Failed to set root template: \(error)"
+            }
+
+            return nil
+        }
     }
 
     static func emit(event: EventName) {
@@ -134,10 +156,16 @@ class HybridAutoPlay: HybridAutoPlaySpec {
     }
 
     static func emitTemplateState(
-        templateId: String,
+        template: CPTemplate,
         templateState: VisibilityState,
-        animated: Bool = false
+        animated: Bool
     ) {
+        guard let userInfo = template.userInfo as? [String: Any],
+            let templateId = userInfo["id"] as? String
+        else {
+            return
+        }
+
         let payload = TemplateEventPayload(
             animated: animated,
             state: templateState

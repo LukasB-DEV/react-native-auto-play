@@ -54,16 +54,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
   public:
     // Methods
     std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) override;
-    std::function<void()> addListenerDidPress(const std::function<void(const PressEventPayload& /* payload */)>& callback) override;
-    std::function<void()> addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) override;
-    std::function<void()> addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) override;
-    std::function<void()> addListenerTemplateState(const std::string& templateId, const std::function<void(const TemplateEventPayload& /* payload */)>& callback) override;
     std::function<void()> addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) override;
     void createAlertTemplate(const AlertTemplateConfig& config) override;
     void presentTemplate(const std::string& templateId) override;
     void dismissTemplate(const std::string& templateId) override;
-    void createMapTemplate(const NitroMapTemplateConfig& config) override;
-    void setRootTemplate(const std::string& templateId) override;
+    std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) override;
+    std::shared_ptr<Promise<std::optional<std::string>>> setRootTemplate(const std::string& templateId) override;
 
   private:
     friend HybridBase;

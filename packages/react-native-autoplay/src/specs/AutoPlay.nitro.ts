@@ -1,13 +1,7 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type { AlertTemplateConfig } from '../templates/AlertTemplate';
 import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
-import type { EventName, RemoveListener } from '../types/Event';
-import type {
-  PanGestureWithTranslationEventPayload,
-  PinchGestureEventPayload,
-  PressEventPayload,
-} from '../types/GestureEvents';
-import type { TemplateEventPayload, VisibilityState } from '../types/TemplateEvents';
+import type { EventName, RemoveListener, VisibilityState } from '../types/Event';
 
 export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   /**
@@ -17,36 +11,6 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
    * @returns token to remove the listener
    */
   addListener(eventType: EventName, callback: () => void): RemoveListener;
-
-  /**
-   * attach a listener for screen single tap press events
-   * @namespace Android
-   */
-  addListenerDidPress(callback: (payload: PressEventPayload) => void): RemoveListener;
-
-  /**
-   * attach a listener for pinch to zoom and double tap events
-   * @namespace Android
-   */
-  addListenerDidUpdatePinchGesture(
-    callback: (payload: PinchGestureEventPayload) => void
-  ): RemoveListener;
-
-  /**
-   * attach a listener for pan events
-   * @namespace all
-   */
-  addListenerDidUpdatePanGestureWithTranslation(
-    callback: (payload: PanGestureWithTranslationEventPayload) => void
-  ): RemoveListener;
-
-  /**
-   * attach a listener for template will appear events
-   */
-  addListenerTemplateState(
-    templateId: string,
-    callback: (payload: TemplateEventPayload) => void
-  ): RemoveListener;
 
   /**
    * adds a listener for the session/scene state
@@ -74,8 +38,13 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
 
   /**
    * creates a map template that can render any react component
+   * @returns a cleanup function, eg: removes attached listeners
    */
-  createMapTemplate(config: NitroMapTemplateConfig): void;
+  createMapTemplate(config: NitroMapTemplateConfig): () => void;
 
-  setRootTemplate(templateId: string): void;
+  /**
+   * sets the specified template as root template, initializes a new stack
+   * Promise might contain an error message in case setting root template failed
+   */
+  setRootTemplate(templateId: string): Promise<string | null>;
 }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.hardware.display.DisplayManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Display
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -21,6 +22,8 @@ import com.facebook.react.runtime.ReactSurfaceView
 import com.facebook.react.uimanager.DisplayMetricsHolder
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.common.UIManagerType
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.TemplateStore
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ReactContextResolver
 import com.margelo.nitro.autoplay.BuildConfig
 import kotlinx.coroutines.CoroutineScope
@@ -76,6 +79,22 @@ class VirtualRenderer(
                 width = surfaceContainer.width
 
                 initRenderer()
+            }
+
+            override fun onScroll(distanceX: Float, distanceY: Float) {
+                val screenManager =
+                    AndroidAutoScreen.getScreen(AndroidAutoSession.ROOT_SESSION)?.screenManager ?: return
+                val marker = screenManager.top.marker ?: return
+                val template = TemplateStore.getTemplate(marker)
+                if (template is MapTemplate) {
+                    template.config.onDidUpdatePanGestureWithTranslation?.let {
+                        it(
+                            Point(
+                                distanceX.toDouble(), distanceY.toDouble()
+                            ), null
+                        )
+                    }
+                }
             }
         })
     }
@@ -164,6 +183,7 @@ class VirtualRenderer(
     }
 
     companion object {
+        val TAG = "VirtualRenderer"
         val moduleName = "AutoPlayRoot"
     }
 }

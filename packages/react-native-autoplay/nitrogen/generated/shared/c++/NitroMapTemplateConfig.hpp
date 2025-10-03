@@ -18,11 +18,13 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
+// Forward declaration of `Point` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 
-
-#include <string>
-#include <functional>
+#include "Point.hpp"
 #include <optional>
+#include <functional>
+#include <string>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
 
@@ -31,16 +33,17 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct NitroMapTemplateConfig {
   public:
+    std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> onDidUpdatePanGestureWithTranslation     SWIFT_PRIVATE;
     std::string id     SWIFT_PRIVATE;
-    std::optional<std::function<void()>> onWillAppear     SWIFT_PRIVATE;
-    std::optional<std::function<void()>> onWillDisappear     SWIFT_PRIVATE;
-    std::optional<std::function<void()>> onDidAppear     SWIFT_PRIVATE;
-    std::optional<std::function<void()>> onDidDisappear     SWIFT_PRIVATE;
-    std::optional<std::function<void()>> onPoppedToRoot     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onPoppedToRoot     SWIFT_PRIVATE;
 
   public:
     NitroMapTemplateConfig() = default;
-    explicit NitroMapTemplateConfig(std::string id, std::optional<std::function<void()>> onWillAppear, std::optional<std::function<void()>> onWillDisappear, std::optional<std::function<void()>> onDidAppear, std::optional<std::function<void()>> onDidDisappear, std::optional<std::function<void()>> onPoppedToRoot): id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPoppedToRoot(onPoppedToRoot) {}
+    explicit NitroMapTemplateConfig(std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> onDidUpdatePanGestureWithTranslation, std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onPoppedToRoot): onDidUpdatePanGestureWithTranslation(onDidUpdatePanGestureWithTranslation), id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPoppedToRoot(onPoppedToRoot) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay
@@ -53,22 +56,24 @@ namespace margelo::nitro {
     static inline margelo::nitro::at::g4rb4g3::autoplay::NitroMapTemplateConfig fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::at::g4rb4g3::autoplay::NitroMapTemplateConfig(
+        JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidUpdatePanGestureWithTranslation")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "id")),
-        JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillAppear")),
-        JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillDisappear")),
-        JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidAppear")),
-        JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDisappear")),
-        JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onPoppedToRoot"))
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillAppear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillDisappear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidAppear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDisappear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onPoppedToRoot"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::NitroMapTemplateConfig& arg) {
       jsi::Object obj(runtime);
+      obj.setProperty(runtime, "onDidUpdatePanGestureWithTranslation", JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::toJSI(runtime, arg.onDidUpdatePanGestureWithTranslation));
       obj.setProperty(runtime, "id", JSIConverter<std::string>::toJSI(runtime, arg.id));
-      obj.setProperty(runtime, "onWillAppear", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onWillAppear));
-      obj.setProperty(runtime, "onWillDisappear", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onWillDisappear));
-      obj.setProperty(runtime, "onDidAppear", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onDidAppear));
-      obj.setProperty(runtime, "onDidDisappear", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onDidDisappear));
-      obj.setProperty(runtime, "onPoppedToRoot", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onPoppedToRoot));
+      obj.setProperty(runtime, "onWillAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillAppear));
+      obj.setProperty(runtime, "onWillDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillDisappear));
+      obj.setProperty(runtime, "onDidAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidAppear));
+      obj.setProperty(runtime, "onDidDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidDisappear));
+      obj.setProperty(runtime, "onPoppedToRoot", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onPoppedToRoot));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -76,12 +81,13 @@ namespace margelo::nitro {
         return false;
       }
       jsi::Object obj = value.getObject(runtime);
+      if (!JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidUpdatePanGestureWithTranslation"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "id"))) return false;
-      if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onWillAppear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onWillDisappear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onDidAppear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onDidDisappear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onPoppedToRoot"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillAppear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillDisappear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidAppear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidDisappear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onPoppedToRoot"))) return false;
       return true;
     }
   };

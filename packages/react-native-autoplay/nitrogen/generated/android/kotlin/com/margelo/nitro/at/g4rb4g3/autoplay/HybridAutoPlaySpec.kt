@@ -49,42 +49,6 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
-  abstract fun addListenerDidPress(callback: (payload: PressEventPayload) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerDidPress_cxx(callback: Func_void_PressEventPayload): Func_void {
-    val __result = addListenerDidPress(callback)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun addListenerDidUpdatePinchGesture(callback: (payload: PinchGestureEventPayload) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerDidUpdatePinchGesture_cxx(callback: Func_void_PinchGestureEventPayload): Func_void {
-    val __result = addListenerDidUpdatePinchGesture(callback)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun addListenerDidUpdatePanGestureWithTranslation(callback: (payload: PanGestureWithTranslationEventPayload) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerDidUpdatePanGestureWithTranslation_cxx(callback: Func_void_PanGestureWithTranslationEventPayload): Func_void {
-    val __result = addListenerDidUpdatePanGestureWithTranslation(callback)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun addListenerTemplateState(templateId: String, callback: (payload: TemplateEventPayload) -> Unit): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun addListenerTemplateState_cxx(templateId: String, callback: Func_void_TemplateEventPayload): Func_void {
-    val __result = addListenerTemplateState(templateId, callback)
-    return Func_void_java(__result)
-  }
-  
   abstract fun addListenerRenderState(mapTemplateId: String, callback: (payload: VisibilityState) -> Unit): () -> Unit
   
   @DoNotStrip
@@ -106,13 +70,18 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   @Keep
   abstract fun dismissTemplate(templateId: String): Unit
   
-  @DoNotStrip
-  @Keep
-  abstract fun createMapTemplate(config: NitroMapTemplateConfig): Unit
+  abstract fun createMapTemplate(config: NitroMapTemplateConfig): () -> Unit
   
   @DoNotStrip
   @Keep
-  abstract fun setRootTemplate(templateId: String): Unit
+  private fun createMapTemplate_cxx(config: NitroMapTemplateConfig): Func_void {
+    val __result = createMapTemplate(config)
+    return Func_void_java(__result)
+  }
+  
+  @DoNotStrip
+  @Keep
+  abstract fun setRootTemplate(templateId: String): Promise<String?>
 
   private external fun initHybrid(): HybridData
 

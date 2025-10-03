@@ -15,6 +15,7 @@
 #include "JAlertAction.hpp"
 #include "JAlertStyle.hpp"
 #include "JFunc_void.hpp"
+#include "JFunc_void_std__optional_bool_.hpp"
 #include <functional>
 #include <optional>
 #include <string>
@@ -45,16 +46,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       jni::local_ref<jni::JArrayClass<JAlertAction>> actions = this->getFieldValue(fieldActions);
       static const auto fieldId = clazz->getField<jni::JString>("id");
       jni::local_ref<jni::JString> id = this->getFieldValue(fieldId);
-      static const auto fieldOnWillAppear = clazz->getField<JFunc_void::javaobject>("onWillAppear");
-      jni::local_ref<JFunc_void::javaobject> onWillAppear = this->getFieldValue(fieldOnWillAppear);
-      static const auto fieldOnWillDisappear = clazz->getField<JFunc_void::javaobject>("onWillDisappear");
-      jni::local_ref<JFunc_void::javaobject> onWillDisappear = this->getFieldValue(fieldOnWillDisappear);
-      static const auto fieldOnDidAppear = clazz->getField<JFunc_void::javaobject>("onDidAppear");
-      jni::local_ref<JFunc_void::javaobject> onDidAppear = this->getFieldValue(fieldOnDidAppear);
-      static const auto fieldOnDidDisappear = clazz->getField<JFunc_void::javaobject>("onDidDisappear");
-      jni::local_ref<JFunc_void::javaobject> onDidDisappear = this->getFieldValue(fieldOnDidDisappear);
-      static const auto fieldOnPoppedToRoot = clazz->getField<JFunc_void::javaobject>("onPoppedToRoot");
-      jni::local_ref<JFunc_void::javaobject> onPoppedToRoot = this->getFieldValue(fieldOnPoppedToRoot);
+      static const auto fieldOnWillAppear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onWillAppear");
+      jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onWillAppear = this->getFieldValue(fieldOnWillAppear);
+      static const auto fieldOnWillDisappear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onWillDisappear");
+      jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onWillDisappear = this->getFieldValue(fieldOnWillDisappear);
+      static const auto fieldOnDidAppear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onDidAppear");
+      jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onDidAppear = this->getFieldValue(fieldOnDidAppear);
+      static const auto fieldOnDidDisappear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onDidDisappear");
+      jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onDidDisappear = this->getFieldValue(fieldOnDidDisappear);
+      static const auto fieldOnPoppedToRoot = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onPoppedToRoot");
+      jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onPoppedToRoot = this->getFieldValue(fieldOnPoppedToRoot);
       return AlertTemplateConfig(
         [&]() {
           size_t __size = titleVariants->size();
@@ -77,58 +78,58 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
           return __vector;
         }()) : std::nullopt,
         id->toStdString(),
-        onWillAppear != nullptr ? std::make_optional([&]() -> std::function<void()> {
-          if (onWillAppear->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-            auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(onWillAppear);
+        onWillAppear != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
+          if (onWillAppear->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
+            auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onWillAppear);
             return downcast->cthis()->getFunction();
           } else {
             auto onWillAppearRef = jni::make_global(onWillAppear);
-            return [onWillAppearRef]() -> void {
-              return onWillAppearRef->invoke();
+            return [onWillAppearRef](std::optional<bool> animated) -> void {
+              return onWillAppearRef->invoke(animated);
             };
           }
         }()) : std::nullopt,
-        onWillDisappear != nullptr ? std::make_optional([&]() -> std::function<void()> {
-          if (onWillDisappear->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-            auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(onWillDisappear);
+        onWillDisappear != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
+          if (onWillDisappear->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
+            auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onWillDisappear);
             return downcast->cthis()->getFunction();
           } else {
             auto onWillDisappearRef = jni::make_global(onWillDisappear);
-            return [onWillDisappearRef]() -> void {
-              return onWillDisappearRef->invoke();
+            return [onWillDisappearRef](std::optional<bool> animated) -> void {
+              return onWillDisappearRef->invoke(animated);
             };
           }
         }()) : std::nullopt,
-        onDidAppear != nullptr ? std::make_optional([&]() -> std::function<void()> {
-          if (onDidAppear->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-            auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(onDidAppear);
+        onDidAppear != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
+          if (onDidAppear->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
+            auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onDidAppear);
             return downcast->cthis()->getFunction();
           } else {
             auto onDidAppearRef = jni::make_global(onDidAppear);
-            return [onDidAppearRef]() -> void {
-              return onDidAppearRef->invoke();
+            return [onDidAppearRef](std::optional<bool> animated) -> void {
+              return onDidAppearRef->invoke(animated);
             };
           }
         }()) : std::nullopt,
-        onDidDisappear != nullptr ? std::make_optional([&]() -> std::function<void()> {
-          if (onDidDisappear->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-            auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(onDidDisappear);
+        onDidDisappear != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
+          if (onDidDisappear->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
+            auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onDidDisappear);
             return downcast->cthis()->getFunction();
           } else {
             auto onDidDisappearRef = jni::make_global(onDidDisappear);
-            return [onDidDisappearRef]() -> void {
-              return onDidDisappearRef->invoke();
+            return [onDidDisappearRef](std::optional<bool> animated) -> void {
+              return onDidDisappearRef->invoke(animated);
             };
           }
         }()) : std::nullopt,
-        onPoppedToRoot != nullptr ? std::make_optional([&]() -> std::function<void()> {
-          if (onPoppedToRoot->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-            auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(onPoppedToRoot);
+        onPoppedToRoot != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
+          if (onPoppedToRoot->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
+            auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onPoppedToRoot);
             return downcast->cthis()->getFunction();
           } else {
             auto onPoppedToRootRef = jni::make_global(onPoppedToRoot);
-            return [onPoppedToRootRef]() -> void {
-              return onPoppedToRootRef->invoke();
+            return [onPoppedToRootRef](std::optional<bool> animated) -> void {
+              return onPoppedToRootRef->invoke(animated);
             };
           }
         }()) : std::nullopt
@@ -161,11 +162,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
           return __array;
         }() : nullptr,
         jni::make_jstring(value.id),
-        value.onWillAppear.has_value() ? JFunc_void_cxx::fromCpp(value.onWillAppear.value()) : nullptr,
-        value.onWillDisappear.has_value() ? JFunc_void_cxx::fromCpp(value.onWillDisappear.value()) : nullptr,
-        value.onDidAppear.has_value() ? JFunc_void_cxx::fromCpp(value.onDidAppear.value()) : nullptr,
-        value.onDidDisappear.has_value() ? JFunc_void_cxx::fromCpp(value.onDidDisappear.value()) : nullptr,
-        value.onPoppedToRoot.has_value() ? JFunc_void_cxx::fromCpp(value.onPoppedToRoot.value()) : nullptr
+        value.onWillAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillAppear.value()) : nullptr,
+        value.onWillDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillDisappear.value()) : nullptr,
+        value.onDidAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidAppear.value()) : nullptr,
+        value.onDidDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidDisappear.value()) : nullptr,
+        value.onPoppedToRoot.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onPoppedToRoot.value()) : nullptr
       );
     }
   };

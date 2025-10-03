@@ -9,18 +9,6 @@
 
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
-// Forward declaration of `PressEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PressEventPayload; }
-// Forward declaration of `PinchGestureEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PinchGestureEventPayload; }
-// Forward declaration of `PanGestureWithTranslationEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct PanGestureWithTranslationEventPayload; }
-// Forward declaration of `Translation` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Translation; }
-// Forward declaration of `Velocity` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Velocity; }
-// Forward declaration of `TemplateEventPayload` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TemplateEventPayload; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
@@ -31,32 +19,20 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
+// Forward declaration of `Point` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 
 #include <functional>
 #include "JFunc_void.hpp"
+#include <string>
+#include <optional>
+#include <NitroModules/Promise.hpp>
+#include <NitroModules/JPromise.hpp>
 #include "EventName.hpp"
 #include "JEventName.hpp"
-#include "PressEventPayload.hpp"
-#include "JFunc_void_PressEventPayload.hpp"
-#include "JPressEventPayload.hpp"
-#include "PinchGestureEventPayload.hpp"
-#include "JFunc_void_PinchGestureEventPayload.hpp"
-#include "JPinchGestureEventPayload.hpp"
-#include "PanGestureWithTranslationEventPayload.hpp"
-#include "JFunc_void_PanGestureWithTranslationEventPayload.hpp"
-#include "JPanGestureWithTranslationEventPayload.hpp"
-#include "Translation.hpp"
-#include "JTranslation.hpp"
-#include "Velocity.hpp"
-#include <optional>
-#include "JVelocity.hpp"
-#include <string>
-#include "TemplateEventPayload.hpp"
-#include "JFunc_void_TemplateEventPayload.hpp"
-#include "JTemplateEventPayload.hpp"
 #include "VisibilityState.hpp"
-#include "JVisibilityState.hpp"
 #include "JFunc_void_VisibilityState.hpp"
+#include "JVisibilityState.hpp"
 #include "AlertTemplateConfig.hpp"
 #include "JAlertTemplateConfig.hpp"
 #include <vector>
@@ -64,8 +40,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig;
 #include "JAlertAction.hpp"
 #include "AlertStyle.hpp"
 #include "JAlertStyle.hpp"
+#include "JFunc_void_std__optional_bool_.hpp"
 #include "NitroMapTemplateConfig.hpp"
 #include "JNitroMapTemplateConfig.hpp"
+#include "Point.hpp"
+#include "JFunc_void_Point_std__optional_Point_.hpp"
+#include "JPoint.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
 
@@ -108,66 +88,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       }
     }();
   }
-  std::function<void()> JHybridAutoPlaySpec::addListenerDidPress(const std::function<void(const PressEventPayload& /* payload */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_PressEventPayload::javaobject> /* callback */)>("addListenerDidPress_cxx");
-    auto __result = method(_javaPart, JFunc_void_PressEventPayload_cxx::fromCpp(callback));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
-  }
-  std::function<void()> JHybridAutoPlaySpec::addListenerDidUpdatePinchGesture(const std::function<void(const PinchGestureEventPayload& /* payload */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_PinchGestureEventPayload::javaobject> /* callback */)>("addListenerDidUpdatePinchGesture_cxx");
-    auto __result = method(_javaPart, JFunc_void_PinchGestureEventPayload_cxx::fromCpp(callback));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
-  }
-  std::function<void()> JHybridAutoPlaySpec::addListenerDidUpdatePanGestureWithTranslation(const std::function<void(const PanGestureWithTranslationEventPayload& /* payload */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_PanGestureWithTranslationEventPayload::javaobject> /* callback */)>("addListenerDidUpdatePanGestureWithTranslation_cxx");
-    auto __result = method(_javaPart, JFunc_void_PanGestureWithTranslationEventPayload_cxx::fromCpp(callback));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
-  }
-  std::function<void()> JHybridAutoPlaySpec::addListenerTemplateState(const std::string& templateId, const std::function<void(const TemplateEventPayload& /* payload */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JFunc_void_TemplateEventPayload::javaobject> /* callback */)>("addListenerTemplateState_cxx");
-    auto __result = method(_javaPart, jni::make_jstring(templateId), JFunc_void_TemplateEventPayload_cxx::fromCpp(callback));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
-  }
   std::function<void()> JHybridAutoPlaySpec::addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<jni::JString> /* mapTemplateId */, jni::alias_ref<JFunc_void_VisibilityState::javaobject> /* callback */)>("addListenerRenderState_cxx");
     auto __result = method(_javaPart, jni::make_jstring(mapTemplateId), JFunc_void_VisibilityState_cxx::fromCpp(callback));
@@ -195,13 +115,36 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("dismissTemplate");
     method(_javaPart, jni::make_jstring(templateId));
   }
-  void JHybridAutoPlaySpec::createMapTemplate(const NitroMapTemplateConfig& config) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JNitroMapTemplateConfig> /* config */)>("createMapTemplate");
-    method(_javaPart, JNitroMapTemplateConfig::fromCpp(config));
+  std::function<void()> JHybridAutoPlaySpec::createMapTemplate(const NitroMapTemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JNitroMapTemplateConfig> /* config */)>("createMapTemplate_cxx");
+    auto __result = method(_javaPart, JNitroMapTemplateConfig::fromCpp(config));
+    return [&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return [__resultRef]() -> void {
+          return __resultRef->invoke();
+        };
+      }
+    }();
   }
-  void JHybridAutoPlaySpec::setRootTemplate(const std::string& templateId) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("setRootTemplate");
-    method(_javaPart, jni::make_jstring(templateId));
+  std::shared_ptr<Promise<std::optional<std::string>>> JHybridAutoPlaySpec::setRootTemplate(const std::string& templateId) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* templateId */)>("setRootTemplate");
+    auto __result = method(_javaPart, jni::make_jstring(templateId));
+    return [&]() {
+      auto __promise = Promise<std::optional<std::string>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<jni::JString>(__boxedResult);
+        __promise->resolve(__result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt);
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay

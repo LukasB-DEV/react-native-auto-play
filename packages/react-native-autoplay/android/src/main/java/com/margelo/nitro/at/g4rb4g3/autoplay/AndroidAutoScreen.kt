@@ -11,24 +11,19 @@ import androidx.car.app.navigation.model.NavigationTemplate
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.AppInfo
 
 class AndroidAutoScreen(
-    carContext: CarContext, private val isCluster: Boolean, private val marker: String
+    carContext: CarContext, private val isCluster: Boolean, autoPlayMarker: String
 ) : Screen(carContext) {
 
     var template: Template? = null
     var virtualRenderer: VirtualRenderer? = null
 
     init {
-        // temp code, remove once setTemplate js call is done
-        val template = NavigationTemplate.Builder().apply {
-            setActionStrip(ActionStrip.Builder().apply { addAction(Action.APP_ICON) }
-                .build()).build()
-        }.build()
-
-        setTemplate(template = template, isSurfaceTemplate = true)
-        // end temp code
+        marker = autoPlayMarker
+        screens.put(autoPlayMarker, this)
 
         lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(
@@ -36,19 +31,19 @@ class AndroidAutoScreen(
             ) {
                 when (event) {
                     Lifecycle.Event.ON_CREATE -> {
-                        HybridAutoPlay.emitTemplateState(marker, VisibilityState.WILLAPPEAR)
+                        HybridAutoPlay.emitTemplateState(autoPlayMarker, VisibilityState.WILLAPPEAR)
                     }
 
                     Lifecycle.Event.ON_RESUME -> {
-                        HybridAutoPlay.emitTemplateState(marker, VisibilityState.DIDAPPEAR)
+                        HybridAutoPlay.emitTemplateState(autoPlayMarker, VisibilityState.DIDAPPEAR)
                     }
 
                     Lifecycle.Event.ON_PAUSE -> {
-                        HybridAutoPlay.emitTemplateState(marker, VisibilityState.WILLDISAPPEAR)
+                        HybridAutoPlay.emitTemplateState(autoPlayMarker, VisibilityState.WILLDISAPPEAR)
                     }
 
                     Lifecycle.Event.ON_DESTROY -> {
-                        HybridAutoPlay.emitTemplateState(marker, VisibilityState.DIDDISAPPEAR)
+                        HybridAutoPlay.emitTemplateState(autoPlayMarker, VisibilityState.DIDDISAPPEAR)
                     }
 
                     else -> {}
@@ -59,13 +54,15 @@ class AndroidAutoScreen(
     }
 
     fun setTemplate(template: Template, invalidate: Boolean = false, isSurfaceTemplate: Boolean) {
-        if (isSurfaceTemplate && virtualRenderer == null) {
-            virtualRenderer = VirtualRenderer(carContext, isCluster)
-        }
-        this.template = template
+        UiThreadUtil.runOnUiThread {
+            if (isSurfaceTemplate && virtualRenderer == null) {
+                virtualRenderer = VirtualRenderer(carContext, isCluster)
+            }
+            this.template = template
 
-        if (invalidate) {
-            invalidate()
+            if (invalidate) {
+                invalidate()
+            }
         }
     }
 
@@ -90,5 +87,11 @@ class AndroidAutoScreen(
 
     companion object {
         const val TAG = "AndroidAutoScreen"
+
+        private val screens = mutableMapOf<String, AndroidAutoScreen>()
+
+        fun getScreen(marker: String): AndroidAutoScreen? {
+            return screens[marker]
+        }
     }
 }

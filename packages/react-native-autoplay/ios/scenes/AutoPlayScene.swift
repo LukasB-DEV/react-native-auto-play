@@ -62,7 +62,7 @@ class AutoPlayScene: UIResponder {
         )
     }
 
-    func setRootTemplate() {
+    func initRootView() {
         DispatchQueue.main.async {
             guard let window = self.window else {
                 return

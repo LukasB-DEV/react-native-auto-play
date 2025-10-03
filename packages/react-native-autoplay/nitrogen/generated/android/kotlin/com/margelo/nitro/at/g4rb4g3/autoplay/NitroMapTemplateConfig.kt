@@ -23,26 +23,29 @@ data class NitroMapTemplateConfig
   constructor(
     @DoNotStrip
     @Keep
+    val onDidUpdatePanGestureWithTranslation: Func_void_Point_std__optional_Point_?,
+    @DoNotStrip
+    @Keep
     val id: String,
     @DoNotStrip
     @Keep
-    val onWillAppear: Func_void?,
+    val onWillAppear: Func_void_std__optional_bool_?,
     @DoNotStrip
     @Keep
-    val onWillDisappear: Func_void?,
+    val onWillDisappear: Func_void_std__optional_bool_?,
     @DoNotStrip
     @Keep
-    val onDidAppear: Func_void?,
+    val onDidAppear: Func_void_std__optional_bool_?,
     @DoNotStrip
     @Keep
-    val onDidDisappear: Func_void?,
+    val onDidDisappear: Func_void_std__optional_bool_?,
     @DoNotStrip
     @Keep
-    val onPoppedToRoot: Func_void?
+    val onPoppedToRoot: Func_void_std__optional_bool_?
   ) {
   /**
    * Initialize a new instance of `NitroMapTemplateConfig` from Kotlin.
    */
-  constructor(id: String, onWillAppear: (() -> Unit)?, onWillDisappear: (() -> Unit)?, onDidAppear: (() -> Unit)?, onDidDisappear: (() -> Unit)?, onPoppedToRoot: (() -> Unit)?)
-       : this(id, onWillAppear?.let { Func_void_java(it) }, onWillDisappear?.let { Func_void_java(it) }, onDidAppear?.let { Func_void_java(it) }, onDidDisappear?.let { Func_void_java(it) }, onPoppedToRoot?.let { Func_void_java(it) })
+  constructor(onDidUpdatePanGestureWithTranslation: ((translation: Point, velocity: Point?) -> Unit)?, id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPoppedToRoot: ((animated: Boolean?) -> Unit)?)
+       : this(onDidUpdatePanGestureWithTranslation?.let { Func_void_Point_std__optional_Point__java(it) }, id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPoppedToRoot?.let { Func_void_std__optional_bool__java(it) })
 }

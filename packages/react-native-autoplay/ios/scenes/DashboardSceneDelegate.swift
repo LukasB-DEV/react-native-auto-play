@@ -14,7 +14,7 @@ class DashboardSceneDelegate: AutoPlayScene,
     override init() {
         super.init(moduleName: "AutoPlayDashboard")
     }
-    
+
     func templateApplicationDashboardScene(
         _ templateApplicationDashboardScene:
             CPTemplateApplicationDashboardScene,
@@ -22,7 +22,7 @@ class DashboardSceneDelegate: AutoPlayScene,
         to window: UIWindow
     ) {
         self.window = window
-        
+
         let props: [String: Any] = [
             "colorScheme": window.screen.traitCollection
                 .userInterfaceStyle == .dark ? "dark" : "light",
@@ -32,7 +32,7 @@ class DashboardSceneDelegate: AutoPlayScene,
                 "scale": window.screen.scale,
             ],
         ]
-        
+
         connect(props: props)
         // RNCarPlay.connect(withDashboardController: dashboardController, window: window)
     }
