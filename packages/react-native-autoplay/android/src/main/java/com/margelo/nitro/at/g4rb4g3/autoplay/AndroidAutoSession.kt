@@ -43,6 +43,20 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
             reactContext = ReactContextResolver.getReactContext(reactApplication)
             reactContext.addLifecycleEventListener(reactLifecycleObserver)
 
+            // TODO this is not required for templates that host a component, check if we need this for non-rendering templates
+            /*
+            val appRegistry = reactContext.getJSModule(AppRegistry::class.java)
+                ?: throw ClassNotFoundException("could not get AppRegistry instance")
+            val jsAppModuleName = if (isCluster) "AndroidAutoCluster" else "AndroidAuto"
+            val appParams = WritableNativeMap().apply {
+                putMap("initialProps", Arguments.createMap().apply {
+                    putString("id", clusterTemplateId)
+                })
+            }
+
+            appRegistry.runApplication(jsAppModuleName, appParams)
+            */
+
             if (isCluster) {
                 return@launch
             }
