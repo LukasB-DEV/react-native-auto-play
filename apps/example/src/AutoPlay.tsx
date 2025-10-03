@@ -49,7 +49,7 @@ const registerRunnable = () => {
   };
 
   const onDisconnect = () => {
-    template.destroy();
+    // template.destroy();
   };
 
   AutoPlay.addListener('didConnect', onConnect);
