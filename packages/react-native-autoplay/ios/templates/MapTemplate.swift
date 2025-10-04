@@ -5,6 +5,7 @@
 //  Created by Manuel Auer on 03.10.25.
 //
 import CarPlay
+import React
 
 class MapTemplate: Template, CPMapTemplateDelegate {
     let config: NitroMapTemplateConfig
@@ -18,6 +19,18 @@ class MapTemplate: Template, CPMapTemplateDelegate {
 
         if let template = self.template as? CPMapTemplate {
             template.mapDelegate = self
+            if let mapButtons = config.mapButtons {
+                template.mapButtons = mapButtons.map { button in
+                    //let image = RCTConvert.uiImage(button.image)!
+                    let image = MaterialSymbols.imageFromMaterialSymbol(
+                        glyph: button.image,
+                        size: 24
+                    )!
+                    return CPMapButton(image: image) { _ in
+                        button.onPress()
+                    }
+                }
+            }
         }
     }
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { AutoPlay } from '..';
+import type { Button } from '../types/Button';
+import { type GlyphName, glyphMap } from '../types/Glyphmap';
 import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
 import { Template, type TemplateConfig } from './Template';
 
@@ -9,7 +11,15 @@ export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayClust
 
 type Point = { x: number; y: number };
 
+interface NitroMapButton extends Button {
+  image: number;
+}
+
 export interface NitroMapTemplateConfig extends TemplateConfig {
+  /**
+   * buttons that represent actions on the map template, usually on the bottom right corner
+   */
+  mapButtons?: Array<NitroMapButton>;
   /**
    * callback for single finger pan gesture
    * @param translation distance in pixels along the x & y axis that has been scrolled since the last touch position during the scroll event
@@ -45,7 +55,7 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
   onAppearanceDidChange?: (colorScheme: ColorScheme) => void;
 }
 
-export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id'> & {
+export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id' | 'mapButtons'> & {
   /**
    * map templates can have only these ids
    * @AutoPlayRoot head unit screen
@@ -54,6 +64,7 @@ export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id'> & {
    */
   id: MapTemplateId;
   component: React.ComponentType<RootComponentInitialProps & { template: MapTemplate }>;
+  mapButtons?: Array<Omit<NitroMapButton, 'image'> & { image: GlyphName }>;
 };
 
 export class MapTemplate extends Template<MapTemplateConfig> {
@@ -68,14 +79,22 @@ export class MapTemplate extends Template<MapTemplateConfig> {
 
     // biome-ignore lint/complexity/noUselessThisAlias: we need the template reference when the component gets started from react-native
     const template = this;
-    const { component, ...rest } = config;
+    const { component, mapButtons, ...rest } = config;
 
     AppRegistry.registerComponent(
       this.templateId,
       () => (props) => React.createElement(component, { ...props, template })
     );
 
-    this.cleanup = AutoPlay.createMapTemplate(rest);
+    const mapConfig = {
+      ...rest,
+      mapButtons: mapButtons?.map((button) => ({
+        ...button,
+        image: glyphMap[button.image],
+      })),
+    };
+
+    this.cleanup = AutoPlay.createMapTemplate(mapConfig);
   }
 
   public setRootTemplate() {

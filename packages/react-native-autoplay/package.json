@@ -34,7 +34,8 @@
     "lint": "biome check src",
     "lint-ci": "biome ci src --reporter=summary",
     "typescript": "tsc",
-    "specs": "tsc && nitrogen --logLevel=\"debug\""
+    "generate:fonts": "node ./assets/symbolFont/bundleAsset.js",
+    "specs": "tsc && nitrogen --logLevel=\"debug\" && npm run generate:fonts"
   },
   "keywords": [
     "react-native",

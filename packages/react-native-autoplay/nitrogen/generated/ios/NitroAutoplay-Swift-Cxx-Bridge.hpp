@@ -12,10 +12,14 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+// Forward declaration of `ButtonType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ButtonType; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+// Forward declaration of `NitroMapButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
@@ -28,8 +32,10 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 // Include C++ defined types
 #include "AlertAction.hpp"
 #include "AlertStyle.hpp"
+#include "ButtonType.hpp"
 #include "ColorScheme.hpp"
 #include "HybridAutoPlaySpec.hpp"
+#include "NitroMapButton.hpp"
 #include "Point.hpp"
 #include "VisibilityState.hpp"
 #include <NitroModules/FastVectorCopy.hpp>
@@ -195,6 +201,33 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return optional.has_value();
   }
   inline std::function<void(std::optional<bool> /* animated */)> get_std__optional_std__function_void_std__optional_bool_____animated______(const std::optional<std::function<void(std::optional<bool> /* animated */)>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::vector<NitroMapButton>
+  /**
+   * Specialized version of `std::vector<NitroMapButton>`.
+   */
+  using std__vector_NitroMapButton_ = std::vector<NitroMapButton>;
+  inline std::vector<NitroMapButton> copy_std__vector_NitroMapButton_(const NitroMapButton* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
+    return margelo::nitro::FastVectorCopy<NitroMapButton>(data, size);
+  }
+  inline const NitroMapButton* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroMapButton_(const std::vector<NitroMapButton>& vector) noexcept {
+    return vector.data();
+  }
+  
+  // pragma MARK: std::optional<std::vector<NitroMapButton>>
+  /**
+   * Specialized version of `std::optional<std::vector<NitroMapButton>>`.
+   */
+  using std__optional_std__vector_NitroMapButton__ = std::optional<std::vector<NitroMapButton>>;
+  inline std::optional<std::vector<NitroMapButton>> create_std__optional_std__vector_NitroMapButton__(const std::vector<NitroMapButton>& value) noexcept {
+    return std::optional<std::vector<NitroMapButton>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<NitroMapButton> get_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
     return *optional;
   }
   

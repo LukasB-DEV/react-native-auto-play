@@ -19,6 +19,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
+// Forward declaration of `NitroMapButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
+// Forward declaration of `ButtonType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ButtonType; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
@@ -45,6 +49,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 #include "JFunc_void_std__optional_bool_.hpp"
 #include "NitroMapTemplateConfig.hpp"
 #include "JNitroMapTemplateConfig.hpp"
+#include "NitroMapButton.hpp"
+#include "JNitroMapButton.hpp"
+#include "ButtonType.hpp"
+#include "JButtonType.hpp"
 #include "Point.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
 #include "JPoint.hpp"

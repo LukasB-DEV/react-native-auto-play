@@ -16,6 +16,9 @@ class MapTemplate(
                     addAction(Action.APP_ICON)
                 }.build()
             ).build()
+            setMapActionStrip(ActionStrip.Builder().apply {
+                addAction(Action.BACK)
+            }.build())
         }.build()
     }
 }

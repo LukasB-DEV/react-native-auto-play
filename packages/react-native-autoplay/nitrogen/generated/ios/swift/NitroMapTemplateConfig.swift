@@ -18,8 +18,16 @@ public extension NitroMapTemplateConfig {
   /**
    * Create a new instance of `NitroMapTemplateConfig`.
    */
-  init(onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
-    self.init({ () -> bridge.std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______ in
+  init(mapButtons: [NitroMapButton]?, onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
+    self.init({ () -> bridge.std__optional_std__vector_NitroMapButton__ in
+      if let __unwrappedValue = mapButtons {
+        return bridge.create_std__optional_std__vector_NitroMapButton__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroMapButton_ in
+          return bridge.copy_std__vector_NitroMapButton_(__pointer.baseAddress!, __unwrappedValue.count)
+        })
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______ in
       if let __unwrappedValue = onDidUpdatePanGestureWithTranslation {
         return bridge.create_std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______({ () -> bridge.Func_void_Point_std__optional_Point_ in
           let __closureWrapper = Func_void_Point_std__optional_Point_(__unwrappedValue)
@@ -112,6 +120,36 @@ public extension NitroMapTemplateConfig {
     }())
   }
 
+  var mapButtons: [NitroMapButton]? {
+    @inline(__always)
+    get {
+      return { () -> [NitroMapButton]? in
+        if bridge.has_value_std__optional_std__vector_NitroMapButton__(self.__mapButtons) {
+          let __unwrapped = bridge.get_std__optional_std__vector_NitroMapButton__(self.__mapButtons)
+          return { () -> [NitroMapButton] in
+            let __data = bridge.get_data_std__vector_NitroMapButton_(__unwrapped)
+            let __size = __unwrapped.size()
+            return Array(UnsafeBufferPointer(start: __data, count: __size))
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__mapButtons = { () -> bridge.std__optional_std__vector_NitroMapButton__ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__vector_NitroMapButton__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroMapButton_ in
+            return bridge.copy_std__vector_NitroMapButton_(__pointer.baseAddress!, __unwrappedValue.count)
+          })
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
   var onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)? {
     @inline(__always)
     get {

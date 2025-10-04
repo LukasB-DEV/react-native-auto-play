@@ -42,6 +42,9 @@ const registerRunnable = () => {
     onClick: ({ x, y }) => console.log('*** onClick', x, y),
     onDoubleClick: ({ x, y }) => console.log('*** onDoubleClick', x, y),
     onAppearanceDidChange: (colorScheme) => console.log('*** onAppearanceDidChange', colorScheme),
+    mapButtons: [
+      { type: 'custom', image: 'ev_station', onPress: () => console.log('map button on press') },
+    ],
   });
 
   const onConnect = () => {

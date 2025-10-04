@@ -22,6 +22,10 @@ Pod::Spec.new do |s|
     "cpp/**/*.{hpp,cpp}",
   ]
 
+  s.resource_bundles = {
+    "NitroAutoplay" => ['ios/Assets/**/*.ttf']
+  }
+
   load 'nitrogen/generated/ios/NitroAutoplay+autolinking.rb'
   add_nitrogen_files(s)
 
