@@ -16,38 +16,47 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{ flex: 1, backgroundColor: 'green' }}>
       <Text>
         Hello Nitro {Platform.OS} {i}
       </Text>
       <Text>{JSON.stringify(props.window)}</Text>
+      <Text>Running as {props.id}</Text>
     </View>
   );
 };
 
 const registerRunnable = () => {
-  const template = new MapTemplate({
-    component: AutoPlayRoot,
-    id: 'AutoPlayRoot',
-    onWillAppear: () => console.log('onWillAppear'),
-    onDidAppear: () => console.log('onDidAppear'),
-    onWillDisappear: () => console.log('onWillDisappear'),
-    onDidDisappear: () => console.log('onDidDisappear'),
-    onDidUpdatePanGestureWithTranslation: ({ x, y }) => {
-      console.log('*** onDidUpdatePanGestureWithTranslation', x, y);
-    },
-    onDidUpdateZoomGestureWithCenter: ({ x, y }, scale) => {
-      console.log('*** onDidUpdateZoomGestureWithCenter', x, y, scale);
-    },
-    onClick: ({ x, y }) => console.log('*** onClick', x, y),
-    onDoubleClick: ({ x, y }) => console.log('*** onDoubleClick', x, y),
-    onAppearanceDidChange: (colorScheme) => console.log('*** onAppearanceDidChange', colorScheme),
-    mapButtons: [
-      { type: 'custom', image: 'ev_station', onPress: () => console.log('map button on press') },
-    ],
-  });
-
   const onConnect = () => {
+    const template = new MapTemplate({
+      component: AutoPlayRoot,
+      id: 'AutoPlayRoot',
+      onWillAppear: () => console.log('onWillAppear'),
+      onDidAppear: () => console.log('onDidAppear'),
+      onWillDisappear: () => console.log('onWillDisappear'),
+      onDidDisappear: () => console.log('onDidDisappear'),
+      onDidUpdatePanGestureWithTranslation: ({ x, y }) => {
+        console.log('*** onDidUpdatePanGestureWithTranslation', x, y);
+      },
+      onDidUpdateZoomGestureWithCenter: ({ x, y }, scale) => {
+        console.log('*** onDidUpdateZoomGestureWithCenter', x, y, scale);
+      },
+      onClick: ({ x, y }) => console.log('*** onClick', x, y),
+      onDoubleClick: ({ x, y }) => console.log('*** onDoubleClick', x, y),
+      onAppearanceDidChange: (colorScheme) => console.log('*** onAppearanceDidChange', colorScheme),
+      mapButtons: [
+        {
+          type: 'custom',
+          image: {
+            name: 'ev_station',
+            size: 22,
+            color: 'rgba(255, 255, 255, 1)',
+            backgroundColor: 'rgba(66, 66, 66, 0.5)',
+          },
+          onPress: () => console.log('map button on press'),
+        },
+      ],
+    });
     template.setRootTemplate();
   };
 

@@ -12,12 +12,14 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
-// Forward declaration of `ButtonType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ButtonType; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+// Forward declaration of `MapButtonType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class MapButtonType; }
+// Forward declaration of `NitroImage` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
 // Forward declaration of `Point` to properly resolve imports.
@@ -32,9 +34,10 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 // Include C++ defined types
 #include "AlertAction.hpp"
 #include "AlertStyle.hpp"
-#include "ButtonType.hpp"
 #include "ColorScheme.hpp"
 #include "HybridAutoPlaySpec.hpp"
+#include "MapButtonType.hpp"
+#include "NitroImage.hpp"
 #include "NitroMapButton.hpp"
 #include "Point.hpp"
 #include "VisibilityState.hpp"
@@ -204,6 +207,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
+  // pragma MARK: std::optional<double>
+  /**
+   * Specialized version of `std::optional<double>`.
+   */
+  using std__optional_double_ = std::optional<double>;
+  inline std::optional<double> create_std__optional_double_(const double& value) noexcept {
+    return std::optional<double>(value);
+  }
+  inline bool has_value_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::vector<NitroMapButton>
   /**
    * Specialized version of `std::vector<NitroMapButton>`.
@@ -280,21 +298,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return optional.has_value();
   }
   inline std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)> get_std__optional_std__function_void_const_Point_____translation_____const_std__optional_Point______velocity______(const std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::optional<double>
-  /**
-   * Specialized version of `std::optional<double>`.
-   */
-  using std__optional_double_ = std::optional<double>;
-  inline std::optional<double> create_std__optional_double_(const double& value) noexcept {
-    return std::optional<double>(value);
-  }
-  inline bool has_value_std__optional_double_(const std::optional<double>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
     return *optional;
   }
   

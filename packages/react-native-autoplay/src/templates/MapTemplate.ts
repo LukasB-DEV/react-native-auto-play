@@ -1,8 +1,8 @@
 import React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Platform, processColor } from 'react-native';
 import { AutoPlay } from '..';
-import type { Button } from '../types/Button';
-import { type GlyphName, glyphMap } from '../types/Glyphmap';
+import type { Button, MapButton, MapButtonType } from '../types/Button';
+import { glyphMap } from '../types/Glyphmap';
 import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
 import { Template, type TemplateConfig } from './Template';
 
@@ -11,8 +11,16 @@ export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayClust
 
 type Point = { x: number; y: number };
 
+type NitroImage = {
+  glyph: number;
+  size: number;
+  color?: number;
+  backgroundColor?: number;
+};
+
 interface NitroMapButton extends Button {
-  image: number;
+  type: MapButtonType;
+  image: NitroImage;
 }
 
 export interface NitroMapTemplateConfig extends TemplateConfig {
@@ -64,7 +72,7 @@ export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id' | 'mapButtons'
    */
   id: MapTemplateId;
   component: React.ComponentType<RootComponentInitialProps & { template: MapTemplate }>;
-  mapButtons?: Array<Omit<NitroMapButton, 'image'> & { image: GlyphName }>;
+  mapButtons?: Array<MapButton>;
 };
 
 export class MapTemplate extends Template<MapTemplateConfig> {
@@ -79,7 +87,7 @@ export class MapTemplate extends Template<MapTemplateConfig> {
 
     // biome-ignore lint/complexity/noUselessThisAlias: we need the template reference when the component gets started from react-native
     const template = this;
-    const { component, mapButtons, ...rest } = config;
+    const { component, mapButtons, ...baseConfig } = config;
 
     AppRegistry.registerComponent(
       this.templateId,
@@ -87,11 +95,28 @@ export class MapTemplate extends Template<MapTemplateConfig> {
     );
 
     const mapConfig = {
-      ...rest,
-      mapButtons: mapButtons?.map((button) => ({
-        ...button,
-        image: glyphMap[button.image],
-      })),
+      ...baseConfig,
+      mapButtons: mapButtons?.map((button) => {
+        const {
+          name,
+          size = 16,
+          color = 'white',
+          backgroundColor = 'transparent',
+          ...rest
+        } = button.image;
+        return {
+          ...button,
+          image: {
+            ...rest,
+            size,
+            glyph: glyphMap[name],
+            color: processColor(Platform.OS === 'android' ? 'white' : color) as number | undefined,
+            backgroundColor: processColor(
+              Platform.OS === 'android' ? 'transparent' : backgroundColor
+            ) as number | undefined,
+          },
+        };
+      }),
     };
 
     this.cleanup = AutoPlay.createMapTemplate(mapConfig);

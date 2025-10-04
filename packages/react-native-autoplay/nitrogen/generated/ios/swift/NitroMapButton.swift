@@ -18,25 +18,14 @@ public extension NitroMapButton {
   /**
    * Create a new instance of `NitroMapButton`.
    */
-  init(image: Double, type: ButtonType, onPress: @escaping () -> Void) {
-    self.init(image, type, { () -> bridge.Func_void in
+  init(type: MapButtonType, image: NitroImage, onPress: @escaping () -> Void) {
+    self.init(type, image, { () -> bridge.Func_void in
       let __closureWrapper = Func_void(onPress)
       return bridge.create_Func_void(__closureWrapper.toUnsafe())
     }())
   }
 
-  var image: Double {
-    @inline(__always)
-    get {
-      return self.__image
-    }
-    @inline(__always)
-    set {
-      self.__image = newValue
-    }
-  }
-  
-  var type: ButtonType {
+  var type: MapButtonType {
     @inline(__always)
     get {
       return self.__type
@@ -44,6 +33,17 @@ public extension NitroMapButton {
     @inline(__always)
     set {
       self.__type = newValue
+    }
+  }
+  
+  var image: NitroImage {
+    @inline(__always)
+    get {
+      return self.__image
+    }
+    @inline(__always)
+    set {
+      self.__image = newValue
     }
   }
   

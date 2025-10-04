@@ -14,14 +14,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
-// Forward declaration of `ButtonType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ButtonType; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+// Forward declaration of `MapButtonType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class MapButtonType; }
+// Forward declaration of `NitroImage` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
 // Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
@@ -35,10 +37,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "AlertAction.hpp"
 #include "AlertStyle.hpp"
 #include "AlertTemplateConfig.hpp"
-#include "ButtonType.hpp"
 #include "ColorScheme.hpp"
 #include "EventName.hpp"
 #include "HybridAutoPlaySpec.hpp"
+#include "MapButtonType.hpp"
+#include "NitroImage.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapTemplateConfig.hpp"
 #include "Point.hpp"

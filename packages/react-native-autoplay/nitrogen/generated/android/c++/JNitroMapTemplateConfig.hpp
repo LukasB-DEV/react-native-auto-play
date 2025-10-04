@@ -10,9 +10,7 @@
 #include <fbjni/fbjni.h>
 #include "NitroMapTemplateConfig.hpp"
 
-#include "ButtonType.hpp"
 #include "ColorScheme.hpp"
-#include "JButtonType.hpp"
 #include "JColorScheme.hpp"
 #include "JFunc_void.hpp"
 #include "JFunc_void_ColorScheme.hpp"
@@ -20,8 +18,12 @@
 #include "JFunc_void_Point_double_std__optional_double_.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
+#include "JMapButtonType.hpp"
+#include "JNitroImage.hpp"
 #include "JNitroMapButton.hpp"
 #include "JPoint.hpp"
+#include "MapButtonType.hpp"
+#include "NitroImage.hpp"
 #include "NitroMapButton.hpp"
 #include "Point.hpp"
 #include <functional>

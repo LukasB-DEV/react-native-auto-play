@@ -7,12 +7,14 @@
 
 import CoreText
 import UIKit
+import React
 
-class MaterialSymbols {
+class SymbolFont {
     private static var isRegistered = false
+    private static var fontName: String?
 
-    static func registerMaterialSymbols() {
-        let podBundle = Bundle(for: MaterialSymbols.self)
+    static func loadFont() {
+        let podBundle = Bundle(for: SymbolFont.self)
 
         guard
             let bundleURL = podBundle.url(
@@ -44,20 +46,23 @@ class MaterialSymbols {
             print("Font \(font.fullName as String? ?? "unknown") registered")
         }
 
-        MaterialSymbols.isRegistered = true
+        SymbolFont.fontName = font.fullName as? String
+        SymbolFont.isRegistered = true
     }
 
-    static func imageFromMaterialSymbol(
+    static func imageFromGlyph(
         glyph: Double,
         size: CGFloat,
-        color: UIColor = .black
+        color: UIColor = .black,
+        backgroundColor: UIColor = .white
     ) -> UIImage? {
-        if !MaterialSymbols.isRegistered {
-            MaterialSymbols.registerMaterialSymbols()
+        if !SymbolFont.isRegistered {
+            SymbolFont.loadFont()
         }
 
-        let fontName = "Material Symbols Outlined"
-        guard let font = UIFont(name: fontName, size: size) else {
+        guard let fontName = SymbolFont.fontName,
+            let font = UIFont(name: fontName, size: size)
+        else {
             print("❌ Font not loaded")
             return nil
         }
@@ -72,13 +77,40 @@ class MaterialSymbols {
             string: codepoint,
             attributes: attributes
         )
-        let textSize = attrString.size()
+        let canvasSize = CGSize(width: 32, height: 32)
+        let rect = CGRect(origin: .zero, size: canvasSize)
 
-        UIGraphicsBeginImageContextWithOptions(textSize, false, 0)
-        attrString.draw(at: .zero)
+        // Start drawing
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+        // Fill background
+        context.setFillColor(backgroundColor.cgColor)
+        context.fill(rect)
+
+        // Draw glyph
+        let textSize = attrString.size()
+        let x = (canvasSize.width - textSize.width) / 2
+        let y = (canvasSize.height - textSize.height) / 2
+        attrString.draw(at: CGPoint(x: x, y: y))
+
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
         return image
+    }
+    
+    static func imageFromNitroImage(image: NitroImage) -> UIImage {
+        let color = RCTConvert.uiColor(image.color) ?? .black
+        let backgroundColor =
+            RCTConvert.uiColor(image.backgroundColor)
+            ?? .white
+
+        return SymbolFont.imageFromGlyph(
+            glyph: image.glyph,
+            size: image.size,
+            color: color,
+            backgroundColor: backgroundColor
+        )!
     }
 }

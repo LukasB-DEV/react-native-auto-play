@@ -37,4 +37,8 @@ fs.copyFile(`${__dirname}/${FontName}.ttf`, `${OutDirIos}/${FontName}.ttf`, () =
 
 fs.rmSync(OutDirAndroid, { recursive: true, force: true });
 fs.mkdir(OutDirAndroid, () => {});
-fs.copyFile(`${__dirname}/${FontName}.ttf`, `${OutDirAndroid}/${FontName}.ttf`, () => {});
+fs.copyFile(
+  `${__dirname}/${FontName}.ttf`,
+  `${OutDirAndroid}/${FontName.toLowerCase().replaceAll('-', '_')}.ttf`,
+  () => {}
+);

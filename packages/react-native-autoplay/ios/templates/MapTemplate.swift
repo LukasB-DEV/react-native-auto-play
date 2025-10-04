@@ -21,11 +21,7 @@ class MapTemplate: Template, CPMapTemplateDelegate {
             template.mapDelegate = self
             if let mapButtons = config.mapButtons {
                 template.mapButtons = mapButtons.map { button in
-                    //let image = RCTConvert.uiImage(button.image)!
-                    let image = MaterialSymbols.imageFromMaterialSymbol(
-                        glyph: button.image,
-                        size: 24
-                    )!
+                    let image = SymbolFont.imageFromNitroImage(image: button.image)
                     return CPMapButton(image: image) { _ in
                         button.onPress()
                     }

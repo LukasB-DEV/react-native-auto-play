@@ -1,15 +1,15 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
-class TemplateStore {
-    companion object {
-        private val templates = mutableMapOf<String, AndroidAutoTemplate>()
+import android.content.Context
 
-        fun addTemplate(id: String, template: AndroidAutoTemplate) {
-            templates.put(id, template)
-        }
+object TemplateStore {
+    private val templates = mutableMapOf<String, AndroidAutoTemplate>()
 
-        fun getTemplate(id: String): AndroidAutoTemplate? {
-            return templates.get(id)
-        }
+    fun addTemplate(id: String, template: AndroidAutoTemplate) {
+        templates.put(id, template)
+    }
+
+    fun getTemplate(id: String): AndroidAutoTemplate? {
+        return templates.get(id)
     }
 }

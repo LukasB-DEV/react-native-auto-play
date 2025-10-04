@@ -10,10 +10,13 @@
 #include <fbjni/fbjni.h>
 #include "NitroMapButton.hpp"
 
-#include "ButtonType.hpp"
-#include "JButtonType.hpp"
 #include "JFunc_void.hpp"
+#include "JMapButtonType.hpp"
+#include "JNitroImage.hpp"
+#include "MapButtonType.hpp"
+#include "NitroImage.hpp"
 #include <functional>
+#include <optional>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
 
@@ -34,15 +37,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     [[nodiscard]]
     NitroMapButton toCpp() const {
       static const auto clazz = javaClassStatic();
-      static const auto fieldImage = clazz->getField<double>("image");
-      double image = this->getFieldValue(fieldImage);
-      static const auto fieldType = clazz->getField<JButtonType>("type");
-      jni::local_ref<JButtonType> type = this->getFieldValue(fieldType);
+      static const auto fieldType = clazz->getField<JMapButtonType>("type");
+      jni::local_ref<JMapButtonType> type = this->getFieldValue(fieldType);
+      static const auto fieldImage = clazz->getField<JNitroImage>("image");
+      jni::local_ref<JNitroImage> image = this->getFieldValue(fieldImage);
       static const auto fieldOnPress = clazz->getField<JFunc_void::javaobject>("onPress");
       jni::local_ref<JFunc_void::javaobject> onPress = this->getFieldValue(fieldOnPress);
       return NitroMapButton(
-        image,
         type->toCpp(),
+        image->toCpp(),
         [&]() -> std::function<void()> {
           if (onPress->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
             auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(onPress);
@@ -64,8 +67,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     [[maybe_unused]]
     static jni::local_ref<JNitroMapButton::javaobject> fromCpp(const NitroMapButton& value) {
       return newInstance(
-        value.image,
-        JButtonType::fromCpp(value.type),
+        JMapButtonType::fromCpp(value.type),
+        JNitroImage::fromCpp(value.image),
         JFunc_void_cxx::fromCpp(value.onPress)
       );
     }
