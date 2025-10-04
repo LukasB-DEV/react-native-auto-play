@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.hardware.display.DisplayManager
 import android.os.Bundle
 import android.view.Display
+import android.view.View.MeasureSpec
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.car.app.AppManager
@@ -189,8 +190,8 @@ class VirtualRenderer(
                     reactSurfaceView,
                     moduleName,
                     Arguments.fromBundle(initialProperties),
-                    width,
-                    height
+                    MeasureSpec.makeMeasureSpec((width / reactNativeScale).toInt(), MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec((height / reactNativeScale).toInt(), MeasureSpec.EXACTLY)
                 )
 
                 // remove ui-managers lifecycle listener to not stop rendering when app is not in foreground/phone screen is off
