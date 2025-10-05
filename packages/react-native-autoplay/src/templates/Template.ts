@@ -49,7 +49,7 @@ export class Template<P> {
   }
   public templateId!: string;
 
-  constructor(public config: TemplateConfig & P) {
+  constructor(config: TemplateConfig & P) {
     this.templateId = config.id;
   }
 
