@@ -2,15 +2,13 @@ import {
   AutoPlay,
   MapTemplate,
   type RootComponentInitialProps,
-  useSafeAreaInsets,
+  SafeAreaView,
 } from '@g4rb4g3/react-native-autoplay';
 import type { MapButton, MapPanButton } from '@g4rb4g3/react-native-autoplay/lib/types/Button';
 import { useEffect, useState } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text } from 'react-native';
 
 const AutoPlayRoot = (props: RootComponentInitialProps) => {
-  const safeAreaInsets = useSafeAreaInsets();
-
   const [i, setI] = useState(0);
 
   useEffect(() => {
@@ -20,14 +18,10 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
   }, []);
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: 'green',
-        paddingTop: safeAreaInsets.top,
-        paddingBottom: safeAreaInsets.bottom,
-        paddingRight: safeAreaInsets.right,
-        paddingLeft: safeAreaInsets.left,
       }}
     >
       <Text>
@@ -35,7 +29,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
       </Text>
       <Text>{JSON.stringify(props.window)}</Text>
       <Text>Running as {props.id}</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

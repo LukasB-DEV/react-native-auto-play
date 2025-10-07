@@ -6,6 +6,7 @@ AutoPlayHeadlessJsTask.registerHeadlessTask();
 
 export const AutoPlay = NitroModules.createHybridObject<NitroAutoPlay>('AutoPlay');
 
+export * from './components/SafeAreaView';
 export * from './hooks/useSafeAreaInsets';
 export * from './templates/AlertTemplate';
 export * from './templates/MapTemplate';

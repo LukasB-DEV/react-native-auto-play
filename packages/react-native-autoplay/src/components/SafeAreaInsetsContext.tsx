@@ -1,5 +1,5 @@
-// biome-ignore lint/style/useImportType: 'React' cannot be used as a value because it was imported using 'import type'
-import React, { createContext, useEffect, useState } from 'react';
+import type React from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { AutoPlay, type SafeAreaInsets } from '..';
 
 const DEFAULT: SafeAreaInsets = { top: 0, bottom: 0, left: 0, right: 0 };
