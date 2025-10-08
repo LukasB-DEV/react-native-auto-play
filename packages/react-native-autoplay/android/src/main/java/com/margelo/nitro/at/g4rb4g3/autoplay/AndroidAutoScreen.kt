@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.UiThreadUtil
 
 class AndroidAutoScreen(
-    carContext: CarContext, private val isCluster: Boolean, private val moduleName: String, private var template: Template
+    carContext: CarContext, private val moduleName: String, private var template: Template
 ) : Screen(carContext) {
 
     init {

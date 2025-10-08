@@ -50,7 +50,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
 
     override fun onCreateScreen(intent: Intent): Screen {
         val initialTemplate = getInitialTemplate()
-        val screen = AndroidAutoScreen(carContext, isCluster, moduleName, initialTemplate)
+        val screen = AndroidAutoScreen(carContext, moduleName, initialTemplate)
 
         sessions.put(
             moduleName, ScreenContext(

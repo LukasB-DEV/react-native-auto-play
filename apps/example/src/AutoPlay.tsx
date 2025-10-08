@@ -75,7 +75,7 @@ const mapButtonEv = (template: MapTemplate): MapButton => ({
 });
 
 const getListTemplate = () => {
-  return new ListTemplate({
+  const template = new ListTemplate({
     id: 'list',
     title: 'list title',
     actions: {
@@ -113,7 +113,12 @@ const getListTemplate = () => {
         ],
       },
     },
+    onDidDisappear: () => {
+      template.destroy();
+    },
   });
+
+  return template;
 };
 
 const registerRunnable = () => {
@@ -138,9 +143,7 @@ const registerRunnable = () => {
         android: [
           {
             type: 'back',
-            onPress: () => {
-              template.setActions({ android: [{ type: 'appIcon' }] });
-            },
+            onPress: () => console.log('*** back'),
           },
           { type: 'image', image: { name: 'home' }, onPress: () => console.log('*** home') },
           {
@@ -155,11 +158,7 @@ const registerRunnable = () => {
         ios: {
           backButton: {
             type: 'back',
-            onPress: () => {
-              template.setActions({
-                ios: { backButton: { type: 'back', onPress: () => console.log('*** back') } },
-              });
-            },
+            onPress: () => console.log('*** back'),
           },
           leadingNavigationBarButtons: [
             {

@@ -168,6 +168,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         return {
             removeTemplateStateListener()
+            TemplateStore.removeTemplate(config.id)
         }
     }
 
@@ -206,7 +207,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
                 ?: return@async "pushTemplate failed, screenManager not found"
 
             return@async ThreadUtil.postOnUiAndAwait {
-                val screen = AndroidAutoScreen(context, false, templateId, template)
+                val screen = AndroidAutoScreen(context, templateId, template)
                 screenManager.push(screen)
             }.exceptionOrNull()?.message
         }

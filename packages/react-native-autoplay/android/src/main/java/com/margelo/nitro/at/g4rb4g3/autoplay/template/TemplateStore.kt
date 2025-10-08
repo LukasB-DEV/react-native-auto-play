@@ -16,4 +16,8 @@ object TemplateStore {
     fun getConfig(id: String): Any? {
         return templates[id]?.config
     }
+
+    fun removeTemplate(id: String) {
+        templates.remove(id)
+    }
 }
