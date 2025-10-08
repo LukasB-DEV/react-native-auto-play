@@ -1,4 +1,4 @@
-package com.margelo.nitro.at.g4rb4g3.autoplay.template
+package com.margelo.nitro.at.g4rb4g3.autoplay.utils
 
 import com.facebook.react.bridge.UiThreadUtil
 import kotlinx.coroutines.suspendCancellableCoroutine

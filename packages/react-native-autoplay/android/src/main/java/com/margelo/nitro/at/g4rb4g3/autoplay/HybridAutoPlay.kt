@@ -4,7 +4,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession.Companion.ROOT_S
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.ListTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.TemplateStore
-import com.margelo.nitro.at.g4rb4g3.autoplay.template.ThreadUtil
+import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ThreadUtil
 import com.margelo.nitro.core.Promise
 
 class HybridAutoPlay : HybridAutoPlaySpec() {
