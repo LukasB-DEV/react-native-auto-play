@@ -20,7 +20,6 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
   return (
     <SafeAreaView
       style={{
-        flex: 1,
         backgroundColor: 'green',
       }}
     >
