@@ -10,7 +10,8 @@ class ListTemplate(context: CarContext, config: NitroListTemplateConfig) :
 
     override fun parse(): Template {
         return ListTemplate.Builder().apply {
-            setHeader(Parser.parseHeader(context, config.title, config.actions))
+            // TODO: Parser.parseText
+            setHeader(Parser.parseHeader(context, config.title.text, config.actions))
             setLoading(true)
         }.build()
     }

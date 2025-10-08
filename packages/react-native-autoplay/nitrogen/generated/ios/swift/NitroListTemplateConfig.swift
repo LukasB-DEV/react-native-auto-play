@@ -18,7 +18,7 @@ public extension NitroListTemplateConfig {
   /**
    * Create a new instance of `NitroListTemplateConfig`.
    */
-  init(actions: [NitroAction]?, title: String, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
+  init(actions: [NitroAction]?, title: Text, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
     self.init({ () -> bridge.std__optional_std__vector_NitroAction__ in
       if let __unwrappedValue = actions {
         return bridge.create_std__optional_std__vector_NitroAction__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroAction_ in
@@ -27,7 +27,7 @@ public extension NitroListTemplateConfig {
       } else {
         return .init()
       }
-    }(), std.string(title), std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
+    }(), title, std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
           let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
@@ -105,14 +105,14 @@ public extension NitroListTemplateConfig {
     }
   }
   
-  var title: String {
+  var title: Text {
     @inline(__always)
     get {
-      return String(self.__title)
+      return self.__title
     }
     @inline(__always)
     set {
-      self.__title = std.string(newValue)
+      self.__title = newValue
     }
   }
   

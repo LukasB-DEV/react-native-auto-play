@@ -1,10 +1,11 @@
 import { AutoPlay } from '..';
+import type { Text } from '../types/Text';
 import { NitroAction } from '../utils/NitroAction';
 import { type Actions, Template, type TemplateConfig } from './Template';
 
 export interface NitroListTemplateConfig extends TemplateConfig {
   actions?: Array<NitroAction>;
-  title: string;
+  title: Text;
 }
 
 export type ListTemplateConfig = Omit<NitroListTemplateConfig, 'actions'> & {

@@ -124,3 +124,6 @@ if you want to make use of the MapTemplate and render react components you need 
     )
   }
 ````
+
+# Localization
+The library allows you to pass distances and durations and formats them according to the system defaults. Make sure to provide all supported app languages in Info.plist CFBundleLocalizations for this to work properly, missing languages will use CFBundleDevelopmentRegion as fallback which is en most of the time and mix it up with the region which might result in en_AT or similar.

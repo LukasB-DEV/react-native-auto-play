@@ -16,10 +16,12 @@
 #include "JNitroActionType.hpp"
 #include "JNitroAlignment.hpp"
 #include "JNitroImage.hpp"
+#include "JText.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroImage.hpp"
+#include "Text.hpp"
 #include <functional>
 #include <optional>
 #include <string>
@@ -46,8 +48,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       static const auto clazz = javaClassStatic();
       static const auto fieldActions = clazz->getField<jni::JArrayClass<JNitroAction>>("actions");
       jni::local_ref<jni::JArrayClass<JNitroAction>> actions = this->getFieldValue(fieldActions);
-      static const auto fieldTitle = clazz->getField<jni::JString>("title");
-      jni::local_ref<jni::JString> title = this->getFieldValue(fieldTitle);
+      static const auto fieldTitle = clazz->getField<JText>("title");
+      jni::local_ref<JText> title = this->getFieldValue(fieldTitle);
       static const auto fieldId = clazz->getField<jni::JString>("id");
       jni::local_ref<jni::JString> id = this->getFieldValue(fieldId);
       static const auto fieldOnWillAppear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onWillAppear");
@@ -71,7 +73,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
           }
           return __vector;
         }()) : std::nullopt,
-        title->toStdString(),
+        title->toCpp(),
         id->toStdString(),
         onWillAppear != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
           if (onWillAppear->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
@@ -147,7 +149,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
           }
           return __array;
         }() : nullptr,
-        jni::make_jstring(value.title),
+        JText::fromCpp(value.title),
         jni::make_jstring(value.id),
         value.onWillAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillAppear.value()) : nullptr,
         value.onWillDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillDisappear.value()) : nullptr,

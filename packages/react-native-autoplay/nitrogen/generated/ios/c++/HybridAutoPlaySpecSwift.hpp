@@ -42,6 +42,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroListTemplateConfig; }
+// Forward declaration of `Text` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 
@@ -64,6 +66,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "Point.hpp"
 #include "ColorScheme.hpp"
 #include "NitroListTemplateConfig.hpp"
+#include "Text.hpp"
 #include <NitroModules/Promise.hpp>
 #include "SafeAreaInsets.hpp"
 

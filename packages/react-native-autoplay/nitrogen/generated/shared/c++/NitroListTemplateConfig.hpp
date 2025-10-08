@@ -20,10 +20,13 @@
 
 // Forward declaration of `NitroAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
+// Forward declaration of `Text` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 
 #include "NitroAction.hpp"
 #include <vector>
 #include <optional>
+#include "Text.hpp"
 #include <string>
 #include <functional>
 
@@ -35,7 +38,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
   struct NitroListTemplateConfig {
   public:
     std::optional<std::vector<NitroAction>> actions     SWIFT_PRIVATE;
-    std::string title     SWIFT_PRIVATE;
+    Text title     SWIFT_PRIVATE;
     std::string id     SWIFT_PRIVATE;
     std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear     SWIFT_PRIVATE;
     std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear     SWIFT_PRIVATE;
@@ -45,7 +48,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
 
   public:
     NitroListTemplateConfig() = default;
-    explicit NitroListTemplateConfig(std::optional<std::vector<NitroAction>> actions, std::string title, std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onPoppedToRoot): actions(actions), title(title), id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPoppedToRoot(onPoppedToRoot) {}
+    explicit NitroListTemplateConfig(std::optional<std::vector<NitroAction>> actions, Text title, std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onPoppedToRoot): actions(actions), title(title), id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPoppedToRoot(onPoppedToRoot) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay
@@ -59,7 +62,7 @@ namespace margelo::nitro {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::at::g4rb4g3::autoplay::NitroListTemplateConfig(
         JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::fromJSI(runtime, obj.getProperty(runtime, "actions")),
-        JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "title")),
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Text>::fromJSI(runtime, obj.getProperty(runtime, "title")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "id")),
         JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillAppear")),
         JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillDisappear")),
@@ -71,7 +74,7 @@ namespace margelo::nitro {
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::NitroListTemplateConfig& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "actions", JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::toJSI(runtime, arg.actions));
-      obj.setProperty(runtime, "title", JSIConverter<std::string>::toJSI(runtime, arg.title));
+      obj.setProperty(runtime, "title", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Text>::toJSI(runtime, arg.title));
       obj.setProperty(runtime, "id", JSIConverter<std::string>::toJSI(runtime, arg.id));
       obj.setProperty(runtime, "onWillAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillAppear));
       obj.setProperty(runtime, "onWillDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillDisappear));
@@ -86,7 +89,7 @@ namespace margelo::nitro {
       }
       jsi::Object obj = value.getObject(runtime);
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::canConvert(runtime, obj.getProperty(runtime, "actions"))) return false;
-      if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Text>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "id"))) return false;
       if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillAppear"))) return false;
       if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillDisappear"))) return false;

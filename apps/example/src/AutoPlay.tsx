@@ -77,7 +77,7 @@ const mapButtonEv = (template: MapTemplate): MapButton => ({
 const getListTemplate = () => {
   const template = new ListTemplate({
     id: 'list',
-    title: 'list title',
+    title: { text: 'list title {distance}', distance: 1.239 },
     actions: {
       android: {
         startHeaderAction: {

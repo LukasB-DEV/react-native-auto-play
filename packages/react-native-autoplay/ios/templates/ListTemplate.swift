@@ -13,7 +13,7 @@ class ListTemplate: Template {
     init(config: NitroListTemplateConfig) {
         self.config = config
         
-        let template = CPListTemplate(title: config.title, sections: [])
+        let template = CPListTemplate(title: Parser.parseText(text: config.title), sections: [])
         template.userInfo = ["id": config.id]
         
         super.init(template: template)
