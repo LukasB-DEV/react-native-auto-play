@@ -8,8 +8,9 @@ import androidx.appcompat.content.res.AppCompatResources
 object AppInfo {
     fun getApplicationLabel(context: Context): CharSequence {
         val customLabelId = context.resources.getIdentifier(
-            "RncpClusterSplashScreenLabel", "string", context.packageName
+            "AutoPlayClusterSplashScreenLabel", "string", context.packageName
         )
+
         if (customLabelId > 0) {
             return context.resources.getString(customLabelId)
         }
@@ -17,8 +18,8 @@ object AppInfo {
         val packageManager = context.packageManager
         return try {
             packageManager.getApplicationLabel(context.applicationInfo)
-        } catch (e: PackageManager.NameNotFoundException) {
-            "RNCarPlay"
+        } catch (_: PackageManager.NameNotFoundException) {
+            "react-native-autoplay"
         }
     }
 
