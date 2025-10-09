@@ -43,17 +43,22 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+// Forward declaration of `NitroSection` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
+// Forward declaration of `NitroRow` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
+// Forward declaration of `NitroSectionType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 
 #include <functional>
 #include "JFunc_void.hpp"
-#include <string>
-#include <optional>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 #include "EventName.hpp"
 #include "JEventName.hpp"
+#include <string>
 #include "VisibilityState.hpp"
 #include "JFunc_void_VisibilityState.hpp"
 #include "JVisibilityState.hpp"
@@ -61,6 +66,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "JAlertTemplateConfig.hpp"
 #include <vector>
 #include "AlertAction.hpp"
+#include <optional>
 #include "JAlertAction.hpp"
 #include "AlertStyle.hpp"
 #include "JAlertStyle.hpp"
@@ -95,6 +101,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "JDistance.hpp"
 #include "DistanceUnits.hpp"
 #include "JDistanceUnits.hpp"
+#include "NitroSection.hpp"
+#include "JNitroSection.hpp"
+#include "NitroRow.hpp"
+#include "JNitroRow.hpp"
+#include "NitroSectionType.hpp"
+#include "JNitroSectionType.hpp"
 #include "SafeAreaInsets.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
 #include "JSafeAreaInsets.hpp"
@@ -197,14 +209,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       }
     }();
   }
-  std::shared_ptr<Promise<std::optional<std::string>>> JHybridAutoPlaySpec::setRootTemplate(const std::string& templateId) {
+  std::shared_ptr<Promise<void>> JHybridAutoPlaySpec::setRootTemplate(const std::string& templateId) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* templateId */)>("setRootTemplate");
     auto __result = method(_javaPart, jni::make_jstring(templateId));
     return [&]() {
-      auto __promise = Promise<std::optional<std::string>>::create();
-      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<jni::JString>(__boxedResult);
-        __promise->resolve(__result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt);
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -213,14 +224,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<std::optional<std::string>>> JHybridAutoPlaySpec::pushTemplate(const std::string& templateId) {
+  std::shared_ptr<Promise<void>> JHybridAutoPlaySpec::pushTemplate(const std::string& templateId) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* templateId */)>("pushTemplate");
     auto __result = method(_javaPart, jni::make_jstring(templateId));
     return [&]() {
-      auto __promise = Promise<std::optional<std::string>>::create();
-      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<jni::JString>(__boxedResult);
-        __promise->resolve(__result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt);
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -229,14 +239,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<std::optional<std::string>>> JHybridAutoPlaySpec::popTemplate() {
+  std::shared_ptr<Promise<void>> JHybridAutoPlaySpec::popTemplate() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("popTemplate");
     auto __result = method(_javaPart);
     return [&]() {
-      auto __promise = Promise<std::optional<std::string>>::create();
-      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<jni::JString>(__boxedResult);
-        __promise->resolve(__result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt);
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -261,7 +270,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }();
   }
   void JHybridAutoPlaySpec::setTemplateMapButtons(const std::string& templateId, const std::optional<std::vector<NitroMapButton>>& buttons) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* buttons */)>("setTemplateMapButtons_cxx");
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* buttons */)>("setTemplateMapButtons");
     method(_javaPart, jni::make_jstring(templateId), buttons.has_value() ? [&]() {
       size_t __size = buttons.value().size();
       jni::local_ref<jni::JArrayClass<JNitroMapButton>> __array = jni::JArrayClass<JNitroMapButton>::newArray(__size);
@@ -273,7 +282,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }() : nullptr);
   }
   void JHybridAutoPlaySpec::setTemplateActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& actions) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroAction>> /* actions */)>("setTemplateActions_cxx");
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroAction>> /* actions */)>("setTemplateActions");
     method(_javaPart, jni::make_jstring(templateId), actions.has_value() ? [&]() {
       size_t __size = actions.value().size();
       jni::local_ref<jni::JArrayClass<JNitroAction>> __array = jni::JArrayClass<JNitroAction>::newArray(__size);

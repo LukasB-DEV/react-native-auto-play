@@ -18,7 +18,7 @@ public extension NitroListTemplateConfig {
   /**
    * Create a new instance of `NitroListTemplateConfig`.
    */
-  init(actions: [NitroAction]?, title: Text, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
+  init(actions: [NitroAction]?, title: Text, sections: [NitroSection]?, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
     self.init({ () -> bridge.std__optional_std__vector_NitroAction__ in
       if let __unwrappedValue = actions {
         return bridge.create_std__optional_std__vector_NitroAction__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroAction_ in
@@ -27,7 +27,15 @@ public extension NitroListTemplateConfig {
       } else {
         return .init()
       }
-    }(), title, std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
+    }(), title, { () -> bridge.std__optional_std__vector_NitroSection__ in
+      if let __unwrappedValue = sections {
+        return bridge.create_std__optional_std__vector_NitroSection__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroSection_ in
+          return bridge.copy_std__vector_NitroSection_(__pointer.baseAddress!, __unwrappedValue.count)
+        })
+      } else {
+        return .init()
+      }
+    }(), std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
           let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
@@ -113,6 +121,36 @@ public extension NitroListTemplateConfig {
     @inline(__always)
     set {
       self.__title = newValue
+    }
+  }
+  
+  var sections: [NitroSection]? {
+    @inline(__always)
+    get {
+      return { () -> [NitroSection]? in
+        if bridge.has_value_std__optional_std__vector_NitroSection__(self.__sections) {
+          let __unwrapped = bridge.get_std__optional_std__vector_NitroSection__(self.__sections)
+          return { () -> [NitroSection] in
+            let __data = bridge.get_data_std__vector_NitroSection_(__unwrapped)
+            let __size = __unwrapped.size()
+            return Array(UnsafeBufferPointer(start: __data, count: __size))
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__sections = { () -> bridge.std__optional_std__vector_NitroSection__ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__vector_NitroSection__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroSection_ in
+            return bridge.copy_std__vector_NitroSection_(__pointer.baseAddress!, __unwrappedValue.count)
+          })
+        } else {
+          return .init()
+        }
+      }()
     }
   }
   

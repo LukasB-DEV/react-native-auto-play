@@ -32,10 +32,18 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroMapButtonType; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
+// Forward declaration of `NitroRow` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
+// Forward declaration of `NitroSectionType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
+// Forward declaration of `NitroSection` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
+// Forward declaration of `Text` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 
@@ -56,8 +64,12 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include "NitroImage.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
+#include "NitroRow.hpp"
+#include "NitroSection.hpp"
+#include "NitroSectionType.hpp"
 #include "Point.hpp"
 #include "SafeAreaInsets.hpp"
+#include "Text.hpp"
 #include "VisibilityState.hpp"
 #include <NitroModules/FastVectorCopy.hpp>
 #include <NitroModules/Promise.hpp>
@@ -517,38 +529,70 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::shared_ptr<Promise<std::optional<std::string>>>
+  // pragma MARK: std::optional<Text>
   /**
-   * Specialized version of `std::shared_ptr<Promise<std::optional<std::string>>>`.
+   * Specialized version of `std::optional<Text>`.
    */
-  using std__shared_ptr_Promise_std__optional_std__string___ = std::shared_ptr<Promise<std::optional<std::string>>>;
-  inline std::shared_ptr<Promise<std::optional<std::string>>> create_std__shared_ptr_Promise_std__optional_std__string___() noexcept {
-    return Promise<std::optional<std::string>>::create();
+  using std__optional_Text_ = std::optional<Text>;
+  inline std::optional<Text> create_std__optional_Text_(const Text& value) noexcept {
+    return std::optional<Text>(value);
   }
-  inline PromiseHolder<std::optional<std::string>> wrap_std__shared_ptr_Promise_std__optional_std__string___(std::shared_ptr<Promise<std::optional<std::string>>> promise) noexcept {
-    return PromiseHolder<std::optional<std::string>>(std::move(promise));
+  inline bool has_value_std__optional_Text_(const std::optional<Text>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline Text get_std__optional_Text_(const std::optional<Text>& optional) noexcept {
+    return *optional;
   }
   
-  // pragma MARK: std::function<void(const std::optional<std::string>& /* result */)>
+  // pragma MARK: std::vector<NitroRow>
   /**
-   * Specialized version of `std::function<void(const std::optional<std::string>&)>`.
+   * Specialized version of `std::vector<NitroRow>`.
    */
-  using Func_void_std__optional_std__string_ = std::function<void(const std::optional<std::string>& /* result */)>;
+  using std__vector_NitroRow_ = std::vector<NitroRow>;
+  inline std::vector<NitroRow> copy_std__vector_NitroRow_(const NitroRow* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
+    return margelo::nitro::FastVectorCopy<NitroRow>(data, size);
+  }
+  inline const NitroRow* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroRow_(const std::vector<NitroRow>& vector) noexcept {
+    return vector.data();
+  }
+  
+  // pragma MARK: std::vector<NitroSection>
   /**
-   * Wrapper class for a `std::function<void(const std::optional<std::string>& / * result * /)>`, this can be used from Swift.
+   * Specialized version of `std::vector<NitroSection>`.
    */
-  class Func_void_std__optional_std__string__Wrapper final {
-  public:
-    explicit Func_void_std__optional_std__string__Wrapper(std::function<void(const std::optional<std::string>& /* result */)>&& func): _function(std::make_unique<std::function<void(const std::optional<std::string>& /* result */)>>(std::move(func))) {}
-    inline void call(std::optional<std::string> result) const noexcept {
-      _function->operator()(result);
-    }
-  private:
-    std::unique_ptr<std::function<void(const std::optional<std::string>& /* result */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_std__optional_std__string_ create_Func_void_std__optional_std__string_(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_std__optional_std__string__Wrapper wrap_Func_void_std__optional_std__string_(Func_void_std__optional_std__string_ value) noexcept {
-    return Func_void_std__optional_std__string__Wrapper(std::move(value));
+  using std__vector_NitroSection_ = std::vector<NitroSection>;
+  inline std::vector<NitroSection> copy_std__vector_NitroSection_(const NitroSection* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
+    return margelo::nitro::FastVectorCopy<NitroSection>(data, size);
+  }
+  inline const NitroSection* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroSection_(const std::vector<NitroSection>& vector) noexcept {
+    return vector.data();
+  }
+  
+  // pragma MARK: std::optional<std::vector<NitroSection>>
+  /**
+   * Specialized version of `std::optional<std::vector<NitroSection>>`.
+   */
+  using std__optional_std__vector_NitroSection__ = std::optional<std::vector<NitroSection>>;
+  inline std::optional<std::vector<NitroSection>> create_std__optional_std__vector_NitroSection__(const std::vector<NitroSection>& value) noexcept {
+    return std::optional<std::vector<NitroSection>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<NitroSection> get_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::shared_ptr<Promise<void>>
+  /**
+   * Specialized version of `std::shared_ptr<Promise<void>>`.
+   */
+  using std__shared_ptr_Promise_void__ = std::shared_ptr<Promise<void>>;
+  inline std::shared_ptr<Promise<void>> create_std__shared_ptr_Promise_void__() noexcept {
+    return Promise<void>::create();
+  }
+  inline PromiseHolder<void> wrap_std__shared_ptr_Promise_void__(std::shared_ptr<Promise<void>> promise) noexcept {
+    return PromiseHolder<void>(std::move(promise));
   }
   
   // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
@@ -625,13 +669,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return Result<void>::withError(error);
   }
   
-  // pragma MARK: Result<std::shared_ptr<Promise<std::optional<std::string>>>>
-  using Result_std__shared_ptr_Promise_std__optional_std__string____ = Result<std::shared_ptr<Promise<std::optional<std::string>>>>;
-  inline Result_std__shared_ptr_Promise_std__optional_std__string____ create_Result_std__shared_ptr_Promise_std__optional_std__string____(const std::shared_ptr<Promise<std::optional<std::string>>>& value) noexcept {
-    return Result<std::shared_ptr<Promise<std::optional<std::string>>>>::withValue(value);
+  // pragma MARK: Result<std::shared_ptr<Promise<void>>>
+  using Result_std__shared_ptr_Promise_void___ = Result<std::shared_ptr<Promise<void>>>;
+  inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::shared_ptr<Promise<void>>& value) noexcept {
+    return Result<std::shared_ptr<Promise<void>>>::withValue(value);
   }
-  inline Result_std__shared_ptr_Promise_std__optional_std__string____ create_Result_std__shared_ptr_Promise_std__optional_std__string____(const std::exception_ptr& error) noexcept {
-    return Result<std::shared_ptr<Promise<std::optional<std::string>>>>::withError(error);
+  inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::exception_ptr& error) noexcept {
+    return Result<std::shared_ptr<Promise<void>>>::withError(error);
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift

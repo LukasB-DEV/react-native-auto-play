@@ -52,14 +52,17 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
    * Promise might contain an error message in case setting root template failed
    * can be used on any Android screen/iOS scene
    */
-  setRootTemplate(templateId: string): Promise<string | null>;
+  setRootTemplate(templateId: string): Promise<void>;
 
   /**
    * push a template to the AutoPlayRoot Android screen/iOS scene
    */
-  pushTemplate(templateId: string): Promise<string | null>;
+  pushTemplate(templateId: string): Promise<void>;
 
-  popTemplate(): Promise<string | null>;
+  /**
+   * remove the top template from the stack
+   */
+  popTemplate(): Promise<void>;
 
   /**
    * callback for safe area insets changes

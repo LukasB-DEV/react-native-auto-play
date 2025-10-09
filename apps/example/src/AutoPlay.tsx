@@ -118,6 +118,70 @@ const getListTemplate = () => {
         ],
       },
     },
+    sections: [
+      {
+        type: 'default',
+        title: 'section text',
+        items: [
+          {
+            type: 'default',
+            title: { text: 'row #1' },
+            browsable: true,
+            onPress: () => {
+              const radioTemplate = new ListTemplate({
+                id: 'radios',
+                title: { text: 'radios' },
+                actions: {
+                  android: {
+                    startHeaderAction: { type: 'back', onPress: () => AutoPlay.popTemplate() },
+                  },
+                },
+                sections: {
+                  type: 'radio',
+                  selectedIndex: 1,
+                  items: [
+                    {
+                      type: 'radio',
+                      title: { text: 'radio #1' },
+                      detailedText: { text: 'detailed radio #1' },
+                      onPress: () => {
+                        console.log('*** radio #1');
+                      },
+                    },
+                    {
+                      type: 'radio',
+                      title: { text: 'radio #2' },
+                      detailedText: { text: 'detailed radio #2' },
+                      onPress: () => {
+                        console.log('*** radio #2');
+                      },
+                    },
+                    {
+                      type: 'radio',
+                      title: { text: 'radio #3' },
+                      detailedText: { text: 'detailed radio #3' },
+                      onPress: () => {
+                        console.log('*** radio #3');
+                      },
+                    },
+                  ],
+                },
+                onDidDisappear: () => radioTemplate.destroy(),
+              });
+              radioTemplate.push().catch((e) => console.log('*** error radio template', e));
+            },
+          },
+          {
+            type: 'toggle',
+            title: { text: 'row #2' },
+            checked: true,
+            onPress: (checked) => {
+              console.log('*** toggle', checked);
+            },
+          },
+        ],
+      },
+    ],
     onDidDisappear: () => {
       template.destroy();
     },

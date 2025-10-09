@@ -29,6 +29,9 @@ data class NitroListTemplateConfig
     val title: Text,
     @DoNotStrip
     @Keep
+    val sections: Array<NitroSection>?,
+    @DoNotStrip
+    @Keep
     val id: String,
     @DoNotStrip
     @Keep
@@ -49,6 +52,6 @@ data class NitroListTemplateConfig
   /**
    * Initialize a new instance of `NitroListTemplateConfig` from Kotlin.
    */
-  constructor(actions: Array<NitroAction>?, title: Text, id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPoppedToRoot: ((animated: Boolean?) -> Unit)?)
-       : this(actions?.let { it }, title, id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPoppedToRoot?.let { Func_void_std__optional_bool__java(it) })
+  constructor(actions: Array<NitroAction>?, title: Text, sections: Array<NitroSection>?, id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPoppedToRoot: ((animated: Boolean?) -> Unit)?)
+       : this(actions, title, sections, id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPoppedToRoot?.let { Func_void_std__optional_bool__java(it) })
 }

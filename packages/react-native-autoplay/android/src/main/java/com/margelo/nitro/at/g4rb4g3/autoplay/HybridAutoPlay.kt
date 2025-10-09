@@ -45,7 +45,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-
     override fun addSafeAreaInsetsListener(
         moduleName: String, callback: (SafeAreaInsets) -> Unit
     ): () -> Unit {
@@ -140,8 +139,9 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
             config.onDidDisappear
         )
 
-        val context = AndroidAutoSession.getCarContext(config.id)
-            ?: throw IllegalArgumentException("createMapTemplate failed, carContext found")
+        val context = AndroidAutoSession.getCarContext(config.id) ?: throw IllegalArgumentException(
+            "createMapTemplate failed, carContext found"
+        )
 
         val template = MapTemplate(context, config)
         AndroidAutoTemplate.setTemplate(config.id, template)
@@ -172,58 +172,64 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun setRootTemplate(templateId: String): Promise<String?> {
+    override fun setRootTemplate(templateId: String): Promise<Unit> {
         return Promise.async {
             val screen = AndroidAutoScreen.getScreen(templateId)
-                ?: return@async "setRootTemplate failed, $templateId screen found"
+                ?: throw IllegalArgumentException("setRootTemplate failed, $templateId screen not found")
             val template = AndroidAutoTemplate.getTemplate(templateId)
-                ?: return@async "setRootTemplate failed, $templateId template not found"
+                ?: throw IllegalArgumentException("setRootTemplate failed, $templateId template not found")
             val isCluster = templateId != ROOT_SESSION
             val carContext = AndroidAutoSession.getCarContext(templateId)
-                ?: return@async "setRootTemplate failed, carContext for $templateId template not found"
+                ?: throw IllegalArgumentException("setRootTemplate failed, carContext for $templateId template not found")
 
             if (virtualScreens[templateId] == null) {
                 val result = ThreadUtil.postOnUiAndAwait {
                     virtualScreens[templateId] = VirtualRenderer(carContext, templateId, isCluster)
                 }
                 if (result.isFailure) {
-                    return@async result.exceptionOrNull()?.message
-                        ?: "unknown error initializing the virtual screen"
+                    throw result.exceptionOrNull() ?: UnknownError("unknown error initializing the virtual screen")
                 }
             }
 
             screen.setTemplate(template, true)
-            return@async null
         }
     }
 
-    override fun pushTemplate(templateId: String): Promise<String?> {
+    override fun pushTemplate(templateId: String): Promise<Unit> {
         return Promise.async {
             val context = AndroidAutoSession.getRootContext()
-                ?: return@async "pushTemplate failed, carContext not found"
+                ?: throw IllegalArgumentException("pushTemplate failed, carContext not found")
             val template = AndroidAutoTemplate.getTemplate(templateId)
-                ?: return@async "pushTemplate failed, template $templateId not found"
+                ?: throw IllegalArgumentException("pushTemplate failed, template $templateId not found")
             val screenManager = AndroidAutoScreen.getScreenManager(ROOT_SESSION)
-                ?: return@async "pushTemplate failed, screenManager not found"
+                ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
 
-            return@async ThreadUtil.postOnUiAndAwait {
+            val result = ThreadUtil.postOnUiAndAwait {
                 val screen = AndroidAutoScreen(context, templateId, template)
                 screenManager.push(screen)
-            }.exceptionOrNull()?.message
+            }
+
+            if (result.isFailure) {
+                throw result.exceptionOrNull() ?: UnknownError("unknown error pushing template")
+            }
         }
     }
 
-    override fun popTemplate(): Promise<String?> {
+    override fun popTemplate(): Promise<Unit> {
         return Promise.async {
             val screenManager = AndroidAutoScreen.getScreenManager(ROOT_SESSION)
-                ?: return@async "pushTemplate failed, screenManager not found"
+                ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
             if (screenManager.stackSize == 0) {
-                return@async null
+                return@async
             }
 
-            return@async ThreadUtil.postOnUiAndAwait {
+            val result = ThreadUtil.postOnUiAndAwait {
                 screenManager.pop()
-            }.exceptionOrNull()?.message
+            }
+
+            if (result.isFailure) {
+                throw result.exceptionOrNull() ?: UnknownError("unknown error popping template")
+            }
         }
     }
 

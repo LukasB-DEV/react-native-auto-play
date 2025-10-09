@@ -32,7 +32,7 @@ class Parser {
                     ? CPBarButton(
                         image: SymbolFont.imageFromNitroImage(
                             image: action.image!
-                        )
+                        )!
                     ) { _ in action.onPress() }
                     : CPBarButton(title: action.title ?? "") { _ in
                         action.onPress()
@@ -56,7 +56,9 @@ class Parser {
         )
     }
 
-    static func parseText(text: Text) -> String {
+    static func parseText(text: Text?) -> String? {
+        guard let text else { return nil }
+
         var result = text.text
 
         if let distance = text.distance {
@@ -93,7 +95,7 @@ class Parser {
         formatter.numberFormatter.roundingMode = .halfUp
 
         var unit: UnitLength
-        
+
         switch distance.unit {
         case .meters:
             formatter.numberFormatter.maximumFractionDigits = 0
@@ -106,7 +108,7 @@ class Parser {
             unit = UnitLength.yards
         case .feet:
             formatter.numberFormatter.maximumFractionDigits = 0
-            unit =  UnitLength.feet
+            unit = UnitLength.feet
         case .kilometers:
             formatter.numberFormatter.maximumFractionDigits = 1
             unit = UnitLength.kilometers
@@ -115,5 +117,27 @@ class Parser {
         let measurement = Measurement(value: distance.value, unit: unit)
 
         return formatter.string(from: measurement)
+    }
+
+    static func parseSections(sections: [NitroSection]?) -> [CPListSection] {
+        guard let sections else { return [] }
+
+        return sections.map { section in
+            let items = section.items.map { item in
+                let listItem = CPListItem(
+                    text: parseText(text: item.title),
+                    detailText: parseText(text: item.detailedText),
+                    image: SymbolFont.imageFromNitroImage(image: item.image)
+                )
+                listItem.accessoryType =
+                    item.browsable == true ? .disclosureIndicator : .none
+                return listItem
+            }
+            return CPListSection(
+                items: items,
+                header: section.title,
+                sectionIndexTitle: nil
+            )
+        }
     }
 }

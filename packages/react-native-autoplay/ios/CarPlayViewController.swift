@@ -23,7 +23,8 @@ class CarPlayViewController: UIViewController {
         _ previousTraitCollection: UITraitCollection?
     ) {
         guard
-            let template = TemplateStore.getTemplate(templateId: moduleName)
+            let template = SceneStore.getScene(moduleName: moduleName)?
+                .templateStore.getTemplate(templateId: moduleName)
                 as? MapTemplate
         else {
             return

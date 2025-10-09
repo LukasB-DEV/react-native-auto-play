@@ -15,6 +15,7 @@ class AutoPlayScene: UIResponder {
     var window: UIWindow?
     var isConnected = false
     var interfaceController: CPInterfaceController?
+    var templateStore = TemplateStore()
 
     override init() {}
 

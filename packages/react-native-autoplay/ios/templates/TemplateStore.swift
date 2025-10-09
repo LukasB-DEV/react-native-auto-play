@@ -6,26 +6,22 @@
 //
 import CarPlay
 
-enum TemplateError: Error {
-    case templateNotFound(String)
-}
-
 class TemplateStore {
-    private static var store: [String: Template] = [:]
+    private var store: [String: Template] = [:]
 
-    static func getCPTemplate(templateId key: String) -> CPTemplate? {
+    func getCPTemplate(templateId key: String) -> CPTemplate? {
         return store[key]?.template
     }
     
-    static func getTemplate(templateId: String) -> Template? {
+    func getTemplate(templateId: String) -> Template? {
         return store[templateId]
     }
 
-    static func addTemplate(template: Template, templateId: String) {
+    func addTemplate(template: Template, templateId: String) {
         store[templateId] = template
     }
 
-    static func removeTemplate(templateId: String) {
+    func removeTemplate(templateId: String) {
         store.removeValue(forKey: templateId)
     }
 }

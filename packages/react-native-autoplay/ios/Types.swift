@@ -9,3 +9,9 @@ struct TemplateEventPayload {
     let animated: Bool
     let state: VisibilityState
 }
+
+enum AutoPlayError: Error {
+    case templateNotFound(String)
+    case sceneNotFound(String)
+    case interfaceControllerNotFound(String)
+}

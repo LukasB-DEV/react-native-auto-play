@@ -27,7 +27,6 @@ class SymbolFont {
                 withExtension: "ttf"
             )
         else {
-            print("❌ Could not find font in bundle")
             return
         }
 
@@ -63,7 +62,6 @@ class SymbolFont {
         guard let fontName = SymbolFont.fontName,
             let font = UIFont(name: fontName, size: size)
         else {
-            print("❌ Font not loaded")
             return nil
         }
 
@@ -100,7 +98,9 @@ class SymbolFont {
         return image
     }
     
-    static func imageFromNitroImage(image: NitroImage) -> UIImage {
+    static func imageFromNitroImage(image: NitroImage?) -> UIImage? {
+        guard let image else { return nil }
+        
         let color = RCTConvert.uiColor(image.color) ?? .black
         let backgroundColor =
             RCTConvert.uiColor(image.backgroundColor)

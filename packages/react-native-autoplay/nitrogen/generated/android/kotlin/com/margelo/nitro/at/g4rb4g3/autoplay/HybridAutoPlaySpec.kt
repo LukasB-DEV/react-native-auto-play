@@ -90,15 +90,15 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun setRootTemplate(templateId: String): Promise<String?>
+  abstract fun setRootTemplate(templateId: String): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  abstract fun pushTemplate(templateId: String): Promise<String?>
+  abstract fun pushTemplate(templateId: String): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  abstract fun popTemplate(): Promise<String?>
+  abstract fun popTemplate(): Promise<Unit>
   
   abstract fun addSafeAreaInsetsListener(moduleName: String, callback: (insets: SafeAreaInsets) -> Unit): () -> Unit
   
@@ -109,23 +109,13 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
+  @DoNotStrip
+  @Keep
   abstract fun setTemplateMapButtons(templateId: String, buttons: Array<NitroMapButton>?): Unit
   
   @DoNotStrip
   @Keep
-  private fun setTemplateMapButtons_cxx(templateId: String, buttons: Array<NitroMapButton>?): Unit {
-    val __result = setTemplateMapButtons(templateId, buttons?.let { it })
-    return __result
-  }
-  
   abstract fun setTemplateActions(templateId: String, actions: Array<NitroAction>?): Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun setTemplateActions_cxx(templateId: String, actions: Array<NitroAction>?): Unit {
-    val __result = setTemplateActions(templateId, actions?.let { it })
-    return __result
-  }
 
   private external fun initHybrid(): HybridData
 

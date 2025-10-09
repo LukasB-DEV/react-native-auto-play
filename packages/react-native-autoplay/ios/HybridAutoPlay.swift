@@ -150,11 +150,22 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         )
 
         let template = MapTemplate(config: config)
-        TemplateStore.addTemplate(template: template, templateId: config.id)
+        try RootModule.withScene { scene in
+            scene.templateStore.addTemplate(
+                template: template,
+                templateId: config.id
+            )
+        }
 
         return {
             removeTemplateStateListener?()
-            TemplateStore.removeTemplate(templateId: config.id)
+            do {
+                try RootModule.withScene { scene in
+                    scene.templateStore.removeTemplate(templateId: config.id)
+                }
+            } catch {
+                print("Failed to remove template with id: \(config.id)")
+            }
         }
     }
 
@@ -170,139 +181,93 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         )
 
         let template = ListTemplate(config: config)
-        TemplateStore.addTemplate(template: template, templateId: config.id)
+        try RootModule.withScene { scene in
+            scene.templateStore.addTemplate(
+                template: template,
+                templateId: config.id
+            )
+        }
 
         return {
             removeTemplateStateListener?()
-            TemplateStore.removeTemplate(templateId: config.id)
+            do {
+                try RootModule.withScene { scene in
+                    scene.templateStore.removeTemplate(templateId: config.id)
+                }
+            } catch {
+                print("Failed to remove template with id: \(config.id)")
+            }
         }
     }
 
-    func setRootTemplate(templateId: String) throws -> Promise<String?> {
-        guard
-            let template = TemplateStore.getCPTemplate(
-                templateId: templateId
-            ),
-            let scene = SceneStore.getScene(
-                moduleName: SceneStore.rootModuleName
-            ),
-            let interfaceController = scene.interfaceController
-        else {
-            return Promise.async {
-                return
-                    "Failed to set root template: Template or scene or interfaceController not found, did you call a createXXXTemplate function?"
-            }
-
-        }
-
+    func setRootTemplate(templateId: String) throws -> Promise<Void> {
         return Promise.async {
-            if template is CPMapTemplate {
-                await MainActor.run {
-                    scene.initRootView()
+            try await RootModule.withSceneTemplateAndInterfaceController(
+                templateId: templateId
+            ) { template, scene, interfaceController in
+                if template is CPMapTemplate {
+                    await MainActor.run {
+                        scene.initRootView()
+                    }
                 }
-            }
 
-            do {
                 try await interfaceController.setRootTemplate(
                     template,
                     animated: false
                 )
-            } catch (let error) {
-                return "Failed to set root template: \(error)"
             }
-
-            return nil
         }
     }
 
     func pushTemplate(templateId: String) throws
-        -> NitroModules.Promise<String?>
+        -> NitroModules.Promise<Void>
     {
-        guard
-            let template = TemplateStore.getCPTemplate(
-                templateId: templateId
-            ),
-            let scene = SceneStore.getScene(
-                moduleName: SceneStore.rootModuleName
-            ),
-            let interfaceController = scene.interfaceController
-        else {
-            return Promise.async {
-                return
-                    "Failed to push template: Template or scene or interfaceController not found, did you call a createXXXTemplate function?"
-            }
-
-        }
-
         return Promise.async {
-            do {
+            return try await RootModule.withTemplateAndInterfaceController(
+                templateId: templateId
+            ) { template, interfaceController in
                 try await interfaceController.pushTemplate(
                     template,
                     animated: true
                 )
-            } catch (let error) {
-                return "Failed to push template: \(error)"
             }
-
-            return nil
         }
     }
 
-    func popTemplate() throws -> NitroModules.Promise<String?> {
-        guard
-            let scene = SceneStore.getScene(
-                moduleName: SceneStore.rootModuleName
-            ),
-            let interfaceController = scene.interfaceController
-        else {
-            return Promise.async {
-                return
-                    "Failed to popTemplate: scene or interfaceController not found"
-            }
-        }
-
+    func popTemplate() throws -> NitroModules.Promise<Void> {
         return Promise.async {
-            do {
+            return try await RootModule.withInterfaceController {
+                interfaceController in
                 try await interfaceController.popTemplate(animated: true)
-            } catch (let error) {
-                return "Failed to pop template: \(error)"
             }
-
-            return nil
         }
     }
 
     func setTemplateMapButtons(templateId: String, buttons: [NitroMapButton]?)
         throws
     {
-        guard
-            let mapTemplate = TemplateStore.getTemplate(templateId: templateId)
-                as? MapTemplate
-        else {
-            throw TemplateError.templateNotFound(templateId)
+        try RootModule.withTemplate(templateId: templateId) {
+            (template: MapTemplate) in
+            template.config.mapButtons = buttons
+            template.invalidate()
         }
-
-        mapTemplate.config.mapButtons = buttons
-        mapTemplate.invalidate()
     }
 
     func setTemplateActions(templateId: String, actions: [NitroAction]?) throws
     {
-        guard let template = TemplateStore.getTemplate(templateId: templateId)
-        else {
-            throw TemplateError.templateNotFound(templateId)
-        }
+        try RootModule.withTemplate(templateId: templateId) {
+            (template: Any?) in
+            if let template = template as? MapTemplate {
+                template.config.actions = actions
+                template.invalidate()
+                return
+            }
 
-        if let template = template as? MapTemplate {
-            template.config.actions = actions
-            template.invalidate()
-            return
-        }
-        
-        if let template = template as? ListTemplate {
-            template.config.actions = actions;
-            template.invalidate()
-            return
+            if let template = template as? ListTemplate {
+                template.config.actions = actions
+                template.invalidate()
+                return
+            }
         }
     }
 

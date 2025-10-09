@@ -50,5 +50,5 @@ data class AlertTemplateConfig
    * Initialize a new instance of `AlertTemplateConfig` from Kotlin.
    */
   constructor(titleVariants: Array<String>, actions: Array<AlertAction>?, id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPoppedToRoot: ((animated: Boolean?) -> Unit)?)
-       : this(titleVariants, actions?.let { it }, id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPoppedToRoot?.let { Func_void_std__optional_bool__java(it) })
+       : this(titleVariants, actions, id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPoppedToRoot?.let { Func_void_std__optional_bool__java(it) })
 }

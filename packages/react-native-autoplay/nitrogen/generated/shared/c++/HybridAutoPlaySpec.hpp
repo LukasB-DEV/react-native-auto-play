@@ -37,11 +37,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
 #include "AlertTemplateConfig.hpp"
 #include "NitroMapTemplateConfig.hpp"
 #include "NitroListTemplateConfig.hpp"
-#include <optional>
 #include <NitroModules/Promise.hpp>
 #include "SafeAreaInsets.hpp"
 #include "NitroMapButton.hpp"
 #include <vector>
+#include <optional>
 #include "NitroAction.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
@@ -82,9 +82,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       virtual void dismissTemplate(const std::string& templateId) = 0;
       virtual std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) = 0;
       virtual std::function<void()> createListTemplate(const NitroListTemplateConfig& config) = 0;
-      virtual std::shared_ptr<Promise<std::optional<std::string>>> setRootTemplate(const std::string& templateId) = 0;
-      virtual std::shared_ptr<Promise<std::optional<std::string>>> pushTemplate(const std::string& templateId) = 0;
-      virtual std::shared_ptr<Promise<std::optional<std::string>>> popTemplate() = 0;
+      virtual std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) = 0;
+      virtual std::shared_ptr<Promise<void>> pushTemplate(const std::string& templateId) = 0;
+      virtual std::shared_ptr<Promise<void>> popTemplate() = 0;
       virtual std::function<void()> addSafeAreaInsetsListener(const std::string& moduleName, const std::function<void(const SafeAreaInsets& /* insets */)>& callback) = 0;
       virtual void setTemplateMapButtons(const std::string& templateId, const std::optional<std::vector<NitroMapButton>>& buttons) = 0;
       virtual void setTemplateActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& actions) = 0;

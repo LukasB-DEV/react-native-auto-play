@@ -66,11 +66,11 @@ export class Template<TemplateConfigType, ActionsType> {
   public destroy() {}
 
   public setRootTemplate() {
-    AutoPlay.setRootTemplate(this.templateId);
+    return AutoPlay.setRootTemplate(this.templateId);
   }
 
   public push() {
-    AutoPlay.pushTemplate(this.templateId);
+    return AutoPlay.pushTemplate(this.templateId);
   }
 
   public setActions(actions?: ActionsType) {

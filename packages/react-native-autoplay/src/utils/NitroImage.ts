@@ -13,7 +13,11 @@ export type NitroImage = {
   backgroundColor?: number;
 };
 
-const convert = (image: ButtonImage): NitroImage => {
+const convert = (image?: ButtonImage): NitroImage | undefined => {
+  if (image == null) {
+    return undefined;
+  }
+
   const { name, size = 16, color = 'white', backgroundColor = 'transparent', ...rest } = image;
   return {
     ...rest,

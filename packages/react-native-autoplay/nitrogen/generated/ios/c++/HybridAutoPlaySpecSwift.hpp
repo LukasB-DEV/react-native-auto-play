@@ -48,6 +48,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+// Forward declaration of `NitroSection` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
+// Forward declaration of `NitroRow` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
+// Forward declaration of `NitroSectionType` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 
@@ -73,6 +79,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "Text.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "NitroSection.hpp"
+#include "NitroRow.hpp"
+#include "NitroSectionType.hpp"
 #include <NitroModules/Promise.hpp>
 #include "SafeAreaInsets.hpp"
 
@@ -167,7 +176,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::optional<std::string>>> setRootTemplate(const std::string& templateId) override {
+    inline std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) override {
       auto __result = _swiftPart.setRootTemplate(templateId);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -175,7 +184,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::optional<std::string>>> pushTemplate(const std::string& templateId) override {
+    inline std::shared_ptr<Promise<void>> pushTemplate(const std::string& templateId) override {
       auto __result = _swiftPart.pushTemplate(templateId);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -183,7 +192,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::optional<std::string>>> popTemplate() override {
+    inline std::shared_ptr<Promise<void>> popTemplate() override {
       auto __result = _swiftPart.popTemplate();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

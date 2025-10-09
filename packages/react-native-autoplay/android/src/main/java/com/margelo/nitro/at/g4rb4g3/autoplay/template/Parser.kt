@@ -10,11 +10,15 @@ import androidx.car.app.model.Distance
 import androidx.car.app.model.DistanceSpan
 import androidx.car.app.model.DurationSpan
 import androidx.car.app.model.Header
+import androidx.car.app.model.ItemList
+import androidx.car.app.model.Row
+import androidx.car.app.model.Toggle
 import com.margelo.nitro.at.g4rb4g3.autoplay.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroImage
+import com.margelo.nitro.at.g4rb4g3.autoplay.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.Text
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
@@ -104,5 +108,44 @@ object Parser {
             DistanceUnits.KILOMETERS -> Distance.UNIT_KILOMETERS_P1
         }
         return Distance.create(distance.value, unit)
+    }
+
+    fun parseRows(context: CarContext, rows: Array<NitroRow>, selectedIndex: Double?): ItemList {
+        return ItemList.Builder().apply {
+            selectedIndex?.let {
+                setSelectedIndex(selectedIndex.toInt())
+                setOnSelectedListener {
+                    rows[it].onPress(null)
+                }
+            }
+            rows.forEach { row ->
+                addItem(Row.Builder().apply {
+                    setTitle(parseText(row.title))
+                    setEnabled(row.enabled)
+                    row.detailedText?.let { detailedText ->
+                        addText(parseText(detailedText))
+                    }
+                    row.image?.let { image ->
+                        setImage(CarIcon.Builder(parseImage(context, image)).build())
+                    }
+                    row.browsable?.let { browsable ->
+                        setBrowsable(browsable)
+                    }
+                    row.checked?.let { checked ->
+                        setToggle(Toggle.Builder { isChecked -> row.onPress(isChecked) }.apply {
+                            setEnabled(row.enabled)
+                            setChecked(checked)
+                        }.build())
+                    } ?: run {
+                        if (selectedIndex == null) {
+                            setOnClickListener {
+                                row.onPress(null)
+                            }
+                        }
+                    }
+
+                }.build())
+            }
+        }.build()
     }
 }
