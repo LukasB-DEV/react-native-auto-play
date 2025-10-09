@@ -1,0 +1,31 @@
+diff --git a/node_modules/nitrogen/lib/syntax/kotlin/KotlinCxxBridgedType.js b/node_modules/nitrogen/lib/syntax/kotlin/KotlinCxxBridgedType.js
+index 12e958c..3a9f3e2 100644
+--- a/node_modules/nitrogen/lib/syntax/kotlin/KotlinCxxBridgedType.js
++++ b/node_modules/nitrogen/lib/syntax/kotlin/KotlinCxxBridgedType.js
+@@ -44,16 +44,16 @@ export class KotlinCxxBridgedType {
+             default:
+                 break;
+         }
+-        // check if any types this type references (e.g. underlying optional, array element, ...)
+-        // needs special handling. if yes, we need it as well
+-        const referencedTypes = getReferencedTypes(this.type)
+-            .filter((t) => t !== this.type)
+-            .map((t) => new KotlinCxxBridgedType(t));
+-        for (const type of referencedTypes) {
+-            if (type.needsSpecialHandling) {
+-                return true;
+-            }
+-        }
++        // // check if any types this type references (e.g. underlying optional, array element, ...)
++        // // needs special handling. if yes, we need it as well
++        // const referencedTypes = getReferencedTypes(this.type)
++        //     .filter((t) => t !== this.type)
++        //     .map((t) => new KotlinCxxBridgedType(t));
++        // for (const type of referencedTypes) {
++        //     if (type.needsSpecialHandling) {
++        //         return true;
++        //     }
++        // }
+         // no special handling needed
+         return false;
+     }
