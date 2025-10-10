@@ -127,6 +127,10 @@ const getListTemplate = () => {
             type: 'default',
             title: { text: 'row #1' },
             browsable: true,
+            image: {
+              name: 'rotate_auto',
+              size: 22,
+            },
             onPress: () => {
               const radioTemplate = new ListTemplate({
                 id: 'radios',
@@ -172,6 +176,10 @@ const getListTemplate = () => {
             type: 'toggle',
             title: { text: 'row #2' },
             checked: true,
+            image: {
+              name: 'alarm',
+              size: 22,
+            },
             onPress: (checked) => {
               console.log('*** toggle', checked);
             },
@@ -180,6 +188,10 @@ const getListTemplate = () => {
             type: 'toggle',
             title: { text: 'row #3' },
             checked: false,
+            image: {
+              name: 'bomb',
+              size: 22,
+            },
             onPress: (checked) => {
               console.log('*** toggle', checked);
             },

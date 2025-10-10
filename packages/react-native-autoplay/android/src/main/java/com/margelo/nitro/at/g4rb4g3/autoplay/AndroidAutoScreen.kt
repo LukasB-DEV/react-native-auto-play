@@ -85,7 +85,7 @@ class AndroidAutoScreen(
             else -> null
         }?.let {
             AndroidAutoTemplate.setTemplate(moduleName, it)
-            setTemplate(it.parse())
+            this.template = it.parse()
         }
     }
 
