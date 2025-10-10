@@ -63,7 +63,14 @@ public extension NitroRow {
   var detailedText: Text? {
     @inline(__always)
     get {
-      return self.__detailedText.value
+      return { () -> Text? in
+        if bridge.has_value_std__optional_Text_(self.__detailedText) {
+          let __unwrapped = bridge.get_std__optional_Text_(self.__detailedText)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -108,7 +115,14 @@ public extension NitroRow {
   var image: NitroImage? {
     @inline(__always)
     get {
-      return self.__image.value
+      return { () -> NitroImage? in
+        if bridge.has_value_std__optional_NitroImage_(self.__image) {
+          let __unwrapped = bridge.get_std__optional_NitroImage_(self.__image)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {

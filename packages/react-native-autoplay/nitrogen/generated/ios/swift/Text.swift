@@ -48,7 +48,14 @@ public extension Text {
   var distance: Distance? {
     @inline(__always)
     get {
-      return self.__distance.value
+      return { () -> Distance? in
+        if bridge.has_value_std__optional_Distance_(self.__distance) {
+          let __unwrapped = bridge.get_std__optional_Distance_(self.__distance)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {

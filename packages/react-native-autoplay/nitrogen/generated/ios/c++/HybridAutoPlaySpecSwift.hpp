@@ -143,7 +143,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       return __value;
     }
     inline void createAlertTemplate(const AlertTemplateConfig& config) override {
-      auto __result = _swiftPart.createAlertTemplate(std::forward<decltype(config)>(config));
+      auto __result = _swiftPart.createAlertTemplate(config);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
@@ -161,7 +161,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       }
     }
     inline std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) override {
-      auto __result = _swiftPart.createMapTemplate(std::forward<decltype(config)>(config));
+      auto __result = _swiftPart.createMapTemplate(config);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
@@ -169,7 +169,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       return __value;
     }
     inline std::function<void()> createListTemplate(const NitroListTemplateConfig& config) override {
-      auto __result = _swiftPart.createListTemplate(std::forward<decltype(config)>(config));
+      auto __result = _swiftPart.createListTemplate(config);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

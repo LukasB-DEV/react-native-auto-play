@@ -25,9 +25,13 @@ public extension NitroSection {
       } else {
         return .init()
       }
-    }(), items.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroRow_ in
-      return bridge.copy_std__vector_NitroRow_(__pointer.baseAddress!, items.count)
-    }, type, { () -> bridge.std__optional_double_ in
+    }(), { () -> bridge.std__vector_NitroRow_ in
+      var __vector = bridge.create_std__vector_NitroRow_(items.count)
+      for __item in items {
+        __vector.push_back(__item)
+      }
+      return __vector
+    }(), type, { () -> bridge.std__optional_double_ in
       if let __unwrappedValue = selectedIndex {
         return bridge.create_std__optional_double_(__unwrappedValue)
       } else {
@@ -63,17 +67,17 @@ public extension NitroSection {
   var items: [NitroRow] {
     @inline(__always)
     get {
-      return { () -> [NitroRow] in
-        let __data = bridge.get_data_std__vector_NitroRow_(self.__items)
-        let __size = self.__items.size()
-        return Array(UnsafeBufferPointer(start: __data, count: __size))
-      }()
+      return self.__items.map({ __item in __item })
     }
     @inline(__always)
     set {
-      self.__items = newValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroRow_ in
-        return bridge.copy_std__vector_NitroRow_(__pointer.baseAddress!, newValue.count)
-      }
+      self.__items = { () -> bridge.std__vector_NitroRow_ in
+        var __vector = bridge.create_std__vector_NitroRow_(newValue.count)
+        for __item in newValue {
+          __vector.push_back(__item)
+        }
+        return __vector
+      }()
     }
   }
   

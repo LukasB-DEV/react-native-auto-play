@@ -295,11 +295,7 @@ open class HybridAutoPlaySpec_cxx {
       try self.__implementation.setTemplateMapButtons(templateId: String(templateId), buttons: { () -> [NitroMapButton]? in
         if bridge.has_value_std__optional_std__vector_NitroMapButton__(buttons) {
           let __unwrapped = bridge.get_std__optional_std__vector_NitroMapButton__(buttons)
-          return { () -> [NitroMapButton] in
-            let __data = bridge.get_data_std__vector_NitroMapButton_(__unwrapped)
-            let __size = __unwrapped.size()
-            return Array(UnsafeBufferPointer(start: __data, count: __size))
-          }()
+          return __unwrapped.map({ __item in __item })
         } else {
           return nil
         }
@@ -317,11 +313,7 @@ open class HybridAutoPlaySpec_cxx {
       try self.__implementation.setTemplateActions(templateId: String(templateId), actions: { () -> [NitroAction]? in
         if bridge.has_value_std__optional_std__vector_NitroAction__(actions) {
           let __unwrapped = bridge.get_std__optional_std__vector_NitroAction__(actions)
-          return { () -> [NitroAction] in
-            let __data = bridge.get_data_std__vector_NitroAction_(__unwrapped)
-            let __size = __unwrapped.size()
-            return Array(UnsafeBufferPointer(start: __data, count: __size))
-          }()
+          return __unwrapped.map({ __item in __item })
         } else {
           return nil
         }

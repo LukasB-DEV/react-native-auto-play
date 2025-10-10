@@ -21,17 +21,25 @@ public extension NitroMapTemplateConfig {
   init(mapButtons: [NitroMapButton]?, actions: [NitroAction]?, onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
     self.init({ () -> bridge.std__optional_std__vector_NitroMapButton__ in
       if let __unwrappedValue = mapButtons {
-        return bridge.create_std__optional_std__vector_NitroMapButton__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroMapButton_ in
-          return bridge.copy_std__vector_NitroMapButton_(__pointer.baseAddress!, __unwrappedValue.count)
-        })
+        return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
+          var __vector = bridge.create_std__vector_NitroMapButton_(__unwrappedValue.count)
+          for __item in __unwrappedValue {
+            __vector.push_back(__item)
+          }
+          return __vector
+        }())
       } else {
         return .init()
       }
     }(), { () -> bridge.std__optional_std__vector_NitroAction__ in
       if let __unwrappedValue = actions {
-        return bridge.create_std__optional_std__vector_NitroAction__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroAction_ in
-          return bridge.copy_std__vector_NitroAction_(__pointer.baseAddress!, __unwrappedValue.count)
-        })
+        return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
+          var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
+          for __item in __unwrappedValue {
+            __vector.push_back(__item)
+          }
+          return __vector
+        }())
       } else {
         return .init()
       }
@@ -134,11 +142,7 @@ public extension NitroMapTemplateConfig {
       return { () -> [NitroMapButton]? in
         if bridge.has_value_std__optional_std__vector_NitroMapButton__(self.__mapButtons) {
           let __unwrapped = bridge.get_std__optional_std__vector_NitroMapButton__(self.__mapButtons)
-          return { () -> [NitroMapButton] in
-            let __data = bridge.get_data_std__vector_NitroMapButton_(__unwrapped)
-            let __size = __unwrapped.size()
-            return Array(UnsafeBufferPointer(start: __data, count: __size))
-          }()
+          return __unwrapped.map({ __item in __item })
         } else {
           return nil
         }
@@ -148,9 +152,13 @@ public extension NitroMapTemplateConfig {
     set {
       self.__mapButtons = { () -> bridge.std__optional_std__vector_NitroMapButton__ in
         if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__vector_NitroMapButton__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroMapButton_ in
-            return bridge.copy_std__vector_NitroMapButton_(__pointer.baseAddress!, __unwrappedValue.count)
-          })
+          return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
+            var __vector = bridge.create_std__vector_NitroMapButton_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
         } else {
           return .init()
         }
@@ -164,11 +172,7 @@ public extension NitroMapTemplateConfig {
       return { () -> [NitroAction]? in
         if bridge.has_value_std__optional_std__vector_NitroAction__(self.__actions) {
           let __unwrapped = bridge.get_std__optional_std__vector_NitroAction__(self.__actions)
-          return { () -> [NitroAction] in
-            let __data = bridge.get_data_std__vector_NitroAction_(__unwrapped)
-            let __size = __unwrapped.size()
-            return Array(UnsafeBufferPointer(start: __data, count: __size))
-          }()
+          return __unwrapped.map({ __item in __item })
         } else {
           return nil
         }
@@ -178,9 +182,13 @@ public extension NitroMapTemplateConfig {
     set {
       self.__actions = { () -> bridge.std__optional_std__vector_NitroAction__ in
         if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__vector_NitroAction__(__unwrappedValue.withUnsafeBufferPointer { __pointer -> bridge.std__vector_NitroAction_ in
-            return bridge.copy_std__vector_NitroAction_(__pointer.baseAddress!, __unwrappedValue.count)
-          })
+          return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
+            var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
         } else {
           return .init()
         }

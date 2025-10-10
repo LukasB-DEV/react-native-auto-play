@@ -163,11 +163,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::vector<AlertAction>`.
    */
   using std__vector_AlertAction_ = std::vector<AlertAction>;
-  inline std::vector<AlertAction> copy_std__vector_AlertAction_(const AlertAction* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
-    return margelo::nitro::FastVectorCopy<AlertAction>(data, size);
-  }
-  inline const AlertAction* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_AlertAction_(const std::vector<AlertAction>& vector) noexcept {
-    return vector.data();
+  inline std::vector<AlertAction> create_std__vector_AlertAction_(size_t size) noexcept {
+    std::vector<AlertAction> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::optional<std::vector<AlertAction>>
@@ -272,11 +271,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::vector<NitroMapButton>`.
    */
   using std__vector_NitroMapButton_ = std::vector<NitroMapButton>;
-  inline std::vector<NitroMapButton> copy_std__vector_NitroMapButton_(const NitroMapButton* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
-    return margelo::nitro::FastVectorCopy<NitroMapButton>(data, size);
-  }
-  inline const NitroMapButton* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroMapButton_(const std::vector<NitroMapButton>& vector) noexcept {
-    return vector.data();
+  inline std::vector<NitroMapButton> create_std__vector_NitroMapButton_(size_t size) noexcept {
+    std::vector<NitroMapButton> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::optional<std::vector<NitroMapButton>>
@@ -329,11 +327,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::vector<NitroAction>`.
    */
   using std__vector_NitroAction_ = std::vector<NitroAction>;
-  inline std::vector<NitroAction> copy_std__vector_NitroAction_(const NitroAction* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
-    return margelo::nitro::FastVectorCopy<NitroAction>(data, size);
-  }
-  inline const NitroAction* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroAction_(const std::vector<NitroAction>& vector) noexcept {
-    return vector.data();
+  inline std::vector<NitroAction> create_std__vector_NitroAction_(size_t size) noexcept {
+    std::vector<NitroAction> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::optional<std::vector<NitroAction>>
@@ -549,11 +546,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::vector<NitroRow>`.
    */
   using std__vector_NitroRow_ = std::vector<NitroRow>;
-  inline std::vector<NitroRow> copy_std__vector_NitroRow_(const NitroRow* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
-    return margelo::nitro::FastVectorCopy<NitroRow>(data, size);
-  }
-  inline const NitroRow* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroRow_(const std::vector<NitroRow>& vector) noexcept {
-    return vector.data();
+  inline std::vector<NitroRow> create_std__vector_NitroRow_(size_t size) noexcept {
+    std::vector<NitroRow> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::vector<NitroSection>
@@ -561,11 +557,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    * Specialized version of `std::vector<NitroSection>`.
    */
   using std__vector_NitroSection_ = std::vector<NitroSection>;
-  inline std::vector<NitroSection> copy_std__vector_NitroSection_(const NitroSection* CONTIGUOUS_MEMORY NON_NULL data, size_t size) noexcept {
-    return margelo::nitro::FastVectorCopy<NitroSection>(data, size);
-  }
-  inline const NitroSection* CONTIGUOUS_MEMORY NON_NULL get_data_std__vector_NitroSection_(const std::vector<NitroSection>& vector) noexcept {
-    return vector.data();
+  inline std::vector<NitroSection> create_std__vector_NitroSection_(size_t size) noexcept {
+    std::vector<NitroSection> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::optional<std::vector<NitroSection>>
