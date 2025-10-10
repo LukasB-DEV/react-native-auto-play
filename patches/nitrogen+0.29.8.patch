@@ -29,3 +29,60 @@ index 12e958c..3a9f3e2 100644
          // no special handling needed
          return false;
      }
+diff --git a/node_modules/nitrogen/lib/syntax/swift/SwiftCxxBridgedType.js b/node_modules/nitrogen/lib/syntax/swift/SwiftCxxBridgedType.js
+index 3e0fbba..66e74ef 100644
+--- a/node_modules/nitrogen/lib/syntax/swift/SwiftCxxBridgedType.js
++++ b/node_modules/nitrogen/lib/syntax/swift/SwiftCxxBridgedType.js
+@@ -89,6 +89,8 @@ export class SwiftCxxBridgedType {
+             case 'result-wrapper':
+                 // Result<T> <> T
+                 return true;
++            case 'struct':
++                return true;
+             default:
+                 return false;
+         }
+diff --git a/node_modules/nitrogen/src/syntax/kotlin/KotlinCxxBridgedType.ts b/node_modules/nitrogen/src/syntax/kotlin/KotlinCxxBridgedType.ts
+index dd7ed40..1da411c 100644
+--- a/node_modules/nitrogen/src/syntax/kotlin/KotlinCxxBridgedType.ts
++++ b/node_modules/nitrogen/src/syntax/kotlin/KotlinCxxBridgedType.ts
+@@ -53,16 +53,16 @@ export class KotlinCxxBridgedType implements BridgedType<'kotlin', 'c++'> {
+       default:
+         break
+     }
+-    // check if any types this type references (e.g. underlying optional, array element, ...)
+-    // needs special handling. if yes, we need it as well
+-    const referencedTypes = getReferencedTypes(this.type)
+-      .filter((t) => t !== this.type)
+-      .map((t) => new KotlinCxxBridgedType(t))
+-    for (const type of referencedTypes) {
+-      if (type.needsSpecialHandling) {
+-        return true
+-      }
+-    }
++    // // check if any types this type references (e.g. underlying optional, array element, ...)
++    // // needs special handling. if yes, we need it as well
++    // const referencedTypes = getReferencedTypes(this.type)
++    //   .filter((t) => t !== this.type)
++    //   .map((t) => new KotlinCxxBridgedType(t))
++    // for (const type of referencedTypes) {
++    //   if (type.needsSpecialHandling) {
++    //     return true
++    //   }
++    // }
+     // no special handling needed
+     return false
+   }
+diff --git a/node_modules/nitrogen/src/syntax/swift/SwiftCxxBridgedType.ts b/node_modules/nitrogen/src/syntax/swift/SwiftCxxBridgedType.ts
+index 6c53915..8c150f3 100644
+--- a/node_modules/nitrogen/src/syntax/swift/SwiftCxxBridgedType.ts
++++ b/node_modules/nitrogen/src/syntax/swift/SwiftCxxBridgedType.ts
+@@ -106,6 +106,8 @@ export class SwiftCxxBridgedType implements BridgedType<'swift', 'c++'> {
+       case 'result-wrapper':
+         // Result<T> <> T
+         return true
++      case 'struct':
++        return true
+       default:
+         return false
+     }
