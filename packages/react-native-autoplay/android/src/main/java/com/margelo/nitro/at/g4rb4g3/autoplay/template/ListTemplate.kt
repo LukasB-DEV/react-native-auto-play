@@ -18,13 +18,17 @@ class ListTemplate(context: CarContext, config: NitroListTemplateConfig) :
                     setLoading(true)
                 } else if (sections.size == 1) {
                     val section = sections[0]
-                    setSingleList(Parser.parseRows(context, section.items, section.selectedIndex))
+                    setSingleList(
+                        Parser.parseRows(
+                            context, section.items, 0, section.selectedIndex, config.id
+                        )
+                    )
                 } else {
-                    sections.forEach { section ->
+                    sections.forEachIndexed { index, section ->
                         addSectionedList(
                             SectionedItemList.create(
                                 Parser.parseRows(
-                                    context, section.items, section.selectedIndex
+                                    context, section.items, index, section.selectedIndex, config.id
                                 ), section.title!!
                             )
                         )

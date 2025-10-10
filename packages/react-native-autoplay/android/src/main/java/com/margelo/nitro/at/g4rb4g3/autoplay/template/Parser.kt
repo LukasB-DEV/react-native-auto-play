@@ -13,11 +13,14 @@ import androidx.car.app.model.Header
 import androidx.car.app.model.ItemList
 import androidx.car.app.model.Row
 import androidx.car.app.model.Toggle
+import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroImage
+import com.margelo.nitro.at.g4rb4g3.autoplay.NitroListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.Text
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
@@ -110,15 +113,30 @@ object Parser {
         return Distance.create(distance.value, unit)
     }
 
-    fun parseRows(context: CarContext, rows: Array<NitroRow>, selectedIndex: Double?): ItemList {
+    fun parseRows(
+        context: CarContext,
+        rows: Array<NitroRow>,
+        sectionIndex: Int,
+        selectedIndex: Double?,
+        templateId: String
+    ): ItemList {
         return ItemList.Builder().apply {
             selectedIndex?.let {
                 setSelectedIndex(selectedIndex.toInt())
                 setOnSelectedListener {
                     rows[it].onPress(null)
+                    AndroidAutoTemplate.getTypedConfig<NitroListTemplateConfig>(templateId)
+                        ?.let { config ->
+                            val section = config.sections?.get(sectionIndex)
+                                ?.copy(selectedIndex = it.toDouble())
+                                ?: return@let
+                            config.sections.set(sectionIndex, section)
+
+                            AndroidAutoScreen.getScreen(templateId)?.applyConfigUpdate()
+                        }
                 }
             }
-            rows.forEach { row ->
+            rows.forEachIndexed { index, row ->
                 addItem(Row.Builder().apply {
                     setTitle(parseText(row.title))
                     setEnabled(row.enabled)
@@ -132,7 +150,12 @@ object Parser {
                         setBrowsable(browsable)
                     }
                     row.checked?.let { checked ->
-                        setToggle(Toggle.Builder { isChecked -> row.onPress(isChecked) }.apply {
+                        setToggle(Toggle.Builder { isChecked ->
+                            row.onPress(isChecked)
+                            val item = row.copy(checked = isChecked)
+                            rows[index] = item
+                            AndroidAutoScreen.getScreen(templateId)?.applyConfigUpdate()
+                        }.apply {
                             setEnabled(row.enabled)
                             setChecked(checked)
                         }.build())

@@ -22,6 +22,14 @@ abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
             return templates[id]?.config
         }
 
+        inline fun <reified T> getTypedConfig(id: String): T? {
+            val config = templates[id]?.config
+            if (config is T) {
+                return config
+            }
+            return null
+        }
+
         fun removeTemplate(id: String) {
             templates.remove(id)
         }

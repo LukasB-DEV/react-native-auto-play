@@ -1,5 +1,6 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay
 
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
@@ -10,6 +11,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.ListTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
 
 class AndroidAutoScreen(
     carContext: CarContext, private val moduleName: String, private var template: Template
@@ -48,7 +51,7 @@ class AndroidAutoScreen(
         carContext.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val config = AndroidAutoTemplate.getConfig(moduleName)
-                val backButton = when(config) {
+                val backButton = when (config) {
                     is NitroMapTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
                     is NitroListTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
                     else -> null
@@ -66,12 +69,23 @@ class AndroidAutoScreen(
         })
     }
 
-    fun setTemplate(template: Template, invalidate: Boolean = false) {
+    fun setTemplate(template: Template) {
         this.template = template
         UiThreadUtil.runOnUiThread {
-            if (invalidate) {
-                invalidate()
-            }
+            invalidate()
+        }
+    }
+
+    fun applyConfigUpdate() {
+        val config = AndroidAutoTemplate.getConfig(moduleName) ?: return
+
+        when (config) {
+            is NitroMapTemplateConfig -> MapTemplate(carContext, config)
+            is NitroListTemplateConfig -> ListTemplate(carContext, config)
+            else -> null
+        }?.let {
+            AndroidAutoTemplate.setTemplate(moduleName, it)
+            setTemplate(it.parse())
         }
     }
 
@@ -90,6 +104,10 @@ class AndroidAutoScreen(
 
         fun getScreenManager(marker: String): ScreenManager? {
             return screens[marker]?.screenManager
+        }
+
+        fun removeScreen(marker: String) {
+            screens.remove(marker)
         }
     }
 }

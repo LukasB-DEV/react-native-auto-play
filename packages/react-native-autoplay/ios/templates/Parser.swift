@@ -6,6 +6,7 @@
 //
 
 import CarPlay
+import UIKit
 
 struct Actions {
     let leadingNavigationBarButtons: [CPBarButton]
@@ -119,20 +120,57 @@ class Parser {
         return formatter.string(from: measurement)
     }
 
-    static func parseSections(sections: [NitroSection]?) -> [CPListSection] {
+    static func parseSections(
+        sections: [NitroSection]?,
+        updateSection: @escaping (NitroSection, Int) -> Void
+    ) -> [CPListSection] {
         guard let sections else { return [] }
 
-        return sections.map { section in
-            let items = section.items.map { item in
+        return sections.enumerated().map { (sectionIndex, section) in
+            let items = section.items.enumerated().map { (itemIndex, item) in
+                let isSelected =
+                    section.type == .radio
+                    && Int(section.selectedIndex ?? -1) == itemIndex
+
+                let toggleImage = item.checked.map { checked in
+                    UIImage.makeToggleImage(
+                        enabled: checked,
+                        maximumImageSize: CPListItem.maximumImageSize
+                    )
+                }
+
                 let listItem = CPListItem(
                     text: parseText(text: item.title),
                     detailText: parseText(text: item.detailedText),
-                    image: SymbolFont.imageFromNitroImage(image: item.image)
+                    image: SymbolFont.imageFromNitroImage(image: item.image),
+                    accessoryImage: isSelected
+                        ? UIImage.checkmark : toggleImage,
+                    accessoryType: item.browsable == true
+                        ? .disclosureIndicator : .none
                 )
-                listItem.accessoryType =
-                    item.browsable == true ? .disclosureIndicator : .none
+
+                listItem.isEnabled = item.enabled
+
+                listItem.handler = { _item, completion in
+                    
+                    var updatedSection = sections[sectionIndex]
+                    if let checked = updatedSection.items[itemIndex].checked {
+                        updatedSection.items[itemIndex].checked = !checked
+                    }
+                    
+                    if updatedSection.type == .radio {
+                        updatedSection.selectedIndex = Double(itemIndex)
+                    }
+                    
+                    updateSection(updatedSection, sectionIndex)
+
+                    item.onPress(item.checked.map { checked in !checked })
+                    completion()
+                }
+
                 return listItem
             }
+
             return CPListSection(
                 items: items,
                 header: section.title,

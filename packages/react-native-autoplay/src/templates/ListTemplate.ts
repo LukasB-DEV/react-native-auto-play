@@ -7,7 +7,6 @@ import { type Actions, Template, type TemplateConfig } from './Template';
 
 type BaseRow = {
   title: Text;
-  detailedText?: Text;
   enabled?: boolean;
   image?: ButtonImage;
 };
@@ -19,6 +18,7 @@ export type DefaultRow = BaseRow & {
    */
   browsable?: boolean;
   onPress: () => void;
+  detailedText?: Text;
 };
 
 export type ToggleRow = BaseRow & {

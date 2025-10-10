@@ -75,7 +75,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         val mapTemplate = MapTemplate(context, config.copy(mapButtons = buttons))
         AndroidAutoTemplate.setTemplate(templateId, mapTemplate)
-        screen.setTemplate(mapTemplate.parse(), true)
+        screen.setTemplate(mapTemplate.parse())
     }
 
     override fun setTemplateActions(
@@ -97,7 +97,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         } ?: throw ClassNotFoundException("failed to map ${config::class.simpleName}")
 
         AndroidAutoTemplate.setTemplate(templateId, template)
-        screen.setTemplate(template.parse(), true)
+        screen.setTemplate(template.parse())
     }
 
 
@@ -148,6 +148,8 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         return {
             removeTemplateStateListener()
+            AndroidAutoTemplate.removeTemplate(config.id)
+            AndroidAutoScreen.removeScreen(config.id)
         }
     }
 
@@ -169,6 +171,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         return {
             removeTemplateStateListener()
             AndroidAutoTemplate.removeTemplate(config.id)
+            AndroidAutoScreen.removeScreen(config.id)
         }
     }
 
@@ -191,7 +194,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
                 }
             }
 
-            screen.setTemplate(template, true)
+            screen.setTemplate(template)
         }
     }
 

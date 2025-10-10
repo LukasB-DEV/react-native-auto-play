@@ -9,10 +9,10 @@ import CarPlay
 
 class ListTemplate: Template {
     var config: NitroListTemplateConfig
-
+    
     init(config: NitroListTemplateConfig) {
         self.config = config
-
+        
         let template = CPListTemplate(
             title: Parser.parseText(text: config.title),
             sections: []
@@ -29,6 +29,16 @@ class ListTemplate: Template {
             return
         }
 
+        setHeader(template: template)
+        template.updateSections(
+            Parser.parseSections(
+                sections: config.sections,
+                updateSection: self.updateSection(section:sectionIndex:)
+            )
+        )
+    }
+
+    func setHeader(template: CPListTemplate) {
         if let actions = config.actions {
             let parsedActions = Parser.parseActions(actions: actions)
 
@@ -38,5 +48,10 @@ class ListTemplate: Template {
             template.trailingNavigationBarButtons =
                 parsedActions.trailingNavigationBarButtons
         }
+    }
+
+    func updateSection(section: NitroSection, sectionIndex: Int) {
+        config.sections?[sectionIndex] = section
+        invalidate()
     }
 }

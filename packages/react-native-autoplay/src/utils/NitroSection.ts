@@ -50,7 +50,9 @@ export const NitroSectionConvert = (sections?: Section): Array<NitroSection> | u
 };
 
 const convertRow = (item: DefaultRow | RadioRow | ToggleRow): NitroRow => {
-  const { title, type, detailedText, enabled = true, image, onPress } = item;
+  const { title, type, enabled = true, image, onPress } = item;
+
+  const detailedText = type === 'default' ? item.detailedText : undefined;
 
   return {
     browsable: type === 'default' ? item.browsable : undefined,

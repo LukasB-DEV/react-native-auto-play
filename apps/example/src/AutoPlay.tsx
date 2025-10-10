@@ -143,7 +143,6 @@ const getListTemplate = () => {
                     {
                       type: 'radio',
                       title: { text: 'radio #1' },
-                      detailedText: { text: 'detailed radio #1' },
                       onPress: () => {
                         console.log('*** radio #1');
                       },
@@ -151,7 +150,6 @@ const getListTemplate = () => {
                     {
                       type: 'radio',
                       title: { text: 'radio #2' },
-                      detailedText: { text: 'detailed radio #2' },
                       onPress: () => {
                         console.log('*** radio #2');
                       },
@@ -159,7 +157,6 @@ const getListTemplate = () => {
                     {
                       type: 'radio',
                       title: { text: 'radio #3' },
-                      detailedText: { text: 'detailed radio #3' },
                       onPress: () => {
                         console.log('*** radio #3');
                       },
@@ -175,6 +172,14 @@ const getListTemplate = () => {
             type: 'toggle',
             title: { text: 'row #2' },
             checked: true,
+            onPress: (checked) => {
+              console.log('*** toggle', checked);
+            },
+          },
+          {
+            type: 'toggle',
+            title: { text: 'row #3' },
+            checked: false,
             onPress: (checked) => {
               console.log('*** toggle', checked);
             },
