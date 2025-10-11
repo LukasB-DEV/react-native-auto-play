@@ -640,7 +640,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
    */
   using std__shared_ptr_HybridAutoPlaySpec_ = std::shared_ptr<HybridAutoPlaySpec>;
   std::shared_ptr<HybridAutoPlaySpec> create_std__shared_ptr_HybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept;
-  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridAutoPlaySpec>
   using std__weak_ptr_HybridAutoPlaySpec_ = std::weak_ptr<HybridAutoPlaySpec>;

@@ -82,14 +82,7 @@ public extension NitroAction {
   var image: NitroImage? {
     @inline(__always)
     get {
-      return { () -> NitroImage? in
-        if bridge.has_value_std__optional_NitroImage_(self.__image) {
-          let __unwrapped = bridge.get_std__optional_NitroImage_(self.__image)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }()
+      return self.__image.value
     }
     @inline(__always)
     set {

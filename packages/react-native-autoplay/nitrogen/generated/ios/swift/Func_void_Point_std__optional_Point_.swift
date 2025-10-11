@@ -23,14 +23,7 @@ public final class Func_void_Point_std__optional_Point_ {
 
   @inline(__always)
   public func call(translation: Point, velocity: bridge.std__optional_Point_) -> Void {
-    self.closure(translation, { () -> Point? in
-      if bridge.has_value_std__optional_Point_(velocity) {
-        let __unwrapped = bridge.get_std__optional_Point_(velocity)
-        return __unwrapped
-      } else {
-        return nil
-      }
-    }())
+    self.closure(translation, velocity.value)
   }
 
   /**

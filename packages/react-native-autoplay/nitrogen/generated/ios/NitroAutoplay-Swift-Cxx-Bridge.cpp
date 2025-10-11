@@ -90,7 +90,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     NitroAutoplay::HybridAutoPlaySpec_cxx swiftPart = NitroAutoplay::HybridAutoPlaySpec_cxx::fromUnsafe(swiftUnsafePointer);
     return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::HybridAutoPlaySpecSwift>(swiftPart);
   }
-  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType) noexcept {
+  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType) {
     std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::HybridAutoPlaySpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::HybridAutoPlaySpecSwift>(cppType);
     #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {

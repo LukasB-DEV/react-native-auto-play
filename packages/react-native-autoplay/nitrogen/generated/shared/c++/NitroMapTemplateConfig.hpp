@@ -17,6 +17,11 @@
 #else
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
+#if __has_include(<NitroModules/JSIHelpers.hpp>)
+#include <NitroModules/JSIHelpers.hpp>
+#else
+#error NitroModules cannot be found! Are you sure you installed NitroModules properly?
+#endif
 
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
@@ -109,6 +114,9 @@ namespace margelo::nitro {
         return false;
       }
       jsi::Object obj = value.getObject(runtime);
+      if (!nitro::isPlainObject(runtime, obj)) {
+        return false;
+      }
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroMapButton>>>::canConvert(runtime, obj.getProperty(runtime, "mapButtons"))) return false;
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::canConvert(runtime, obj.getProperty(runtime, "actions"))) return false;
       if (!JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidUpdatePanGestureWithTranslation"))) return false;

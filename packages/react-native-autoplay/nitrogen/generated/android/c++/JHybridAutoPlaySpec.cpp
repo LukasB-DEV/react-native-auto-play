@@ -270,7 +270,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }();
   }
   void JHybridAutoPlaySpec::setTemplateMapButtons(const std::string& templateId, const std::optional<std::vector<NitroMapButton>>& buttons) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* buttons */)>("setTemplateMapButtons");
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* buttons */)>("setTemplateMapButtons_cxx");
     method(_javaPart, jni::make_jstring(templateId), buttons.has_value() ? [&]() {
       size_t __size = buttons.value().size();
       jni::local_ref<jni::JArrayClass<JNitroMapButton>> __array = jni::JArrayClass<JNitroMapButton>::newArray(__size);
@@ -282,7 +282,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }() : nullptr);
   }
   void JHybridAutoPlaySpec::setTemplateActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& actions) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroAction>> /* actions */)>("setTemplateActions");
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroAction>> /* actions */)>("setTemplateActions_cxx");
     method(_javaPart, jni::make_jstring(templateId), actions.has_value() ? [&]() {
       size_t __size = actions.value().size();
       jni::local_ref<jni::JArrayClass<JNitroAction>> __array = jni::JArrayClass<JNitroAction>::newArray(__size);
