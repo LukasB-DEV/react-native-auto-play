@@ -13,9 +13,7 @@ abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
 
     fun applyConfigUpdate() {
         val screen = AndroidAutoScreen.getScreen(templateId)
-            ?: throw IllegalArgumentException("setTemplateActions failed, no screen found")
-
-        screen.applyConfigUpdate(invalidate = true)
+        screen?.applyConfigUpdate(invalidate = true)
     }
 
     companion object {

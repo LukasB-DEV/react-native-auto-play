@@ -146,7 +146,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         )
 
         val context = AndroidAutoSession.getRootContext()
-            ?: throw IllegalArgumentException("createListTemplate failed, carContext found")
+            ?: throw IllegalArgumentException("createListTemplate failed, carContext not found")
 
         val template = ListTemplate(context, config)
         AndroidAutoTemplate.setTemplate(config.id, template)
@@ -156,6 +156,20 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
             AndroidAutoTemplate.removeTemplate(config.id)
             AndroidAutoScreen.removeScreen(config.id)
         }
+    }
+
+    override fun updateListTemplateSections(
+        templateId: String,
+        sections: Array<NitroSection>?
+    ) {
+        val template = AndroidAutoTemplate.getTemplate(templateId)
+            ?: throw IllegalArgumentException("updateListTemplateSections failed, template $templateId not found")
+
+        if (template !is ListTemplate) {
+            throw IllegalArgumentException("setTemplateMapButtons failed, template $templateId is not of type ListTemplate")
+        }
+
+        template.updateSections(sections)
     }
 
     override fun createGridTemplate(config: NitroGridTemplateConfig): () -> Unit {

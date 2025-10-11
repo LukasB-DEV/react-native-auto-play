@@ -199,6 +199,14 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
+    
+    func updateListTemplateSections(templateId: String, sections: [NitroSection]?) throws {
+        try RootModule.withScene { scene in
+            if let template = scene.templateStore.getTemplate(templateId: templateId) as? ListTemplate {
+                template.updateSections(sections: sections)
+            }
+        }
+    }
 
     func createGridTemplate(config: NitroGridTemplateConfig) throws -> () ->
         Void

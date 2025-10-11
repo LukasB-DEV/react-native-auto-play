@@ -217,6 +217,18 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       }
     }();
   }
+  void JHybridAutoPlaySpec::updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroSection>> /* sections */)>("updateListTemplateSections_cxx");
+    method(_javaPart, jni::make_jstring(templateId), sections.has_value() ? [&]() {
+      size_t __size = sections.value().size();
+      jni::local_ref<jni::JArrayClass<JNitroSection>> __array = jni::JArrayClass<JNitroSection>::newArray(__size);
+      for (size_t __i = 0; __i < __size; __i++) {
+        const auto& __element = sections.value()[__i];
+        __array->setElement(__i, *JNitroSection::fromCpp(__element));
+      }
+      return __array;
+    }() : nullptr);
+  }
   std::function<void()> JHybridAutoPlaySpec::createGridTemplate(const NitroGridTemplateConfig& config) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JNitroGridTemplateConfig> /* config */)>("createGridTemplate_cxx");
     auto __result = method(_javaPart, JNitroGridTemplateConfig::fromCpp(config));

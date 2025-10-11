@@ -42,8 +42,13 @@ class ListTemplate: Template {
         )
     }
 
-    func updateSection(section: NitroSection, sectionIndex: Int) {
+    private func updateSection(section: NitroSection, sectionIndex: Int) {
         config.sections?[sectionIndex] = section
+        invalidate()
+    }
+    
+    func updateSections(sections: [NitroSection]?) {
+        config.sections = sections
         invalidate()
     }
 }

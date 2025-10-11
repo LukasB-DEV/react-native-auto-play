@@ -47,6 +47,11 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
   createMapTemplate(config: NitroMapTemplateConfig): CleanupCallback;
 
   createListTemplate(config: NitroListTemplateConfig): CleanupCallback;
+  updateListTemplateSections(
+    templateId: string,
+    sections: NitroListTemplateConfig['sections']
+  ): void;
+
   createGridTemplate(config: NitroGridTemplateConfig): CleanupCallback;
 
   /**

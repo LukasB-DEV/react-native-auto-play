@@ -2,7 +2,7 @@ import { AutoPlay } from '..';
 import type { AutoImage } from '../types/Image';
 import type { AutoText } from '../types/Text';
 import { NitroAction } from '../utils/NitroAction';
-import { type NitroSection, NitroSectionConvert } from '../utils/NitroSection';
+import { NitroSection } from '../utils/NitroSection';
 import { type Actions, Template, type TemplateConfig } from './Template';
 
 type BaseRow = {
@@ -80,10 +80,14 @@ export class ListTemplate extends Template<ListTemplateConfig, Actions> {
     const nitroConfig: NitroListTemplateConfig = {
       ...rest,
       actions: NitroAction.convert(actions),
-      sections: NitroSectionConvert(sections),
+      sections: NitroSection.convert(sections),
     };
 
     this.cleanup = AutoPlay.createListTemplate(nitroConfig);
+  }
+
+  public updateSections(sections?: Section) {
+    AutoPlay.updateListTemplateSections(this.templateId, NitroSection.convert(sections));
   }
 
   public destroy() {

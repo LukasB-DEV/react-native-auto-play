@@ -21,7 +21,7 @@ export type NitroSection = {
   selectedIndex?: number;
 };
 
-export const NitroSectionConvert = (sections?: Section): Array<NitroSection> | undefined => {
+const convert = (sections?: Section): Array<NitroSection> | undefined => {
   if (sections == null) {
     return undefined;
   }
@@ -64,3 +64,5 @@ const convertRow = (item: DefaultRow | RadioRow | ToggleRow): NitroRow => {
     onPress: (checked) => (type === 'toggle' ? onPress(checked ?? false) : onPress()),
   };
 };
+
+export const NitroSection = { convert };

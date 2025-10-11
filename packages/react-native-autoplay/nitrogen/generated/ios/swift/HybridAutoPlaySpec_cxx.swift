@@ -213,6 +213,24 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
+  public final func updateListTemplateSections(templateId: std.string, sections: bridge.std__optional_std__vector_NitroSection__) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.updateListTemplateSections(templateId: String(templateId), sections: { () -> [NitroSection]? in
+        if bridge.has_value_std__optional_std__vector_NitroSection__(sections) {
+          let __unwrapped = bridge.get_std__optional_std__vector_NitroSection__(sections)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }())
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
   public final func createGridTemplate(config: NitroGridTemplateConfig) -> bridge.Result_std__function_void____ {
     do {
       let __result = try self.__implementation.createGridTemplate(config: config)

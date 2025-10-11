@@ -88,6 +88,15 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
+  abstract fun updateListTemplateSections(templateId: String, sections: Array<NitroSection>?): Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun updateListTemplateSections_cxx(templateId: String, sections: Array<NitroSection>?): Unit {
+    val __result = updateListTemplateSections(templateId, sections?.let { it })
+    return __result
+  }
+  
   abstract fun createGridTemplate(config: NitroGridTemplateConfig): () -> Unit
   
   @DoNotStrip

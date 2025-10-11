@@ -21,6 +21,7 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func dismissTemplate(templateId: String) throws -> Void
   func createMapTemplate(config: NitroMapTemplateConfig) throws -> () -> Void
   func createListTemplate(config: NitroListTemplateConfig) throws -> () -> Void
+  func updateListTemplateSections(templateId: String, sections: [NitroSection]?) throws -> Void
   func createGridTemplate(config: NitroGridTemplateConfig) throws -> () -> Void
   func setRootTemplate(templateId: String) throws -> Promise<Void>
   func pushTemplate(templateId: String) throws -> Promise<Void>
