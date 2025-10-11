@@ -199,8 +199,10 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
-    
-    func createGridTemplate(config: NitroGridTemplateConfig) throws -> () -> Void {
+
+    func createGridTemplate(config: NitroGridTemplateConfig) throws -> () ->
+        Void
+    {
         let removeTemplateStateListener = addTemplateStateListener(
             templateId: config.id,
             onWillAppear: config.onWillAppear,
@@ -271,21 +273,25 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
-    
+
     func popToRootTemplate() throws -> NitroModules.Promise<Void> {
         return Promise.async {
-            return try await RootModule.withInterfaceController { interfaceController in
+            return try await RootModule.withInterfaceController {
+                interfaceController in
                 try await interfaceController.popToRootTemplate(animated: true)
             }
         }
     }
-    
 
     func setTemplateMapButtons(templateId: String, buttons: [NitroMapButton]?)
         throws
     {
         try RootModule.withTemplate(templateId: templateId) {
-            (template: MapTemplate) in
+            template in
+            guard let template = template as? MapTemplate else {
+                return
+            }
+
             template.config.mapButtons = buttons
             template.invalidate()
         }
@@ -294,18 +300,11 @@ class HybridAutoPlay: HybridAutoPlaySpec {
     func setTemplateActions(templateId: String, actions: [NitroAction]?) throws
     {
         try RootModule.withTemplate(templateId: templateId) {
-            (template: Any?) in
-            if let template = template as? MapTemplate {
-                template.config.actions = actions
-                template.invalidate()
-                return
-            }
-
-            if let template = template as? ListTemplate {
-                template.config.actions = actions
-                template.invalidate()
-                return
-            }
+            template in
+            guard let template = template else { return }
+            
+            template.barButtons = actions
+            template.setBarButtons()
         }
     }
 

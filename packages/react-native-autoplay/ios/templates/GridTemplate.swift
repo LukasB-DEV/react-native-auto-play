@@ -27,7 +27,7 @@ class GridTemplate: Template {
         invalidate()
     }
 
-    func invalidate() {
+    override func invalidate() {
         guard let template = self.template as? CPGridTemplate else {
             return
         }

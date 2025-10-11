@@ -58,6 +58,10 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
             )
         )
 
+        clusterTemplateId?.let {
+            clusterSessions.add(it)
+        }
+
         lifecycle.addObserver(sessionLifecycleObserver)
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -121,8 +125,11 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
 
         override fun onDestroy(owner: LifecycleOwner) {
             sessions.remove(moduleName)
+            VirtualRenderer.removeRenderer(moduleName)
+            AndroidAutoScreen.removeScreen(moduleName)
 
-            if (isCluster) {
+            clusterTemplateId?.let {
+                clusterSessions.remove(it)
                 return
             }
 
@@ -149,10 +156,12 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         const val ROOT_SESSION = "AutoPlayRoot"
 
         private lateinit var reactContext: ReactContext
-        private val sessions: WeakHashMap<String, ScreenContext> = WeakHashMap(4, 0.5f)
+        private val sessions = mutableMapOf<String, ScreenContext>()
+
+        private val clusterSessions = mutableListOf<String>()
 
         fun getIsConnected(): Boolean {
-            return sessions[ROOT_SESSION] != null
+            return sessions.containsKey(ROOT_SESSION)
         }
 
         fun getState(marker: String): VisibilityState? {
@@ -164,7 +173,11 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         }
 
         fun getRootContext(): CarContext? {
-            return sessions.get(ROOT_SESSION)?.carContext
+            return sessions[ROOT_SESSION]?.carContext
+        }
+
+        fun getClusterSessions(): Array<String> {
+            return clusterSessions.toTypedArray()
         }
     }
 }

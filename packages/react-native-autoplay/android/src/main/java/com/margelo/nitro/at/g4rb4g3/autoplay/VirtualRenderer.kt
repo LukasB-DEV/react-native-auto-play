@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.floor
 
 class VirtualRenderer(
-    private val context: CarContext, private val moduleName: String, private val isCluster: Boolean
+    private val context: CarContext, private val moduleName: String
 ) {
     private lateinit var uiManager: FabricUIManager
     private lateinit var display: Display
@@ -53,6 +53,8 @@ class VirtualRenderer(
     val scale = BuildConfig.SCALE_FACTOR * virtualScreenDensity
 
     init {
+        virtualRenderer.put(moduleName, this)
+
         CoroutineScope(Dispatchers.Main).launch {
             reactContext =
                 ReactContextResolver.getReactContext(context.applicationContext as ReactApplication)
@@ -72,11 +74,9 @@ class VirtualRenderer(
             var visibleArea = Rect(0, 0, 0, 0)
 
             override fun onSurfaceAvailable(surfaceContainer: SurfaceContainer) {
-                val name =
-                    if (isCluster) "AndroidAutoClusterMapTemplate" else "AndroidAutoMapTemplate"
                 val manager = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
                 val virtualDisplay = manager.createVirtualDisplay(
-                    name,
+                    moduleName,
                     surfaceContainer.width,
                     surfaceContainer.height,
                     surfaceContainer.dpi,
@@ -301,5 +301,15 @@ class VirtualRenderer(
 
     companion object {
         const val TAG = "VirtualRenderer"
+
+        private val virtualRenderer = mutableMapOf<String, VirtualRenderer>()
+
+        fun hasRenderer(moduleId: String): Boolean {
+            return virtualRenderer.contains(moduleId)
+        }
+
+        fun removeRenderer(moduleId: String) {
+            virtualRenderer.remove(moduleId)
+        }
     }
 }

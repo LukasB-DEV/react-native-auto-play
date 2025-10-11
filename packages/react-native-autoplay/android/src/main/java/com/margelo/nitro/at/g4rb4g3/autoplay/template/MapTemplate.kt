@@ -17,6 +17,10 @@ class MapTemplate(
     context: CarContext, config: NitroMapTemplateConfig
 ) : AndroidAutoTemplate<NitroMapTemplateConfig>(context, config) {
 
+    override val isRenderTemplate = true
+    override val templateId: String
+        get() = config.id
+
     private fun parseMapButtons(buttons: Array<NitroMapButton>): ActionStrip {
         return ActionStrip.Builder().apply {
             buttons.forEach { button ->
@@ -84,5 +88,15 @@ class MapTemplate(
                 setActionStrip(parseMapActions(actions))
             }
         }.build()
+    }
+
+    override fun setTemplateActions(actions: Array<NitroAction>?) {
+        config = config.copy(actions = actions)
+        super.applyConfigUpdate()
+    }
+
+    fun setMapActions(buttons: Array<NitroMapButton>?) {
+        config = config.copy(mapButtons = buttons)
+        super.applyConfigUpdate()
     }
 }

@@ -22,11 +22,10 @@ class RootModule {
         try action(scene)
     }
     
-    static func withTemplate<T>(templateId: String, perform action: @escaping (T) throws -> Void) throws {
+    static func withTemplate(templateId: String, perform action: @escaping (Template?) throws -> Void) throws {
         try withScene { scene in
             guard
                 let template = scene.templateStore.getTemplate(templateId: templateId)
-                    as? T
             else {
                 throw AutoPlayError.templateNotFound(templateId)
             }

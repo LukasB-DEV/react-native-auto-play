@@ -1,6 +1,5 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay
 
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
@@ -41,6 +40,7 @@ class AndroidAutoScreen(
 
                     Lifecycle.Event.ON_DESTROY -> {
                         HybridAutoPlay.emitTemplateState(moduleName, VisibilityState.DIDDISAPPEAR)
+                        removeScreen(moduleName)
                     }
 
                     else -> {}
@@ -69,14 +69,7 @@ class AndroidAutoScreen(
         })
     }
 
-    fun setTemplate(template: Template) {
-        this.template = template
-        UiThreadUtil.runOnUiThread {
-            invalidate()
-        }
-    }
-
-    fun applyConfigUpdate() {
+    fun applyConfigUpdate(invalidate: Boolean = false) {
         val config = AndroidAutoTemplate.getConfig(moduleName) ?: return
 
         when (config) {
@@ -86,6 +79,14 @@ class AndroidAutoScreen(
         }?.let {
             AndroidAutoTemplate.setTemplate(moduleName, it)
             this.template = it.parse()
+
+            if (!invalidate) {
+                return
+            }
+
+            UiThreadUtil.runOnUiThread {
+                invalidate()
+            }
         }
     }
 
@@ -102,8 +103,14 @@ class AndroidAutoScreen(
             return screens[marker]
         }
 
-        fun getScreenManager(marker: String): ScreenManager? {
-            return screens[marker]?.screenManager
+        fun getScreenManager(): ScreenManager? {
+            val clusterSessions = AndroidAutoSession.getClusterSessions()
+            return screens.firstNotNullOfOrNull {
+                if (clusterSessions.contains(it.key)) {
+                    return null
+                }
+                return it.value.screenManager
+            }
         }
 
         fun removeScreen(marker: String) {

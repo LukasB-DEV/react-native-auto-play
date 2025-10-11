@@ -26,7 +26,7 @@ class MapTemplate: Template, CPMapTemplateDelegate {
         invalidate()
     }
 
-    func invalidate() {
+    override func invalidate() {
         guard let template = self.template as? CPMapTemplate else { return }
 
         setBarButtons()

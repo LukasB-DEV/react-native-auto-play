@@ -2,9 +2,21 @@ package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
 import androidx.car.app.CarContext
 import androidx.car.app.model.Template
+import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
+import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 
 abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
     abstract fun parse(): Template
+    abstract fun setTemplateActions(actions: Array<NitroAction>?)
+    abstract val isRenderTemplate: Boolean
+    abstract val templateId: String
+
+    fun applyConfigUpdate() {
+        val screen = AndroidAutoScreen.getScreen(templateId)
+            ?: throw IllegalArgumentException("setTemplateActions failed, no screen found")
+
+        screen.applyConfigUpdate(invalidate = true)
+    }
 
     companion object {
         const val TAG = "AndroidAutoTemplate"
@@ -14,8 +26,8 @@ abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
             templates.put(id, template)
         }
 
-        fun getTemplate(id: String): Template? {
-            return templates[id]?.parse()
+        fun getTemplate(id: String): AndroidAutoTemplate<*>? {
+            return templates[id]
         }
 
         fun getConfig(id: String): Any? {

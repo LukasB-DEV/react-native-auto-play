@@ -27,7 +27,7 @@ class ListTemplate: Template {
         invalidate()
     }
 
-    func invalidate() {
+    override func invalidate() {
         guard let template = self.template as? CPListTemplate else {
             return
         }
