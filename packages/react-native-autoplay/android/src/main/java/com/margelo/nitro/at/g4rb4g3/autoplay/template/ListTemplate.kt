@@ -21,7 +21,7 @@ class ListTemplate(context: CarContext, config: NitroListTemplateConfig) :
             config.sections?.let { sections ->
                 if (sections.isEmpty()) {
                     setLoading(true)
-                } else if (sections.size == 1) {
+                } else if (sections.size == 1 && sections.first().title == null) {
                     val section = sections[0]
                     setSingleList(
                         Parser.parseRows(
