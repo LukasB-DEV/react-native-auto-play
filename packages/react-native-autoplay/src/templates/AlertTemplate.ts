@@ -15,10 +15,6 @@ export interface AlertTemplateConfig extends TemplateConfig {
 }
 
 export class AlertTemplate extends Template<AlertTemplateConfig, undefined> {
-  public get type(): string {
-    return 'alert';
-  }
-
   constructor(config: AlertTemplateConfig) {
     super(config);
 

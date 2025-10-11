@@ -10,7 +10,7 @@ export enum TextPlaceholders {
   Duration = '{duration}',
 }
 
-export type Text = {
+export type AutoText = {
   /**
    * use the `TextPlaceholders.Distance` and `TextPlaceholders.Duration` inside the string to position the distance and duration props
    */

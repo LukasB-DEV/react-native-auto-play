@@ -13,9 +13,11 @@ class MapTemplate: Template, CPMapTemplateDelegate {
     init(config: NitroMapTemplateConfig) {
         self.config = config
 
-        super.init(template: CPMapTemplate())
-
-        self.template.userInfo = ["id": config.id]
+        super.init(
+            templateId: config.id,
+            template: CPMapTemplate(),
+            header: config.actions
+        )
 
         if let template = self.template as? CPMapTemplate {
             template.mapDelegate = self
@@ -26,6 +28,8 @@ class MapTemplate: Template, CPMapTemplateDelegate {
 
     func invalidate() {
         guard let template = self.template as? CPMapTemplate else { return }
+
+        setBarButtons()
 
         if let mapButtons = config.mapButtons {
             template.mapButtons = mapButtons.map { button in
@@ -39,14 +43,6 @@ class MapTemplate: Template, CPMapTemplateDelegate {
                     button.onPress()
                 }
             }
-        }
-
-        if let actions = config.actions {
-            let parsedActions = Parser.parseActions(actions: actions)
-            
-            template.backButton = parsedActions.backButton
-            template.leadingNavigationBarButtons = parsedActions.leadingNavigationBarButtons
-            template.trailingNavigationBarButtons = parsedActions.trailingNavigationBarButtons
         }
     }
 

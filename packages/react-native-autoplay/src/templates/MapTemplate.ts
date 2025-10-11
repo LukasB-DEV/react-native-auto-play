@@ -92,10 +92,6 @@ const convertActions = (actions: MapTemplateConfig['actions']) => {
 };
 
 export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['actions']> {
-  public get type(): string {
-    return 'map';
-  }
-
   private cleanup: () => void;
 
   constructor(config: MapTemplateConfig) {

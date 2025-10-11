@@ -14,6 +14,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
@@ -30,6 +32,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
+// Forward declaration of `NitroGridButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
+// Forward declaration of `NitroGridTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridTemplateConfig; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 // Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
@@ -50,8 +56,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
-// Forward declaration of `Text` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 
@@ -59,6 +63,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "AlertAction.hpp"
 #include "AlertStyle.hpp"
 #include "AlertTemplateConfig.hpp"
+#include "AutoText.hpp"
 #include "ColorScheme.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
@@ -67,6 +72,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
+#include "NitroGridButton.hpp"
+#include "NitroGridTemplateConfig.hpp"
 #include "NitroImage.hpp"
 #include "NitroListTemplateConfig.hpp"
 #include "NitroMapButton.hpp"
@@ -77,7 +84,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "NitroSectionType.hpp"
 #include "Point.hpp"
 #include "SafeAreaInsets.hpp"
-#include "Text.hpp"
 #include "VisibilityState.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>

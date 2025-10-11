@@ -1,14 +1,14 @@
 import { AutoPlay } from '..';
-import type { ButtonImage } from '../types/Button';
-import type { Text } from '../types/Text';
+import type { AutoImage } from '../types/Image';
+import type { AutoText } from '../types/Text';
 import { NitroAction } from '../utils/NitroAction';
 import { type NitroSection, NitroSectionConvert } from '../utils/NitroSection';
 import { type Actions, Template, type TemplateConfig } from './Template';
 
 type BaseRow = {
-  title: Text;
+  title: AutoText;
   enabled?: boolean;
-  image?: ButtonImage;
+  image?: AutoImage;
 };
 
 export type DefaultRow = BaseRow & {
@@ -18,7 +18,7 @@ export type DefaultRow = BaseRow & {
    */
   browsable?: boolean;
   onPress: () => void;
-  detailedText?: Text;
+  detailedText?: AutoText;
 };
 
 export type ToggleRow = BaseRow & {
@@ -53,7 +53,7 @@ export type Section = Array<MultiSection> | SingleSection;
 
 export interface NitroListTemplateConfig extends TemplateConfig {
   actions?: Array<NitroAction>;
-  title: Text;
+  title: AutoText;
   sections?: Array<NitroSection>;
 }
 
@@ -70,10 +70,6 @@ export type ListTemplateConfig = Omit<NitroListTemplateConfig, 'actions' | 'sect
 };
 
 export class ListTemplate extends Template<ListTemplateConfig, Actions> {
-  public get type(): string {
-    return 'list';
-  }
-
   private cleanup: () => void;
 
   constructor(config: ListTemplateConfig) {

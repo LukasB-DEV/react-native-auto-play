@@ -199,6 +199,35 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
+    
+    func createGridTemplate(config: NitroGridTemplateConfig) throws -> () -> Void {
+        let removeTemplateStateListener = addTemplateStateListener(
+            templateId: config.id,
+            onWillAppear: config.onWillAppear,
+            onWillDisappear: config.onWillDisappear,
+            onDidAppear: config.onDidAppear,
+            onDidDisappear: config.onDidDisappear
+        )
+
+        let template = GridTemplate(config: config)
+        try RootModule.withScene { scene in
+            scene.templateStore.addTemplate(
+                template: template,
+                templateId: config.id
+            )
+        }
+
+        return {
+            removeTemplateStateListener?()
+            do {
+                try RootModule.withScene { scene in
+                    scene.templateStore.removeTemplate(templateId: config.id)
+                }
+            } catch {
+                print("Failed to remove template with id: \(config.id)")
+            }
+        }
+    }
 
     func setRootTemplate(templateId: String) throws -> Promise<Void> {
         return Promise.async {
@@ -242,6 +271,15 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
+    
+    func popToRootTemplate() throws -> NitroModules.Promise<Void> {
+        return Promise.async {
+            return try await RootModule.withInterfaceController { interfaceController in
+                try await interfaceController.popToRootTemplate(animated: true)
+            }
+        }
+    }
+    
 
     func setTemplateMapButtons(templateId: String, buttons: [NitroMapButton]?)
         throws

@@ -88,6 +88,15 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
+  abstract fun createGridTemplate(config: NitroGridTemplateConfig): () -> Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun createGridTemplate_cxx(config: NitroGridTemplateConfig): Func_void {
+    val __result = createGridTemplate(config)
+    return Func_void_java(__result)
+  }
+  
   @DoNotStrip
   @Keep
   abstract fun setRootTemplate(templateId: String): Promise<Unit>
@@ -99,6 +108,10 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun popTemplate(): Promise<Unit>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun popToRootTemplate(): Promise<Unit>
   
   abstract fun addSafeAreaInsetsListener(moduleName: String, callback: (insets: SafeAreaInsets) -> Unit): () -> Unit
   

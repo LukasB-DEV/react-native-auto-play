@@ -51,9 +51,6 @@ export interface TemplateConfig {
 }
 
 export class Template<TemplateConfigType, ActionsType> {
-  public get type(): string {
-    return 'unset';
-  }
   public templateId!: string;
 
   constructor(config: TemplateConfig & TemplateConfigType) {

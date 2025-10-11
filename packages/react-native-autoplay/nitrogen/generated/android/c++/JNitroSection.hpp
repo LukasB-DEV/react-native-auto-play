@@ -10,19 +10,19 @@
 #include <fbjni/fbjni.h>
 #include "NitroSection.hpp"
 
+#include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "JAutoText.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
 #include "JNitroImage.hpp"
 #include "JNitroRow.hpp"
 #include "JNitroSectionType.hpp"
-#include "JText.hpp"
 #include "NitroImage.hpp"
 #include "NitroRow.hpp"
 #include "NitroSectionType.hpp"
-#include "Text.hpp"
 #include <functional>
 #include <optional>
 #include <string>

@@ -23,10 +23,10 @@ data class NitroRow
   constructor(
     @DoNotStrip
     @Keep
-    val title: Text,
+    val title: AutoText,
     @DoNotStrip
     @Keep
-    val detailedText: Text?,
+    val detailedText: AutoText?,
     @DoNotStrip
     @Keep
     val browsable: Boolean?,
@@ -46,6 +46,6 @@ data class NitroRow
   /**
    * Initialize a new instance of `NitroRow` from Kotlin.
    */
-  constructor(title: Text, detailedText: Text?, browsable: Boolean?, enabled: Boolean, image: NitroImage?, checked: Boolean?, onPress: (checked: Boolean?) -> Unit)
+  constructor(title: AutoText, detailedText: AutoText?, browsable: Boolean?, enabled: Boolean, image: NitroImage?, checked: Boolean?, onPress: (checked: Boolean?) -> Unit)
        : this(title, detailedText, browsable, enabled, image, checked, Func_void_std__optional_bool__java(onPress))
 }

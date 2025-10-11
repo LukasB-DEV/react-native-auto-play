@@ -11,7 +11,7 @@ class ListTemplate(context: CarContext, config: NitroListTemplateConfig) :
 
     override fun parse(): Template {
         return ListTemplate.Builder().apply {
-            setHeader(Parser.parseHeader(context, Parser.parseText(config.title), config.actions))
+            setHeader(Parser.parseHeader(context, config.title, config.actions))
 
             config.sections?.let { sections ->
                 if (sections.isEmpty()) {

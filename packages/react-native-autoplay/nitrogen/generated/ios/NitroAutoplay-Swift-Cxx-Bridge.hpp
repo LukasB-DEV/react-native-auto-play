@@ -12,6 +12,8 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
@@ -26,6 +28,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
+// Forward declaration of `NitroGridButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
@@ -42,8 +46,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
-// Forward declaration of `Text` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 
@@ -54,6 +56,7 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 // Include C++ defined types
 #include "AlertAction.hpp"
 #include "AlertStyle.hpp"
+#include "AutoText.hpp"
 #include "ColorScheme.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
@@ -61,6 +64,7 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
+#include "NitroGridButton.hpp"
 #include "NitroImage.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
@@ -69,7 +73,6 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include "NitroSectionType.hpp"
 #include "Point.hpp"
 #include "SafeAreaInsets.hpp"
-#include "Text.hpp"
 #include "VisibilityState.hpp"
 #include <NitroModules/FastVectorCopy.hpp>
 #include <NitroModules/Promise.hpp>
@@ -526,18 +529,18 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::optional<Text>
+  // pragma MARK: std::optional<AutoText>
   /**
-   * Specialized version of `std::optional<Text>`.
+   * Specialized version of `std::optional<AutoText>`.
    */
-  using std__optional_Text_ = std::optional<Text>;
-  inline std::optional<Text> create_std__optional_Text_(const Text& value) noexcept {
-    return std::optional<Text>(value);
+  using std__optional_AutoText_ = std::optional<AutoText>;
+  inline std::optional<AutoText> create_std__optional_AutoText_(const AutoText& value) noexcept {
+    return std::optional<AutoText>(value);
   }
-  inline bool has_value_std__optional_Text_(const std::optional<Text>& optional) noexcept {
+  inline bool has_value_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
     return optional.has_value();
   }
-  inline Text get_std__optional_Text_(const std::optional<Text>& optional) noexcept {
+  inline AutoText get_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
     return *optional;
   }
   
@@ -576,6 +579,17 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
   }
   inline std::vector<NitroSection> get_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
     return *optional;
+  }
+  
+  // pragma MARK: std::vector<NitroGridButton>
+  /**
+   * Specialized version of `std::vector<NitroGridButton>`.
+   */
+  using std__vector_NitroGridButton_ = std::vector<NitroGridButton>;
+  inline std::vector<NitroGridButton> create_std__vector_NitroGridButton_(size_t size) noexcept {
+    std::vector<NitroGridButton> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::shared_ptr<Promise<void>>

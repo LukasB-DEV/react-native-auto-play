@@ -23,12 +23,12 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-// Forward declaration of `Text` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 
-#include "Text.hpp"
+#include "AutoText.hpp"
 #include <optional>
 #include "NitroImage.hpp"
 #include <functional>
@@ -40,8 +40,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct NitroRow {
   public:
-    Text title     SWIFT_PRIVATE;
-    std::optional<Text> detailedText     SWIFT_PRIVATE;
+    AutoText title     SWIFT_PRIVATE;
+    std::optional<AutoText> detailedText     SWIFT_PRIVATE;
     std::optional<bool> browsable     SWIFT_PRIVATE;
     bool enabled     SWIFT_PRIVATE;
     std::optional<NitroImage> image     SWIFT_PRIVATE;
@@ -50,7 +50,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
 
   public:
     NitroRow() = default;
-    explicit NitroRow(Text title, std::optional<Text> detailedText, std::optional<bool> browsable, bool enabled, std::optional<NitroImage> image, std::optional<bool> checked, std::function<void(std::optional<bool> /* checked */)> onPress): title(title), detailedText(detailedText), browsable(browsable), enabled(enabled), image(image), checked(checked), onPress(onPress) {}
+    explicit NitroRow(AutoText title, std::optional<AutoText> detailedText, std::optional<bool> browsable, bool enabled, std::optional<NitroImage> image, std::optional<bool> checked, std::function<void(std::optional<bool> /* checked */)> onPress): title(title), detailedText(detailedText), browsable(browsable), enabled(enabled), image(image), checked(checked), onPress(onPress) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay
@@ -63,8 +63,8 @@ namespace margelo::nitro {
     static inline margelo::nitro::at::g4rb4g3::autoplay::NitroRow fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::at::g4rb4g3::autoplay::NitroRow(
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Text>::fromJSI(runtime, obj.getProperty(runtime, "title")),
-        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::Text>>::fromJSI(runtime, obj.getProperty(runtime, "detailedText")),
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AutoText>::fromJSI(runtime, obj.getProperty(runtime, "title")),
+        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::AutoText>>::fromJSI(runtime, obj.getProperty(runtime, "detailedText")),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, "browsable")),
         JSIConverter<bool>::fromJSI(runtime, obj.getProperty(runtime, "enabled")),
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::NitroImage>>::fromJSI(runtime, obj.getProperty(runtime, "image")),
@@ -74,8 +74,8 @@ namespace margelo::nitro {
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::NitroRow& arg) {
       jsi::Object obj(runtime);
-      obj.setProperty(runtime, "title", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Text>::toJSI(runtime, arg.title));
-      obj.setProperty(runtime, "detailedText", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::Text>>::toJSI(runtime, arg.detailedText));
+      obj.setProperty(runtime, "title", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AutoText>::toJSI(runtime, arg.title));
+      obj.setProperty(runtime, "detailedText", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::AutoText>>::toJSI(runtime, arg.detailedText));
       obj.setProperty(runtime, "browsable", JSIConverter<std::optional<bool>>::toJSI(runtime, arg.browsable));
       obj.setProperty(runtime, "enabled", JSIConverter<bool>::toJSI(runtime, arg.enabled));
       obj.setProperty(runtime, "image", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::NitroImage>>::toJSI(runtime, arg.image));
@@ -91,8 +91,8 @@ namespace margelo::nitro {
       if (!nitro::isPlainObject(runtime, obj)) {
         return false;
       }
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Text>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
-      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::Text>>::canConvert(runtime, obj.getProperty(runtime, "detailedText"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AutoText>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
+      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::AutoText>>::canConvert(runtime, obj.getProperty(runtime, "detailedText"))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, "browsable"))) return false;
       if (!JSIConverter<bool>::canConvert(runtime, obj.getProperty(runtime, "enabled"))) return false;
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::NitroImage>>::canConvert(runtime, obj.getProperty(runtime, "image"))) return false;

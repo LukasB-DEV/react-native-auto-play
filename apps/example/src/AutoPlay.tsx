@@ -1,14 +1,15 @@
 import {
   AutoPlay,
+  type MapButton,
+  type MapPanButton,
   MapTemplate,
   type RootComponentInitialProps,
   SafeAreaView,
-  TextPlaceholders,
 } from '@g4rb4g3/react-native-autoplay';
-import { ListTemplate } from '@g4rb4g3/react-native-autoplay/lib/templates/ListTemplate';
-import type { MapButton, MapPanButton } from '@g4rb4g3/react-native-autoplay/lib/types/Button';
 import { useEffect, useState } from 'react';
 import { Platform, Text } from 'react-native';
+import { AutoGridTemplate } from './templates/AutoGridTemplate';
+import { AutoListTemplate } from './templates/AutoListTemplate';
 
 const AutoPlayRoot = (props: RootComponentInitialProps) => {
   const [i, setI] = useState(0);
@@ -44,7 +45,6 @@ const mapButtonPan: MapButton | MapPanButton =
         type: 'custom',
         image: {
           name: 'drag_pan',
-          size: 22,
         },
         onPress: () => console.log('map button on press'),
       };
@@ -53,7 +53,6 @@ const mapButtonMoney = (template: MapTemplate): MapButton => ({
   type: 'custom',
   image: {
     name: 'euro_symbol',
-    size: 22,
     color: 'rgba(255, 255, 255, 1)',
     backgroundColor: 'rgba(66, 66, 66, 0.5)',
   },
@@ -66,7 +65,6 @@ const mapButtonEv = (template: MapTemplate): MapButton => ({
   type: 'custom',
   image: {
     name: 'ev_station',
-    size: 22,
     color: 'rgba(255, 255, 255, 1)',
     backgroundColor: 'rgba(66, 66, 66, 0.5)',
   },
@@ -74,138 +72,6 @@ const mapButtonEv = (template: MapTemplate): MapButton => ({
     template.setMapButtons([mapButtonPan, mapButtonMoney(template)]);
   },
 });
-
-const getListTemplate = () => {
-  const template = new ListTemplate({
-    id: 'list',
-    title: {
-      text: `${TextPlaceholders.Distance} ${TextPlaceholders.Duration}`,
-      distance: { unit: 'meters', value: 1234 },
-      duration: 4711,
-    },
-    actions: {
-      android: {
-        startHeaderAction: {
-          type: 'back',
-          onPress: () => {
-            AutoPlay.popTemplate();
-          },
-        },
-        endHeaderActions: [
-          { type: 'image', image: { name: 'close', size: 22 }, onPress: () => {} },
-          {
-            type: 'textImage',
-            image: { name: 'help', size: 22 },
-            title: 'help',
-            onPress: () => {},
-          },
-        ],
-      },
-      ios: {
-        backButton: {
-          type: 'back',
-          onPress: () => {
-            AutoPlay.popTemplate();
-          },
-        },
-        trailingNavigationBarButtons: [
-          { type: 'image', image: { name: 'close', size: 22 }, onPress: () => {} },
-          {
-            type: 'text',
-            title: 'help',
-            onPress: () => {},
-          },
-        ],
-      },
-    },
-    sections: [
-      {
-        type: 'default',
-        title: 'section text',
-        items: [
-          {
-            type: 'default',
-            title: { text: 'row #1' },
-            browsable: true,
-            image: {
-              name: 'rotate_auto',
-              size: 22,
-            },
-            onPress: () => {
-              const radioTemplate = new ListTemplate({
-                id: 'radios',
-                title: { text: 'radios' },
-                actions: {
-                  android: {
-                    startHeaderAction: { type: 'back', onPress: () => AutoPlay.popTemplate() },
-                  },
-                },
-                sections: {
-                  type: 'radio',
-                  selectedIndex: 1,
-                  items: [
-                    {
-                      type: 'radio',
-                      title: { text: 'radio #1' },
-                      onPress: () => {
-                        console.log('*** radio #1');
-                      },
-                    },
-                    {
-                      type: 'radio',
-                      title: { text: 'radio #2' },
-                      onPress: () => {
-                        console.log('*** radio #2');
-                      },
-                    },
-                    {
-                      type: 'radio',
-                      title: { text: 'radio #3' },
-                      onPress: () => {
-                        console.log('*** radio #3');
-                      },
-                    },
-                  ],
-                },
-                onDidDisappear: () => radioTemplate.destroy(),
-              });
-              radioTemplate.push().catch((e) => console.log('*** error radio template', e));
-            },
-          },
-          {
-            type: 'toggle',
-            title: { text: 'row #2' },
-            checked: true,
-            image: {
-              name: 'alarm',
-              size: 22,
-            },
-            onPress: (checked) => {
-              console.log('*** toggle', checked);
-            },
-          },
-          {
-            type: 'toggle',
-            title: { text: 'row #3' },
-            checked: false,
-            image: {
-              name: 'bomb',
-              size: 22,
-            },
-            onPress: (checked) => {
-              console.log('*** toggle', checked);
-            },
-          },
-        ],
-      },
-    ],
-    onDidDisappear: () => {
-      template.destroy();
-    },
-  });
-
-  return template;
-};
 
 const registerRunnable = () => {
   const onConnect = () => {
@@ -228,39 +94,33 @@ const registerRunnable = () => {
       actions: {
         android: [
           {
-            type: 'back',
-            onPress: () => console.log('*** back'),
+            type: 'image',
+            image: { name: 'grid_3x3' },
+            onPress: () => AutoGridTemplate.getTemplate().push(),
           },
-          { type: 'image', image: { name: 'home' }, onPress: () => console.log('*** home') },
           {
-            type: 'text',
-            title: 'list',
-            onPress: () => {
-              const listTemplate = getListTemplate();
-              listTemplate.push();
+            type: 'image',
+            image: {
+              name: 'list',
             },
+            onPress: () => AutoListTemplate.getTemplate().push(),
           },
         ],
         ios: {
-          backButton: {
-            type: 'back',
-            onPress: () => console.log('*** back'),
-          },
           leadingNavigationBarButtons: [
             {
               type: 'image',
-              image: { name: 'home', size: 22 },
-              onPress: () => console.log('*** home'),
+              image: { name: 'grid_3x3' },
+              onPress: () => AutoGridTemplate.getTemplate().push(),
             },
           ],
           trailingNavigationBarButtons: [
             {
-              type: 'text',
-              title: 'list',
-              onPress: () => {
-                const listTemplate = getListTemplate();
-                listTemplate.push();
+              type: 'image',
+              image: {
+                name: 'list',
               },
+              onPress: () => AutoListTemplate.getTemplate().push(),
             },
           ],
         },

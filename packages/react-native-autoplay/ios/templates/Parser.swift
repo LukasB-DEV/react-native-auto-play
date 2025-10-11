@@ -57,7 +57,7 @@ class Parser {
         )
     }
 
-    static func parseText(text: Text?) -> String? {
+    static func parseText(text: AutoText?) -> String? {
         guard let text else { return nil }
 
         var result = text.text
@@ -152,16 +152,16 @@ class Parser {
                 listItem.isEnabled = item.enabled
 
                 listItem.handler = { _item, completion in
-                    
+
                     var updatedSection = sections[sectionIndex]
                     if let checked = updatedSection.items[itemIndex].checked {
                         updatedSection.items[itemIndex].checked = !checked
                     }
-                    
+
                     if updatedSection.type == .radio {
                         updatedSection.selectedIndex = Double(itemIndex)
                     }
-                    
+
                     updateSection(updatedSection, sectionIndex)
 
                     item.onPress(item.checked.map { checked in !checked })

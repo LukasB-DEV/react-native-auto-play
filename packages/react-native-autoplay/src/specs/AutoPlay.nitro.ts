@@ -1,5 +1,6 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type { AlertTemplateConfig } from '../templates/AlertTemplate';
+import type { NitroGridTemplateConfig } from '../templates/GridTemplate';
 import type { NitroListTemplateConfig } from '../templates/ListTemplate';
 import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
 import type { CleanupCallback, EventName, SafeAreaInsets, VisibilityState } from '../types/Event';
@@ -46,6 +47,7 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
   createMapTemplate(config: NitroMapTemplateConfig): CleanupCallback;
 
   createListTemplate(config: NitroListTemplateConfig): CleanupCallback;
+  createGridTemplate(config: NitroGridTemplateConfig): CleanupCallback;
 
   /**
    * sets the specified template as root template, initializes a new stack
@@ -63,6 +65,11 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
    * remove the top template from the stack
    */
   popTemplate(): Promise<void>;
+
+  /**
+   * remove all templates from the stack except the root template
+   */
+  popToRootTemplate(): Promise<void>;
 
   /**
    * callback for safe area insets changes

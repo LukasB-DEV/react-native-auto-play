@@ -9,17 +9,20 @@ import CarPlay
 
 class ListTemplate: Template {
     var config: NitroListTemplateConfig
-    
+
     init(config: NitroListTemplateConfig) {
         self.config = config
-        
+
         let template = CPListTemplate(
             title: Parser.parseText(text: config.title),
             sections: []
         )
-        template.userInfo = ["id": config.id]
 
-        super.init(template: template)
+        super.init(
+            templateId: config.id,
+            template: template,
+            header: config.actions
+        )
 
         invalidate()
     }
@@ -29,25 +32,14 @@ class ListTemplate: Template {
             return
         }
 
-        setHeader(template: template)
+        setBarButtons()
+
         template.updateSections(
             Parser.parseSections(
                 sections: config.sections,
                 updateSection: self.updateSection(section:sectionIndex:)
             )
         )
-    }
-
-    func setHeader(template: CPListTemplate) {
-        if let actions = config.actions {
-            let parsedActions = Parser.parseActions(actions: actions)
-
-            template.backButton = parsedActions.backButton
-            template.leadingNavigationBarButtons =
-                parsedActions.leadingNavigationBarButtons
-            template.trailingNavigationBarButtons =
-                parsedActions.trailingNavigationBarButtons
-        }
     }
 
     func updateSection(section: NitroSection, sectionIndex: Int) {

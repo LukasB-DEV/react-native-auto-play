@@ -1,25 +1,15 @@
-import type { GlyphName } from './Glyphmap';
+import type { AutoImage } from './Image';
+import type { AutoText } from './Text';
 
-export type ButtonImage = {
-  name: GlyphName;
-  size?: number;
-  /**
-   * sets the icon color, currently Android does not allow colors and converts everything to grayscale so we stick to white for this
-   * @summary defaults to white if not specified
-   * @namespace iOS
-   */
-  color?: string;
-  /**
-   * sets the background color, currently Android does not allow colors and converts everything to grayscale so we stick to transparent for this
-   * @summary defaults to transparent if not specified
-   * @namespace iOS
-   */
-  backgroundColor?: string;
+export type GridButton = {
+  title: AutoText;
+  image: AutoImage;
+  onPress: () => void;
 };
 
 export type MapButton = {
   type: 'custom';
-  image: ButtonImage;
+  image: AutoImage;
   onPress: () => void;
 };
 
@@ -41,14 +31,14 @@ export type TextButton = {
 
 export type ImageButton = {
   type: 'image';
-  image: ButtonImage;
+  image: AutoImage;
   enabled?: boolean;
   onPress: () => void;
 };
 
 export type TextAndImageButton = {
   type: 'textImage';
-  image: ButtonImage;
+  image: AutoImage;
   title: string;
   enabled?: boolean;
   onPress: () => void;

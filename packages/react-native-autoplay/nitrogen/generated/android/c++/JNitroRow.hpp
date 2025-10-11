@@ -10,15 +10,15 @@
 #include <fbjni/fbjni.h>
 #include "NitroRow.hpp"
 
+#include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "JAutoText.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
 #include "JNitroImage.hpp"
-#include "JText.hpp"
 #include "NitroImage.hpp"
-#include "Text.hpp"
 #include <functional>
 #include <optional>
 #include <string>
@@ -42,10 +42,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     [[nodiscard]]
     NitroRow toCpp() const {
       static const auto clazz = javaClassStatic();
-      static const auto fieldTitle = clazz->getField<JText>("title");
-      jni::local_ref<JText> title = this->getFieldValue(fieldTitle);
-      static const auto fieldDetailedText = clazz->getField<JText>("detailedText");
-      jni::local_ref<JText> detailedText = this->getFieldValue(fieldDetailedText);
+      static const auto fieldTitle = clazz->getField<JAutoText>("title");
+      jni::local_ref<JAutoText> title = this->getFieldValue(fieldTitle);
+      static const auto fieldDetailedText = clazz->getField<JAutoText>("detailedText");
+      jni::local_ref<JAutoText> detailedText = this->getFieldValue(fieldDetailedText);
       static const auto fieldBrowsable = clazz->getField<jni::JBoolean>("browsable");
       jni::local_ref<jni::JBoolean> browsable = this->getFieldValue(fieldBrowsable);
       static const auto fieldEnabled = clazz->getField<jboolean>("enabled");
@@ -84,8 +84,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     [[maybe_unused]]
     static jni::local_ref<JNitroRow::javaobject> fromCpp(const NitroRow& value) {
       return newInstance(
-        JText::fromCpp(value.title),
-        value.detailedText.has_value() ? JText::fromCpp(value.detailedText.value()) : nullptr,
+        JAutoText::fromCpp(value.title),
+        value.detailedText.has_value() ? JAutoText::fromCpp(value.detailedText.value()) : nullptr,
         value.browsable.has_value() ? jni::JBoolean::valueOf(value.browsable.value()) : nullptr,
         value.enabled,
         value.image.has_value() ? JNitroImage::fromCpp(value.image.value()) : nullptr,

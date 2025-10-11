@@ -14,21 +14,20 @@ import androidx.car.app.model.ItemList
 import androidx.car.app.model.Row
 import androidx.car.app.model.Toggle
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
+import com.margelo.nitro.at.g4rb4g3.autoplay.AutoText
 import com.margelo.nitro.at.g4rb4g3.autoplay.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroListTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroRow
-import com.margelo.nitro.at.g4rb4g3.autoplay.Text
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
 object Parser {
-    fun parseHeader(context: CarContext, title: CarText, actions: Array<NitroAction>?): Header {
+    fun parseHeader(context: CarContext, title: AutoText, actions: Array<NitroAction>?): Header {
         return Header.Builder().apply {
-            setTitle(title)
+            setTitle(parseText(title))
             actions?.forEach { action ->
                 when (action.alignment) {
                     NitroAlignment.LEADING -> {
@@ -81,7 +80,7 @@ object Parser {
     const val PLACEHOLDER_DISTANCE = "{distance}"
     const val PLACEHOLDER_DURATION = "{duration}"
 
-    fun parseText(text: Text): CarText {
+    fun parseText(text: AutoText): CarText {
         val span = SpannableString(text.text)
         text.distance?.let { distance ->
             span.setSpan(

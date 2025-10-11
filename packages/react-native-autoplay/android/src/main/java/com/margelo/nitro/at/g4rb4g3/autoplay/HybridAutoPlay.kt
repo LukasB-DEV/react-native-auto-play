@@ -2,6 +2,7 @@ package com.margelo.nitro.at.g4rb4g3.autoplay
 
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession.Companion.ROOT_SESSION
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.GridTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.ListTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ThreadUtil
@@ -175,6 +176,26 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
+    override fun createGridTemplate(config: NitroGridTemplateConfig): () -> Unit {
+        val removeTemplateStateListener = addTemplateStateListener(
+            config.id,
+            config.onWillAppear,
+            config.onDidAppear,
+            config.onWillDisappear,
+            config.onDidDisappear
+        )
+
+        val context = AndroidAutoSession.getRootContext()
+            ?: throw IllegalArgumentException("createListTemplate failed, carContext found")
+
+        val template = GridTemplate(context, config)
+        AndroidAutoTemplate.setTemplate(config.id, template)
+
+        return {
+            removeTemplateStateListener()
+        }
+    }
+
     override fun setRootTemplate(templateId: String): Promise<Unit> {
         return Promise.async {
             val screen = AndroidAutoScreen.getScreen(templateId)
@@ -228,6 +249,24 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
             val result = ThreadUtil.postOnUiAndAwait {
                 screenManager.pop()
+            }
+
+            if (result.isFailure) {
+                throw result.exceptionOrNull() ?: UnknownError("unknown error popping template")
+            }
+        }
+    }
+
+    override fun popToRootTemplate(): Promise<Unit> {
+        return Promise.async {
+            val screenManager = AndroidAutoScreen.getScreenManager(ROOT_SESSION)
+                ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
+            if (screenManager.stackSize == 0) {
+                return@async
+            }
+
+            val result = ThreadUtil.postOnUiAndAwait {
+                screenManager.popToRoot()
             }
 
             if (result.isFailure) {

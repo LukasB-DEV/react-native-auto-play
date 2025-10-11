@@ -37,8 +37,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroListTemplateConfig; }
-// Forward declaration of `Text` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
@@ -49,6 +49,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
+// Forward declaration of `NitroGridTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridTemplateConfig; }
+// Forward declaration of `NitroGridButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 
@@ -95,8 +99,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "JColorScheme.hpp"
 #include "NitroListTemplateConfig.hpp"
 #include "JNitroListTemplateConfig.hpp"
-#include "Text.hpp"
-#include "JText.hpp"
+#include "AutoText.hpp"
+#include "JAutoText.hpp"
 #include "Distance.hpp"
 #include "JDistance.hpp"
 #include "DistanceUnits.hpp"
@@ -107,6 +111,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "JNitroRow.hpp"
 #include "NitroSectionType.hpp"
 #include "JNitroSectionType.hpp"
+#include "NitroGridTemplateConfig.hpp"
+#include "JNitroGridTemplateConfig.hpp"
+#include "NitroGridButton.hpp"
+#include "JNitroGridButton.hpp"
 #include "SafeAreaInsets.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
 #include "JSafeAreaInsets.hpp"
@@ -209,6 +217,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       }
     }();
   }
+  std::function<void()> JHybridAutoPlaySpec::createGridTemplate(const NitroGridTemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JNitroGridTemplateConfig> /* config */)>("createGridTemplate_cxx");
+    auto __result = method(_javaPart, JNitroGridTemplateConfig::fromCpp(config));
+    return [&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return [__resultRef]() -> void {
+          return __resultRef->invoke();
+        };
+      }
+    }();
+  }
   std::shared_ptr<Promise<void>> JHybridAutoPlaySpec::setRootTemplate(const std::string& templateId) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* templateId */)>("setRootTemplate");
     auto __result = method(_javaPart, jni::make_jstring(templateId));
@@ -241,6 +264,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
   }
   std::shared_ptr<Promise<void>> JHybridAutoPlaySpec::popTemplate() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("popTemplate");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<Promise<void>> JHybridAutoPlaySpec::popToRootTemplate() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("popToRootTemplate");
     auto __result = method(_javaPart);
     return [&]() {
       auto __promise = Promise<void>::create();

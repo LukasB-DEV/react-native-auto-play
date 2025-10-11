@@ -73,7 +73,9 @@ const convertAndroidMap = (actions?: ActionsAndroidMap): Array<NitroAction> | un
   return actions?.map<NitroAction>((action) => convertToNitro(action, undefined));
 };
 
-const convertIos = (actions?: ActionsIos): Array<NitroAction> | undefined => {
+function convertIos(actions: ActionsIos): Array<NitroAction>;
+function convertIos(actions?: ActionsIos): Array<NitroAction> | undefined;
+function convertIos(actions?: ActionsIos): Array<NitroAction> | undefined {
   if (actions == null) {
     return undefined;
   }
@@ -123,9 +125,11 @@ const convertIos = (actions?: ActionsIos): Array<NitroAction> | undefined => {
   }
 
   return nitroActions;
-};
+}
 
-const convertAndroid = (actions?: ActionsAndroid): Array<NitroAction> | undefined => {
+function convertAndroid(actions: ActionsAndroid): Array<NitroAction>;
+function convertAndroid(actions?: ActionsAndroid): Array<NitroAction> | undefined;
+function convertAndroid(actions?: ActionsAndroid): Array<NitroAction> | undefined {
   if (actions == null) {
     return undefined;
   }
@@ -151,10 +155,12 @@ const convertAndroid = (actions?: ActionsAndroid): Array<NitroAction> | undefine
   }
 
   return nitroActions;
-};
+}
 
-const convert = (actions?: Actions) => {
+function convert(actions: Actions): Array<NitroAction>;
+function convert(actions?: Actions): Array<NitroAction> | undefined;
+function convert(actions?: Actions): Array<NitroAction> | undefined {
   return Platform.OS === 'android' ? convertAndroid(actions?.android) : convertIos(actions?.ios);
-};
+}
 
 export const NitroAction = { convert, convertAndroidMap, convertIos };

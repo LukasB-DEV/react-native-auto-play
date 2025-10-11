@@ -1,12 +1,12 @@
 import type { DefaultRow, RadioRow, Section, ToggleRow } from '../templates/ListTemplate';
-import type { Text } from '../types/Text';
+import type { AutoText } from '../types/Text';
 import { NitroImage } from './NitroImage';
 
 type NitroSectionType = 'default' | 'radio';
 
 export type NitroRow = {
-  title: Text;
-  detailedText?: Text;
+  title: AutoText;
+  detailedText?: AutoText;
   browsable?: boolean;
   enabled: boolean;
   image?: NitroImage;

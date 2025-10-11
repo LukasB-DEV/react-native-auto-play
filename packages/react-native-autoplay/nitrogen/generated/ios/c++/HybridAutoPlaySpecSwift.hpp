@@ -42,8 +42,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 // Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroListTemplateConfig; }
-// Forward declaration of `Text` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Text; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
@@ -54,6 +54,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
+// Forward declaration of `NitroGridTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridTemplateConfig; }
+// Forward declaration of `NitroGridButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 
@@ -76,12 +80,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "Point.hpp"
 #include "ColorScheme.hpp"
 #include "NitroListTemplateConfig.hpp"
-#include "Text.hpp"
+#include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "NitroSection.hpp"
 #include "NitroRow.hpp"
 #include "NitroSectionType.hpp"
+#include "NitroGridTemplateConfig.hpp"
+#include "NitroGridButton.hpp"
 #include <NitroModules/Promise.hpp>
 #include "SafeAreaInsets.hpp"
 
@@ -176,6 +182,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::function<void()> createGridTemplate(const NitroGridTemplateConfig& config) override {
+      auto __result = _swiftPart.createGridTemplate(std::forward<decltype(config)>(config));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) override {
       auto __result = _swiftPart.setRootTemplate(templateId);
       if (__result.hasError()) [[unlikely]] {
@@ -194,6 +208,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
     inline std::shared_ptr<Promise<void>> popTemplate() override {
       auto __result = _swiftPart.popTemplate();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<void>> popToRootTemplate() override {
+      auto __result = _swiftPart.popToRootTemplate();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -18,10 +18,10 @@ public extension NitroRow {
   /**
    * Create a new instance of `NitroRow`.
    */
-  init(title: Text, detailedText: Text?, browsable: Bool?, enabled: Bool, image: NitroImage?, checked: Bool?, onPress: @escaping (_ checked: Bool?) -> Void) {
-    self.init(title, { () -> bridge.std__optional_Text_ in
+  init(title: AutoText, detailedText: AutoText?, browsable: Bool?, enabled: Bool, image: NitroImage?, checked: Bool?, onPress: @escaping (_ checked: Bool?) -> Void) {
+    self.init(title, { () -> bridge.std__optional_AutoText_ in
       if let __unwrappedValue = detailedText {
-        return bridge.create_std__optional_Text_(__unwrappedValue)
+        return bridge.create_std__optional_AutoText_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -49,7 +49,7 @@ public extension NitroRow {
     }())
   }
 
-  var title: Text {
+  var title: AutoText {
     @inline(__always)
     get {
       return self.__title
@@ -60,16 +60,16 @@ public extension NitroRow {
     }
   }
   
-  var detailedText: Text? {
+  var detailedText: AutoText? {
     @inline(__always)
     get {
       return self.__detailedText.value
     }
     @inline(__always)
     set {
-      self.__detailedText = { () -> bridge.std__optional_Text_ in
+      self.__detailedText = { () -> bridge.std__optional_AutoText_ in
         if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_Text_(__unwrappedValue)
+          return bridge.create_std__optional_AutoText_(__unwrappedValue)
         } else {
           return .init()
         }
