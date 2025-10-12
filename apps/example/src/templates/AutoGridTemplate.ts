@@ -72,7 +72,6 @@ const getButtons = (color: string): Array<GridButton<GridTemplate>> => [
 
 const getTemplate = (): GridTemplate => {
   return new GridTemplate({
-    id: 'gridTemplate',
     title: { text: 'grid' },
     actions: AutoTemplate.actions,
     buttons: getButtons('green'),

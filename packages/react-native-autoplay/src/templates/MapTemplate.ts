@@ -6,7 +6,12 @@ import type { ActionButtonAndroid, MapButton, MapPanButton } from '../types/Butt
 import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { NitroMapButton } from '../utils/NitroMapButton';
-import { type ActionsIos, Template, type TemplateConfig } from './Template';
+import {
+  type ActionsIos,
+  type NitroTemplateConfig,
+  Template,
+  type TemplateConfig,
+} from './Template';
 
 export type AutoPlayCluster = string & { __brand: 'uuid' };
 export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayCluster;
@@ -92,7 +97,6 @@ const convertActions = (template: MapTemplate, actions: MapTemplateConfig['actio
 };
 
 export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['actions']> {
-  private cleanup: () => void;
   private template = this;
 
   constructor(config: MapTemplateConfig) {
@@ -101,7 +105,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     const { component, mapButtons, actions, ...baseConfig } = config;
 
     AppRegistry.registerComponent(
-      this.templateId,
+      this.id,
       () => (props) =>
         React.createElement(SafeAreaInsetsProvider, {
           moduleName: config.id,
@@ -110,27 +114,23 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
         })
     );
 
-    const nitroConfig: NitroMapTemplateConfig = {
+    const nitroConfig: NitroMapTemplateConfig & NitroTemplateConfig = {
       ...baseConfig,
+      id: this.id,
       actions: convertActions(this.template, actions),
       mapButtons: NitroMapButton.convert(this.template, mapButtons),
     };
 
-    this.cleanup = AutoPlay.createMapTemplate(nitroConfig);
+    AutoPlay.createMapTemplate(nitroConfig);
   }
 
   public setMapButtons(mapButtons: MapTemplateConfig['mapButtons']) {
     const buttons = NitroMapButton.convert(this.template, mapButtons);
-    AutoPlay.setTemplateMapButtons(this.templateId, buttons);
+    AutoPlay.setTemplateMapButtons(this.id, buttons);
   }
 
   public override setActions(actions: MapTemplateConfig['actions']) {
     const nitroActions = convertActions(this.template, actions);
-    AutoPlay.setTemplateActions(this.templateId, nitroActions);
-  }
-
-  public destroy() {
-    this.cleanup();
-    super.destroy();
+    AutoPlay.setTemplateActions(this.id, nitroActions);
   }
 }

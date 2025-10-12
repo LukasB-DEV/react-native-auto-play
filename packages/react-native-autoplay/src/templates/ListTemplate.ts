@@ -3,7 +3,7 @@ import type { AutoImage } from '../types/Image';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NitroSection, NitroSectionUtil } from '../utils/NitroSection';
-import { type Actions, Template, type TemplateConfig } from './Template';
+import { type Actions, type NitroTemplateConfig, Template, type TemplateConfig } from './Template';
 
 type BaseRow = {
   title: AutoText;
@@ -70,7 +70,6 @@ export type ListTemplateConfig = Omit<NitroListTemplateConfig, 'actions' | 'sect
 };
 
 export class ListTemplate extends Template<ListTemplateConfig, Actions<ListTemplate>> {
-  private cleanup: () => void;
   private template = this;
 
   constructor(config: ListTemplateConfig) {
@@ -78,24 +77,17 @@ export class ListTemplate extends Template<ListTemplateConfig, Actions<ListTempl
 
     const { actions, sections, ...rest } = config;
 
-    const nitroConfig: NitroListTemplateConfig = {
+    const nitroConfig: NitroListTemplateConfig & NitroTemplateConfig = {
       ...rest,
+      id: this.id,
       actions: NitroActionUtil.convert(this.template, actions),
       sections: NitroSectionUtil.convert(this.template, sections),
     };
 
-    this.cleanup = AutoPlay.createListTemplate(nitroConfig);
+    AutoPlay.createListTemplate(nitroConfig);
   }
 
   public updateSections(sections?: Section<ListTemplate>) {
-    AutoPlay.updateListTemplateSections(
-      this.templateId,
-      NitroSectionUtil.convert(this.template, sections)
-    );
-  }
-
-  public destroy() {
-    this.cleanup();
-    super.destroy();
+    AutoPlay.updateListTemplateSections(this.id, NitroSectionUtil.convert(this.template, sections));
   }
 }

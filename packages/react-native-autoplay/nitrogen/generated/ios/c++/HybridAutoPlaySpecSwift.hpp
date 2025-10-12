@@ -22,8 +22,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
-// Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
+// Forward declaration of `MapTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct MapTemplateConfig; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
@@ -40,8 +40,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
-// Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroListTemplateConfig; }
+// Forward declaration of `ListTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
@@ -54,8 +54,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
-// Forward declaration of `NitroGridTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridTemplateConfig; }
+// Forward declaration of `GridTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct GridTemplateConfig; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
@@ -70,7 +70,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "AlertAction.hpp"
 #include <optional>
 #include "AlertStyle.hpp"
-#include "NitroMapTemplateConfig.hpp"
+#include "MapTemplateConfig.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
 #include "NitroImage.hpp"
@@ -79,14 +79,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "NitroAlignment.hpp"
 #include "Point.hpp"
 #include "ColorScheme.hpp"
-#include "NitroListTemplateConfig.hpp"
+#include "ListTemplateConfig.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "NitroSection.hpp"
 #include "NitroRow.hpp"
 #include "NitroSectionType.hpp"
-#include "NitroGridTemplateConfig.hpp"
+#include "GridTemplateConfig.hpp"
 #include "NitroGridButton.hpp"
 #include <NitroModules/Promise.hpp>
 #include "SafeAreaInsets.hpp"
@@ -166,21 +166,17 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
         std::rethrow_exception(__result.error());
       }
     }
-    inline std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) override {
+    inline void createMapTemplate(const MapTemplateConfig& config) override {
       auto __result = _swiftPart.createMapTemplate(std::forward<decltype(config)>(config));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
-      auto __value = std::move(__result.value());
-      return __value;
     }
-    inline std::function<void()> createListTemplate(const NitroListTemplateConfig& config) override {
+    inline void createListTemplate(const ListTemplateConfig& config) override {
       auto __result = _swiftPart.createListTemplate(std::forward<decltype(config)>(config));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
-      auto __value = std::move(__result.value());
-      return __value;
     }
     inline void updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) override {
       auto __result = _swiftPart.updateListTemplateSections(templateId, sections);
@@ -188,13 +184,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
         std::rethrow_exception(__result.error());
       }
     }
-    inline std::function<void()> createGridTemplate(const NitroGridTemplateConfig& config) override {
+    inline void createGridTemplate(const GridTemplateConfig& config) override {
       auto __result = _swiftPart.createGridTemplate(std::forward<decltype(config)>(config));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
-      auto __value = std::move(__result.value());
-      return __value;
     }
     inline void updateGridTemplateButtons(const std::string& templateId, const std::vector<NitroGridButton>& buttons) override {
       auto __result = _swiftPart.updateGridTemplateButtons(templateId, buttons);
@@ -228,6 +222,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
     inline std::shared_ptr<Promise<void>> popToRootTemplate() override {
       auto __result = _swiftPart.popToRootTemplate();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<void>> popToTemplate(const std::string& templateId) override {
+      auto __result = _swiftPart.popToTemplate(templateId);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

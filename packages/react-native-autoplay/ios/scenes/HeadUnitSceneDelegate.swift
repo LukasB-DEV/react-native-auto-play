@@ -9,9 +9,7 @@ import Foundation
 import React
 
 @objc(HeadUnitSceneDelegate)
-class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate,
-    CPInterfaceControllerDelegate
-{
+class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate {
     override init() {
         super.init(moduleName: SceneStore.rootModuleName)
     }
@@ -22,7 +20,10 @@ class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate,
         to window: CPWindow
     ) {
         self.window = window
-        self.interfaceController = interfaceController
+        self.interfaceController = AutoPlayInterfaceController(
+            interfaceController: interfaceController,
+            templateStore: self.templateStore
+        )
 
         let props: [String: Any] = [
             "colorScheme": window.screen.traitCollection
@@ -33,8 +34,6 @@ class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate,
                 "scale": window.screen.scale,
             ],
         ]
-
-        interfaceController.delegate = self
 
         connect(props: props)
         HybridAutoPlay.emit(event: .didconnect)
@@ -63,49 +62,5 @@ class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate,
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         setState(state: .didappear)
-    }
-
-    func templateWillAppear(
-        _ aTemplate: CPTemplate,
-        animated: Bool
-    ) {
-        HybridAutoPlay.emitTemplateState(
-            template: aTemplate,
-            templateState: .willappear,
-            animated: animated
-        )
-    }
-
-    func templateDidAppear(
-        _ aTemplate: CPTemplate,
-        animated: Bool
-    ) {
-        HybridAutoPlay.emitTemplateState(
-            template: aTemplate,
-            templateState: .didappear,
-            animated: animated
-        )
-    }
-
-    func templateWillDisappear(
-        _ aTemplate: CPTemplate,
-        animated: Bool
-    ) {
-        HybridAutoPlay.emitTemplateState(
-            template: aTemplate,
-            templateState: .willdisappear,
-            animated: animated
-        )
-    }
-
-    func templateDidDisappear(
-        _ aTemplate: CPTemplate,
-        animated: Bool
-    ) {
-        HybridAutoPlay.emitTemplateState(
-            template: aTemplate,
-            templateState: .diddisappear,
-            animated: animated
-        )
     }
 }

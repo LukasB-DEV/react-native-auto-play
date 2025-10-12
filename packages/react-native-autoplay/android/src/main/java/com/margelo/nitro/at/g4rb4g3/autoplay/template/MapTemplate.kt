@@ -10,12 +10,12 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapButtonType
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.MapTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
 class MapTemplate(
-    context: CarContext, config: NitroMapTemplateConfig
-) : AndroidAutoTemplate<NitroMapTemplateConfig>(context, config) {
+    context: CarContext, config: MapTemplateConfig
+) : AndroidAutoTemplate<MapTemplateConfig>(context, config) {
 
     override val isRenderTemplate = true
     override val templateId: String

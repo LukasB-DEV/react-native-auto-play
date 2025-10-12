@@ -5,11 +5,11 @@ import androidx.car.app.model.ListTemplate
 import androidx.car.app.model.SectionedItemList
 import androidx.car.app.model.Template
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroSection
 
-class ListTemplate(context: CarContext, config: NitroListTemplateConfig) :
-    AndroidAutoTemplate<NitroListTemplateConfig>(context, config) {
+class ListTemplate(context: CarContext, config: ListTemplateConfig) :
+    AndroidAutoTemplate<ListTemplateConfig>(context, config) {
 
     override val isRenderTemplate = false
     override val templateId: String

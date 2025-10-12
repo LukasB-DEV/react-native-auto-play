@@ -93,7 +93,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
 
     override fun onCarConfigurationChanged(configuration: Configuration) {
         val marker = AndroidAutoScreen.getScreen(ROOT_SESSION)?.marker ?: return
-        val config = AndroidAutoTemplate.getConfig(marker) as NitroMapTemplateConfig? ?: return
+        val config = AndroidAutoTemplate.getConfig(marker) as MapTemplateConfig? ?: return
 
         if (config.onAppearanceDidChange != null) {
             val colorScheme = if (carContext.isDarkMode) ColorScheme.DARK else ColorScheme.LIGHT
@@ -125,8 +125,6 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         override fun onDestroy(owner: LifecycleOwner) {
             sessions.remove(moduleName)
             VirtualRenderer.removeRenderer(moduleName)
-            AndroidAutoScreen.removeScreen(moduleName)
-
             clusterTemplateId?.let {
                 clusterSessions.remove(it)
                 return

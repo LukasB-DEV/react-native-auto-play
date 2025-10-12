@@ -19,15 +19,16 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func createAlertTemplate(config: AlertTemplateConfig) throws -> Void
   func presentTemplate(templateId: String) throws -> Void
   func dismissTemplate(templateId: String) throws -> Void
-  func createMapTemplate(config: NitroMapTemplateConfig) throws -> () -> Void
-  func createListTemplate(config: NitroListTemplateConfig) throws -> () -> Void
+  func createMapTemplate(config: MapTemplateConfig) throws -> Void
+  func createListTemplate(config: ListTemplateConfig) throws -> Void
   func updateListTemplateSections(templateId: String, sections: [NitroSection]?) throws -> Void
-  func createGridTemplate(config: NitroGridTemplateConfig) throws -> () -> Void
+  func createGridTemplate(config: GridTemplateConfig) throws -> Void
   func updateGridTemplateButtons(templateId: String, buttons: [NitroGridButton]) throws -> Void
   func setRootTemplate(templateId: String) throws -> Promise<Void>
   func pushTemplate(templateId: String) throws -> Promise<Void>
   func popTemplate() throws -> Promise<Void>
   func popToRootTemplate() throws -> Promise<Void>
+  func popToTemplate(templateId: String) throws -> Promise<Void>
   func addSafeAreaInsetsListener(moduleName: String, callback: @escaping (_ insets: SafeAreaInsets) -> Void) throws -> () -> Void
   func setTemplateMapButtons(templateId: String, buttons: [NitroMapButton]?) throws -> Void
   func setTemplateActions(templateId: String, actions: [NitroAction]?) throws -> Void

@@ -12,7 +12,7 @@ class TemplateStore {
     func getCPTemplate(templateId key: String) -> CPTemplate? {
         return store[key]?.template
     }
-    
+
     func getTemplate(templateId: String) -> Template? {
         return store[templateId]
     }
@@ -23,5 +23,9 @@ class TemplateStore {
 
     func removeTemplate(templateId: String) {
         store.removeValue(forKey: templateId)
+    }
+
+    func removeTemplates(templateIds: [String]) {
+        store = store.filter { !templateIds.contains($0.key) }
     }
 }

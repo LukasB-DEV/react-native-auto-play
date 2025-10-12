@@ -46,7 +46,7 @@ const mapButtonPan: MapButton<MapTemplate> | MapPanButton<MapTemplate> =
         image: {
           name: 'drag_pan',
         },
-        onPress: (template) => console.log('map button on press', template.templateId),
+        onPress: (template) => console.log('map button on press', template.id),
       };
 
 const mapButtonMoney: MapButton<MapTemplate> = {
@@ -97,7 +97,7 @@ const registerRunnable = () => {
             type: 'image',
             image: { name: 'grid_3x3' },
             onPress: (t) => {
-              console.log('***', t.templateId);
+              console.log('***', t.id);
               AutoGridTemplate.getTemplate().push();
             },
           },

@@ -7,10 +7,10 @@ import androidx.car.app.model.ItemList
 import androidx.car.app.model.Template
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroGridButton
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroGridTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.GridTemplateConfig
 
-class GridTemplate(context: CarContext, config: NitroGridTemplateConfig) :
-    AndroidAutoTemplate<NitroGridTemplateConfig>(context, config) {
+class GridTemplate(context: CarContext, config: GridTemplateConfig) :
+    AndroidAutoTemplate<GridTemplateConfig>(context, config) {
 
     override val isRenderTemplate = false
     override val templateId: String

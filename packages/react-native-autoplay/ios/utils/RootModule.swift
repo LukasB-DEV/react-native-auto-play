@@ -56,7 +56,7 @@ class RootModule {
     @MainActor
     static func withSceneAndInterfaceController<T>(
         perform action:
-            @escaping (AutoPlayScene, CPInterfaceController) async throws -> T
+            @escaping (AutoPlayScene, AutoPlayInterfaceController) async throws -> T
     ) async throws -> T {
         return try await withScene { scene in
             guard let interfaceController = scene.interfaceController else {
@@ -71,7 +71,7 @@ class RootModule {
 
     @MainActor
     static func withInterfaceController<T>(
-        perform action: @escaping (CPInterfaceController) async throws -> T
+        perform action: @escaping (AutoPlayInterfaceController) async throws -> T
     ) async throws -> T {
         try await withSceneAndInterfaceController { _, interfaceController in
             try await action(interfaceController)
@@ -82,7 +82,7 @@ class RootModule {
     static func withTemplateAndInterfaceController<T>(
         templateId: String,
         perform action:
-            @escaping (CPTemplate, CPInterfaceController) async throws -> T
+            @escaping (CPTemplate, AutoPlayInterfaceController) async throws -> T
     ) async throws -> T {
         return try await withSceneAndInterfaceController {
             scene,
@@ -104,7 +104,7 @@ class RootModule {
     static func withSceneTemplateAndInterfaceController<T>(
         templateId: String,
         perform action:
-            @escaping (CPTemplate, AutoPlayScene, CPInterfaceController)
+            @escaping (CPTemplate, AutoPlayScene, AutoPlayInterfaceController)
             async throws -> T
     ) async throws -> T {
         return try await withSceneAndInterfaceController {

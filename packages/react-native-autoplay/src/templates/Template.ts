@@ -1,3 +1,4 @@
+import uuid from 'react-native-uuid';
 import { AutoPlay } from '..';
 import type { ActionButtonAndroid, ActionButtonIos, AppButton, BackButton } from '../types/Button';
 import { NitroActionUtil } from '../utils/NitroAction';
@@ -18,12 +19,11 @@ export type Actions<T> = {
   ios?: ActionsIos<T>;
 };
 
-export interface TemplateConfig {
-  /**
-   * Specify an id for your template, must be unique.
-   */
+export interface NitroTemplateConfig {
   id: string;
+}
 
+export interface TemplateConfig {
   /**
    * Fired before template appears
    */
@@ -43,35 +43,29 @@ export interface TemplateConfig {
    * Fired after template disappears
    */
   onDidDisappear?(animated?: boolean): void;
-
-  /**
-   * Fired when popToRootTemplate finished
-   */
-  onPoppedToRoot?(animated?: boolean): void;
 }
 
 export class Template<TemplateConfigType, ActionsType> {
-  public templateId!: string;
+  public id!: string;
 
   constructor(config: TemplateConfig & TemplateConfigType) {
-    this.templateId = config.id;
+    // templates that render on a surface provide their own id, others use a auto generated one
+    this.id =
+      'id' in config && config.id != null && typeof config.id === 'string' ? config.id : uuid.v4();
+
+    console.log('***', this.id);
   }
 
-  /**
-   * must be called manually whenever you are sure the template is not needed anymore
-   */
-  public destroy() {}
-
   public setRootTemplate() {
-    return AutoPlay.setRootTemplate(this.templateId);
+    return AutoPlay.setRootTemplate(this.id);
   }
 
   public push() {
-    return AutoPlay.pushTemplate(this.templateId);
+    return AutoPlay.pushTemplate(this.id);
   }
 
   public setActions<T>(actions?: ActionsType) {
     const nitroActions = NitroActionUtil.convert(actions as Actions<T>);
-    AutoPlay.setTemplateActions(this.templateId, nitroActions);
+    AutoPlay.setTemplateActions(this.id, nitroActions);
   }
 }
