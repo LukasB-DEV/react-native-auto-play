@@ -31,24 +31,11 @@ class HybridAutoPlay: HybridAutoPlaySpec {
     func addListenerTemplateState(
         templateId: String,
         callback: @escaping (TemplateEventPayload) -> Void
-    ) throws -> () -> Void {
+    ) {
         if HybridAutoPlay.templateStateListeners[templateId] != nil {
             HybridAutoPlay.templateStateListeners[templateId]?.append(callback)
         } else {
             HybridAutoPlay.templateStateListeners[templateId] = [callback]
-        }
-
-        return {
-            HybridAutoPlay.templateStateListeners[templateId]?.removeAll {
-                $0 as AnyObject === callback as AnyObject
-            }
-            if HybridAutoPlay.templateStateListeners[templateId]?.isEmpty
-                ?? false
-            {
-                HybridAutoPlay.templateStateListeners.removeValue(
-                    forKey: templateId
-                )
-            }
         }
     }
 
@@ -116,14 +103,14 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         //TODO
     }
 
-    func addTemplateStateListener(
+    func addListenerTemplateState(
         templateId: String,
         onWillAppear: ((_ animated: Bool?) -> Void)?,
         onWillDisappear: ((_ animated: Bool?) -> Void)?,
         onDidAppear: ((_ animated: Bool?) -> Void)?,
         onDidDisappear: ((_ animated: Bool?) -> Void)?
-    ) -> (() -> Void)? {
-        return try? addListenerTemplateState(
+    ) {
+        addListenerTemplateState(
             templateId: templateId
         ) { state in
             switch state.state {
@@ -139,9 +126,8 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         }
     }
 
-    func createMapTemplate(config: NitroMapTemplateConfig) throws -> () -> Void
-    {
-        let removeTemplateStateListener = addTemplateStateListener(
+    func createMapTemplate(config: MapTemplateConfig) throws {
+        addListenerTemplateState(
             templateId: config.id,
             onWillAppear: config.onWillAppear,
             onWillDisappear: config.onWillDisappear,
@@ -156,23 +142,10 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                 templateId: config.id
             )
         }
-
-        return {
-            removeTemplateStateListener?()
-            do {
-                try RootModule.withScene { scene in
-                    scene.templateStore.removeTemplate(templateId: config.id)
-                }
-            } catch {
-                print("Failed to remove template with id: \(config.id)")
-            }
-        }
     }
 
-    func createListTemplate(config: NitroListTemplateConfig) throws -> () ->
-        Void
-    {
-        let removeTemplateStateListener = addTemplateStateListener(
+    func createListTemplate(config: ListTemplateConfig) throws {
+        addListenerTemplateState(
             templateId: config.id,
             onWillAppear: config.onWillAppear,
             onWillDisappear: config.onWillDisappear,
@@ -186,17 +159,6 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                 template: template,
                 templateId: config.id
             )
-        }
-
-        return {
-            removeTemplateStateListener?()
-            do {
-                try RootModule.withScene { scene in
-                    scene.templateStore.removeTemplate(templateId: config.id)
-                }
-            } catch {
-                print("Failed to remove template with id: \(config.id)")
-            }
         }
     }
 
@@ -213,10 +175,8 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         }
     }
 
-    func createGridTemplate(config: NitroGridTemplateConfig) throws -> () ->
-        Void
-    {
-        let removeTemplateStateListener = addTemplateStateListener(
+    func createGridTemplate(config: GridTemplateConfig) throws {
+        addListenerTemplateState(
             templateId: config.id,
             onWillAppear: config.onWillAppear,
             onWillDisappear: config.onWillDisappear,
@@ -230,17 +190,6 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                 template: template,
                 templateId: config.id
             )
-        }
-
-        return {
-            removeTemplateStateListener?()
-            do {
-                try RootModule.withScene { scene in
-                    scene.templateStore.removeTemplate(templateId: config.id)
-                }
-            } catch {
-                print("Failed to remove template with id: \(config.id)")
-            }
         }
     }
 
@@ -295,7 +244,12 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         return Promise.async {
             return try await RootModule.withInterfaceController {
                 interfaceController in
-                let _ = try await interfaceController.popTemplate(animated: true)
+                guard
+                    let templateId = try await interfaceController.popTemplate(
+                        animated: true
+                    )
+                else { return }
+                HybridAutoPlay.removeListeners(templateId: templateId)
             }
         }
     }
@@ -304,7 +258,13 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         return Promise.async {
             try await RootModule.withInterfaceController {
                 interfaceController in
-                let _ =  try await interfaceController.popToRootTemplate(animated: true)
+                let templateIds =
+                    try await interfaceController.popToRootTemplate(
+                        animated: true
+                    )
+                for templateId in templateIds {
+                    HybridAutoPlay.removeListeners(templateId: templateId)
+                }
             }
         }
     }
@@ -313,7 +273,13 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         return Promise.async {
             return try await RootModule.withInterfaceController {
                 interfaceController in
-                let _ =  try await interfaceController.pop(to: templateId, animated: true)
+                guard
+                    let templateId = try await interfaceController.pop(
+                        to: templateId,
+                        animated: true
+                    )
+                else { return }
+                HybridAutoPlay.removeListeners(templateId: templateId)
             }
         }
     }
@@ -391,5 +357,11 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         HybridAutoPlay.safeAreaInsetsListeners[moduleName]?.forEach {
             callback in callback(insets)
         }
+    }
+
+    static func removeListeners(templateId: String) {
+        HybridAutoPlay.templateStateListeners.removeValue(forKey: templateId)
+        HybridAutoPlay.renderStateListeners.removeValue(forKey: templateId)
+        HybridAutoPlay.safeAreaInsetsListeners.removeValue(forKey: templateId)
     }
 }

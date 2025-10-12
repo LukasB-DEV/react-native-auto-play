@@ -41,7 +41,8 @@ class AndroidAutoScreen(
 
                     Lifecycle.Event.ON_DESTROY -> {
                         HybridAutoPlay.emitTemplateState(moduleName, VisibilityState.DIDDISAPPEAR)
-                        removeScreen(moduleName)
+                        screens.remove(moduleName)
+                        HybridAutoPlay.removeListeners(moduleName)
                     }
 
                     else -> {}
@@ -53,9 +54,9 @@ class AndroidAutoScreen(
             override fun handleOnBackPressed() {
                 val config = AndroidAutoTemplate.getConfig(moduleName)
                 val backButton = when (config) {
-                    is NitroMapTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
-                    is NitroListTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
-                    is NitroGridTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
+                    is MapTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
+                    is ListTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
+                    is GridTemplateConfig -> config.actions?.find { it.type == NitroActionType.BACK }
                     else -> null
                 }
 
@@ -75,9 +76,9 @@ class AndroidAutoScreen(
         val config = AndroidAutoTemplate.getConfig(moduleName) ?: return
 
         when (config) {
-            is NitroMapTemplateConfig -> MapTemplate(carContext, config)
-            is NitroListTemplateConfig -> ListTemplate(carContext, config)
-            is NitroGridTemplateConfig -> GridTemplate(carContext, config)
+            is MapTemplateConfig -> MapTemplate(carContext, config)
+            is ListTemplateConfig -> ListTemplate(carContext, config)
+            is GridTemplateConfig -> GridTemplate(carContext, config)
             else -> null
         }?.let {
             AndroidAutoTemplate.setTemplate(moduleName, it)
@@ -114,10 +115,6 @@ class AndroidAutoScreen(
                 }
                 return it.value.screenManager
             }
-        }
-
-        fun removeScreen(marker: String) {
-            screens.remove(marker)
         }
     }
 }

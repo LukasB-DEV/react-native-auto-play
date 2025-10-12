@@ -8,6 +8,18 @@ import type { NitroAction } from '../utils/NitroAction';
 import type { NitroGridButton } from '../utils/NitroGrid';
 import type { NitroMapButton } from '../utils/NitroMapButton';
 
+interface MapTemplateConfig extends NitroMapTemplateConfig {
+  id: string;
+}
+
+interface ListTemplateConfig extends NitroListTemplateConfig {
+  id: string;
+}
+
+interface GridTemplateConfig extends NitroGridTemplateConfig {
+  id: string;
+}
+
 export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   /**
    * attach a listener for generic notifications like didConnect, didDisconnect, ...
@@ -45,15 +57,15 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
    * creates a map template that can render any react component
    * @returns a cleanup function, eg: removes attached listeners
    */
-  createMapTemplate(config: NitroMapTemplateConfig): CleanupCallback;
+  createMapTemplate(config: MapTemplateConfig): void;
 
-  createListTemplate(config: NitroListTemplateConfig): CleanupCallback;
+  createListTemplate(config: ListTemplateConfig): void;
   updateListTemplateSections(
     templateId: string,
     sections: NitroListTemplateConfig['sections']
   ): void;
 
-  createGridTemplate(config: NitroGridTemplateConfig): CleanupCallback;
+  createGridTemplate(config: GridTemplateConfig): void;
   updateGridTemplateButtons(templateId: string, buttons: Array<NitroGridButton>): void;
 
   /**

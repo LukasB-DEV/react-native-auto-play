@@ -8,9 +8,9 @@
 import CarPlay
 
 class ListTemplate: Template {
-    var config: NitroListTemplateConfig
+    var config: ListTemplateConfig
 
-    init(config: NitroListTemplateConfig) {
+    init(config: ListTemplateConfig) {
         self.config = config
 
         let template = CPListTemplate(

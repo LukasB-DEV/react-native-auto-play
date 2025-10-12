@@ -96,14 +96,14 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         // TODO
     }
 
-    fun addTemplateStateListener(
+    fun addListenerTemplateState(
         templateId: String,
         onWillAppear: Func_void_std__optional_bool_?,
         onDidAppear: Func_void_std__optional_bool_?,
         onWillDisappear: Func_void_std__optional_bool_?,
         onDidDisappear: Func_void_std__optional_bool_?
-    ): () -> Unit {
-        return addListenerTemplateState(templateId) { state ->
+    ) {
+        addListenerTemplateState(templateId) { state ->
             when (state) {
                 VisibilityState.WILLAPPEAR -> onWillAppear?.let { it(null) }
                 VisibilityState.DIDAPPEAR -> onDidAppear?.let { it(null) }
@@ -113,8 +113,8 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun createMapTemplate(config: NitroMapTemplateConfig): () -> Unit {
-        val removeTemplateStateListener = addTemplateStateListener(
+    override fun createMapTemplate(config: MapTemplateConfig) {
+        addListenerTemplateState(
             config.id,
             config.onWillAppear,
             config.onDidAppear,
@@ -128,16 +128,10 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         val template = MapTemplate(context, config)
         AndroidAutoTemplate.setTemplate(config.id, template)
-
-        return {
-            removeTemplateStateListener()
-            AndroidAutoTemplate.removeTemplate(config.id)
-            AndroidAutoScreen.removeScreen(config.id)
-        }
     }
 
-    override fun createListTemplate(config: NitroListTemplateConfig): () -> Unit {
-        val removeTemplateStateListener = addTemplateStateListener(
+    override fun createListTemplate(config: ListTemplateConfig) {
+        addListenerTemplateState(
             config.id,
             config.onWillAppear,
             config.onDidAppear,
@@ -150,12 +144,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         val template = ListTemplate(context, config)
         AndroidAutoTemplate.setTemplate(config.id, template)
-
-        return {
-            removeTemplateStateListener()
-            AndroidAutoTemplate.removeTemplate(config.id)
-            AndroidAutoScreen.removeScreen(config.id)
-        }
     }
 
     override fun updateListTemplateSections(
@@ -172,8 +160,8 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         template.updateSections(sections)
     }
 
-    override fun createGridTemplate(config: NitroGridTemplateConfig): () -> Unit {
-        val removeTemplateStateListener = addTemplateStateListener(
+    override fun createGridTemplate(config: GridTemplateConfig) {
+        addListenerTemplateState(
             config.id,
             config.onWillAppear,
             config.onDidAppear,
@@ -186,10 +174,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         val template = GridTemplate(context, config)
         AndroidAutoTemplate.setTemplate(config.id, template)
-
-        return {
-            removeTemplateStateListener()
-        }
     }
 
     override fun updateGridTemplateButtons(
@@ -275,7 +259,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
     override fun popTemplate(): Promise<Unit> {
         return Promise.async {
             val screenManager = AndroidAutoScreen.getScreenManager()
-                ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
+                ?: throw IllegalArgumentException("popTemplate failed, screenManager not found")
             if (screenManager.stackSize == 0) {
                 return@async
             }
@@ -293,7 +277,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
     override fun popToRootTemplate(): Promise<Unit> {
         return Promise.async {
             val screenManager = AndroidAutoScreen.getScreenManager()
-                ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
+                ?: throw IllegalArgumentException("popToRootTemplate failed, screenManager not found")
             if (screenManager.stackSize == 0) {
                 return@async
             }
@@ -304,6 +288,25 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
             if (result.isFailure) {
                 throw result.exceptionOrNull() ?: UnknownError("unknown error popping template")
+            }
+        }
+    }
+
+    override fun popToTemplate(templateId: String): Promise<Unit> {
+        return Promise.async {
+            val screenManager = AndroidAutoScreen.getScreenManager()
+                ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
+            if (screenManager.stackSize == 0) {
+                return@async
+            }
+
+            val result = ThreadUtil.postOnUiAndAwait {
+                screenManager.popTo(templateId)
+            }
+
+            if (result.isFailure) {
+                throw result.exceptionOrNull()
+                    ?: UnknownError("unknown error popping template $templateId")
             }
         }
     }
@@ -336,6 +339,12 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
                     }
                 }
             }
+        }
+
+        fun removeListeners(templateId: String) {
+            templateStateListeners.remove(templateId)
+            renderStateListeners.remove(templateId)
+            safeAreaInsetsListeners.remove(templateId)
         }
 
         fun emit(event: EventName) {

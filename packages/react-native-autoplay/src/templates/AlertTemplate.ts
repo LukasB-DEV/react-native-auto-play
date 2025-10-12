@@ -22,10 +22,10 @@ export class AlertTemplate extends Template<AlertTemplateConfig, undefined> {
   }
 
   public present() {
-    AutoPlay.presentTemplate(this.templateId);
+    AutoPlay.presentTemplate(this.id);
   }
 
   public dismiss() {
-    AutoPlay.dismissTemplate(this.templateId);
+    AutoPlay.dismissTemplate(this.id);
   }
 }

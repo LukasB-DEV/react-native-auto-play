@@ -8,9 +8,9 @@
 import CarPlay
 
 class GridTemplate: Template {
-    var config: NitroGridTemplateConfig
+    var config: GridTemplateConfig
 
-    init(config: NitroGridTemplateConfig) {
+    init(config: GridTemplateConfig) {
         self.config = config
 
         let template = CPGridTemplate(

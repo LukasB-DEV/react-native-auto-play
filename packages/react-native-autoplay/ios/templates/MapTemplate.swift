@@ -8,9 +8,9 @@ import CarPlay
 import React
 
 class MapTemplate: Template, CPMapTemplateDelegate {
-    var config: NitroMapTemplateConfig
+    var config: MapTemplateConfig
 
-    init(config: NitroMapTemplateConfig) {
+    init(config: MapTemplateConfig) {
         self.config = config
 
         super.init(

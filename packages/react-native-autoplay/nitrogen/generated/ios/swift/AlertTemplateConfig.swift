@@ -18,7 +18,7 @@ public extension AlertTemplateConfig {
   /**
    * Create a new instance of `AlertTemplateConfig`.
    */
-  init(titleVariants: [String], actions: [AlertAction]?, id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPoppedToRoot: ((_ animated: Bool?) -> Void)?) {
+  init(titleVariants: [String], actions: [AlertAction]?, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?) {
     self.init({ () -> bridge.std__vector_std__string_ in
       var __vector = bridge.create_std__vector_std__string_(titleVariants.count)
       for __item in titleVariants {
@@ -37,7 +37,7 @@ public extension AlertTemplateConfig {
       } else {
         return .init()
       }
-    }(), std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
+    }(), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
           let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
@@ -66,15 +66,6 @@ public extension AlertTemplateConfig {
       }
     }(), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onDidDisappear {
-        return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
-          let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
-          return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
-        }())
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
-      if let __unwrappedValue = onPoppedToRoot {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
           let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
           return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
@@ -129,17 +120,6 @@ public extension AlertTemplateConfig {
           return .init()
         }
       }()
-    }
-  }
-  
-  var id: String {
-    @inline(__always)
-    get {
-      return String(self.__id)
-    }
-    @inline(__always)
-    set {
-      self.__id = std.string(newValue)
     }
   }
   
@@ -283,44 +263,6 @@ public extension AlertTemplateConfig {
     @inline(__always)
     set {
       self.__onDidDisappear = { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
-            let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
-            return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
-          }())
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var onPoppedToRoot: ((_ animated: Bool?) -> Void)? {
-    @inline(__always)
-    get {
-      return { () -> ((_ animated: Bool?) -> Void)? in
-        if bridge.has_value_std__optional_std__function_void_std__optional_bool_____animated______(self.__onPoppedToRoot) {
-          let __unwrapped = bridge.get_std__optional_std__function_void_std__optional_bool_____animated______(self.__onPoppedToRoot)
-          return { () -> (Bool?) -> Void in
-            let __wrappedFunction = bridge.wrap_Func_void_std__optional_bool_(__unwrapped)
-            return { (__animated: Bool?) -> Void in
-              __wrappedFunction.call({ () -> bridge.std__optional_bool_ in
-                if let __unwrappedValue = __animated {
-                  return bridge.create_std__optional_bool_(__unwrappedValue)
-                } else {
-                  return .init()
-                }
-              }())
-            }
-          }()
-        } else {
-          return nil
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__onPoppedToRoot = { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
         if let __unwrappedValue = newValue {
           return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
             let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)

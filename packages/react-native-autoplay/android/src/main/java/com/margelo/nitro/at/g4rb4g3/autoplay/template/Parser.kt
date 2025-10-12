@@ -20,7 +20,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroImage
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
@@ -124,7 +124,7 @@ object Parser {
                 setSelectedIndex(selectedIndex.toInt())
                 setOnSelectedListener {
                     rows[it].onPress(null)
-                    AndroidAutoTemplate.getTypedConfig<NitroListTemplateConfig>(templateId)
+                    AndroidAutoTemplate.getTypedConfig<ListTemplateConfig>(templateId)
                         ?.let { config ->
                             val section = config.sections?.get(sectionIndex)
                                 ?.copy(selectedIndex = it.toDouble())

@@ -183,32 +183,24 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func createMapTemplate(config: NitroMapTemplateConfig) -> bridge.Result_std__function_void____ {
+  public final func createMapTemplate(config: MapTemplateConfig) -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.createMapTemplate(config: config)
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
+      try self.__implementation.createMapTemplate(config: config)
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func createListTemplate(config: NitroListTemplateConfig) -> bridge.Result_std__function_void____ {
+  public final func createListTemplate(config: ListTemplateConfig) -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.createListTemplate(config: config)
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
+      try self.__implementation.createListTemplate(config: config)
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
   
@@ -231,17 +223,13 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func createGridTemplate(config: NitroGridTemplateConfig) -> bridge.Result_std__function_void____ {
+  public final func createGridTemplate(config: GridTemplateConfig) -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.createGridTemplate(config: config)
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
+      try self.__implementation.createGridTemplate(config: config)
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
   

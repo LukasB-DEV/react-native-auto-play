@@ -58,10 +58,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     void createAlertTemplate(const AlertTemplateConfig& config) override;
     void presentTemplate(const std::string& templateId) override;
     void dismissTemplate(const std::string& templateId) override;
-    std::function<void()> createMapTemplate(const NitroMapTemplateConfig& config) override;
-    std::function<void()> createListTemplate(const NitroListTemplateConfig& config) override;
+    void createMapTemplate(const MapTemplateConfig& config) override;
+    void createListTemplate(const ListTemplateConfig& config) override;
     void updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) override;
-    std::function<void()> createGridTemplate(const NitroGridTemplateConfig& config) override;
+    void createGridTemplate(const GridTemplateConfig& config) override;
     void updateGridTemplateButtons(const std::string& templateId, const std::vector<NitroGridButton>& buttons) override;
     std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) override;
     std::shared_ptr<Promise<void>> pushTemplate(const std::string& templateId) override;

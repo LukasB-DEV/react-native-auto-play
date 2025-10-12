@@ -82,21 +82,21 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
 
     func popTemplate(
         animated: Bool
-    ) async throws -> Bool {
-        guard let templateId = topTemplateId else { return false }
+    ) async throws -> String? {
+        guard let templateId = topTemplateId else { return nil }
 
-        let success = try await interfaceController.popTemplate(
+        try await interfaceController.popTemplate(
             animated: animated
         )
 
         self.templateStore.removeTemplate(templateId: templateId)
 
-        return success
+        return templateId
     }
 
     func popToRootTemplate(
         animated: Bool
-    ) async throws -> Bool {
+    ) async throws -> [String] {
         var templateIds: [String] = []
 
         templates.forEach { template in
@@ -111,40 +111,30 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
             templateIds.append(templateId)
         }
 
-        let success = try await interfaceController.popToRootTemplate(
+        try await interfaceController.popToRootTemplate(
             animated: animated
         )
 
         self.templateStore.removeTemplates(templateIds: templateIds)
 
-        return success
+        return templateIds
     }
 
-    func pop(
-        to targetTemplate: CPTemplate,
-        animated: Bool
-    ) async throws -> Bool {
-        return try await interfaceController.pop(
-            to: targetTemplate,
-            animated: animated
-        )
-    }
-
-    func pop(to templateId: String, animated: Bool) async throws -> Bool {
+    func pop(to templateId: String, animated: Bool) async throws -> String? {
         guard
             let template = interfaceController.templates.first(
                 where: {
                     templateId == ($0.userInfo as? [String: Any])?["id"]
                         as? String
                 })
-        else { return false }
+        else { return nil }
 
-        let success = try await interfaceController.pop(
+        try await interfaceController.pop(
             to: template,
             animated: animated
         )
 
-        return success
+        return templateId
     }
 
     func presentTemplate(
@@ -159,14 +149,16 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
 
     func dismissTemplate(
         animated: Bool
-    ) async throws -> Bool {
-        guard let templateId = topTemplateId else { return false }
-        
-        let success = try await interfaceController.dismissTemplate(animated: animated)
-        
+    ) async throws -> String? {
+        guard let templateId = topTemplateId else { return nil }
+
+        try await interfaceController.dismissTemplate(
+            animated: animated
+        )
+
         templateStore.removeTemplate(templateId: templateId)
-        
-        return success
+
+        return templateId
     }
 
     // MARK: CPInterfaceControllerDelegate

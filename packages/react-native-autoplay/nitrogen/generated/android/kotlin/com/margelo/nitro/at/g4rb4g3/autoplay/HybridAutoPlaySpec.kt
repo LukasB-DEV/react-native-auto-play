@@ -70,23 +70,13 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   @Keep
   abstract fun dismissTemplate(templateId: String): Unit
   
-  abstract fun createMapTemplate(config: NitroMapTemplateConfig): () -> Unit
+  @DoNotStrip
+  @Keep
+  abstract fun createMapTemplate(config: MapTemplateConfig): Unit
   
   @DoNotStrip
   @Keep
-  private fun createMapTemplate_cxx(config: NitroMapTemplateConfig): Func_void {
-    val __result = createMapTemplate(config)
-    return Func_void_java(__result)
-  }
-  
-  abstract fun createListTemplate(config: NitroListTemplateConfig): () -> Unit
-  
-  @DoNotStrip
-  @Keep
-  private fun createListTemplate_cxx(config: NitroListTemplateConfig): Func_void {
-    val __result = createListTemplate(config)
-    return Func_void_java(__result)
-  }
+  abstract fun createListTemplate(config: ListTemplateConfig): Unit
   
   abstract fun updateListTemplateSections(templateId: String, sections: Array<NitroSection>?): Unit
   
@@ -97,14 +87,9 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return __result
   }
   
-  abstract fun createGridTemplate(config: NitroGridTemplateConfig): () -> Unit
-  
   @DoNotStrip
   @Keep
-  private fun createGridTemplate_cxx(config: NitroGridTemplateConfig): Func_void {
-    val __result = createGridTemplate(config)
-    return Func_void_java(__result)
-  }
+  abstract fun createGridTemplate(config: GridTemplateConfig): Unit
   
   abstract fun updateGridTemplateButtons(templateId: String, buttons: Array<NitroGridButton>): Unit
   

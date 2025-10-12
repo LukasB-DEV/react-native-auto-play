@@ -9,7 +9,6 @@ import { AutoTemplate } from './AutoTemplate';
 
 const getRadioTemplate = (): ListTemplate => {
   const template = new ListTemplate({
-    id: 'radios',
     title: { text: 'radios' },
     actions: AutoTemplate.actions,
     sections: {
@@ -39,7 +38,6 @@ const getRadioTemplate = (): ListTemplate => {
         },
       ],
     },
-    onDidDisappear: () => template.destroy(),
   });
   return template;
 };
@@ -97,7 +95,6 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
 
 const getTemplate = (): ListTemplate => {
   const template = new ListTemplate({
-    id: 'list',
     title: {
       text: `${TextPlaceholders.Distance} - ${TextPlaceholders.Duration}`,
       distance: { unit: 'meters', value: 1234 },
@@ -105,9 +102,6 @@ const getTemplate = (): ListTemplate => {
     },
     actions: AutoTemplate.actions,
     sections: getMainSection(true),
-    onDidDisappear: () => {
-      template.destroy();
-    },
   });
 
   return template;

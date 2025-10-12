@@ -206,10 +206,10 @@ class VirtualRenderer(
         })
     }
 
-    private fun getMapTemplateConfig(): NitroMapTemplateConfig? {
+    private fun getMapTemplateConfig(): MapTemplateConfig? {
         val screenManager = AndroidAutoScreen.getScreen(moduleName)?.screenManager ?: return null
         val marker = screenManager.top.marker ?: return null
-        return AndroidAutoTemplate.getConfig(marker) as NitroMapTemplateConfig?
+        return AndroidAutoTemplate.getConfig(marker) as MapTemplateConfig?
     }
 
     private fun initRenderer() {

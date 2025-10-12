@@ -17,8 +17,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
-// Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
+// Forward declaration of `MapTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct MapTemplateConfig; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
@@ -35,8 +35,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
-// Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroListTemplateConfig; }
+// Forward declaration of `ListTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
@@ -49,8 +49,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
-// Forward declaration of `NitroGridTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridTemplateConfig; }
+// Forward declaration of `GridTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct GridTemplateConfig; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
@@ -75,8 +75,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "AlertStyle.hpp"
 #include "JAlertStyle.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
-#include "NitroMapTemplateConfig.hpp"
-#include "JNitroMapTemplateConfig.hpp"
+#include "MapTemplateConfig.hpp"
+#include "JMapTemplateConfig.hpp"
 #include "NitroMapButton.hpp"
 #include "JNitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
@@ -97,8 +97,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "ColorScheme.hpp"
 #include "JFunc_void_ColorScheme.hpp"
 #include "JColorScheme.hpp"
-#include "NitroListTemplateConfig.hpp"
-#include "JNitroListTemplateConfig.hpp"
+#include "ListTemplateConfig.hpp"
+#include "JListTemplateConfig.hpp"
 #include "AutoText.hpp"
 #include "JAutoText.hpp"
 #include "Distance.hpp"
@@ -111,8 +111,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "JNitroRow.hpp"
 #include "NitroSectionType.hpp"
 #include "JNitroSectionType.hpp"
-#include "NitroGridTemplateConfig.hpp"
-#include "JNitroGridTemplateConfig.hpp"
+#include "GridTemplateConfig.hpp"
+#include "JGridTemplateConfig.hpp"
 #include "NitroGridButton.hpp"
 #include "JNitroGridButton.hpp"
 #include "SafeAreaInsets.hpp"
@@ -187,35 +187,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("dismissTemplate");
     method(_javaPart, jni::make_jstring(templateId));
   }
-  std::function<void()> JHybridAutoPlaySpec::createMapTemplate(const NitroMapTemplateConfig& config) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JNitroMapTemplateConfig> /* config */)>("createMapTemplate_cxx");
-    auto __result = method(_javaPart, JNitroMapTemplateConfig::fromCpp(config));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
+  void JHybridAutoPlaySpec::createMapTemplate(const MapTemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JMapTemplateConfig> /* config */)>("createMapTemplate");
+    method(_javaPart, JMapTemplateConfig::fromCpp(config));
   }
-  std::function<void()> JHybridAutoPlaySpec::createListTemplate(const NitroListTemplateConfig& config) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JNitroListTemplateConfig> /* config */)>("createListTemplate_cxx");
-    auto __result = method(_javaPart, JNitroListTemplateConfig::fromCpp(config));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
+  void JHybridAutoPlaySpec::createListTemplate(const ListTemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JListTemplateConfig> /* config */)>("createListTemplate");
+    method(_javaPart, JListTemplateConfig::fromCpp(config));
   }
   void JHybridAutoPlaySpec::updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroSection>> /* sections */)>("updateListTemplateSections_cxx");
@@ -229,20 +207,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       return __array;
     }() : nullptr);
   }
-  std::function<void()> JHybridAutoPlaySpec::createGridTemplate(const NitroGridTemplateConfig& config) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JNitroGridTemplateConfig> /* config */)>("createGridTemplate_cxx");
-    auto __result = method(_javaPart, JNitroGridTemplateConfig::fromCpp(config));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
+  void JHybridAutoPlaySpec::createGridTemplate(const GridTemplateConfig& config) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JGridTemplateConfig> /* config */)>("createGridTemplate");
+    method(_javaPart, JGridTemplateConfig::fromCpp(config));
   }
   void JHybridAutoPlaySpec::updateGridTemplateButtons(const std::string& templateId, const std::vector<NitroGridButton>& buttons) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroGridButton>> /* buttons */)>("updateGridTemplateButtons_cxx");

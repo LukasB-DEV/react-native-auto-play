@@ -24,8 +24,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
+// Forward declaration of `GridTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct GridTemplateConfig; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+// Forward declaration of `ListTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
+// Forward declaration of `MapTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct MapTemplateConfig; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
@@ -34,18 +40,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
-// Forward declaration of `NitroGridTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridTemplateConfig; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
-// Forward declaration of `NitroListTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroListTemplateConfig; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroMapButtonType; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
-// Forward declaration of `NitroMapTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapTemplateConfig; }
 // Forward declaration of `NitroRow` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
@@ -68,17 +68,17 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "EventName.hpp"
+#include "GridTemplateConfig.hpp"
 #include "HybridAutoPlaySpec.hpp"
+#include "ListTemplateConfig.hpp"
+#include "MapTemplateConfig.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroGridButton.hpp"
-#include "NitroGridTemplateConfig.hpp"
 #include "NitroImage.hpp"
-#include "NitroListTemplateConfig.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
-#include "NitroMapTemplateConfig.hpp"
 #include "NitroRow.hpp"
 #include "NitroSection.hpp"
 #include "NitroSectionType.hpp"
