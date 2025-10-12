@@ -132,7 +132,7 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
 
     func pop(to templateId: String, animated: Bool) async throws -> Bool {
         guard
-            let template = await interfaceController.templates.first(
+            let template = interfaceController.templates.first(
                 where: {
                     templateId == ($0.userInfo as? [String: Any])?["id"]
                         as? String
