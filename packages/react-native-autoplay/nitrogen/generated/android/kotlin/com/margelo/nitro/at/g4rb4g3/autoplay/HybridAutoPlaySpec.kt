@@ -131,6 +131,10 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   @Keep
   abstract fun popToRootTemplate(): Promise<Unit>
   
+  @DoNotStrip
+  @Keep
+  abstract fun popToTemplate(templateId: String): Promise<Unit>
+  
   abstract fun addSafeAreaInsetsListener(moduleName: String, callback: (insets: SafeAreaInsets) -> Unit): () -> Unit
   
   @DoNotStrip

@@ -28,6 +28,7 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func pushTemplate(templateId: String) throws -> Promise<Void>
   func popTemplate() throws -> Promise<Void>
   func popToRootTemplate() throws -> Promise<Void>
+  func popToTemplate(templateId: String) throws -> Promise<Void>
   func addSafeAreaInsetsListener(moduleName: String, callback: @escaping (_ insets: SafeAreaInsets) -> Void) throws -> () -> Void
   func setTemplateMapButtons(templateId: String, buttons: [NitroMapButton]?) throws -> Void
   func setTemplateActions(templateId: String, actions: [NitroAction]?) throws -> Void

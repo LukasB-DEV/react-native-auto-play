@@ -234,6 +234,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<Promise<void>> popToTemplate(const std::string& templateId) override {
+      auto __result = _swiftPart.popToTemplate(templateId);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::function<void()> addSafeAreaInsetsListener(const std::string& moduleName, const std::function<void(const SafeAreaInsets& /* insets */)>& callback) override {
       auto __result = _swiftPart.addSafeAreaInsetsListener(moduleName, callback);
       if (__result.hasError()) [[unlikely]] {

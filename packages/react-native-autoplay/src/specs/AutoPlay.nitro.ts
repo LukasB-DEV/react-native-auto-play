@@ -79,6 +79,11 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
   popToRootTemplate(): Promise<void>;
 
   /**
+   * removes all templates until the specified one is the top template
+   */
+  popToTemplate(templateId: string): Promise<void>;
+
+  /**
    * callback for safe area insets changes
    * @param insets the insets that you use to determine the safe area for this view.
    */

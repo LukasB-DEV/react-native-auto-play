@@ -22,7 +22,9 @@ const actions: Actions<any> = {
       {
         type: 'image',
         image: { name: 'close' },
-        onPress: () => AutoPlay.popToRootTemplate(),
+        onPress: () => {
+          AutoPlay.popToRootTemplate();
+        },
       },
     ],
   },
@@ -39,7 +41,9 @@ const actions: Actions<any> = {
       {
         type: 'image',
         image: { name: 'close' },
-        onPress: () => AutoPlay.popToRootTemplate(),
+        onPress: () => {
+          AutoPlay.popToRootTemplate();
+        },
       },
     ],
   },

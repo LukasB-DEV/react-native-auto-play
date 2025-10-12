@@ -199,10 +199,15 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
-    
-    func updateListTemplateSections(templateId: String, sections: [NitroSection]?) throws {
+
+    func updateListTemplateSections(
+        templateId: String,
+        sections: [NitroSection]?
+    ) throws {
         try RootModule.withScene { scene in
-            if let template = scene.templateStore.getTemplate(templateId: templateId) as? ListTemplate {
+            if let template = scene.templateStore.getTemplate(
+                templateId: templateId
+            ) as? ListTemplate {
                 template.updateSections(sections: sections)
             }
         }
@@ -238,10 +243,15 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             }
         }
     }
-    
-    func updateGridTemplateButtons(templateId: String, buttons: [NitroGridButton]) throws {
+
+    func updateGridTemplateButtons(
+        templateId: String,
+        buttons: [NitroGridButton]
+    ) throws {
         try RootModule.withScene { scene in
-            if let template = scene.templateStore.getTemplate(templateId: templateId) as? GridTemplate {
+            if let template = scene.templateStore.getTemplate(
+                templateId: templateId
+            ) as? GridTemplate {
                 template.updateButtons(buttons: buttons)
             }
         }
@@ -258,7 +268,7 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                     }
                 }
 
-                try await interfaceController.setRootTemplate(
+                let _ = try await interfaceController.setRootTemplate(
                     template,
                     animated: false
                 )
@@ -273,7 +283,7 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             return try await RootModule.withTemplateAndInterfaceController(
                 templateId: templateId
             ) { template, interfaceController in
-                try await interfaceController.pushTemplate(
+                let _ = try await interfaceController.pushTemplate(
                     template,
                     animated: true
                 )
@@ -285,16 +295,25 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         return Promise.async {
             return try await RootModule.withInterfaceController {
                 interfaceController in
-                try await interfaceController.popTemplate(animated: true)
+                let _ = try await interfaceController.popTemplate(animated: true)
             }
         }
     }
 
     func popToRootTemplate() throws -> NitroModules.Promise<Void> {
         return Promise.async {
+            try await RootModule.withInterfaceController {
+                interfaceController in
+                let _ =  try await interfaceController.popToRootTemplate(animated: true)
+            }
+        }
+    }
+
+    func popToTemplate(templateId: String) throws -> Promise<Void> {
+        return Promise.async {
             return try await RootModule.withInterfaceController {
                 interfaceController in
-                try await interfaceController.popToRootTemplate(animated: true)
+                let _ =  try await interfaceController.pop(to: templateId, animated: true)
             }
         }
     }
@@ -318,7 +337,7 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         try RootModule.withTemplate(templateId: templateId) {
             template in
             guard let template = template else { return }
-            
+
             template.barButtons = actions
             template.setBarButtons()
         }
