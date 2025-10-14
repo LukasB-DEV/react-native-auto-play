@@ -32,4 +32,4 @@ function convert(image?: AutoImage): NitroImage | undefined {
   };
 }
 
-export const NitroImage = { convert };
+export const NitroImageUtil = { convert };

@@ -21,6 +21,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct MapTemplateConfig; }
+// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroNavigationAlert; }
 // Forward declaration of `ListTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
 // Forward declaration of `NitroSection` to properly resolve imports.
@@ -42,6 +44,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
 #include "VisibilityState.hpp"
 #include "AlertTemplateConfig.hpp"
 #include "MapTemplateConfig.hpp"
+#include "NitroNavigationAlert.hpp"
 #include "ListTemplateConfig.hpp"
 #include "NitroSection.hpp"
 #include <vector>
@@ -90,6 +93,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       virtual void presentTemplate(const std::string& templateId) = 0;
       virtual void dismissTemplate(const std::string& templateId) = 0;
       virtual void createMapTemplate(const MapTemplateConfig& config) = 0;
+      virtual void showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) = 0;
       virtual void createListTemplate(const ListTemplateConfig& config) = 0;
       virtual void updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) = 0;
       virtual void createGridTemplate(const GridTemplateConfig& config) = 0;

@@ -76,6 +76,10 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
+  abstract fun showNavigationAlert(templateId: String, alert: NitroNavigationAlert): Unit
+  
+  @DoNotStrip
+  @Keep
   abstract fun createListTemplate(config: ListTemplateConfig): Unit
   
   abstract fun updateListTemplateSections(templateId: String, sections: Array<NitroSection>?): Unit

@@ -20,6 +20,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       prototype.registerHybridMethod("presentTemplate", &HybridAutoPlaySpec::presentTemplate);
       prototype.registerHybridMethod("dismissTemplate", &HybridAutoPlaySpec::dismissTemplate);
       prototype.registerHybridMethod("createMapTemplate", &HybridAutoPlaySpec::createMapTemplate);
+      prototype.registerHybridMethod("showNavigationAlert", &HybridAutoPlaySpec::showNavigationAlert);
       prototype.registerHybridMethod("createListTemplate", &HybridAutoPlaySpec::createListTemplate);
       prototype.registerHybridMethod("updateListTemplateSections", &HybridAutoPlaySpec::updateListTemplateSections);
       prototype.registerHybridMethod("createGridTemplate", &HybridAutoPlaySpec::createGridTemplate);

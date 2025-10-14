@@ -1,7 +1,6 @@
 import {
+  type Alert,
   AutoPlay,
-  type MapButton,
-  type MapPanButton,
   MapTemplate,
   type RootComponentInitialProps,
   SafeAreaView,
@@ -35,47 +34,47 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
   );
 };
 
-const mapButtonPan: MapButton<MapTemplate> | MapPanButton<MapTemplate> =
-  Platform.OS === 'android'
-    ? {
-        type: 'pan',
-        onPress: () => console.log('pan button press'),
+let alertTimer: ReturnType<typeof setInterval> | null = null;
+
+const alert = (remaining: number): Alert => ({
+  durationMs: 10000,
+  id: 1,
+  title: {
+    text: `alert ${remaining}ms`,
+  },
+  subtitle: {
+    text: 'danger',
+  },
+  image: {
+    name: 'alarm',
+  },
+  primaryAction: {
+    title: 'keep calm',
+    onPress: () => {
+      console.log('keep calm');
+      if (alertTimer != null) {
+        clearInterval(alertTimer);
       }
-    : {
-        type: 'custom',
-        image: {
-          name: 'drag_pan',
-        },
-        onPress: (template) => console.log('map button on press', template.id),
-      };
-
-const mapButtonMoney: MapButton<MapTemplate> = {
-  type: 'custom',
-  image: {
-    name: 'euro_symbol',
-    color: 'rgba(255, 255, 255, 1)',
-    backgroundColor: 'rgba(66, 66, 66, 0.5)',
+    },
+    style: 'default',
   },
-  onPress: (template) => {
-    template.setMapButtons([mapButtonPan, mapButtonEv]);
+  secondaryAction: {
+    title: 'run',
+    onPress: () => {
+      console.log('run');
+      if (alertTimer != null) {
+        clearInterval(alertTimer);
+      }
+    },
+    style: 'destructive',
   },
-};
-
-const mapButtonEv: MapButton<MapTemplate> = {
-  type: 'custom',
-  image: {
-    name: 'ev_station',
-    color: 'rgba(255, 255, 255, 1)',
-    backgroundColor: 'rgba(66, 66, 66, 0.5)',
-  },
-  onPress: (template) => {
-    template.setMapButtons([mapButtonPan, mapButtonMoney]);
-  },
-};
+  onWillShow: () => console.log('alarm alert showing....'),
+  onDidDismiss: (reason) => console.log('alarm alert dismissed', reason),
+});
 
 const registerRunnable = () => {
   const onConnect = () => {
-    const template = new MapTemplate({
+    const rootTemplate = new MapTemplate({
       component: AutoPlayRoot,
       id: 'AutoPlayRoot',
       onWillAppear: () => console.log('onWillAppear'),
@@ -128,9 +127,32 @@ const registerRunnable = () => {
           ],
         },
       },
-      mapButtons: [mapButtonPan, mapButtonEv],
+      mapButtons: [
+        {
+          type: 'custom',
+          image: {
+            name: 'ev_station',
+            color: 'rgba(255, 255, 255, 1)',
+            backgroundColor: 'rgba(66, 66, 66, 0.5)',
+          },
+          onPress: (template) => {
+            var remaining = 10000;
+            alertTimer = setInterval(() => {
+              remaining -= 1000;
+              if (remaining > 0) {
+                template.showAlert(alert(remaining));
+                return;
+              }
+              if (alertTimer != null) {
+                clearInterval(alertTimer);
+              }
+            }, 1000);
+            template.showAlert(alert(remaining));
+          },
+        },
+      ],
     });
-    template.setRootTemplate();
+    rootTemplate.setRootTemplate();
   };
 
   const onDisconnect = () => {

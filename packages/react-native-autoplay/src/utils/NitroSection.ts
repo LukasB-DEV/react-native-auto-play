@@ -1,6 +1,6 @@
 import type { DefaultRow, RadioRow, Section, ToggleRow } from '../templates/ListTemplate';
 import type { AutoText } from '../types/Text';
-import { NitroImage } from './NitroImage';
+import { type NitroImage, NitroImageUtil } from './NitroImage';
 
 type NitroSectionType = 'default' | 'radio';
 
@@ -58,7 +58,7 @@ const convertRow = <T>(template: T, item: DefaultRow<T> | RadioRow<T> | ToggleRo
     browsable: type === 'default' ? item.browsable : undefined,
     detailedText,
     enabled,
-    image: NitroImage.convert(image),
+    image: NitroImageUtil.convert(image),
     title,
     checked: type === 'toggle' ? item.checked : undefined,
     onPress: (checked) =>

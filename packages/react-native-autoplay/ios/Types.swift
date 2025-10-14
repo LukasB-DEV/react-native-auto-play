@@ -14,4 +14,5 @@ enum AutoPlayError: Error {
     case templateNotFound(String)
     case sceneNotFound(String)
     case interfaceControllerNotFound(String)
+    case invalidTemplateError(String)
 }

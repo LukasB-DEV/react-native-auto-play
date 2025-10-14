@@ -23,6 +23,7 @@
 #include "JFunc_void_Point_double_std__optional_double_.hpp"
 #include "JFunc_void_Point.hpp"
 #include "JFunc_void_ColorScheme.hpp"
+#include "JFunc_void_AlertDismissalReason.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
@@ -43,6 +44,7 @@ int initialize(JavaVM* vm) {
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_Point_double_std__optional_double__cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_Point_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_ColorScheme_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_AlertDismissalReason_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_SafeAreaInsets_cxx::registerNatives();
 
     // Register Nitro Hybrid Objects

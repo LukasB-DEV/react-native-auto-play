@@ -35,14 +35,22 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
-// Forward declaration of `ListTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
+// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroNavigationAlert; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+// Forward declaration of `NavigationAlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NavigationAlertAction; }
+// Forward declaration of `AlertActionStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertActionStyle; }
+// Forward declaration of `AlertDismissalReason` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertDismissalReason; }
+// Forward declaration of `ListTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
 // Forward declaration of `NitroSection` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 // Forward declaration of `NitroRow` to properly resolve imports.
@@ -97,14 +105,23 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "ColorScheme.hpp"
 #include "JFunc_void_ColorScheme.hpp"
 #include "JColorScheme.hpp"
-#include "ListTemplateConfig.hpp"
-#include "JListTemplateConfig.hpp"
+#include "NitroNavigationAlert.hpp"
+#include "JNitroNavigationAlert.hpp"
 #include "AutoText.hpp"
 #include "JAutoText.hpp"
 #include "Distance.hpp"
 #include "JDistance.hpp"
 #include "DistanceUnits.hpp"
 #include "JDistanceUnits.hpp"
+#include "NavigationAlertAction.hpp"
+#include "JNavigationAlertAction.hpp"
+#include "AlertActionStyle.hpp"
+#include "JAlertActionStyle.hpp"
+#include "AlertDismissalReason.hpp"
+#include "JFunc_void_AlertDismissalReason.hpp"
+#include "JAlertDismissalReason.hpp"
+#include "ListTemplateConfig.hpp"
+#include "JListTemplateConfig.hpp"
 #include "NitroSection.hpp"
 #include "JNitroSection.hpp"
 #include "NitroRow.hpp"
@@ -190,6 +207,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
   void JHybridAutoPlaySpec::createMapTemplate(const MapTemplateConfig& config) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JMapTemplateConfig> /* config */)>("createMapTemplate");
     method(_javaPart, JMapTemplateConfig::fromCpp(config));
+  }
+  void JHybridAutoPlaySpec::showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroNavigationAlert> /* alert */)>("showNavigationAlert");
+    method(_javaPart, jni::make_jstring(templateId), JNitroNavigationAlert::fromCpp(alert));
   }
   void JHybridAutoPlaySpec::createListTemplate(const ListTemplateConfig& config) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JListTemplateConfig> /* config */)>("createListTemplate");

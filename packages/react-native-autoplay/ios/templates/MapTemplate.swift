@@ -7,8 +7,15 @@
 import CarPlay
 import React
 
+struct AlertStoreEntry {
+    let alert: CPNavigationAlert
+    let config: NitroNavigationAlert
+}
+
 class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
     var config: MapTemplateConfig
+
+    var alertStore: [Double: AlertStoreEntry] = [:]
 
     init(config: MapTemplateConfig) {
         self.config = config
@@ -163,22 +170,13 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         _ mapTemplate: CPMapTemplate,
         willShow navigationAlert: CPNavigationAlert
     ) {
+        guard
+            let onWillShow = alertStore.values.first(where: {
+                $0.alert == navigationAlert
+            })?.config.onWillShow
+        else { return }
 
-    }
-
-    func mapTemplate(
-        _ mapTemplate: CPMapTemplate,
-        didShow navigationAlert: CPNavigationAlert
-    ) {
-
-    }
-
-    func mapTemplate(
-        _ mapTemplate: CPMapTemplate,
-        willDismiss navigationAlert: CPNavigationAlert,
-        dismissalContext: CPNavigationAlert.DismissalContext
-    ) {
-
+        onWillShow()
     }
 
     func mapTemplate(
@@ -186,6 +184,77 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         didDismiss navigationAlert: CPNavigationAlert,
         dismissalContext: CPNavigationAlert.DismissalContext
     ) {
+        guard
+            let config = alertStore.values.first(where: {
+                $0.alert == navigationAlert
+            })?.config
+        else {
+            return
+        }
 
+        switch dismissalContext {
+        case .userDismissed:
+            config.onDidDismiss?(AlertDismissalReason.user)
+        case .timeout:
+            config.onDidDismiss?(AlertDismissalReason.timeout)
+        case .systemDismissed:
+            config.onDidDismiss?(AlertDismissalReason.system)
+        @unknown default:
+            break
+        }
+
+        alertStore.removeValue(forKey: config.id)
+    }
+
+    func showAlert(alertConfig: NitroNavigationAlert) {
+        guard let template = self.template as? CPMapTemplate else { return }
+
+        let title = Parser.parseText(text: alertConfig.title)!
+        let subtitle = alertConfig.subtitle.map { subtitle in
+            [Parser.parseText(text: subtitle)!]
+        }
+
+        if let alert = alertStore[alertConfig.id] {
+            alert.alert.updateTitleVariants(
+                [title],
+                subtitleVariants: subtitle ?? []
+            )
+            return
+        }
+
+        let image = SymbolFont.imageFromNitroImage(image: alertConfig.image)
+
+        let style = Parser.parseActionAlertStyle(
+            style: alertConfig.primaryAction.style
+        )
+        let primaryAction = CPAlertAction(
+            title: alertConfig.primaryAction.title,
+            style: style
+        ) { _ in
+            alertConfig.primaryAction.onPress()
+        }
+
+        let secondaryAction = alertConfig.secondaryAction.map { action in
+            let style = Parser.parseActionAlertStyle(style: action.style)
+            return CPAlertAction(title: action.title, style: style) { _ in
+                action.onPress()
+            }
+        }
+
+        let alert = CPNavigationAlert(
+            titleVariants: [title],
+            subtitleVariants: subtitle,
+            image: image,
+            primaryAction: primaryAction,
+            secondaryAction: secondaryAction,
+            duration: alertConfig.durationMs / 1000
+        )
+
+        alertStore[alertConfig.id] = AlertStoreEntry(
+            alert: alert,
+            config: alertConfig
+        )
+
+        template.present(navigationAlert: alert, animated: true)
     }
 }

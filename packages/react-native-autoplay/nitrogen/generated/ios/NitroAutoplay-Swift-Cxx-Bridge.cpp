@@ -69,6 +69,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     };
   }
   
+  // pragma MARK: std::function<void(AlertDismissalReason /* reason */)>
+  Func_void_AlertDismissalReason create_Func_void_AlertDismissalReason(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_AlertDismissalReason::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](AlertDismissalReason reason) mutable -> void {
+      swiftClosure.call(static_cast<int>(reason));
+    };
+  }
+  
   // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
   Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = NitroAutoplay::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);

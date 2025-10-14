@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import type { MapButtons } from '../templates/MapTemplate';
-import { NitroImage } from './NitroImage';
+import { type NitroImage, NitroImageUtil } from './NitroImage';
 
 type NitroMapButtonType = 'pan' | 'custom';
 
@@ -30,7 +30,7 @@ const convert = <T>(template: T, mapButtons?: MapButtons<T>): Array<NitroMapButt
     return {
       type,
       onPress: () => onPress(template),
-      image: NitroImage.convert(button.image),
+      image: NitroImageUtil.convert(button.image),
     };
   });
 };

@@ -105,6 +105,13 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         AndroidAutoTemplate.setTemplate(config.id, template)
     }
 
+    override fun showNavigationAlert(templateId: String, alert: NitroNavigationAlert) {
+        val template = AndroidAutoTemplate.getTemplate(templateId) as? MapTemplate ?: throw IllegalArgumentException(
+            "showNavigationAlert failed, $templateId not of instance MapTemplate"
+        )
+        template.showAlert(alert)
+    }
+
     override fun createListTemplate(config: ListTemplateConfig) {
         val context = AndroidAutoSession.getRootContext()
             ?: throw IllegalArgumentException("createListTemplate failed, carContext not found")

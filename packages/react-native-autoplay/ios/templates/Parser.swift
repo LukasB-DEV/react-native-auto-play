@@ -178,4 +178,14 @@ class Parser {
             )
         }
     }
+
+    static func parseActionAlertStyle(style: AlertActionStyle?) -> CPAlertAction.Style {
+        guard let style else { return .default }
+        switch style {
+        case .default:
+            return CPAlertAction.Style.default
+        case .destructive:
+            return CPAlertAction.Style.destructive
+        }
+    }
 }

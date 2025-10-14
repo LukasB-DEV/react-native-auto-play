@@ -194,6 +194,17 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
+  public final func showNavigationAlert(templateId: std.string, alert: NitroNavigationAlert) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.showNavigationAlert(templateId: String(templateId), alert: alert)
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
   public final func createListTemplate(config: ListTemplateConfig) -> bridge.Result_void_ {
     do {
       try self.__implementation.createListTemplate(config: config)

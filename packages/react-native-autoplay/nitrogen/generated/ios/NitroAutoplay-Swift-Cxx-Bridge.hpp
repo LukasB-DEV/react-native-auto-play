@@ -8,8 +8,12 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AlertActionStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertActionStyle; }
 // Forward declaration of `AlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+// Forward declaration of `AlertDismissalReason` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertDismissalReason; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `AutoText` to properly resolve imports.
@@ -22,6 +26,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+// Forward declaration of `NavigationAlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NavigationAlertAction; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
@@ -55,12 +61,15 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 
 // Include C++ defined types
 #include "AlertAction.hpp"
+#include "AlertActionStyle.hpp"
+#include "AlertDismissalReason.hpp"
 #include "AlertStyle.hpp"
 #include "AutoText.hpp"
 #include "ColorScheme.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "HybridAutoPlaySpec.hpp"
+#include "NavigationAlertAction.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
@@ -556,6 +565,73 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return optional.has_value();
   }
   inline AutoText get_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<AlertActionStyle>
+  /**
+   * Specialized version of `std::optional<AlertActionStyle>`.
+   */
+  using std__optional_AlertActionStyle_ = std::optional<AlertActionStyle>;
+  inline std::optional<AlertActionStyle> create_std__optional_AlertActionStyle_(const AlertActionStyle& value) noexcept {
+    return std::optional<AlertActionStyle>(value);
+  }
+  inline bool has_value_std__optional_AlertActionStyle_(const std::optional<AlertActionStyle>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline AlertActionStyle get_std__optional_AlertActionStyle_(const std::optional<AlertActionStyle>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<NavigationAlertAction>
+  /**
+   * Specialized version of `std::optional<NavigationAlertAction>`.
+   */
+  using std__optional_NavigationAlertAction_ = std::optional<NavigationAlertAction>;
+  inline std::optional<NavigationAlertAction> create_std__optional_NavigationAlertAction_(const NavigationAlertAction& value) noexcept {
+    return std::optional<NavigationAlertAction>(value);
+  }
+  inline bool has_value_std__optional_NavigationAlertAction_(const std::optional<NavigationAlertAction>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline NavigationAlertAction get_std__optional_NavigationAlertAction_(const std::optional<NavigationAlertAction>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::function<void(AlertDismissalReason /* reason */)>
+  /**
+   * Specialized version of `std::function<void(AlertDismissalReason)>`.
+   */
+  using Func_void_AlertDismissalReason = std::function<void(AlertDismissalReason /* reason */)>;
+  /**
+   * Wrapper class for a `std::function<void(AlertDismissalReason / * reason * /)>`, this can be used from Swift.
+   */
+  class Func_void_AlertDismissalReason_Wrapper final {
+  public:
+    explicit Func_void_AlertDismissalReason_Wrapper(std::function<void(AlertDismissalReason /* reason */)>&& func): _function(std::make_unique<std::function<void(AlertDismissalReason /* reason */)>>(std::move(func))) {}
+    inline void call(int reason) const noexcept {
+      _function->operator()(static_cast<AlertDismissalReason>(reason));
+    }
+  private:
+    std::unique_ptr<std::function<void(AlertDismissalReason /* reason */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_AlertDismissalReason create_Func_void_AlertDismissalReason(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_AlertDismissalReason_Wrapper wrap_Func_void_AlertDismissalReason(Func_void_AlertDismissalReason value) noexcept {
+    return Func_void_AlertDismissalReason_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(AlertDismissalReason /* reason */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(AlertDismissalReason / * reason * /)>>`.
+   */
+  using std__optional_std__function_void_AlertDismissalReason____reason______ = std::optional<std::function<void(AlertDismissalReason /* reason */)>>;
+  inline std::optional<std::function<void(AlertDismissalReason /* reason */)>> create_std__optional_std__function_void_AlertDismissalReason____reason______(const std::function<void(AlertDismissalReason /* reason */)>& value) noexcept {
+    return std::optional<std::function<void(AlertDismissalReason /* reason */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_AlertDismissalReason____reason______(const std::optional<std::function<void(AlertDismissalReason /* reason */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(AlertDismissalReason /* reason */)> get_std__optional_std__function_void_AlertDismissalReason____reason______(const std::optional<std::function<void(AlertDismissalReason /* reason */)>>& optional) noexcept {
     return *optional;
   }
   

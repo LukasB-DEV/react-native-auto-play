@@ -98,6 +98,15 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             )
         }
     }
+    
+    func showNavigationAlert(templateId: String, alert: NitroNavigationAlert) throws -> Void {
+        try RootModule.withTemplate(templateId: templateId) { template in
+            guard let template = template as? MapTemplate else {
+                throw AutoPlayError.invalidTemplateError("showNavigationAlert failed, \(templateId) not of instance MapTemplate")
+            }
+            template.showAlert(alertConfig: alert)
+        }
+    }
 
     func createListTemplate(config: ListTemplateConfig) throws {
         let template = ListTemplate(config: config)

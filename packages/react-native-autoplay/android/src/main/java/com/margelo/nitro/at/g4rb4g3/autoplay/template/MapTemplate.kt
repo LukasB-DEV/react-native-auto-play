@@ -1,16 +1,23 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
+import androidx.car.app.AppManager
 import androidx.car.app.CarContext
 import androidx.car.app.model.Action
 import androidx.car.app.model.ActionStrip
+import androidx.car.app.model.Alert
+import androidx.car.app.model.AlertCallback
+import androidx.car.app.model.CarColor
 import androidx.car.app.model.CarIcon
 import androidx.car.app.model.Template
 import androidx.car.app.navigation.model.NavigationTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.AlertActionStyle
+import com.margelo.nitro.at.g4rb4g3.autoplay.AlertDismissalReason
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapButtonType
 import com.margelo.nitro.at.g4rb4g3.autoplay.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.NitroNavigationAlert
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
 class MapTemplate(
@@ -20,6 +27,8 @@ class MapTemplate(
     override val isRenderTemplate = true
     override val templateId: String
         get() = config.id
+
+    private var alertId: Double? = null
 
     private fun parseMapButtons(buttons: Array<NitroMapButton>): ActionStrip {
         return ActionStrip.Builder().apply {
@@ -119,5 +128,75 @@ class MapTemplate(
     fun setMapActions(buttons: Array<NitroMapButton>?) {
         config = config.copy(mapButtons = buttons)
         super.applyConfigUpdate()
+    }
+
+    fun showAlert(alertConfig: NitroNavigationAlert) {
+        val title = Parser.parseText(alertConfig.title)
+        val durationMillis = alertConfig.durationMs.toLong()
+
+        val alert = Alert.Builder(alertConfig.id.toInt(), title, durationMillis).apply {
+            var isAutoDismissal = false
+
+            alertConfig.subtitle?.let { subtitle -> setSubtitle(Parser.parseText(subtitle)) }
+            alertConfig.image?.let { image -> setIcon(Parser.parseImage(context, image)) }
+            addAction(Action.Builder().apply {
+                setTitle(alertConfig.primaryAction.title)
+                setFlags(Action.FLAG_PRIMARY)
+                setFlags(Action.FLAG_DEFAULT)
+                setOnClickListener(alertConfig.primaryAction.onPress)
+                alertConfig.primaryAction.style?.let { style ->
+                    if (style == AlertActionStyle.DESTRUCTIVE) {
+                        setBackgroundColor(CarColor.RED)
+                    }
+                }
+            }.build())
+            alertConfig.secondaryAction?.let { action ->
+                addAction(Action.Builder().apply {
+                    setTitle(action.title)
+                    setOnClickListener(action.onPress)
+                    action.style?.let { style ->
+                        if (style == AlertActionStyle.DESTRUCTIVE) {
+                            setBackgroundColor(CarColor.RED)
+                        }
+                    }
+                }.build())
+            }
+            setCallback(object : AlertCallback {
+                override fun onCancel(reason: Int) {
+                    isAutoDismissal = true
+                    when (reason) {
+                        AlertCallback.REASON_TIMEOUT -> alertConfig.onDidDismiss?.let {
+                            it(
+                                AlertDismissalReason.TIMEOUT
+                            )
+                        }
+
+                        AlertCallback.REASON_USER_ACTION -> alertConfig.onDidDismiss?.let {
+                            it(AlertDismissalReason.USER)
+                        }
+
+                        AlertCallback.REASON_NOT_SUPPORTED -> {
+                            // we make sure that this can be called on navigation templates already so this should never happen
+                        }
+                    }
+                }
+
+                override fun onDismiss() {
+                    alertId = null
+                    if (!isAutoDismissal) {
+                        alertConfig.onDidDismiss?.let {
+                            it(AlertDismissalReason.USER)
+                        }
+                    }
+                }
+            })
+        }.build()
+
+        if (alertId != alertConfig.id) {
+            alertId = alertConfig.id
+            alertConfig.onWillShow?.let { it() }
+        }
+
+        context.getCarService(AppManager::class.java).showAlert(alert)
     }
 }

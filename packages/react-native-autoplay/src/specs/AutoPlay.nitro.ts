@@ -6,6 +6,7 @@ import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
 import type { TemplateConfig } from '../templates/Template';
 import type { CleanupCallback, EventName, SafeAreaInsets, VisibilityState } from '../types/Event';
 import type { NitroAction } from '../utils/NitroAction';
+import type { NitroNavigationAlert } from '../utils/NitroAlert';
 import type { NitroGridButton } from '../utils/NitroGrid';
 import type { NitroMapButton } from '../utils/NitroMapButton';
 
@@ -55,6 +56,7 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
    * @returns a cleanup function, eg: removes attached listeners
    */
   createMapTemplate(config: MapTemplateConfig): void;
+  showNavigationAlert(templateId: string, alert: NitroNavigationAlert): void;
 
   createListTemplate(config: ListTemplateConfig): void;
   updateListTemplateSections(

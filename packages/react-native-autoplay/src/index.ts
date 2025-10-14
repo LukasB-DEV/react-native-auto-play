@@ -19,4 +19,8 @@ export * from './types/GestureEvents';
 export * from './types/Image';
 export * from './types/RootComponent';
 export * from './types/Text';
+export type {
+  NavigationAlert as Alert,
+  NavigationAlertAction as AlertAction,
+} from './utils/NitroAlert';
 export type { GridButton } from './utils/NitroGrid';

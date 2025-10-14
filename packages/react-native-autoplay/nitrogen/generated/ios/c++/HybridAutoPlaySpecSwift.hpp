@@ -40,14 +40,22 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
-// Forward declaration of `ListTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
+// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroNavigationAlert; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+// Forward declaration of `NavigationAlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NavigationAlertAction; }
+// Forward declaration of `AlertActionStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertActionStyle; }
+// Forward declaration of `AlertDismissalReason` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertDismissalReason; }
+// Forward declaration of `ListTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
 // Forward declaration of `NitroSection` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
 // Forward declaration of `NitroRow` to properly resolve imports.
@@ -79,10 +87,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
 #include "NitroAlignment.hpp"
 #include "Point.hpp"
 #include "ColorScheme.hpp"
-#include "ListTemplateConfig.hpp"
+#include "NitroNavigationAlert.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "NavigationAlertAction.hpp"
+#include "AlertActionStyle.hpp"
+#include "AlertDismissalReason.hpp"
+#include "ListTemplateConfig.hpp"
 #include "NitroSection.hpp"
 #include "NitroRow.hpp"
 #include "NitroSectionType.hpp"
@@ -168,6 +180,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
     inline void createMapTemplate(const MapTemplateConfig& config) override {
       auto __result = _swiftPart.createMapTemplate(std::forward<decltype(config)>(config));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) override {
+      auto __result = _swiftPart.showNavigationAlert(templateId, std::forward<decltype(alert)>(alert));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

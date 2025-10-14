@@ -5,6 +5,7 @@ import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { ActionButtonAndroid, MapButton, MapPanButton } from '../types/Button';
 import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
+import { type NavigationAlert, NitroAlertUtil } from '../utils/NitroAlert';
 import { NitroMapButton } from '../utils/NitroMapButton';
 import {
   type ActionsIos,
@@ -132,5 +133,13 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
   public override setActions(actions: MapTemplateConfig['actions']) {
     const nitroActions = convertActions(this.template, actions);
     AutoPlay.setTemplateActions(this.id, nitroActions);
+  }
+
+  /**
+   * brings up a navigation alert
+   * calling this with the same alert.id will update an already shown alert
+   */
+  public showAlert(alert: NavigationAlert) {
+    AutoPlay.showNavigationAlert(this.id, NitroAlertUtil.convert(alert));
   }
 }

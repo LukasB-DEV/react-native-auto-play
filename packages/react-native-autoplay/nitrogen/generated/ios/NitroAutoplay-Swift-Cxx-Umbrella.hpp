@@ -8,8 +8,12 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AlertActionStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertActionStyle; }
 // Forward declaration of `AlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+// Forward declaration of `AlertDismissalReason` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertDismissalReason; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
@@ -32,6 +36,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct MapTemplateConfig; }
+// Forward declaration of `NavigationAlertAction` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NavigationAlertAction; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
@@ -46,6 +52,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroMapButtonType; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
+// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroNavigationAlert; }
 // Forward declaration of `NitroRow` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
@@ -61,6 +69,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 
 // Include C++ defined types
 #include "AlertAction.hpp"
+#include "AlertActionStyle.hpp"
+#include "AlertDismissalReason.hpp"
 #include "AlertStyle.hpp"
 #include "AlertTemplateConfig.hpp"
 #include "AutoText.hpp"
@@ -72,6 +82,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "HybridAutoPlaySpec.hpp"
 #include "ListTemplateConfig.hpp"
 #include "MapTemplateConfig.hpp"
+#include "NavigationAlertAction.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
@@ -79,6 +90,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "NitroImage.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
+#include "NitroNavigationAlert.hpp"
 #include "NitroRow.hpp"
 #include "NitroSection.hpp"
 #include "NitroSectionType.hpp"

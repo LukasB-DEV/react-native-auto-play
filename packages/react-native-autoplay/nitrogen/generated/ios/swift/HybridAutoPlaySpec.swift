@@ -20,6 +20,7 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func presentTemplate(templateId: String) throws -> Void
   func dismissTemplate(templateId: String) throws -> Void
   func createMapTemplate(config: MapTemplateConfig) throws -> Void
+  func showNavigationAlert(templateId: String, alert: NitroNavigationAlert) throws -> Void
   func createListTemplate(config: ListTemplateConfig) throws -> Void
   func updateListTemplateSections(templateId: String, sections: [NitroSection]?) throws -> Void
   func createGridTemplate(config: GridTemplateConfig) throws -> Void

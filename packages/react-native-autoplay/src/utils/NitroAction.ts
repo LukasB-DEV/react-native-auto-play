@@ -8,7 +8,7 @@ import type {
   TextAndImageButton,
   TextButton,
 } from '../types/Button';
-import { NitroImage } from './NitroImage';
+import { type NitroImage, NitroImageUtil } from './NitroImage';
 
 type NitroActionType = 'appIcon' | 'back' | 'custom';
 type NitroAlignment = 'leading' | 'trailing';
@@ -28,7 +28,7 @@ export type NitroAction = {
 
 const getImage = <T>(
   action: ActionButtonIos<T> | TextButton<T> | ImageButton<T> | TextAndImageButton<T>
-): NitroImage | undefined => ('image' in action ? NitroImage.convert(action.image) : undefined);
+): NitroImage | undefined => ('image' in action ? NitroImageUtil.convert(action.image) : undefined);
 
 const getTitle = <T>(
   action: ActionButtonIos<T> | TextButton<T> | ImageButton<T> | TextAndImageButton<T>
@@ -60,7 +60,7 @@ const convertToNitro = <T>(
   const { enabled, flags } = action;
 
   const title = 'title' in action ? action.title : undefined;
-  const image = 'image' in action ? NitroImage.convert(action.image) : undefined;
+  const image = 'image' in action ? NitroImageUtil.convert(action.image) : undefined;
 
   return {
     onPress: () => onPress(template),

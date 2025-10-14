@@ -1,6 +1,6 @@
 import type { AutoImage } from '../types/Image';
 import type { AutoText } from '../types/Text';
-import { NitroImage } from './NitroImage';
+import { type NitroImage, NitroImageUtil } from './NitroImage';
 
 export type GridButton<T> = {
   title: AutoText;
@@ -17,7 +17,7 @@ export type NitroGridButton = {
 const convert = <T>(template: T, buttons: Array<GridButton<T>>) => {
   return buttons.map<NitroGridButton>((button) => ({
     title: button.title,
-    image: NitroImage.convert(button.image),
+    image: NitroImageUtil.convert(button.image),
     onPress: () => button.onPress(template),
   }));
 };
