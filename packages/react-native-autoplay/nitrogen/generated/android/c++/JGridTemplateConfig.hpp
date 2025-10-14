@@ -54,12 +54,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       static const auto clazz = javaClassStatic();
       static const auto fieldId = clazz->getField<jni::JString>("id");
       jni::local_ref<jni::JString> id = this->getFieldValue(fieldId);
-      static const auto fieldActions = clazz->getField<jni::JArrayClass<JNitroAction>>("actions");
-      jni::local_ref<jni::JArrayClass<JNitroAction>> actions = this->getFieldValue(fieldActions);
-      static const auto fieldTitle = clazz->getField<JAutoText>("title");
-      jni::local_ref<JAutoText> title = this->getFieldValue(fieldTitle);
-      static const auto fieldButtons = clazz->getField<jni::JArrayClass<JNitroGridButton>>("buttons");
-      jni::local_ref<jni::JArrayClass<JNitroGridButton>> buttons = this->getFieldValue(fieldButtons);
       static const auto fieldOnWillAppear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onWillAppear");
       jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onWillAppear = this->getFieldValue(fieldOnWillAppear);
       static const auto fieldOnWillDisappear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onWillDisappear");
@@ -68,29 +62,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
       jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onDidAppear = this->getFieldValue(fieldOnDidAppear);
       static const auto fieldOnDidDisappear = clazz->getField<JFunc_void_std__optional_bool_::javaobject>("onDidDisappear");
       jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onDidDisappear = this->getFieldValue(fieldOnDidDisappear);
+      static const auto fieldActions = clazz->getField<jni::JArrayClass<JNitroAction>>("actions");
+      jni::local_ref<jni::JArrayClass<JNitroAction>> actions = this->getFieldValue(fieldActions);
+      static const auto fieldTitle = clazz->getField<JAutoText>("title");
+      jni::local_ref<JAutoText> title = this->getFieldValue(fieldTitle);
+      static const auto fieldButtons = clazz->getField<jni::JArrayClass<JNitroGridButton>>("buttons");
+      jni::local_ref<jni::JArrayClass<JNitroGridButton>> buttons = this->getFieldValue(fieldButtons);
       return GridTemplateConfig(
         id->toStdString(),
-        actions != nullptr ? std::make_optional([&]() {
-          size_t __size = actions->size();
-          std::vector<NitroAction> __vector;
-          __vector.reserve(__size);
-          for (size_t __i = 0; __i < __size; __i++) {
-            auto __element = actions->getElement(__i);
-            __vector.push_back(__element->toCpp());
-          }
-          return __vector;
-        }()) : std::nullopt,
-        title->toCpp(),
-        [&]() {
-          size_t __size = buttons->size();
-          std::vector<NitroGridButton> __vector;
-          __vector.reserve(__size);
-          for (size_t __i = 0; __i < __size; __i++) {
-            auto __element = buttons->getElement(__i);
-            __vector.push_back(__element->toCpp());
-          }
-          return __vector;
-        }(),
         onWillAppear != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* animated */)> {
           if (onWillAppear->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
             auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onWillAppear);
@@ -134,7 +113,28 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
               return onDidDisappearRef->invoke(animated);
             };
           }
-        }()) : std::nullopt
+        }()) : std::nullopt,
+        actions != nullptr ? std::make_optional([&]() {
+          size_t __size = actions->size();
+          std::vector<NitroAction> __vector;
+          __vector.reserve(__size);
+          for (size_t __i = 0; __i < __size; __i++) {
+            auto __element = actions->getElement(__i);
+            __vector.push_back(__element->toCpp());
+          }
+          return __vector;
+        }()) : std::nullopt,
+        title->toCpp(),
+        [&]() {
+          size_t __size = buttons->size();
+          std::vector<NitroGridButton> __vector;
+          __vector.reserve(__size);
+          for (size_t __i = 0; __i < __size; __i++) {
+            auto __element = buttons->getElement(__i);
+            __vector.push_back(__element->toCpp());
+          }
+          return __vector;
+        }()
       );
     }
 
@@ -146,6 +146,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     static jni::local_ref<JGridTemplateConfig::javaobject> fromCpp(const GridTemplateConfig& value) {
       return newInstance(
         jni::make_jstring(value.id),
+        value.onWillAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillAppear.value()) : nullptr,
+        value.onWillDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillDisappear.value()) : nullptr,
+        value.onDidAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidAppear.value()) : nullptr,
+        value.onDidDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidDisappear.value()) : nullptr,
         value.actions.has_value() ? [&]() {
           size_t __size = value.actions.value().size();
           jni::local_ref<jni::JArrayClass<JNitroAction>> __array = jni::JArrayClass<JNitroAction>::newArray(__size);
@@ -164,11 +168,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
             __array->setElement(__i, *JNitroGridButton::fromCpp(__element));
           }
           return __array;
-        }(),
-        value.onWillAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillAppear.value()) : nullptr,
-        value.onWillDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillDisappear.value()) : nullptr,
-        value.onDidAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidAppear.value()) : nullptr,
-        value.onDidDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidDisappear.value()) : nullptr
+        }()
       );
     }
   };

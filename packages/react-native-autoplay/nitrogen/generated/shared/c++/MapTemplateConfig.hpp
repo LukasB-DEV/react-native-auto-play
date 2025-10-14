@@ -33,12 +33,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
 namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
 
 #include <string>
+#include <optional>
+#include <functional>
 #include "NitroMapButton.hpp"
 #include <vector>
-#include <optional>
 #include "NitroAction.hpp"
 #include "Point.hpp"
-#include <functional>
 #include "ColorScheme.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay {
@@ -49,6 +49,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
   struct MapTemplateConfig {
   public:
     std::string id     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear     SWIFT_PRIVATE;
+    std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear     SWIFT_PRIVATE;
     std::optional<std::vector<NitroMapButton>> mapButtons     SWIFT_PRIVATE;
     std::optional<std::vector<NitroAction>> actions     SWIFT_PRIVATE;
     std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> onDidUpdatePanGestureWithTranslation     SWIFT_PRIVATE;
@@ -56,14 +60,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     std::optional<std::function<void(const Point& /* center */)>> onClick     SWIFT_PRIVATE;
     std::optional<std::function<void(const Point& /* center */)>> onDoubleClick     SWIFT_PRIVATE;
     std::optional<std::function<void(ColorScheme /* colorScheme */)>> onAppearanceDidChange     SWIFT_PRIVATE;
-    std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear     SWIFT_PRIVATE;
-    std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear     SWIFT_PRIVATE;
-    std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear     SWIFT_PRIVATE;
-    std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear     SWIFT_PRIVATE;
 
   public:
     MapTemplateConfig() = default;
-    explicit MapTemplateConfig(std::string id, std::optional<std::vector<NitroMapButton>> mapButtons, std::optional<std::vector<NitroAction>> actions, std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> onDidUpdatePanGestureWithTranslation, std::optional<std::function<void(const Point& /* center */, double /* scale */, std::optional<double> /* velocity */)>> onDidUpdateZoomGestureWithCenter, std::optional<std::function<void(const Point& /* center */)>> onClick, std::optional<std::function<void(const Point& /* center */)>> onDoubleClick, std::optional<std::function<void(ColorScheme /* colorScheme */)>> onAppearanceDidChange, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear): id(id), mapButtons(mapButtons), actions(actions), onDidUpdatePanGestureWithTranslation(onDidUpdatePanGestureWithTranslation), onDidUpdateZoomGestureWithCenter(onDidUpdateZoomGestureWithCenter), onClick(onClick), onDoubleClick(onDoubleClick), onAppearanceDidChange(onAppearanceDidChange), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear) {}
+    explicit MapTemplateConfig(std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::vector<NitroMapButton>> mapButtons, std::optional<std::vector<NitroAction>> actions, std::optional<std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>> onDidUpdatePanGestureWithTranslation, std::optional<std::function<void(const Point& /* center */, double /* scale */, std::optional<double> /* velocity */)>> onDidUpdateZoomGestureWithCenter, std::optional<std::function<void(const Point& /* center */)>> onClick, std::optional<std::function<void(const Point& /* center */)>> onDoubleClick, std::optional<std::function<void(ColorScheme /* colorScheme */)>> onAppearanceDidChange): id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), mapButtons(mapButtons), actions(actions), onDidUpdatePanGestureWithTranslation(onDidUpdatePanGestureWithTranslation), onDidUpdateZoomGestureWithCenter(onDidUpdateZoomGestureWithCenter), onClick(onClick), onDoubleClick(onDoubleClick), onAppearanceDidChange(onAppearanceDidChange) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay
@@ -77,22 +77,26 @@ namespace margelo::nitro {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::at::g4rb4g3::autoplay::MapTemplateConfig(
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "id")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillAppear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillDisappear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidAppear")),
+        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDisappear")),
         JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroMapButton>>>::fromJSI(runtime, obj.getProperty(runtime, "mapButtons")),
         JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::fromJSI(runtime, obj.getProperty(runtime, "actions")),
         JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidUpdatePanGestureWithTranslation")),
         JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, double, std::optional<double>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidUpdateZoomGestureWithCenter")),
         JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&)>>>::fromJSI(runtime, obj.getProperty(runtime, "onClick")),
         JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDoubleClick")),
-        JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::ColorScheme)>>>::fromJSI(runtime, obj.getProperty(runtime, "onAppearanceDidChange")),
-        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillAppear")),
-        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillDisappear")),
-        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidAppear")),
-        JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDisappear"))
+        JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::ColorScheme)>>>::fromJSI(runtime, obj.getProperty(runtime, "onAppearanceDidChange"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::MapTemplateConfig& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "id", JSIConverter<std::string>::toJSI(runtime, arg.id));
+      obj.setProperty(runtime, "onWillAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillAppear));
+      obj.setProperty(runtime, "onWillDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillDisappear));
+      obj.setProperty(runtime, "onDidAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidAppear));
+      obj.setProperty(runtime, "onDidDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidDisappear));
       obj.setProperty(runtime, "mapButtons", JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroMapButton>>>::toJSI(runtime, arg.mapButtons));
       obj.setProperty(runtime, "actions", JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::toJSI(runtime, arg.actions));
       obj.setProperty(runtime, "onDidUpdatePanGestureWithTranslation", JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::toJSI(runtime, arg.onDidUpdatePanGestureWithTranslation));
@@ -100,10 +104,6 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "onClick", JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&)>>>::toJSI(runtime, arg.onClick));
       obj.setProperty(runtime, "onDoubleClick", JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&)>>>::toJSI(runtime, arg.onDoubleClick));
       obj.setProperty(runtime, "onAppearanceDidChange", JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::ColorScheme)>>>::toJSI(runtime, arg.onAppearanceDidChange));
-      obj.setProperty(runtime, "onWillAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillAppear));
-      obj.setProperty(runtime, "onWillDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onWillDisappear));
-      obj.setProperty(runtime, "onDidAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidAppear));
-      obj.setProperty(runtime, "onDidDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidDisappear));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -115,6 +115,10 @@ namespace margelo::nitro {
         return false;
       }
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "id"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillAppear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillDisappear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidAppear"))) return false;
+      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidDisappear"))) return false;
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroMapButton>>>::canConvert(runtime, obj.getProperty(runtime, "mapButtons"))) return false;
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::NitroAction>>>::canConvert(runtime, obj.getProperty(runtime, "actions"))) return false;
       if (!JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&, const std::optional<margelo::nitro::at::g4rb4g3::autoplay::Point>&)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidUpdatePanGestureWithTranslation"))) return false;
@@ -122,10 +126,6 @@ namespace margelo::nitro {
       if (!JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&)>>>::canConvert(runtime, obj.getProperty(runtime, "onClick"))) return false;
       if (!JSIConverter<std::optional<std::function<void(const margelo::nitro::at::g4rb4g3::autoplay::Point&)>>>::canConvert(runtime, obj.getProperty(runtime, "onDoubleClick"))) return false;
       if (!JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::ColorScheme)>>>::canConvert(runtime, obj.getProperty(runtime, "onAppearanceDidChange"))) return false;
-      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillAppear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onWillDisappear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidAppear"))) return false;
-      if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidDisappear"))) return false;
       return true;
     }
   };

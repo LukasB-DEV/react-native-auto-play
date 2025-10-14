@@ -18,26 +18,8 @@ public extension GridTemplateConfig {
   /**
    * Create a new instance of `GridTemplateConfig`.
    */
-  init(id: String, actions: [NitroAction]?, title: AutoText, buttons: [NitroGridButton], onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?) {
-    self.init(std.string(id), { () -> bridge.std__optional_std__vector_NitroAction__ in
-      if let __unwrappedValue = actions {
-        return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
-          var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
-          for __item in __unwrappedValue {
-            __vector.push_back(__item)
-          }
-          return __vector
-        }())
-      } else {
-        return .init()
-      }
-    }(), title, { () -> bridge.std__vector_NitroGridButton_ in
-      var __vector = bridge.create_std__vector_NitroGridButton_(buttons.count)
-      for __item in buttons {
-        __vector.push_back(__item)
-      }
-      return __vector
-    }(), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
+  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, actions: [NitroAction]?, title: AutoText, buttons: [NitroGridButton]) {
+    self.init(std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
           let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
@@ -73,6 +55,24 @@ public extension GridTemplateConfig {
       } else {
         return .init()
       }
+    }(), { () -> bridge.std__optional_std__vector_NitroAction__ in
+      if let __unwrappedValue = actions {
+        return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
+          var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
+          for __item in __unwrappedValue {
+            __vector.push_back(__item)
+          }
+          return __vector
+        }())
+      } else {
+        return .init()
+      }
+    }(), title, { () -> bridge.std__vector_NitroGridButton_ in
+      var __vector = bridge.create_std__vector_NitroGridButton_(buttons.count)
+      for __item in buttons {
+        __vector.push_back(__item)
+      }
+      return __vector
     }())
   }
 
@@ -84,64 +84,6 @@ public extension GridTemplateConfig {
     @inline(__always)
     set {
       self.__id = std.string(newValue)
-    }
-  }
-  
-  var actions: [NitroAction]? {
-    @inline(__always)
-    get {
-      return { () -> [NitroAction]? in
-        if bridge.has_value_std__optional_std__vector_NitroAction__(self.__actions) {
-          let __unwrapped = bridge.get_std__optional_std__vector_NitroAction__(self.__actions)
-          return __unwrapped.map({ __item in __item })
-        } else {
-          return nil
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__actions = { () -> bridge.std__optional_std__vector_NitroAction__ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
-            var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
-            for __item in __unwrappedValue {
-              __vector.push_back(__item)
-            }
-            return __vector
-          }())
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var title: AutoText {
-    @inline(__always)
-    get {
-      return self.__title
-    }
-    @inline(__always)
-    set {
-      self.__title = newValue
-    }
-  }
-  
-  var buttons: [NitroGridButton] {
-    @inline(__always)
-    get {
-      return self.__buttons.map({ __item in __item })
-    }
-    @inline(__always)
-    set {
-      self.__buttons = { () -> bridge.std__vector_NitroGridButton_ in
-        var __vector = bridge.create_std__vector_NitroGridButton_(newValue.count)
-        for __item in newValue {
-          __vector.push_back(__item)
-        }
-        return __vector
-      }()
     }
   }
   
@@ -293,6 +235,64 @@ public extension GridTemplateConfig {
         } else {
           return .init()
         }
+      }()
+    }
+  }
+  
+  var actions: [NitroAction]? {
+    @inline(__always)
+    get {
+      return { () -> [NitroAction]? in
+        if bridge.has_value_std__optional_std__vector_NitroAction__(self.__actions) {
+          let __unwrapped = bridge.get_std__optional_std__vector_NitroAction__(self.__actions)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__actions = { () -> bridge.std__optional_std__vector_NitroAction__ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
+            var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
+  var title: AutoText {
+    @inline(__always)
+    get {
+      return self.__title
+    }
+    @inline(__always)
+    set {
+      self.__title = newValue
+    }
+  }
+  
+  var buttons: [NitroGridButton] {
+    @inline(__always)
+    get {
+      return self.__buttons.map({ __item in __item })
+    }
+    @inline(__always)
+    set {
+      self.__buttons = { () -> bridge.std__vector_NitroGridButton_ in
+        var __vector = bridge.create_std__vector_NitroGridButton_(newValue.count)
+        for __item in newValue {
+          __vector.push_back(__item)
+        }
+        return __vector
       }()
     }
   }

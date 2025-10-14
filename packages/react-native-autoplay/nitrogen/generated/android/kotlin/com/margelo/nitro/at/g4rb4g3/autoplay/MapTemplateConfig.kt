@@ -26,6 +26,18 @@ data class MapTemplateConfig
     val id: String,
     @DoNotStrip
     @Keep
+    val onWillAppear: Func_void_std__optional_bool_?,
+    @DoNotStrip
+    @Keep
+    val onWillDisappear: Func_void_std__optional_bool_?,
+    @DoNotStrip
+    @Keep
+    val onDidAppear: Func_void_std__optional_bool_?,
+    @DoNotStrip
+    @Keep
+    val onDidDisappear: Func_void_std__optional_bool_?,
+    @DoNotStrip
+    @Keep
     val mapButtons: Array<NitroMapButton>?,
     @DoNotStrip
     @Keep
@@ -44,23 +56,11 @@ data class MapTemplateConfig
     val onDoubleClick: Func_void_Point?,
     @DoNotStrip
     @Keep
-    val onAppearanceDidChange: Func_void_ColorScheme?,
-    @DoNotStrip
-    @Keep
-    val onWillAppear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onWillDisappear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onDidAppear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onDidDisappear: Func_void_std__optional_bool_?
+    val onAppearanceDidChange: Func_void_ColorScheme?
   ) {
   /**
    * Initialize a new instance of `MapTemplateConfig` from Kotlin.
    */
-  constructor(id: String, mapButtons: Array<NitroMapButton>?, actions: Array<NitroAction>?, onDidUpdatePanGestureWithTranslation: ((translation: Point, velocity: Point?) -> Unit)?, onDidUpdateZoomGestureWithCenter: ((center: Point, scale: Double, velocity: Double?) -> Unit)?, onClick: ((center: Point) -> Unit)?, onDoubleClick: ((center: Point) -> Unit)?, onAppearanceDidChange: ((colorScheme: ColorScheme) -> Unit)?, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?)
-       : this(id, mapButtons?.let { it }, actions?.let { it }, onDidUpdatePanGestureWithTranslation?.let { Func_void_Point_std__optional_Point__java(it) }, onDidUpdateZoomGestureWithCenter?.let { Func_void_Point_double_std__optional_double__java(it) }, onClick?.let { Func_void_Point_java(it) }, onDoubleClick?.let { Func_void_Point_java(it) }, onAppearanceDidChange?.let { Func_void_ColorScheme_java(it) }, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) })
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, mapButtons: Array<NitroMapButton>?, actions: Array<NitroAction>?, onDidUpdatePanGestureWithTranslation: ((translation: Point, velocity: Point?) -> Unit)?, onDidUpdateZoomGestureWithCenter: ((center: Point, scale: Double, velocity: Double?) -> Unit)?, onClick: ((center: Point) -> Unit)?, onDoubleClick: ((center: Point) -> Unit)?, onAppearanceDidChange: ((colorScheme: ColorScheme) -> Unit)?)
+       : this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, mapButtons?.let { it }, actions?.let { it }, onDidUpdatePanGestureWithTranslation?.let { Func_void_Point_std__optional_Point__java(it) }, onDidUpdateZoomGestureWithCenter?.let { Func_void_Point_double_std__optional_double__java(it) }, onClick?.let { Func_void_Point_java(it) }, onDoubleClick?.let { Func_void_Point_java(it) }, onAppearanceDidChange?.let { Func_void_ColorScheme_java(it) })
 }

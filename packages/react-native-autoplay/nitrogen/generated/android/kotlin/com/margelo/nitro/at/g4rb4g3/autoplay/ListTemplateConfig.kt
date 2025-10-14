@@ -26,15 +26,6 @@ data class ListTemplateConfig
     val id: String,
     @DoNotStrip
     @Keep
-    val actions: Array<NitroAction>?,
-    @DoNotStrip
-    @Keep
-    val title: AutoText,
-    @DoNotStrip
-    @Keep
-    val sections: Array<NitroSection>?,
-    @DoNotStrip
-    @Keep
     val onWillAppear: Func_void_std__optional_bool_?,
     @DoNotStrip
     @Keep
@@ -44,11 +35,20 @@ data class ListTemplateConfig
     val onDidAppear: Func_void_std__optional_bool_?,
     @DoNotStrip
     @Keep
-    val onDidDisappear: Func_void_std__optional_bool_?
+    val onDidDisappear: Func_void_std__optional_bool_?,
+    @DoNotStrip
+    @Keep
+    val actions: Array<NitroAction>?,
+    @DoNotStrip
+    @Keep
+    val title: AutoText,
+    @DoNotStrip
+    @Keep
+    val sections: Array<NitroSection>?
   ) {
   /**
    * Initialize a new instance of `ListTemplateConfig` from Kotlin.
    */
-  constructor(id: String, actions: Array<NitroAction>?, title: AutoText, sections: Array<NitroSection>?, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?)
-       : this(id, actions?.let { it }, title, sections?.let { it }, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) })
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, actions: Array<NitroAction>?, title: AutoText, sections: Array<NitroSection>?)
+       : this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, actions?.let { it }, title, sections?.let { it })
 }

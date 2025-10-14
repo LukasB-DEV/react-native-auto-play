@@ -3,22 +3,19 @@ import type { AlertTemplateConfig } from '../templates/AlertTemplate';
 import type { NitroGridTemplateConfig } from '../templates/GridTemplate';
 import type { NitroListTemplateConfig } from '../templates/ListTemplate';
 import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
+import type { TemplateConfig } from '../templates/Template';
 import type { CleanupCallback, EventName, SafeAreaInsets, VisibilityState } from '../types/Event';
 import type { NitroAction } from '../utils/NitroAction';
 import type { NitroGridButton } from '../utils/NitroGrid';
 import type { NitroMapButton } from '../utils/NitroMapButton';
 
-interface MapTemplateConfig extends NitroMapTemplateConfig {
+interface NitroTemplateConfig extends TemplateConfig {
   id: string;
 }
-
-interface ListTemplateConfig extends NitroListTemplateConfig {
-  id: string;
-}
-
-interface GridTemplateConfig extends NitroGridTemplateConfig {
-  id: string;
-}
+// using type Nitro....Config = ...Config & NitroTemplateConfig does not work out for nitrogen
+interface MapTemplateConfig extends NitroTemplateConfig, NitroMapTemplateConfig {}
+interface ListTemplateConfig extends NitroTemplateConfig, NitroListTemplateConfig {}
+interface GridTemplateConfig extends NitroTemplateConfig, NitroGridTemplateConfig {}
 
 export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   /**
