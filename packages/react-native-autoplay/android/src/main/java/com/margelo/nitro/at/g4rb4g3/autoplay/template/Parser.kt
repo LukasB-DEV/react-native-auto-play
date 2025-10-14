@@ -2,6 +2,7 @@ package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
 import android.text.Spannable
 import android.text.SpannableString
+import android.util.Log
 import androidx.car.app.CarContext
 import androidx.car.app.model.Action
 import androidx.car.app.model.CarIcon
@@ -25,6 +26,8 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
 object Parser {
+    const val TAG = "Parser"
+
     fun parseHeader(context: CarContext, title: AutoText, actions: Array<NitroAction>?): Header {
         return Header.Builder().apply {
             setTitle(parseText(title))
@@ -83,6 +86,10 @@ object Parser {
     fun parseText(text: AutoText): CarText {
         val span = SpannableString(text.text)
         text.distance?.let { distance ->
+            if (!text.text.contains(PLACEHOLDER_DISTANCE)) {
+                Log.w(TAG, "got duration without $PLACEHOLDER_DISTANCE placeholder")
+                return@let
+            }
             span.setSpan(
                 DistanceSpan.create(parseDistance(distance)),
                 text.text.indexOf(PLACEHOLDER_DISTANCE),
@@ -91,6 +98,10 @@ object Parser {
             )
         }
         text.duration?.let { duration ->
+            if (!text.text.contains(PLACEHOLDER_DURATION)) {
+                Log.w(TAG, "got duration without $PLACEHOLDER_DURATION placeholder")
+                return@let
+            }
             span.setSpan(
                 DurationSpan.create(duration.toLong()),
                 text.text.indexOf(PLACEHOLDER_DURATION),
@@ -104,10 +115,10 @@ object Parser {
     fun parseDistance(distance: com.margelo.nitro.at.g4rb4g3.autoplay.Distance): Distance {
         val unit = when (distance.unit) {
             DistanceUnits.METERS -> Distance.UNIT_METERS
-            DistanceUnits.MILES -> Distance.UNIT_MILES_P1
+            DistanceUnits.MILES -> Distance.UNIT_MILES
             DistanceUnits.YARDS -> Distance.UNIT_YARDS
             DistanceUnits.FEET -> Distance.UNIT_FEET
-            DistanceUnits.KILOMETERS -> Distance.UNIT_KILOMETERS_P1
+            DistanceUnits.KILOMETERS -> Distance.UNIT_KILOMETERS
         }
         return Distance.create(distance.value, unit)
     }
