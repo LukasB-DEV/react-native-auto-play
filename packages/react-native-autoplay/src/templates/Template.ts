@@ -59,8 +59,6 @@ export class Template<TemplateConfigType, ActionsType> {
     // templates that render on a surface provide their own id, others use a auto generated one
     this.id =
       'id' in config && config.id != null && typeof config.id === 'string' ? config.id : uuid.v4();
-
-    console.log('***', this.id);
   }
 
   /**

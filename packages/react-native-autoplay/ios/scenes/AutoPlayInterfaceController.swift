@@ -105,7 +105,7 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
         return templateIds
     }
 
-    func pop(to templateId: String, animated: Bool) async throws -> [String] {
+    func popToTemplate(templateId: String, animated: Bool) async throws -> [String] {
         guard
             let template = interfaceController.templates.first(
                 where: {

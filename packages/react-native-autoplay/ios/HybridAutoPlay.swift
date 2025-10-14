@@ -213,8 +213,8 @@ class HybridAutoPlay: HybridAutoPlaySpec {
             return try await RootModule.withInterfaceController {
                 interfaceController in
 
-                let templateIds = try await interfaceController.pop(
-                    to: templateId,
+                let templateIds = try await interfaceController.popToTemplate(
+                    templateId: templateId,
                     animated: true
                 )
                 templateIds.forEach { templateId in
