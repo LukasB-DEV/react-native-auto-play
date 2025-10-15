@@ -139,6 +139,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         )
 
         UiThreadUtil.runOnUiThread {
+            screenManager.popToRoot()
             screenManager.push(screen)
         }
     }
