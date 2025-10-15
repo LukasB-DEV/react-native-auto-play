@@ -10,7 +10,10 @@
 #import "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
 #import <type_traits>
 
-#include "HybridAutoPlaySpecSwift.hpp"
+#include "HybridHybridAutoPlaySpecSwift.hpp"
+#include "HybridHybridListTemplateSpecSwift.hpp"
+#include "HybridHybridGridTemplateSpecSwift.hpp"
+#include "HybridHybridMapTemplateSpecSwift.hpp"
 
 @interface NitroAutoplayAutolinking : NSObject
 @end
@@ -19,12 +22,33 @@
 
 + (void) load {
   using namespace margelo::nitro;
-  using namespace margelo::nitro::at::g4rb4g3::autoplay;
+  using namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid;
 
   HybridObjectRegistry::registerHybridObjectConstructor(
-    "AutoPlay",
+    "HybridAutoPlay",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridAutoPlaySpec> hybridObject = NitroAutoplay::NitroAutoplayAutolinking::createAutoPlay();
+      std::shared_ptr<HybridHybridAutoPlaySpec> hybridObject = NitroAutoplay::NitroAutoplayAutolinking::createHybridAutoPlay();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "HybridListTemplate",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<HybridHybridListTemplateSpec> hybridObject = NitroAutoplay::NitroAutoplayAutolinking::createHybridListTemplate();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "HybridGridTemplate",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<HybridHybridGridTemplateSpec> hybridObject = NitroAutoplay::NitroAutoplayAutolinking::createHybridGridTemplate();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "HybridMapTemplate",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<HybridHybridMapTemplateSpec> hybridObject = NitroAutoplay::NitroAutoplayAutolinking::createHybridMapTemplate();
       return hybridObject;
     }
   );

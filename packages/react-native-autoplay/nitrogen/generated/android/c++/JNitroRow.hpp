@@ -23,7 +23,7 @@
 #include <optional>
 #include <string>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -32,7 +32,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JNitroRow final: public jni::JavaClass<JNitroRow> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/NitroRow;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/NitroRow;";
 
   public:
     /**
@@ -95,4 +95,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

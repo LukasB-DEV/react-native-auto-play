@@ -13,7 +13,7 @@ import NitroModules
  * This class can be used from C++, e.g. to wrap the Swift closure as a `std::function`.
  */
 public final class Func_void_Point_double_std__optional_double_ {
-  public typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  public typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   private let closure: (_ center: Point, _ scale: Double, _ velocity: Double?) -> Void
 

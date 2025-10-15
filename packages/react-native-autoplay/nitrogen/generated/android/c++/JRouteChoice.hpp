@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -28,7 +28,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JRouteChoice final: public jni::JavaClass<JRouteChoice> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/RouteChoice;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/RouteChoice;";
 
   public:
     /**
@@ -124,4 +124,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

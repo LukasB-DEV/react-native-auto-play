@@ -17,7 +17,7 @@
 #include <optional>
 #include <string>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -26,7 +26,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JNavigationAlertAction final: public jni::JavaClass<JNavigationAlertAction> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/NavigationAlertAction;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/NavigationAlertAction;";
 
   public:
     /**
@@ -73,4 +73,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

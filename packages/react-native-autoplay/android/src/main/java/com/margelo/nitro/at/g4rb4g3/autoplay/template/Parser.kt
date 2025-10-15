@@ -15,14 +15,14 @@ import androidx.car.app.model.ItemList
 import androidx.car.app.model.Row
 import androidx.car.app.model.Toggle
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
-import com.margelo.nitro.at.g4rb4g3.autoplay.AutoText
-import com.margelo.nitro.at.g4rb4g3.autoplay.DistanceUnits
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAlignment
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroImage
-import com.margelo.nitro.at.g4rb4g3.autoplay.ListTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroRow
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -115,7 +115,7 @@ object Parser {
         return CarText.Builder(span).build()
     }
 
-    fun parseDistance(distance: com.margelo.nitro.at.g4rb4g3.autoplay.Distance): Distance {
+    fun parseDistance(distance: com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Distance): Distance {
         val unit = when (distance.unit) {
             DistanceUnits.METERS -> Distance.UNIT_METERS
             DistanceUnits.MILES -> Distance.UNIT_MILES

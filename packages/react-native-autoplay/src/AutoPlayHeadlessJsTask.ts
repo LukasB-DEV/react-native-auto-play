@@ -1,9 +1,9 @@
 import { AppRegistry, Platform, type Task, type TaskProvider } from 'react-native';
-import { AutoPlay } from '.';
+import { HybridAutoPlay } from '.';
 
 const taskProvider: TaskProvider = (): Task => () =>
   new Promise((resolve) => {
-    const remove = AutoPlay.addListener('didDisconnect', () => {
+    const remove = HybridAutoPlay.addListener('didDisconnect', () => {
       resolve();
       remove();
     });

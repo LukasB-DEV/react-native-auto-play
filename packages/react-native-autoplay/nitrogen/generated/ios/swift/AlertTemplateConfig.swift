@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `AlertTemplateConfig`, backed by a C++ struct.
  */
-public typealias AlertTemplateConfig = margelo.nitro.at.g4rb4g3.autoplay.AlertTemplateConfig
+public typealias AlertTemplateConfig = margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertTemplateConfig
 
 public extension AlertTemplateConfig {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `AlertTemplateConfig`.

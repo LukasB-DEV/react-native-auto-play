@@ -10,7 +10,7 @@
 #include <fbjni/fbjni.h>
 #include "NitroMapButtonType.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -19,7 +19,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JNitroMapButtonType final: public jni::JavaClass<JNitroMapButtonType> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/NitroMapButtonType;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/NitroMapButtonType;";
 
   public:
     /**
@@ -41,14 +41,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     [[maybe_unused]]
     static jni::alias_ref<JNitroMapButtonType> fromCpp(NitroMapButtonType value) {
       static const auto clazz = javaClassStatic();
-      static const auto fieldPAN = clazz->getStaticField<JNitroMapButtonType>("PAN");
       static const auto fieldCUSTOM = clazz->getStaticField<JNitroMapButtonType>("CUSTOM");
+      static const auto fieldPAN = clazz->getStaticField<JNitroMapButtonType>("PAN");
       
       switch (value) {
-        case NitroMapButtonType::PAN:
-          return clazz->getStaticFieldValue(fieldPAN);
         case NitroMapButtonType::CUSTOM:
           return clazz->getStaticFieldValue(fieldCUSTOM);
+        case NitroMapButtonType::PAN:
+          return clazz->getStaticFieldValue(fieldPAN);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");
@@ -56,4 +56,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -30,7 +30,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JAlertTemplateConfig final: public jni::JavaClass<JAlertTemplateConfig> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/AlertTemplateConfig;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/AlertTemplateConfig;";
 
   public:
     /**
@@ -167,4 +167,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

@@ -17,6 +17,11 @@ import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.ReactApplication
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactContext
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ColorScheme
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.EventName
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VisibilityState
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.AppInfo
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ReactContextResolver

@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `NitroNavigationAlert`, backed by a C++ struct.
  */
-public typealias NitroNavigationAlert = margelo.nitro.at.g4rb4g3.autoplay.NitroNavigationAlert
+public typealias NitroNavigationAlert = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroNavigationAlert
 
 public extension NitroNavigationAlert {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `NitroNavigationAlert`.

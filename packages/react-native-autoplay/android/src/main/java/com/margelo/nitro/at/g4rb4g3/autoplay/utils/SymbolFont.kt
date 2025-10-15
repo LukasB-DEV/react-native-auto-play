@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.Typeface
 import androidx.core.content.res.ResourcesCompat
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroImage
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import com.margelo.nitro.autoplay.BuildConfig

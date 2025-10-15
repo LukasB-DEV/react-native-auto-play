@@ -33,7 +33,7 @@
 #include <string>
 #include <vector>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -42,7 +42,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JGridTemplateConfig final: public jni::JavaClass<JGridTemplateConfig> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/GridTemplateConfig;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/GridTemplateConfig;";
 
   public:
     /**
@@ -187,4 +187,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

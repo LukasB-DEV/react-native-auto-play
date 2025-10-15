@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `NitroSectionType`, backed by a C++ enum.
  */
-public typealias NitroSectionType = margelo.nitro.at.g4rb4g3.autoplay.NitroSectionType
+public typealias NitroSectionType = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroSectionType
 
 public extension NitroSectionType {
   /**

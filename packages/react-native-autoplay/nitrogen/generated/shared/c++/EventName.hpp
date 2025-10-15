@@ -23,7 +23,7 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * An enum which can be represented as a JavaScript union (EventName).
@@ -33,26 +33,26 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     DIDDISCONNECT      SWIFT_NAME(diddisconnect) = 1,
   } CLOSED_ENUM;
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ EventName <> JS EventName (union)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::EventName> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::EventName fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("didConnect"): return margelo::nitro::at::g4rb4g3::autoplay::EventName::DIDCONNECT;
-        case hashString("didDisconnect"): return margelo::nitro::at::g4rb4g3::autoplay::EventName::DIDDISCONNECT;
+        case hashString("didConnect"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDCONNECT;
+        case hashString("didDisconnect"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDDISCONNECT;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum EventName - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::EventName arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName arg) {
       switch (arg) {
-        case margelo::nitro::at::g4rb4g3::autoplay::EventName::DIDCONNECT: return JSIConverter<std::string>::toJSI(runtime, "didConnect");
-        case margelo::nitro::at::g4rb4g3::autoplay::EventName::DIDDISCONNECT: return JSIConverter<std::string>::toJSI(runtime, "didDisconnect");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDCONNECT: return JSIConverter<std::string>::toJSI(runtime, "didConnect");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDDISCONNECT: return JSIConverter<std::string>::toJSI(runtime, "didDisconnect");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert EventName to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

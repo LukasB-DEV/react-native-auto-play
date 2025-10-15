@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `AlertStyle`, backed by a C++ enum.
  */
-public typealias AlertStyle = margelo.nitro.at.g4rb4g3.autoplay.AlertStyle
+public typealias AlertStyle = margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertStyle
 
 public extension AlertStyle {
   /**

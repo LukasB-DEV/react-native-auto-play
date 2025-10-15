@@ -23,6 +23,9 @@ import com.facebook.react.runtime.ReactSurfaceView
 import com.facebook.react.uimanager.DisplayMetricsHolder
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.common.UIManagerType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Point
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.Debouncer
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ReactContextResolver

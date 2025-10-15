@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `NitroAction`, backed by a C++ struct.
  */
-public typealias NitroAction = margelo.nitro.at.g4rb4g3.autoplay.NitroAction
+public typealias NitroAction = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 
 public extension NitroAction {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `NitroAction`.

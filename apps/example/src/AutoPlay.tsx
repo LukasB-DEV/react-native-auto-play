@@ -1,5 +1,5 @@
 import {
-  AutoPlay,
+  HybridAutoPlay,
   MapTemplate,
   type RootComponentInitialProps,
   SafeAreaView,
@@ -60,8 +60,8 @@ const registerRunnable = () => {
     // template.destroy();
   };
 
-  AutoPlay.addListener('didConnect', onConnect);
-  AutoPlay.addListener('didDisconnect', onDisconnect);
+  HybridAutoPlay.addListener('didConnect', onConnect);
+  HybridAutoPlay.addListener('didDisconnect', onDisconnect);
 };
 
 export default registerRunnable;

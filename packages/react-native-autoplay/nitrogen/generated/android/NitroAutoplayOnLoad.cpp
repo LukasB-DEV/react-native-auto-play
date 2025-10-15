@@ -15,45 +15,75 @@
 #include <fbjni/fbjni.h>
 #include <NitroModules/HybridObjectRegistry.hpp>
 
-#include "JHybridAutoPlaySpec.hpp"
+#include "JHybridHybridAutoPlaySpec.hpp"
 #include "JFunc_void.hpp"
 #include "JFunc_void_VisibilityState.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
+#include "JFunc_void_SafeAreaInsets.hpp"
+#include "JHybridHybridGridTemplateSpec.hpp"
+#include "JHybridHybridListTemplateSpec.hpp"
+#include "JHybridHybridMapTemplateSpec.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
 #include "JFunc_void_Point_double_std__optional_double_.hpp"
 #include "JFunc_void_Point.hpp"
 #include "JFunc_void_ColorScheme.hpp"
 #include "JFunc_void_AlertDismissalReason.hpp"
 #include "JFunc_void_std__string_std__string.hpp"
-#include "JFunc_void_SafeAreaInsets.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
 int initialize(JavaVM* vm) {
   using namespace margelo::nitro;
-  using namespace margelo::nitro::at::g4rb4g3::autoplay;
+  using namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid;
   using namespace facebook;
 
   return facebook::jni::initialize(vm, [] {
     // Register native JNI methods
-    margelo::nitro::at::g4rb4g3::autoplay::JHybridAutoPlaySpec::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_VisibilityState_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_std__optional_bool__cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_Point_std__optional_Point__cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_Point_double_std__optional_double__cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_Point_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_ColorScheme_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_AlertDismissalReason_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_std__string_std__string_cxx::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::JFunc_void_SafeAreaInsets_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridAutoPlaySpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_VisibilityState_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__optional_bool__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_SafeAreaInsets_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridGridTemplateSpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridListTemplateSpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridMapTemplateSpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_std__optional_Point__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_double_std__optional_double__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_ColorScheme_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_AlertDismissalReason_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_std__string_cxx::registerNatives();
 
     // Register Nitro Hybrid Objects
     HybridObjectRegistry::registerHybridObjectConstructor(
-      "AutoPlay",
+      "HybridAutoPlay",
       []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridAutoPlaySpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/HybridAutoPlay");
+        static DefaultConstructableObject<JHybridHybridAutoPlaySpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridAutoPlay");
+        auto instance = object.create();
+        return instance->cthis()->shared();
+      }
+    );
+    HybridObjectRegistry::registerHybridObjectConstructor(
+      "HybridListTemplate",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridHybridListTemplateSpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridListTemplate");
+        auto instance = object.create();
+        return instance->cthis()->shared();
+      }
+    );
+    HybridObjectRegistry::registerHybridObjectConstructor(
+      "HybridGridTemplate",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridHybridGridTemplateSpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridGridTemplate");
+        auto instance = object.create();
+        return instance->cthis()->shared();
+      }
+    );
+    HybridObjectRegistry::registerHybridObjectConstructor(
+      "HybridMapTemplate",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridHybridMapTemplateSpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridMapTemplate");
         auto instance = object.create();
         return instance->cthis()->shared();
       }
@@ -61,4 +91,4 @@ int initialize(JavaVM* vm) {
   });
 }
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

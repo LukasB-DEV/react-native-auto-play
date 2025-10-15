@@ -23,36 +23,36 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * An enum which can be represented as a JavaScript union (NitroMapButtonType).
    */
   enum class NitroMapButtonType {
-    PAN      SWIFT_NAME(pan) = 0,
-    CUSTOM      SWIFT_NAME(custom) = 1,
+    CUSTOM      SWIFT_NAME(custom) = 0,
+    PAN      SWIFT_NAME(pan) = 1,
   } CLOSED_ENUM;
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ NitroMapButtonType <> JS NitroMapButtonType (union)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("pan"): return margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType::PAN;
-        case hashString("custom"): return margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType::CUSTOM;
+        case hashString("custom"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType::CUSTOM;
+        case hashString("pan"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType::PAN;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum NitroMapButtonType - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType arg) {
       switch (arg) {
-        case margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType::PAN: return JSIConverter<std::string>::toJSI(runtime, "pan");
-        case margelo::nitro::at::g4rb4g3::autoplay::NitroMapButtonType::CUSTOM: return JSIConverter<std::string>::toJSI(runtime, "custom");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType::CUSTOM: return JSIConverter<std::string>::toJSI(runtime, "custom");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroMapButtonType::PAN: return JSIConverter<std::string>::toJSI(runtime, "pan");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert NitroMapButtonType to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -64,8 +64,8 @@ namespace margelo::nitro {
       }
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, value);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("pan"):
         case hashString("custom"):
+        case hashString("pan"):
           return true;
         default:
           return false;

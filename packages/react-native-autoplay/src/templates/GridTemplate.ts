@@ -1,4 +1,4 @@
-import { AutoPlay } from '..';
+import { HybridGridTemplate } from '..';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type GridButton, type NitroGridButton, NitroGridUtil } from '../utils/NitroGrid';
@@ -34,10 +34,13 @@ export class GridTemplate extends Template<GridTemplateConfig, Actions<GridTempl
       buttons: NitroGridUtil.convert(this.template, buttons),
     };
 
-    AutoPlay.createGridTemplate(nitroConfig);
+    HybridGridTemplate.createGridTemplate(nitroConfig);
   }
 
   public updateGrid(buttons: Array<GridButton<GridTemplate>>) {
-    AutoPlay.updateGridTemplateButtons(this.id, NitroGridUtil.convert(this.template, buttons));
+    HybridGridTemplate.updateGridTemplateButtons(
+      this.id,
+      NitroGridUtil.convert(this.template, buttons)
+    );
   }
 }

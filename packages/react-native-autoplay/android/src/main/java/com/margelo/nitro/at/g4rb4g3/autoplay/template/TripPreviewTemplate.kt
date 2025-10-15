@@ -13,9 +13,9 @@ import androidx.car.app.model.Template
 import androidx.car.app.navigation.model.MapWithContentTemplate
 import androidx.core.graphics.drawable.IconCompat
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
-import com.margelo.nitro.at.g4rb4g3.autoplay.AutoText
-import com.margelo.nitro.at.g4rb4g3.autoplay.TripConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.TripPreviewTextConfiguration
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripPreviewTextConfiguration
 import com.margelo.nitro.autoplay.R
 
 class TripPreviewTemplate(

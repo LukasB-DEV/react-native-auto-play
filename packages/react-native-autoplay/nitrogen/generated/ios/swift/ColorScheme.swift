@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `ColorScheme`, backed by a C++ enum.
  */
-public typealias ColorScheme = margelo.nitro.at.g4rb4g3.autoplay.ColorScheme
+public typealias ColorScheme = margelo.nitro.at.g4rb4g3.autoplay.hybrid.ColorScheme
 
 public extension ColorScheme {
   /**

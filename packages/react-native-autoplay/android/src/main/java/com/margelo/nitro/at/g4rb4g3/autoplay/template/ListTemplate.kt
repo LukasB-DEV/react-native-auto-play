@@ -4,9 +4,9 @@ import androidx.car.app.CarContext
 import androidx.car.app.model.ListTemplate
 import androidx.car.app.model.SectionedItemList
 import androidx.car.app.model.Template
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
-import com.margelo.nitro.at.g4rb4g3.autoplay.ListTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroSection
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroSection
 
 class ListTemplate(context: CarContext, config: ListTemplateConfig) :
     AndroidAutoTemplate<ListTemplateConfig>(context, config) {
@@ -75,5 +75,9 @@ class ListTemplate(context: CarContext, config: ListTemplateConfig) :
     fun updateSections(sections: Array<NitroSection>?) {
         config = config.copy(sections = sections)
         super.applyConfigUpdate()
+    }
+
+    companion object {
+
     }
 }

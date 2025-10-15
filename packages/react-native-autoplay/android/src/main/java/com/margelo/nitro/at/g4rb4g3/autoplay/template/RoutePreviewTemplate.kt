@@ -9,8 +9,8 @@ import androidx.car.app.model.ListTemplate
 import androidx.car.app.model.Row
 import androidx.car.app.model.Template
 import androidx.car.app.navigation.model.MapWithContentTemplate
-import com.margelo.nitro.at.g4rb4g3.autoplay.AutoText
-import com.margelo.nitro.at.g4rb4g3.autoplay.RouteChoice
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.RouteChoice
 
 class RoutePreviewTemplate(
     carContext: CarContext,

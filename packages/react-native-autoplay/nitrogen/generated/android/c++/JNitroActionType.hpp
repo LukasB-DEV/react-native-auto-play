@@ -10,7 +10,7 @@
 #include <fbjni/fbjni.h>
 #include "NitroActionType.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -19,7 +19,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JNitroActionType final: public jni::JavaClass<JNitroActionType> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/NitroActionType;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/NitroActionType;";
 
   public:
     /**
@@ -41,17 +41,17 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     [[maybe_unused]]
     static jni::alias_ref<JNitroActionType> fromCpp(NitroActionType value) {
       static const auto clazz = javaClassStatic();
-      static const auto fieldCUSTOM = clazz->getStaticField<JNitroActionType>("CUSTOM");
       static const auto fieldAPPICON = clazz->getStaticField<JNitroActionType>("APPICON");
       static const auto fieldBACK = clazz->getStaticField<JNitroActionType>("BACK");
+      static const auto fieldCUSTOM = clazz->getStaticField<JNitroActionType>("CUSTOM");
       
       switch (value) {
-        case NitroActionType::CUSTOM:
-          return clazz->getStaticFieldValue(fieldCUSTOM);
         case NitroActionType::APPICON:
           return clazz->getStaticFieldValue(fieldAPPICON);
         case NitroActionType::BACK:
           return clazz->getStaticFieldValue(fieldBACK);
+        case NitroActionType::CUSTOM:
+          return clazz->getStaticFieldValue(fieldCUSTOM);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");
@@ -59,4 +59,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

@@ -23,7 +23,7 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * An enum which can be represented as a JavaScript union (AlertActionStyle).
@@ -33,26 +33,26 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     DESTRUCTIVE      SWIFT_NAME(destructive) = 1,
   } CLOSED_ENUM;
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ AlertActionStyle <> JS AlertActionStyle (union)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("default"): return margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle::DEFAULT;
-        case hashString("destructive"): return margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle::DESTRUCTIVE;
+        case hashString("default"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle::DEFAULT;
+        case hashString("destructive"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle::DESTRUCTIVE;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum AlertActionStyle - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle arg) {
       switch (arg) {
-        case margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle::DEFAULT: return JSIConverter<std::string>::toJSI(runtime, "default");
-        case margelo::nitro::at::g4rb4g3::autoplay::AlertActionStyle::DESTRUCTIVE: return JSIConverter<std::string>::toJSI(runtime, "destructive");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle::DEFAULT: return JSIConverter<std::string>::toJSI(runtime, "default");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertActionStyle::DESTRUCTIVE: return JSIConverter<std::string>::toJSI(runtime, "destructive");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert AlertActionStyle to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

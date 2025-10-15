@@ -1,17 +1,29 @@
 {
   "$schema": "https://nitro.margelo.com/nitro.schema.json",
-  "cxxNamespace": ["at", "g4rb4g3", "autoplay"],
+  "cxxNamespace": ["at", "g4rb4g3", "autoplay", "hybrid"],
   "ios": {
     "iosModuleName": "NitroAutoplay"
   },
   "android": {
-    "androidNamespace": ["at", "g4rb4g3", "autoplay"],
+    "androidNamespace": ["at", "g4rb4g3", "autoplay", "hybrid"],
     "androidCxxLibName": "NitroAutoplay"
   },
   "autolinking": {
-    "AutoPlay": {
+    "HybridAutoPlay": {
       "kotlin": "HybridAutoPlay",
       "swift": "HybridAutoPlay"
+    },
+    "HybridListTemplate": {
+      "kotlin": "HybridListTemplate",
+      "swift": "HybridListTemplate"
+    },
+    "HybridGridTemplate": {
+      "kotlin": "HybridGridTemplate",
+      "swift": "HybridGridTemplate"
+    },
+    "HybridMapTemplate": {
+      "kotlin": "HybridMapTemplate",
+      "swift": "HybridMapTemplate"
     }
   },
   "ignorePaths": ["**/node_modules"]

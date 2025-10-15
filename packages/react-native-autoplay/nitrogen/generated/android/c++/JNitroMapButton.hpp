@@ -18,7 +18,7 @@
 #include <functional>
 #include <optional>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -27,7 +27,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JNitroMapButton final: public jni::JavaClass<JNitroMapButton> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/NitroMapButton;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/NitroMapButton;";
 
   public:
     /**
@@ -74,4 +74,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

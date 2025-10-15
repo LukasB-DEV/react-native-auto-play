@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `NitroActionType`, backed by a C++ enum.
  */
-public typealias NitroActionType = margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
+public typealias NitroActionType = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 
 public extension NitroActionType {
   /**
@@ -17,12 +17,12 @@ public extension NitroActionType {
    */
   init?(fromString string: String) {
     switch string {
-      case "custom":
-        self = .custom
       case "appIcon":
         self = .appicon
       case "back":
         self = .back
+      case "custom":
+        self = .custom
       default:
         return nil
     }
@@ -33,12 +33,12 @@ public extension NitroActionType {
    */
   var stringValue: String {
     switch self {
-      case .custom:
-        return "custom"
       case .appicon:
         return "appIcon"
       case .back:
         return "back"
+      case .custom:
+        return "custom"
     }
   }
 }

@@ -12,7 +12,7 @@
 
 #include <optional>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -21,7 +21,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JSafeAreaInsets final: public jni::JavaClass<JSafeAreaInsets> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/SafeAreaInsets;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/SafeAreaInsets;";
 
   public:
     /**
@@ -66,4 +66,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

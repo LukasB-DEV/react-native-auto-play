@@ -27,7 +27,7 @@
 
 #include <optional>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (SafeAreaInsets).
@@ -45,16 +45,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit SafeAreaInsets(double top, double left, double bottom, double right, std::optional<bool> isLegacyLayout): top(top), left(left), bottom(bottom), right(right), isLegacyLayout(isLegacyLayout) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ SafeAreaInsets <> JS SafeAreaInsets (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::SafeAreaInsets> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::SafeAreaInsets fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::SafeAreaInsets> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::SafeAreaInsets fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::SafeAreaInsets(
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::SafeAreaInsets(
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "top")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "left")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "bottom")),
@@ -62,7 +62,7 @@ namespace margelo::nitro {
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, "isLegacyLayout"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::SafeAreaInsets& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::SafeAreaInsets& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "top", JSIConverter<double>::toJSI(runtime, arg.top));
       obj.setProperty(runtime, "left", JSIConverter<double>::toJSI(runtime, arg.left));

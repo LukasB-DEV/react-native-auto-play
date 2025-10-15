@@ -1,8 +1,8 @@
 import {
   type Actions,
   type Alert,
-  AutoPlay,
   type BackButton,
+  HybridAutoPlay,
   type MapTemplate,
   type MapTemplateConfig,
 } from '@g4rb4g3/react-native-autoplay';
@@ -14,7 +14,7 @@ import { AutoListTemplate } from './AutoListTemplate';
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
 const backButton: BackButton<any> = {
   type: 'back',
-  onPress: () => AutoPlay.popTemplate(),
+  onPress: () => HybridAutoPlay.popTemplate(),
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
@@ -34,7 +34,7 @@ const actions: Actions<any> = {
         type: 'image',
         image: { name: 'close' },
         onPress: () => {
-          AutoPlay.popToRootTemplate();
+          HybridAutoPlay.popToRootTemplate();
         },
       },
     ],
@@ -53,7 +53,7 @@ const actions: Actions<any> = {
         type: 'image',
         image: { name: 'close' },
         onPress: () => {
-          AutoPlay.popToRootTemplate();
+          HybridAutoPlay.popToRootTemplate();
         },
       },
     ],

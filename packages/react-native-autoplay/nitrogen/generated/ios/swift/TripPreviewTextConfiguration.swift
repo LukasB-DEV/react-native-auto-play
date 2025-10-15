@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `TripPreviewTextConfiguration`, backed by a C++ struct.
  */
-public typealias TripPreviewTextConfiguration = margelo.nitro.at.g4rb4g3.autoplay.TripPreviewTextConfiguration
+public typealias TripPreviewTextConfiguration = margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripPreviewTextConfiguration
 
 public extension TripPreviewTextConfiguration {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `TripPreviewTextConfiguration`.

@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `NitroImage`, backed by a C++ struct.
  */
-public typealias NitroImage = margelo.nitro.at.g4rb4g3.autoplay.NitroImage
+public typealias NitroImage = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 
 public extension NitroImage {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `NitroImage`.

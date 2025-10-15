@@ -1,5 +1,5 @@
 import uuid from 'react-native-uuid';
-import { AutoPlay } from '..';
+import { HybridAutoPlay } from '..';
 import type { ActionButtonAndroid, ActionButtonIos, AppButton, BackButton } from '../types/Button';
 import { NitroActionUtil } from '../utils/NitroAction';
 
@@ -65,25 +65,25 @@ export class Template<TemplateConfigType, ActionsType> {
    * set as root template on the stack
    */
   public setRootTemplate() {
-    return AutoPlay.setRootTemplate(this.id);
+    return HybridAutoPlay.setRootTemplate(this.id);
   }
 
   /**
    * push this template on the stack and show it to the user
    */
   public push() {
-    return AutoPlay.pushTemplate(this.id);
+    return HybridAutoPlay.pushTemplate(this.id);
   }
 
   /**
    * remove all templates above this one from the stack
    */
   public popTo() {
-    return AutoPlay.popToTemplate(this.id);
+    return HybridAutoPlay.popToTemplate(this.id);
   }
 
   public setActions<T>(actions?: ActionsType) {
     const nitroActions = NitroActionUtil.convert(actions as Actions<T>);
-    AutoPlay.setTemplateActions(this.id, nitroActions);
+    HybridAutoPlay.setTemplateActions(this.id, nitroActions);
   }
 }

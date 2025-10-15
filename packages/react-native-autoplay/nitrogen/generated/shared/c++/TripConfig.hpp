@@ -24,16 +24,16 @@
 #endif
 
 // Forward declaration of `TripPoint` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TripPoint; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct RouteChoice; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 
 #include <string>
 #include "TripPoint.hpp"
 #include "RouteChoice.hpp"
 #include <vector>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (TripConfig).
@@ -50,28 +50,28 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit TripConfig(std::string id, TripPoint origin, TripPoint destination, std::vector<RouteChoice> routeChoices): id(id), origin(origin), destination(destination), routeChoices(routeChoices) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ TripConfig <> JS TripConfig (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripConfig> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::TripConfig fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripConfig> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripConfig fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::TripConfig(
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripConfig(
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "id")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint>::fromJSI(runtime, obj.getProperty(runtime, "origin")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint>::fromJSI(runtime, obj.getProperty(runtime, "destination")),
-        JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::RouteChoice>>::fromJSI(runtime, obj.getProperty(runtime, "routeChoices"))
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>::fromJSI(runtime, obj.getProperty(runtime, "origin")),
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>::fromJSI(runtime, obj.getProperty(runtime, "destination")),
+        JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::RouteChoice>>::fromJSI(runtime, obj.getProperty(runtime, "routeChoices"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::TripConfig& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripConfig& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "id", JSIConverter<std::string>::toJSI(runtime, arg.id));
-      obj.setProperty(runtime, "origin", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint>::toJSI(runtime, arg.origin));
-      obj.setProperty(runtime, "destination", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint>::toJSI(runtime, arg.destination));
-      obj.setProperty(runtime, "routeChoices", JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::RouteChoice>>::toJSI(runtime, arg.routeChoices));
+      obj.setProperty(runtime, "origin", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>::toJSI(runtime, arg.origin));
+      obj.setProperty(runtime, "destination", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>::toJSI(runtime, arg.destination));
+      obj.setProperty(runtime, "routeChoices", JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::RouteChoice>>::toJSI(runtime, arg.routeChoices));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -83,9 +83,9 @@ namespace margelo::nitro {
         return false;
       }
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "id"))) return false;
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint>::canConvert(runtime, obj.getProperty(runtime, "origin"))) return false;
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint>::canConvert(runtime, obj.getProperty(runtime, "destination"))) return false;
-      if (!JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::RouteChoice>>::canConvert(runtime, obj.getProperty(runtime, "routeChoices"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>::canConvert(runtime, obj.getProperty(runtime, "origin"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>::canConvert(runtime, obj.getProperty(runtime, "destination"))) return false;
+      if (!JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::RouteChoice>>::canConvert(runtime, obj.getProperty(runtime, "routeChoices"))) return false;
       return true;
     }
   };

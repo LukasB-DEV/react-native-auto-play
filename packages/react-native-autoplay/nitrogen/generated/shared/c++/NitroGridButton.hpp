@@ -24,15 +24,15 @@
 #endif
 
 // Forward declaration of `AutoText` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `NitroImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
 
 #include "AutoText.hpp"
 #include "NitroImage.hpp"
 #include <functional>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (NitroGridButton).
@@ -48,25 +48,25 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit NitroGridButton(AutoText title, NitroImage image, std::function<void()> onPress): title(title), image(image), onPress(onPress) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ NitroGridButton <> JS NitroGridButton (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::NitroGridButton> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::NitroGridButton fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroGridButton> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroGridButton fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::NitroGridButton(
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AutoText>::fromJSI(runtime, obj.getProperty(runtime, "title")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::NitroImage>::fromJSI(runtime, obj.getProperty(runtime, "image")),
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroGridButton(
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::fromJSI(runtime, obj.getProperty(runtime, "title")),
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>::fromJSI(runtime, obj.getProperty(runtime, "image")),
         JSIConverter<std::function<void()>>::fromJSI(runtime, obj.getProperty(runtime, "onPress"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::NitroGridButton& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroGridButton& arg) {
       jsi::Object obj(runtime);
-      obj.setProperty(runtime, "title", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AutoText>::toJSI(runtime, arg.title));
-      obj.setProperty(runtime, "image", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::NitroImage>::toJSI(runtime, arg.image));
+      obj.setProperty(runtime, "title", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::toJSI(runtime, arg.title));
+      obj.setProperty(runtime, "image", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>::toJSI(runtime, arg.image));
       obj.setProperty(runtime, "onPress", JSIConverter<std::function<void()>>::toJSI(runtime, arg.onPress));
       return obj;
     }
@@ -78,8 +78,8 @@ namespace margelo::nitro {
       if (!nitro::isPlainObject(runtime, obj)) {
         return false;
       }
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AutoText>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::NitroImage>::canConvert(runtime, obj.getProperty(runtime, "image"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>::canConvert(runtime, obj.getProperty(runtime, "image"))) return false;
       if (!JSIConverter<std::function<void()>>::canConvert(runtime, obj.getProperty(runtime, "onPress"))) return false;
       return true;
     }

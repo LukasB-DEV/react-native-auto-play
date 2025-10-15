@@ -1,10 +1,20 @@
 import { NitroModules } from 'react-native-nitro-modules';
 import AutoPlayHeadlessJsTask from './AutoPlayHeadlessJsTask';
-import type { AutoPlay as NitroAutoPlay } from './specs/AutoPlay.nitro';
+import type { HybridAutoPlay as NitroHybridAutoPlay } from './specs/HybridAutoPlay.nitro';
+import type { HybridGridTemplate as NitroHybridGridTemplate } from './specs/HybridGridTemplate.nitro';
+import type { HybridListTemplate as NitroHybridListTemplate } from './specs/HybridListTemplate.nitro';
+import type { HybridMapTemplate as NitroHybridMapTemplate } from './specs/HybridMapTemplate.nitro';
 
 AutoPlayHeadlessJsTask.registerHeadlessTask();
 
-export const AutoPlay = NitroModules.createHybridObject<NitroAutoPlay>('AutoPlay');
+export const HybridAutoPlay =
+  NitroModules.createHybridObject<NitroHybridAutoPlay>('HybridAutoPlay');
+export const HybridListTemplate =
+  NitroModules.createHybridObject<NitroHybridListTemplate>('HybridListTemplate');
+export const HybridGridTemplate =
+  NitroModules.createHybridObject<NitroHybridGridTemplate>('HybridGridTemplate');
+export const HybridMapTemplate =
+  NitroModules.createHybridObject<NitroHybridMapTemplate>('HybridMapTemplate');
 
 export * from './components/SafeAreaView';
 export * from './hooks/useSafeAreaInsets';

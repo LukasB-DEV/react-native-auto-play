@@ -9,73 +9,79 @@
 
 // Forward declarations of C++ defined types
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertActionStyle; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
 // Forward declaration of `AlertAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertAction; }
 // Forward declaration of `AlertDismissalReason` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertDismissalReason; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertStyle; }
 // Forward declaration of `AlertTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertTemplateConfig; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertTemplateConfig; }
 // Forward declaration of `AutoText` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `Distance` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
 // Forward declaration of `EventName` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class EventName; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class EventName; }
 // Forward declaration of `GridTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct GridTemplateConfig; }
-// Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct GridTemplateConfig; }
+// Forward declaration of `HybridHybridAutoPlaySpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridAutoPlaySpec; }
+// Forward declaration of `HybridHybridGridTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridGridTemplateSpec; }
+// Forward declaration of `HybridHybridListTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridListTemplateSpec; }
+// Forward declaration of `HybridHybridMapTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridMapTemplateSpec; }
 // Forward declaration of `ListTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct ListTemplateConfig; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct ListTemplateConfig; }
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct MapTemplateConfig; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MapTemplateConfig; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NavigationAlertAction; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroGridButton; }
 // Forward declaration of `NitroImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroMapButtonType; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroMapButtonType; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroMapButton; }
 // Forward declaration of `NitroNavigationAlert` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroNavigationAlert; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroNavigationAlert; }
 // Forward declaration of `NitroRow` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroSectionType; }
 // Forward declaration of `NitroSection` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroSection; }
 // Forward declaration of `Point` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct RouteChoice; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SafeAreaInsets; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TravelEstimates; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
 // Forward declaration of `TripConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TripConfig; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 // Forward declaration of `TripPoint` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TripPoint; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `TripPreviewTextConfiguration` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TripPreviewTextConfiguration; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
 
 // Include C++ defined types
 #include "AlertAction.hpp"
@@ -89,7 +95,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include "DistanceUnits.hpp"
 #include "EventName.hpp"
 #include "GridTemplateConfig.hpp"
-#include "HybridAutoPlaySpec.hpp"
+#include "HybridHybridAutoPlaySpec.hpp"
+#include "HybridHybridGridTemplateSpec.hpp"
+#include "HybridHybridListTemplateSpec.hpp"
+#include "HybridHybridMapTemplateSpec.hpp"
 #include "ListTemplateConfig.hpp"
 #include "MapTemplateConfig.hpp"
 #include "NavigationAlertAction.hpp"
@@ -131,8 +140,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
 #include <NitroModules/DateToChronoDate.hpp>
 
 // Forward declarations of Swift defined types
-// Forward declaration of `HybridAutoPlaySpec_cxx` to properly resolve imports.
-namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
+// Forward declaration of `HybridHybridAutoPlaySpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridAutoPlaySpec_cxx; }
+// Forward declaration of `HybridHybridGridTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridGridTemplateSpec_cxx; }
+// Forward declaration of `HybridHybridListTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridListTemplateSpec_cxx; }
+// Forward declaration of `HybridHybridMapTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroAutoplay-Swift.h")

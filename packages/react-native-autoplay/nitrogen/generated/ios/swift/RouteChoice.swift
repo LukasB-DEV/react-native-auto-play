@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `RouteChoice`, backed by a C++ struct.
  */
-public typealias RouteChoice = margelo.nitro.at.g4rb4g3.autoplay.RouteChoice
+public typealias RouteChoice = margelo.nitro.at.g4rb4g3.autoplay.hybrid.RouteChoice
 
 public extension RouteChoice {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `RouteChoice`.

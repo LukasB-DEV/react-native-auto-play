@@ -1,0 +1,31 @@
+import type { HybridObject } from 'react-native-nitro-modules';
+import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
+import type { TripConfig, TripPreviewTextConfiguration } from '../types/Trip';
+import type { NitroNavigationAlert } from '../utils/NitroAlert';
+import type { NitroMapButton } from '../utils/NitroMapButton';
+import type { NitroTemplateConfig } from './HybridAutoPlay.nitro';
+
+interface MapTemplateConfig extends NitroTemplateConfig, NitroMapTemplateConfig {}
+
+export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
+  /**
+   * creates a map template that can render any react component
+   * @returns a cleanup function, eg: removes attached listeners
+   */
+  createMapTemplate(config: MapTemplateConfig): void;
+  showNavigationAlert(templateId: string, alert: NitroNavigationAlert): void;
+  showTripSelector(
+    templateId: string,
+    trips: Array<TripConfig>,
+    selectedTripId: string | null,
+    textConfig: TripPreviewTextConfiguration,
+    onTripSelected: (tripId: string, routeId: string) => void,
+    onTripStarted: (tripId: string, routeId: string) => void
+  ): void;
+  hideTripSelector(templateId: string): void;
+
+  /**
+   * update the map buttons on a map template
+   */
+  setTemplateMapButtons(templateId: string, buttons?: Array<NitroMapButton>): void;
+}

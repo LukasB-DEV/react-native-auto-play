@@ -8,10 +8,13 @@
 #include "NitroAutoplay-Swift-Cxx-Bridge.hpp"
 
 // Include C++ implementation defined types
-#include "HybridAutoPlaySpecSwift.hpp"
+#include "HybridHybridAutoPlaySpecSwift.hpp"
+#include "HybridHybridGridTemplateSpecSwift.hpp"
+#include "HybridHybridListTemplateSpecSwift.hpp"
+#include "HybridHybridMapTemplateSpecSwift.hpp"
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
 
   // pragma MARK: std::function<void()>
   Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept {
@@ -35,6 +38,70 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return [swiftClosure = std::move(swiftClosure)](std::optional<bool> animated) mutable -> void {
       swiftClosure.call(animated);
     };
+  }
+  
+  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::exception_ptr& error) mutable -> void {
+      swiftClosure.call(error);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const SafeAreaInsets& /* insets */)>
+  Func_void_SafeAreaInsets create_Func_void_SafeAreaInsets(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_SafeAreaInsets::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const SafeAreaInsets& insets) mutable -> void {
+      swiftClosure.call(insets);
+    };
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridAutoPlaySpec>
+  std::shared_ptr<HybridHybridAutoPlaySpec> create_std__shared_ptr_HybridHybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroAutoplay::HybridHybridAutoPlaySpec_cxx swiftPart = NitroAutoplay::HybridHybridAutoPlaySpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridAutoPlaySpecSwift>(swiftPart);
+  }
+  void* NON_NULL get_std__shared_ptr_HybridHybridAutoPlaySpec_(std__shared_ptr_HybridHybridAutoPlaySpec_ cppType) {
+    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridAutoPlaySpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridAutoPlaySpecSwift>(cppType);
+    #ifdef NITRO_DEBUG
+    if (swiftWrapper == nullptr) [[unlikely]] {
+      throw std::runtime_error("Class \"HybridHybridAutoPlaySpec\" is not implemented in Swift!");
+    }
+    #endif
+    NitroAutoplay::HybridHybridAutoPlaySpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    return swiftPart.toUnsafe();
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridGridTemplateSpec>
+  std::shared_ptr<HybridHybridGridTemplateSpec> create_std__shared_ptr_HybridHybridGridTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroAutoplay::HybridHybridGridTemplateSpec_cxx swiftPart = NitroAutoplay::HybridHybridGridTemplateSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridGridTemplateSpecSwift>(swiftPart);
+  }
+  void* NON_NULL get_std__shared_ptr_HybridHybridGridTemplateSpec_(std__shared_ptr_HybridHybridGridTemplateSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridGridTemplateSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridGridTemplateSpecSwift>(cppType);
+    #ifdef NITRO_DEBUG
+    if (swiftWrapper == nullptr) [[unlikely]] {
+      throw std::runtime_error("Class \"HybridHybridGridTemplateSpec\" is not implemented in Swift!");
+    }
+    #endif
+    NitroAutoplay::HybridHybridGridTemplateSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    return swiftPart.toUnsafe();
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridListTemplateSpec>
+  std::shared_ptr<HybridHybridListTemplateSpec> create_std__shared_ptr_HybridHybridListTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroAutoplay::HybridHybridListTemplateSpec_cxx swiftPart = NitroAutoplay::HybridHybridListTemplateSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridListTemplateSpecSwift>(swiftPart);
+  }
+  void* NON_NULL get_std__shared_ptr_HybridHybridListTemplateSpec_(std__shared_ptr_HybridHybridListTemplateSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridListTemplateSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridListTemplateSpecSwift>(cppType);
+    #ifdef NITRO_DEBUG
+    if (swiftWrapper == nullptr) [[unlikely]] {
+      throw std::runtime_error("Class \"HybridHybridListTemplateSpec\" is not implemented in Swift!");
+    }
+    #endif
+    NitroAutoplay::HybridHybridListTemplateSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    return swiftPart.toUnsafe();
   }
   
   // pragma MARK: std::function<void(const Point& /* translation */, const std::optional<Point>& /* velocity */)>
@@ -85,36 +152,20 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     };
   }
   
-  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
-  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const std::exception_ptr& error) mutable -> void {
-      swiftClosure.call(error);
-    };
+  // pragma MARK: std::shared_ptr<HybridHybridMapTemplateSpec>
+  std::shared_ptr<HybridHybridMapTemplateSpec> create_std__shared_ptr_HybridHybridMapTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroAutoplay::HybridHybridMapTemplateSpec_cxx swiftPart = NitroAutoplay::HybridHybridMapTemplateSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridMapTemplateSpecSwift>(swiftPart);
   }
-  
-  // pragma MARK: std::function<void(const SafeAreaInsets& /* insets */)>
-  Func_void_SafeAreaInsets create_Func_void_SafeAreaInsets(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_SafeAreaInsets::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const SafeAreaInsets& insets) mutable -> void {
-      swiftClosure.call(insets);
-    };
-  }
-  
-  // pragma MARK: std::shared_ptr<HybridAutoPlaySpec>
-  std::shared_ptr<HybridAutoPlaySpec> create_std__shared_ptr_HybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept {
-    NitroAutoplay::HybridAutoPlaySpec_cxx swiftPart = NitroAutoplay::HybridAutoPlaySpec_cxx::fromUnsafe(swiftUnsafePointer);
-    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::HybridAutoPlaySpecSwift>(swiftPart);
-  }
-  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType) {
-    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::HybridAutoPlaySpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::HybridAutoPlaySpecSwift>(cppType);
+  void* NON_NULL get_std__shared_ptr_HybridHybridMapTemplateSpec_(std__shared_ptr_HybridHybridMapTemplateSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridMapTemplateSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridMapTemplateSpecSwift>(cppType);
     #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
-      throw std::runtime_error("Class \"HybridAutoPlaySpec\" is not implemented in Swift!");
+      throw std::runtime_error("Class \"HybridHybridMapTemplateSpec\" is not implemented in Swift!");
     }
     #endif
-    NitroAutoplay::HybridAutoPlaySpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    NitroAutoplay::HybridHybridMapTemplateSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift

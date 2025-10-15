@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `NitroAlignment`, backed by a C++ enum.
  */
-public typealias NitroAlignment = margelo.nitro.at.g4rb4g3.autoplay.NitroAlignment
+public typealias NitroAlignment = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 
 public extension NitroAlignment {
   /**

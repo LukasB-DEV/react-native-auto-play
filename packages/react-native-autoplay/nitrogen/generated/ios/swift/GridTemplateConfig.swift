@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `GridTemplateConfig`, backed by a C++ struct.
  */
-public typealias GridTemplateConfig = margelo.nitro.at.g4rb4g3.autoplay.GridTemplateConfig
+public typealias GridTemplateConfig = margelo.nitro.at.g4rb4g3.autoplay.hybrid.GridTemplateConfig
 
 public extension GridTemplateConfig {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `GridTemplateConfig`.

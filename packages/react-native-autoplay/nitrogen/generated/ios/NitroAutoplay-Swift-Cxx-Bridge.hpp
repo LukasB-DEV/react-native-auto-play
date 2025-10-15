@@ -9,63 +9,75 @@
 
 // Forward declarations of C++ defined types
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertActionStyle; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
 // Forward declaration of `AlertAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct AlertAction; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertAction; }
 // Forward declaration of `AlertDismissalReason` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertDismissalReason; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
 // Forward declaration of `AlertStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertStyle; }
 // Forward declaration of `AutoText` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct AutoText; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class ColorScheme; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `Distance` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
-// Forward declaration of `HybridAutoPlaySpec` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { class HybridAutoPlaySpec; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
+// Forward declaration of `HybridHybridAutoPlaySpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridAutoPlaySpec; }
+// Forward declaration of `HybridHybridGridTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridGridTemplateSpec; }
+// Forward declaration of `HybridHybridListTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridListTemplateSpec; }
+// Forward declaration of `HybridHybridMapTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridMapTemplateSpec; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NavigationAlertAction; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroActionType; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroAction; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroAlignment; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroGridButton; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroGridButton; }
 // Forward declaration of `NitroImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroImage; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroMapButtonType; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroMapButtonType; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroMapButton; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroMapButton; }
 // Forward declaration of `NitroRow` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroRow; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroRow; }
 // Forward declaration of `NitroSectionType` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class NitroSectionType; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroSectionType; }
 // Forward declaration of `NitroSection` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct NitroSection; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroSection; }
 // Forward declaration of `Point` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Point; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct RouteChoice; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct SafeAreaInsets; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SafeAreaInsets; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TravelEstimates; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
 // Forward declaration of `TripConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TripConfig; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 // Forward declaration of `TripPoint` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct TripPoint; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class VisibilityState; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
 
 // Forward declarations of Swift defined types
-// Forward declaration of `HybridAutoPlaySpec_cxx` to properly resolve imports.
-namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
+// Forward declaration of `HybridHybridAutoPlaySpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridAutoPlaySpec_cxx; }
+// Forward declaration of `HybridHybridGridTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridGridTemplateSpec_cxx; }
+// Forward declaration of `HybridHybridListTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridListTemplateSpec_cxx; }
+// Forward declaration of `HybridHybridMapTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
 
 // Include C++ defined types
 #include "AlertAction.hpp"
@@ -76,7 +88,10 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
 #include "ColorScheme.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
-#include "HybridAutoPlaySpec.hpp"
+#include "HybridHybridAutoPlaySpec.hpp"
+#include "HybridHybridGridTemplateSpec.hpp"
+#include "HybridHybridListTemplateSpec.hpp"
+#include "HybridHybridMapTemplateSpec.hpp"
 #include "NavigationAlertAction.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
@@ -110,7 +125,7 @@ namespace NitroAutoplay { class HybridAutoPlaySpec_cxx; }
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
  * as well as helper functions to interact with those C++ types from Swift.
  */
-namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
 
   // pragma MARK: std::function<void()>
   /**
@@ -275,6 +290,77 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
+  // pragma MARK: std::shared_ptr<Promise<void>>
+  /**
+   * Specialized version of `std::shared_ptr<Promise<void>>`.
+   */
+  using std__shared_ptr_Promise_void__ = std::shared_ptr<Promise<void>>;
+  inline std::shared_ptr<Promise<void>> create_std__shared_ptr_Promise_void__() noexcept {
+    return Promise<void>::create();
+  }
+  inline PromiseHolder<void> wrap_std__shared_ptr_Promise_void__(std::shared_ptr<Promise<void>> promise) noexcept {
+    return PromiseHolder<void>(std::move(promise));
+  }
+  
+  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
+  /**
+   * Specialized version of `std::function<void(const std::exception_ptr&)>`.
+   */
+  using Func_void_std__exception_ptr = std::function<void(const std::exception_ptr& /* error */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::exception_ptr& / * error * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__exception_ptr_Wrapper final {
+  public:
+    explicit Func_void_std__exception_ptr_Wrapper(std::function<void(const std::exception_ptr& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::exception_ptr& /* error */)>>(std::move(func))) {}
+    inline void call(std::exception_ptr error) const noexcept {
+      _function->operator()(error);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::exception_ptr& /* error */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
+    return Func_void_std__exception_ptr_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::function<void(const SafeAreaInsets& /* insets */)>
+  /**
+   * Specialized version of `std::function<void(const SafeAreaInsets&)>`.
+   */
+  using Func_void_SafeAreaInsets = std::function<void(const SafeAreaInsets& /* insets */)>;
+  /**
+   * Wrapper class for a `std::function<void(const SafeAreaInsets& / * insets * /)>`, this can be used from Swift.
+   */
+  class Func_void_SafeAreaInsets_Wrapper final {
+  public:
+    explicit Func_void_SafeAreaInsets_Wrapper(std::function<void(const SafeAreaInsets& /* insets */)>&& func): _function(std::make_unique<std::function<void(const SafeAreaInsets& /* insets */)>>(std::move(func))) {}
+    inline void call(SafeAreaInsets insets) const noexcept {
+      _function->operator()(insets);
+    }
+  private:
+    std::unique_ptr<std::function<void(const SafeAreaInsets& /* insets */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_SafeAreaInsets create_Func_void_SafeAreaInsets(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_SafeAreaInsets_Wrapper wrap_Func_void_SafeAreaInsets(Func_void_SafeAreaInsets value) noexcept {
+    return Func_void_SafeAreaInsets_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::string>
+  /**
+   * Specialized version of `std::optional<std::string>`.
+   */
+  using std__optional_std__string_ = std::optional<std::string>;
+  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) noexcept {
+    return std::optional<std::string>(value);
+  }
+  inline bool has_value_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::optional<double>
   /**
    * Specialized version of `std::optional<double>`.
@@ -302,47 +388,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return optional.has_value();
   }
   inline NitroImage get_std__optional_NitroImage_(const std::optional<NitroImage>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::vector<NitroMapButton>
-  /**
-   * Specialized version of `std::vector<NitroMapButton>`.
-   */
-  using std__vector_NitroMapButton_ = std::vector<NitroMapButton>;
-  inline std::vector<NitroMapButton> create_std__vector_NitroMapButton_(size_t size) noexcept {
-    std::vector<NitroMapButton> vector;
-    vector.reserve(size);
-    return vector;
-  }
-  
-  // pragma MARK: std::optional<std::vector<NitroMapButton>>
-  /**
-   * Specialized version of `std::optional<std::vector<NitroMapButton>>`.
-   */
-  using std__optional_std__vector_NitroMapButton__ = std::optional<std::vector<NitroMapButton>>;
-  inline std::optional<std::vector<NitroMapButton>> create_std__optional_std__vector_NitroMapButton__(const std::vector<NitroMapButton>& value) noexcept {
-    return std::optional<std::vector<NitroMapButton>>(value);
-  }
-  inline bool has_value_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline std::vector<NitroMapButton> get_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::optional<std::string>
-  /**
-   * Specialized version of `std::optional<std::string>`.
-   */
-  using std__optional_std__string_ = std::optional<std::string>;
-  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) noexcept {
-    return std::optional<std::string>(value);
-  }
-  inline bool has_value_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
     return *optional;
   }
   
@@ -384,6 +429,173 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return optional.has_value();
   }
   inline std::vector<NitroAction> get_std__optional_std__vector_NitroAction__(const std::optional<std::vector<NitroAction>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridAutoPlaySpec>
+  /**
+   * Specialized version of `std::shared_ptr<HybridHybridAutoPlaySpec>`.
+   */
+  using std__shared_ptr_HybridHybridAutoPlaySpec_ = std::shared_ptr<HybridHybridAutoPlaySpec>;
+  std::shared_ptr<HybridHybridAutoPlaySpec> create_std__shared_ptr_HybridHybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridHybridAutoPlaySpec_(std__shared_ptr_HybridHybridAutoPlaySpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<HybridHybridAutoPlaySpec>
+  using std__weak_ptr_HybridHybridAutoPlaySpec_ = std::weak_ptr<HybridHybridAutoPlaySpec>;
+  inline std__weak_ptr_HybridHybridAutoPlaySpec_ weakify_std__shared_ptr_HybridHybridAutoPlaySpec_(const std::shared_ptr<HybridHybridAutoPlaySpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: Result<std::function<void()>>
+  using Result_std__function_void____ = Result<std::function<void()>>;
+  inline Result_std__function_void____ create_Result_std__function_void____(const std::function<void()>& value) noexcept {
+    return Result<std::function<void()>>::withValue(value);
+  }
+  inline Result_std__function_void____ create_Result_std__function_void____(const std::exception_ptr& error) noexcept {
+    return Result<std::function<void()>>::withError(error);
+  }
+  
+  // pragma MARK: Result<void>
+  using Result_void_ = Result<void>;
+  inline Result_void_ create_Result_void_() noexcept {
+    return Result<void>::withValue();
+  }
+  inline Result_void_ create_Result_void_(const std::exception_ptr& error) noexcept {
+    return Result<void>::withError(error);
+  }
+  
+  // pragma MARK: Result<std::shared_ptr<Promise<void>>>
+  using Result_std__shared_ptr_Promise_void___ = Result<std::shared_ptr<Promise<void>>>;
+  inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::shared_ptr<Promise<void>>& value) noexcept {
+    return Result<std::shared_ptr<Promise<void>>>::withValue(value);
+  }
+  inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::exception_ptr& error) noexcept {
+    return Result<std::shared_ptr<Promise<void>>>::withError(error);
+  }
+  
+  // pragma MARK: std::optional<Distance>
+  /**
+   * Specialized version of `std::optional<Distance>`.
+   */
+  using std__optional_Distance_ = std::optional<Distance>;
+  inline std::optional<Distance> create_std__optional_Distance_(const Distance& value) noexcept {
+    return std::optional<Distance>(value);
+  }
+  inline bool has_value_std__optional_Distance_(const std::optional<Distance>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline Distance get_std__optional_Distance_(const std::optional<Distance>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::vector<NitroGridButton>
+  /**
+   * Specialized version of `std::vector<NitroGridButton>`.
+   */
+  using std__vector_NitroGridButton_ = std::vector<NitroGridButton>;
+  inline std::vector<NitroGridButton> create_std__vector_NitroGridButton_(size_t size) noexcept {
+    std::vector<NitroGridButton> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridGridTemplateSpec>
+  /**
+   * Specialized version of `std::shared_ptr<HybridHybridGridTemplateSpec>`.
+   */
+  using std__shared_ptr_HybridHybridGridTemplateSpec_ = std::shared_ptr<HybridHybridGridTemplateSpec>;
+  std::shared_ptr<HybridHybridGridTemplateSpec> create_std__shared_ptr_HybridHybridGridTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridHybridGridTemplateSpec_(std__shared_ptr_HybridHybridGridTemplateSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<HybridHybridGridTemplateSpec>
+  using std__weak_ptr_HybridHybridGridTemplateSpec_ = std::weak_ptr<HybridHybridGridTemplateSpec>;
+  inline std__weak_ptr_HybridHybridGridTemplateSpec_ weakify_std__shared_ptr_HybridHybridGridTemplateSpec_(const std::shared_ptr<HybridHybridGridTemplateSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: std::optional<AutoText>
+  /**
+   * Specialized version of `std::optional<AutoText>`.
+   */
+  using std__optional_AutoText_ = std::optional<AutoText>;
+  inline std::optional<AutoText> create_std__optional_AutoText_(const AutoText& value) noexcept {
+    return std::optional<AutoText>(value);
+  }
+  inline bool has_value_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline AutoText get_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::vector<NitroRow>
+  /**
+   * Specialized version of `std::vector<NitroRow>`.
+   */
+  using std__vector_NitroRow_ = std::vector<NitroRow>;
+  inline std::vector<NitroRow> create_std__vector_NitroRow_(size_t size) noexcept {
+    std::vector<NitroRow> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::vector<NitroSection>
+  /**
+   * Specialized version of `std::vector<NitroSection>`.
+   */
+  using std__vector_NitroSection_ = std::vector<NitroSection>;
+  inline std::vector<NitroSection> create_std__vector_NitroSection_(size_t size) noexcept {
+    std::vector<NitroSection> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<NitroSection>>
+  /**
+   * Specialized version of `std::optional<std::vector<NitroSection>>`.
+   */
+  using std__optional_std__vector_NitroSection__ = std::optional<std::vector<NitroSection>>;
+  inline std::optional<std::vector<NitroSection>> create_std__optional_std__vector_NitroSection__(const std::vector<NitroSection>& value) noexcept {
+    return std::optional<std::vector<NitroSection>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<NitroSection> get_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridListTemplateSpec>
+  /**
+   * Specialized version of `std::shared_ptr<HybridHybridListTemplateSpec>`.
+   */
+  using std__shared_ptr_HybridHybridListTemplateSpec_ = std::shared_ptr<HybridHybridListTemplateSpec>;
+  std::shared_ptr<HybridHybridListTemplateSpec> create_std__shared_ptr_HybridHybridListTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridHybridListTemplateSpec_(std__shared_ptr_HybridHybridListTemplateSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<HybridHybridListTemplateSpec>
+  using std__weak_ptr_HybridHybridListTemplateSpec_ = std::weak_ptr<HybridHybridListTemplateSpec>;
+  inline std__weak_ptr_HybridHybridListTemplateSpec_ weakify_std__shared_ptr_HybridHybridListTemplateSpec_(const std::shared_ptr<HybridHybridListTemplateSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: std::vector<NitroMapButton>
+  /**
+   * Specialized version of `std::vector<NitroMapButton>`.
+   */
+  using std__vector_NitroMapButton_ = std::vector<NitroMapButton>;
+  inline std::vector<NitroMapButton> create_std__vector_NitroMapButton_(size_t size) noexcept {
+    std::vector<NitroMapButton> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<NitroMapButton>>
+  /**
+   * Specialized version of `std::optional<std::vector<NitroMapButton>>`.
+   */
+  using std__optional_std__vector_NitroMapButton__ = std::optional<std::vector<NitroMapButton>>;
+  inline std::optional<std::vector<NitroMapButton>> create_std__optional_std__vector_NitroMapButton__(const std::vector<NitroMapButton>& value) noexcept {
+    return std::optional<std::vector<NitroMapButton>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<NitroMapButton> get_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
     return *optional;
   }
   
@@ -550,36 +762,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::optional<Distance>
-  /**
-   * Specialized version of `std::optional<Distance>`.
-   */
-  using std__optional_Distance_ = std::optional<Distance>;
-  inline std::optional<Distance> create_std__optional_Distance_(const Distance& value) noexcept {
-    return std::optional<Distance>(value);
-  }
-  inline bool has_value_std__optional_Distance_(const std::optional<Distance>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline Distance get_std__optional_Distance_(const std::optional<Distance>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::optional<AutoText>
-  /**
-   * Specialized version of `std::optional<AutoText>`.
-   */
-  using std__optional_AutoText_ = std::optional<AutoText>;
-  inline std::optional<AutoText> create_std__optional_AutoText_(const AutoText& value) noexcept {
-    return std::optional<AutoText>(value);
-  }
-  inline bool has_value_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline AutoText get_std__optional_AutoText_(const std::optional<AutoText>& optional) noexcept {
-    return *optional;
-  }
-  
   // pragma MARK: std::optional<AlertActionStyle>
   /**
    * Specialized version of `std::optional<AlertActionStyle>`.
@@ -691,147 +873,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift {
     return Func_void_std__string_std__string_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::vector<NitroRow>
+  // pragma MARK: std::shared_ptr<HybridHybridMapTemplateSpec>
   /**
-   * Specialized version of `std::vector<NitroRow>`.
+   * Specialized version of `std::shared_ptr<HybridHybridMapTemplateSpec>`.
    */
-  using std__vector_NitroRow_ = std::vector<NitroRow>;
-  inline std::vector<NitroRow> create_std__vector_NitroRow_(size_t size) noexcept {
-    std::vector<NitroRow> vector;
-    vector.reserve(size);
-    return vector;
-  }
+  using std__shared_ptr_HybridHybridMapTemplateSpec_ = std::shared_ptr<HybridHybridMapTemplateSpec>;
+  std::shared_ptr<HybridHybridMapTemplateSpec> create_std__shared_ptr_HybridHybridMapTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridHybridMapTemplateSpec_(std__shared_ptr_HybridHybridMapTemplateSpec_ cppType);
   
-  // pragma MARK: std::vector<NitroSection>
-  /**
-   * Specialized version of `std::vector<NitroSection>`.
-   */
-  using std__vector_NitroSection_ = std::vector<NitroSection>;
-  inline std::vector<NitroSection> create_std__vector_NitroSection_(size_t size) noexcept {
-    std::vector<NitroSection> vector;
-    vector.reserve(size);
-    return vector;
-  }
-  
-  // pragma MARK: std::optional<std::vector<NitroSection>>
-  /**
-   * Specialized version of `std::optional<std::vector<NitroSection>>`.
-   */
-  using std__optional_std__vector_NitroSection__ = std::optional<std::vector<NitroSection>>;
-  inline std::optional<std::vector<NitroSection>> create_std__optional_std__vector_NitroSection__(const std::vector<NitroSection>& value) noexcept {
-    return std::optional<std::vector<NitroSection>>(value);
-  }
-  inline bool has_value_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline std::vector<NitroSection> get_std__optional_std__vector_NitroSection__(const std::optional<std::vector<NitroSection>>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::vector<NitroGridButton>
-  /**
-   * Specialized version of `std::vector<NitroGridButton>`.
-   */
-  using std__vector_NitroGridButton_ = std::vector<NitroGridButton>;
-  inline std::vector<NitroGridButton> create_std__vector_NitroGridButton_(size_t size) noexcept {
-    std::vector<NitroGridButton> vector;
-    vector.reserve(size);
-    return vector;
-  }
-  
-  // pragma MARK: std::shared_ptr<Promise<void>>
-  /**
-   * Specialized version of `std::shared_ptr<Promise<void>>`.
-   */
-  using std__shared_ptr_Promise_void__ = std::shared_ptr<Promise<void>>;
-  inline std::shared_ptr<Promise<void>> create_std__shared_ptr_Promise_void__() noexcept {
-    return Promise<void>::create();
-  }
-  inline PromiseHolder<void> wrap_std__shared_ptr_Promise_void__(std::shared_ptr<Promise<void>> promise) noexcept {
-    return PromiseHolder<void>(std::move(promise));
-  }
-  
-  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
-  /**
-   * Specialized version of `std::function<void(const std::exception_ptr&)>`.
-   */
-  using Func_void_std__exception_ptr = std::function<void(const std::exception_ptr& /* error */)>;
-  /**
-   * Wrapper class for a `std::function<void(const std::exception_ptr& / * error * /)>`, this can be used from Swift.
-   */
-  class Func_void_std__exception_ptr_Wrapper final {
-  public:
-    explicit Func_void_std__exception_ptr_Wrapper(std::function<void(const std::exception_ptr& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::exception_ptr& /* error */)>>(std::move(func))) {}
-    inline void call(std::exception_ptr error) const noexcept {
-      _function->operator()(error);
-    }
-  private:
-    std::unique_ptr<std::function<void(const std::exception_ptr& /* error */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
-    return Func_void_std__exception_ptr_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::function<void(const SafeAreaInsets& /* insets */)>
-  /**
-   * Specialized version of `std::function<void(const SafeAreaInsets&)>`.
-   */
-  using Func_void_SafeAreaInsets = std::function<void(const SafeAreaInsets& /* insets */)>;
-  /**
-   * Wrapper class for a `std::function<void(const SafeAreaInsets& / * insets * /)>`, this can be used from Swift.
-   */
-  class Func_void_SafeAreaInsets_Wrapper final {
-  public:
-    explicit Func_void_SafeAreaInsets_Wrapper(std::function<void(const SafeAreaInsets& /* insets */)>&& func): _function(std::make_unique<std::function<void(const SafeAreaInsets& /* insets */)>>(std::move(func))) {}
-    inline void call(SafeAreaInsets insets) const noexcept {
-      _function->operator()(insets);
-    }
-  private:
-    std::unique_ptr<std::function<void(const SafeAreaInsets& /* insets */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_SafeAreaInsets create_Func_void_SafeAreaInsets(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_SafeAreaInsets_Wrapper wrap_Func_void_SafeAreaInsets(Func_void_SafeAreaInsets value) noexcept {
-    return Func_void_SafeAreaInsets_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::shared_ptr<HybridAutoPlaySpec>
-  /**
-   * Specialized version of `std::shared_ptr<HybridAutoPlaySpec>`.
-   */
-  using std__shared_ptr_HybridAutoPlaySpec_ = std::shared_ptr<HybridAutoPlaySpec>;
-  std::shared_ptr<HybridAutoPlaySpec> create_std__shared_ptr_HybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept;
-  void* NON_NULL get_std__shared_ptr_HybridAutoPlaySpec_(std__shared_ptr_HybridAutoPlaySpec_ cppType);
-  
-  // pragma MARK: std::weak_ptr<HybridAutoPlaySpec>
-  using std__weak_ptr_HybridAutoPlaySpec_ = std::weak_ptr<HybridAutoPlaySpec>;
-  inline std__weak_ptr_HybridAutoPlaySpec_ weakify_std__shared_ptr_HybridAutoPlaySpec_(const std::shared_ptr<HybridAutoPlaySpec>& strong) noexcept { return strong; }
-  
-  // pragma MARK: Result<std::function<void()>>
-  using Result_std__function_void____ = Result<std::function<void()>>;
-  inline Result_std__function_void____ create_Result_std__function_void____(const std::function<void()>& value) noexcept {
-    return Result<std::function<void()>>::withValue(value);
-  }
-  inline Result_std__function_void____ create_Result_std__function_void____(const std::exception_ptr& error) noexcept {
-    return Result<std::function<void()>>::withError(error);
-  }
-  
-  // pragma MARK: Result<void>
-  using Result_void_ = Result<void>;
-  inline Result_void_ create_Result_void_() noexcept {
-    return Result<void>::withValue();
-  }
-  inline Result_void_ create_Result_void_(const std::exception_ptr& error) noexcept {
-    return Result<void>::withError(error);
-  }
-  
-  // pragma MARK: Result<std::shared_ptr<Promise<void>>>
-  using Result_std__shared_ptr_Promise_void___ = Result<std::shared_ptr<Promise<void>>>;
-  inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::shared_ptr<Promise<void>>& value) noexcept {
-    return Result<std::shared_ptr<Promise<void>>>::withValue(value);
-  }
-  inline Result_std__shared_ptr_Promise_void___ create_Result_std__shared_ptr_Promise_void___(const std::exception_ptr& error) noexcept {
-    return Result<std::shared_ptr<Promise<void>>>::withError(error);
-  }
+  // pragma MARK: std::weak_ptr<HybridHybridMapTemplateSpec>
+  using std__weak_ptr_HybridHybridMapTemplateSpec_ = std::weak_ptr<HybridHybridMapTemplateSpec>;
+  inline std__weak_ptr_HybridHybridMapTemplateSpec_ weakify_std__shared_ptr_HybridHybridMapTemplateSpec_(const std::shared_ptr<HybridHybridMapTemplateSpec>& strong) noexcept { return strong; }
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay::bridge::swift
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift

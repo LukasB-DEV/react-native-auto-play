@@ -15,7 +15,7 @@
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -24,7 +24,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JTravelEstimates final: public jni::JavaClass<JTravelEstimates> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/TravelEstimates;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/TravelEstimates;";
 
   public:
     /**
@@ -57,4 +57,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

@@ -10,14 +10,14 @@ import androidx.car.app.model.CarColor
 import androidx.car.app.model.CarIcon
 import androidx.car.app.model.Template
 import androidx.car.app.navigation.model.NavigationTemplate
-import com.margelo.nitro.at.g4rb4g3.autoplay.AlertActionStyle
-import com.margelo.nitro.at.g4rb4g3.autoplay.AlertDismissalReason
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroActionType
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapButton
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroMapButtonType
-import com.margelo.nitro.at.g4rb4g3.autoplay.MapTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroNavigationAlert
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertActionStyle
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertDismissalReason
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButton
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButtonType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroNavigationAlert
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
 class MapTemplate(

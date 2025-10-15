@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppRegistry, Platform } from 'react-native';
-import { AutoPlay } from '..';
+import { HybridAutoPlay, HybridMapTemplate } from '..';
 import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { ActionButtonAndroid, MapButton, MapPanButton } from '../types/Button';
 import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
@@ -123,17 +123,17 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       mapButtons: NitroMapButton.convert(this.template, mapButtons),
     };
 
-    AutoPlay.createMapTemplate(nitroConfig);
+    HybridMapTemplate.createMapTemplate(nitroConfig);
   }
 
   public setMapButtons(mapButtons: MapTemplateConfig['mapButtons']) {
     const buttons = NitroMapButton.convert(this.template, mapButtons);
-    AutoPlay.setTemplateMapButtons(this.id, buttons);
+    HybridMapTemplate.setTemplateMapButtons(this.id, buttons);
   }
 
   public override setActions(actions: MapTemplateConfig['actions']) {
     const nitroActions = convertActions(this.template, actions);
-    AutoPlay.setTemplateActions(this.id, nitroActions);
+    HybridAutoPlay.setTemplateActions(this.id, nitroActions);
   }
 
   /**
@@ -142,7 +142,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
    * ⚠️ updating an existing alert is currently broken on Android Automotive, it brings up a new alert for each call
    */
   public showAlert(alert: NavigationAlert) {
-    AutoPlay.showNavigationAlert(this.id, NitroAlertUtil.convert(alert));
+    HybridMapTemplate.showNavigationAlert(this.id, NitroAlertUtil.convert(alert));
   }
 
   public showTripSelector(
@@ -152,7 +152,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     onTripSelected: (tripId: string, routeId: string) => void,
     onTripStarted: (tripId: string, routeId: string) => void
   ) {
-    AutoPlay.showTripSelector(
+    HybridMapTemplate.showTripSelector(
       this.id,
       trips,
       selectedTripId,
@@ -163,6 +163,6 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
   }
 
   public hideTripSelector() {
-    AutoPlay.hideTripSelector(this.id);
+    HybridMapTemplate.hideTripSelector(this.id);
   }
 }

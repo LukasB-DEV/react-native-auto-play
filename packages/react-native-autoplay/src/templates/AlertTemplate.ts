@@ -1,4 +1,4 @@
-import { AutoPlay } from '..';
+import { HybridAutoPlay } from '..';
 import { Template, type TemplateConfig } from './Template';
 
 export type AlertStyle = 'default' | 'cancel' | 'destructive';
@@ -18,14 +18,14 @@ export class AlertTemplate extends Template<AlertTemplateConfig, undefined> {
   constructor(config: AlertTemplateConfig) {
     super(config);
 
-    AutoPlay.createAlertTemplate(config);
+    HybridAutoPlay.createAlertTemplate(config);
   }
 
   public present() {
-    AutoPlay.presentTemplate(this.id);
+    HybridAutoPlay.presentTemplate(this.id);
   }
 
   public dismiss() {
-    AutoPlay.dismissTemplate(this.id);
+    HybridAutoPlay.dismissTemplate(this.id);
   }
 }

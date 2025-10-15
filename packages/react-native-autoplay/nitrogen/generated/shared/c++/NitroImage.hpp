@@ -27,7 +27,7 @@
 
 #include <optional>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (NitroImage).
@@ -44,23 +44,23 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit NitroImage(double glyph, double size, std::optional<double> color, std::optional<double> backgroundColor): glyph(glyph), size(size), color(color), backgroundColor(backgroundColor) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ NitroImage <> JS NitroImage (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::NitroImage> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::NitroImage fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::NitroImage(
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage(
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "glyph")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "size")),
         JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, "color")),
         JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, "backgroundColor"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::NitroImage& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "glyph", JSIConverter<double>::toJSI(runtime, arg.glyph));
       obj.setProperty(runtime, "size", JSIConverter<double>::toJSI(runtime, arg.size));

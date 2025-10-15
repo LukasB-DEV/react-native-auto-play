@@ -24,11 +24,11 @@
 #endif
 
 // Forward declaration of `Distance` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { struct Distance; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
 
 #include "Distance.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (TravelEstimates).
@@ -43,23 +43,23 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit TravelEstimates(Distance distanceRemaining, double timeRemaining): distanceRemaining(distanceRemaining), timeRemaining(timeRemaining) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ TravelEstimates <> JS TravelEstimates (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TravelEstimates> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::TravelEstimates fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::TravelEstimates(
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Distance>::fromJSI(runtime, obj.getProperty(runtime, "distanceRemaining")),
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates(
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance>::fromJSI(runtime, obj.getProperty(runtime, "distanceRemaining")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "timeRemaining"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::TravelEstimates& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates& arg) {
       jsi::Object obj(runtime);
-      obj.setProperty(runtime, "distanceRemaining", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Distance>::toJSI(runtime, arg.distanceRemaining));
+      obj.setProperty(runtime, "distanceRemaining", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance>::toJSI(runtime, arg.distanceRemaining));
       obj.setProperty(runtime, "timeRemaining", JSIConverter<double>::toJSI(runtime, arg.timeRemaining));
       return obj;
     }
@@ -71,7 +71,7 @@ namespace margelo::nitro {
       if (!nitro::isPlainObject(runtime, obj)) {
         return false;
       }
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Distance>::canConvert(runtime, obj.getProperty(runtime, "distanceRemaining"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance>::canConvert(runtime, obj.getProperty(runtime, "distanceRemaining"))) return false;
       if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "timeRemaining"))) return false;
       return true;
     }

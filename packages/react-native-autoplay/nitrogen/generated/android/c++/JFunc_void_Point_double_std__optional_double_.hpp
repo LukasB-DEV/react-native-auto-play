@@ -15,7 +15,7 @@
 #include <functional>
 #include "JPoint.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -25,7 +25,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JFunc_void_Point_double_std__optional_double_: public jni::JavaClass<JFunc_void_Point_double_std__optional_double_> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/Func_void_Point_double_std__optional_double_;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/Func_void_Point_double_std__optional_double_;";
 
   public:
     /**
@@ -61,7 +61,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
 
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/Func_void_Point_double_std__optional_double__cxx;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/Func_void_Point_double_std__optional_double__cxx;";
     static void registerNatives() {
       registerHybrid({makeNativeMethod("invoke_cxx", JFunc_void_Point_double_std__optional_double__cxx::invoke_cxx)});
     }
@@ -74,4 +74,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     std::function<void(const Point& /* center */, double /* scale */, std::optional<double> /* velocity */)> _func;
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

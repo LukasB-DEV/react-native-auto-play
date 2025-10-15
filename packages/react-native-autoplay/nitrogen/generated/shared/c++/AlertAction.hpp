@@ -24,14 +24,14 @@
 #endif
 
 // Forward declaration of `AlertStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class AlertStyle; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertStyle; }
 
 #include <string>
 #include "AlertStyle.hpp"
 #include <optional>
 #include <functional>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (AlertAction).
@@ -47,25 +47,25 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit AlertAction(std::string title, std::optional<AlertStyle> style, std::function<void()> onPress): title(title), style(style), onPress(onPress) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ AlertAction <> JS AlertAction (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AlertAction> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::AlertAction fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertAction> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertAction fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::AlertAction(
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertAction(
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "title")),
-        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::AlertStyle>>::fromJSI(runtime, obj.getProperty(runtime, "style")),
+        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle>>::fromJSI(runtime, obj.getProperty(runtime, "style")),
         JSIConverter<std::function<void()>>::fromJSI(runtime, obj.getProperty(runtime, "onPress"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::AlertAction& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertAction& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "title", JSIConverter<std::string>::toJSI(runtime, arg.title));
-      obj.setProperty(runtime, "style", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::AlertStyle>>::toJSI(runtime, arg.style));
+      obj.setProperty(runtime, "style", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle>>::toJSI(runtime, arg.style));
       obj.setProperty(runtime, "onPress", JSIConverter<std::function<void()>>::toJSI(runtime, arg.onPress));
       return obj;
     }
@@ -78,7 +78,7 @@ namespace margelo::nitro {
         return false;
       }
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
-      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::AlertStyle>>::canConvert(runtime, obj.getProperty(runtime, "style"))) return false;
+      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle>>::canConvert(runtime, obj.getProperty(runtime, "style"))) return false;
       if (!JSIConverter<std::function<void()>>::canConvert(runtime, obj.getProperty(runtime, "onPress"))) return false;
       return true;
     }

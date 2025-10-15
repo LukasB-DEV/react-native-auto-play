@@ -1,6 +1,6 @@
 import type React from 'react';
 import { createContext, useEffect, useState } from 'react';
-import { AutoPlay, type SafeAreaInsets } from '..';
+import { HybridAutoPlay, type SafeAreaInsets } from '..';
 
 const DEFAULT: SafeAreaInsets = { top: 0, bottom: 0, left: 0, right: 0 };
 
@@ -16,7 +16,7 @@ export function SafeAreaInsetsProvider({
   const [insets, setInsets] = useState<SafeAreaInsets>(DEFAULT);
 
   useEffect(() => {
-    const removeSafeAreaInsetsListener = AutoPlay.addSafeAreaInsetsListener(
+    const removeSafeAreaInsetsListener = HybridAutoPlay.addSafeAreaInsetsListener(
       moduleName,
       (safeAreaInsets) => {
         setInsets(safeAreaInsets);

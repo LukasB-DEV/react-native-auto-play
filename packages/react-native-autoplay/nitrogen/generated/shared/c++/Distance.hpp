@@ -24,11 +24,11 @@
 #endif
 
 // Forward declaration of `DistanceUnits` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay { enum class DistanceUnits; }
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 
 #include "DistanceUnits.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (Distance).
@@ -43,24 +43,24 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit Distance(double value, DistanceUnits unit): value(value), unit(unit) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ Distance <> JS Distance (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::Distance> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::Distance fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::Distance(
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance(
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "value")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits>::fromJSI(runtime, obj.getProperty(runtime, "unit"))
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits>::fromJSI(runtime, obj.getProperty(runtime, "unit"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::Distance& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "value", JSIConverter<double>::toJSI(runtime, arg.value));
-      obj.setProperty(runtime, "unit", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits>::toJSI(runtime, arg.unit));
+      obj.setProperty(runtime, "unit", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits>::toJSI(runtime, arg.unit));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -72,7 +72,7 @@ namespace margelo::nitro {
         return false;
       }
       if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "value"))) return false;
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits>::canConvert(runtime, obj.getProperty(runtime, "unit"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits>::canConvert(runtime, obj.getProperty(runtime, "unit"))) return false;
       return true;
     }
   };

@@ -1,4 +1,4 @@
-import { AutoPlay } from '..';
+import { HybridListTemplate } from '..';
 import type { AutoImage } from '../types/Image';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
@@ -84,10 +84,13 @@ export class ListTemplate extends Template<ListTemplateConfig, Actions<ListTempl
       sections: NitroSectionUtil.convert(this.template, sections),
     };
 
-    AutoPlay.createListTemplate(nitroConfig);
+    HybridListTemplate.createListTemplate(nitroConfig);
   }
 
   public updateSections(sections?: Section<ListTemplate>) {
-    AutoPlay.updateListTemplateSections(this.id, NitroSectionUtil.convert(this.template, sections));
+    HybridListTemplate.updateListTemplateSections(
+      this.id,
+      NitroSectionUtil.convert(this.template, sections)
+    );
   }
 }

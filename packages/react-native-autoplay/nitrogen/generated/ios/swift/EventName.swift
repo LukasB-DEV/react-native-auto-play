@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `EventName`, backed by a C++ enum.
  */
-public typealias EventName = margelo.nitro.at.g4rb4g3.autoplay.EventName
+public typealias EventName = margelo.nitro.at.g4rb4g3.autoplay.hybrid.EventName
 
 public extension EventName {
   /**

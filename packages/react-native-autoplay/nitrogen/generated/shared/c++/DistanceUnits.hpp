@@ -23,7 +23,7 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * An enum which can be represented as a JavaScript union (DistanceUnits).
@@ -36,32 +36,32 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     FEET      SWIFT_NAME(feet) = 4,
   } CLOSED_ENUM;
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ DistanceUnits <> JS DistanceUnits (union)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("meters"): return margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::METERS;
-        case hashString("miles"): return margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::MILES;
-        case hashString("kilometers"): return margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::KILOMETERS;
-        case hashString("yards"): return margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::YARDS;
-        case hashString("feet"): return margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::FEET;
+        case hashString("meters"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::METERS;
+        case hashString("miles"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::MILES;
+        case hashString("kilometers"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::KILOMETERS;
+        case hashString("yards"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::YARDS;
+        case hashString("feet"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::FEET;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum DistanceUnits - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits arg) {
       switch (arg) {
-        case margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::METERS: return JSIConverter<std::string>::toJSI(runtime, "meters");
-        case margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::MILES: return JSIConverter<std::string>::toJSI(runtime, "miles");
-        case margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::KILOMETERS: return JSIConverter<std::string>::toJSI(runtime, "kilometers");
-        case margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::YARDS: return JSIConverter<std::string>::toJSI(runtime, "yards");
-        case margelo::nitro::at::g4rb4g3::autoplay::DistanceUnits::FEET: return JSIConverter<std::string>::toJSI(runtime, "feet");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::METERS: return JSIConverter<std::string>::toJSI(runtime, "meters");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::MILES: return JSIConverter<std::string>::toJSI(runtime, "miles");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::KILOMETERS: return JSIConverter<std::string>::toJSI(runtime, "kilometers");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::YARDS: return JSIConverter<std::string>::toJSI(runtime, "yards");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::DistanceUnits::FEET: return JSIConverter<std::string>::toJSI(runtime, "feet");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert DistanceUnits to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

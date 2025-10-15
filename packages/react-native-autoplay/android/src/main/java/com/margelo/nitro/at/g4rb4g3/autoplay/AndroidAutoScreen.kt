@@ -9,6 +9,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.UiThreadUtil
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.GridTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.GridTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.ListTemplate

@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `SafeAreaInsets`, backed by a C++ struct.
  */
-public typealias SafeAreaInsets = margelo.nitro.at.g4rb4g3.autoplay.SafeAreaInsets
+public typealias SafeAreaInsets = margelo.nitro.at.g4rb4g3.autoplay.hybrid.SafeAreaInsets
 
 public extension SafeAreaInsets {
-  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.bridge.swift
+  private typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
   /**
    * Create a new instance of `SafeAreaInsets`.

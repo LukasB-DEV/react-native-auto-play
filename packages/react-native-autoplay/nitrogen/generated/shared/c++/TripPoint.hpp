@@ -27,7 +27,7 @@
 
 #include <string>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * A struct which can be represented as a JavaScript object (TripPoint).
@@ -43,22 +43,22 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     explicit TripPoint(double latitude, double longitude, std::string name): latitude(latitude), longitude(longitude), name(name) {}
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ TripPoint <> JS TripPoint (object)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::TripPoint> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::TripPoint fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return margelo::nitro::at::g4rb4g3::autoplay::TripPoint(
+      return margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint(
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "latitude")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "longitude")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "name"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::TripPoint& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "latitude", JSIConverter<double>::toJSI(runtime, arg.latitude));
       obj.setProperty(runtime, "longitude", JSIConverter<double>::toJSI(runtime, arg.longitude));

@@ -14,7 +14,7 @@
 #include <functional>
 #include "JAlertDismissalReason.hpp"
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   using namespace facebook;
 
@@ -24,7 +24,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    */
   struct JFunc_void_AlertDismissalReason: public jni::JavaClass<JFunc_void_AlertDismissalReason> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/Func_void_AlertDismissalReason;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/Func_void_AlertDismissalReason;";
 
   public:
     /**
@@ -60,7 +60,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     }
 
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/Func_void_AlertDismissalReason_cxx;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/at/g4rb4g3/autoplay/hybrid/Func_void_AlertDismissalReason_cxx;";
     static void registerNatives() {
       registerHybrid({makeNativeMethod("invoke_cxx", JFunc_void_AlertDismissalReason_cxx::invoke_cxx)});
     }
@@ -73,4 +73,4 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     std::function<void(AlertDismissalReason /* reason */)> _func;
   };
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `NitroMapButtonType`, backed by a C++ enum.
  */
-public typealias NitroMapButtonType = margelo.nitro.at.g4rb4g3.autoplay.NitroMapButtonType
+public typealias NitroMapButtonType = margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButtonType
 
 public extension NitroMapButtonType {
   /**
@@ -17,10 +17,10 @@ public extension NitroMapButtonType {
    */
   init?(fromString string: String) {
     switch string {
-      case "pan":
-        self = .pan
       case "custom":
         self = .custom
+      case "pan":
+        self = .pan
       default:
         return nil
     }
@@ -31,10 +31,10 @@ public extension NitroMapButtonType {
    */
   var stringValue: String {
     switch self {
-      case .pan:
-        return "pan"
       case .custom:
         return "custom"
+      case .pan:
+        return "pan"
     }
   }
 }

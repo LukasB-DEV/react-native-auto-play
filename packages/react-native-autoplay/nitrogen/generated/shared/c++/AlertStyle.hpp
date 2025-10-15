@@ -23,7 +23,7 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * An enum which can be represented as a JavaScript union (AlertStyle).
@@ -34,28 +34,28 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
     DESTRUCTIVE      SWIFT_NAME(destructive) = 2,
   } CLOSED_ENUM;
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
 
 namespace margelo::nitro {
 
   // C++ AlertStyle <> JS AlertStyle (union)
   template <>
-  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::AlertStyle> final {
-    static inline margelo::nitro::at::g4rb4g3::autoplay::AlertStyle fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle> final {
+    static inline margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("default"): return margelo::nitro::at::g4rb4g3::autoplay::AlertStyle::DEFAULT;
-        case hashString("cancel"): return margelo::nitro::at::g4rb4g3::autoplay::AlertStyle::CANCEL;
-        case hashString("destructive"): return margelo::nitro::at::g4rb4g3::autoplay::AlertStyle::DESTRUCTIVE;
+        case hashString("default"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle::DEFAULT;
+        case hashString("cancel"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle::CANCEL;
+        case hashString("destructive"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle::DESTRUCTIVE;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum AlertStyle - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::AlertStyle arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle arg) {
       switch (arg) {
-        case margelo::nitro::at::g4rb4g3::autoplay::AlertStyle::DEFAULT: return JSIConverter<std::string>::toJSI(runtime, "default");
-        case margelo::nitro::at::g4rb4g3::autoplay::AlertStyle::CANCEL: return JSIConverter<std::string>::toJSI(runtime, "cancel");
-        case margelo::nitro::at::g4rb4g3::autoplay::AlertStyle::DESTRUCTIVE: return JSIConverter<std::string>::toJSI(runtime, "destructive");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle::DEFAULT: return JSIConverter<std::string>::toJSI(runtime, "default");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle::CANCEL: return JSIConverter<std::string>::toJSI(runtime, "cancel");
+        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertStyle::DESTRUCTIVE: return JSIConverter<std::string>::toJSI(runtime, "destructive");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert AlertStyle to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

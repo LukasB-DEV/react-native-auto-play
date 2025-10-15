@@ -5,9 +5,9 @@ import androidx.car.app.model.GridItem
 import androidx.car.app.model.GridTemplate
 import androidx.car.app.model.ItemList
 import androidx.car.app.model.Template
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroAction
-import com.margelo.nitro.at.g4rb4g3.autoplay.NitroGridButton
-import com.margelo.nitro.at.g4rb4g3.autoplay.GridTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroGridButton
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.GridTemplateConfig
 
 class GridTemplate(context: CarContext, config: GridTemplateConfig) :
     AndroidAutoTemplate<GridTemplateConfig>(context, config) {

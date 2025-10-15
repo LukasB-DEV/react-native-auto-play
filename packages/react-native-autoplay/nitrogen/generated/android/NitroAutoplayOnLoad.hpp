@@ -8,7 +8,7 @@
 #include <jni.h>
 #include <NitroModules/NitroDefines.hpp>
 
-namespace margelo::nitro::at::g4rb4g3::autoplay {
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   /**
    * Initializes the native (C++) part of NitroAutoplay, and autolinks all Hybrid Objects.
@@ -16,10 +16,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay {
    * Example:
    * ```cpp (cpp-adapter.cpp)
    * JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
-   *   return margelo::nitro::at::g4rb4g3::autoplay::initialize(vm);
+   *   return margelo::nitro::at::g4rb4g3::autoplay::hybrid::initialize(vm);
    * }
    * ```
    */
   int initialize(JavaVM* vm);
 
-} // namespace margelo::nitro::at::g4rb4g3::autoplay
+} // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
