@@ -185,7 +185,14 @@ class VirtualRenderer(
                     val left = floor((visibleArea.left + additionalMarginLeft) / scale).toDouble()
                     val right =
                         floor((width - visibleArea.right + additionalMarginRight) / scale).toDouble()
-                    HybridAutoPlay.emitSafeAreaInsets(moduleName, top, left, bottom, right, true)
+                    HybridAutoPlay.emitSafeAreaInsets(
+                        moduleName = moduleName,
+                        top = top,
+                        bottom = bottom,
+                        left = left,
+                        right = right,
+                        isLegacyLayout = true
+                    )
                 } else {
                     // material expression 3 seems to apply always some margin and never reports 0
                     val additionalMarginLeft =
@@ -203,7 +210,14 @@ class VirtualRenderer(
                             defaultMargin
                         ) / scale
                     ).toDouble()
-                    HybridAutoPlay.emitSafeAreaInsets(moduleName, top, left, bottom, right, false)
+                    HybridAutoPlay.emitSafeAreaInsets(
+                        moduleName = moduleName,
+                        top = top,
+                        bottom = bottom,
+                        left = left,
+                        right = right,
+                        isLegacyLayout = false
+                    )
                 }
             }
         })
