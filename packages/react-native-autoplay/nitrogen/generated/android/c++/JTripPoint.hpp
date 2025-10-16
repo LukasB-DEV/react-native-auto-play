@@ -10,6 +10,15 @@
 #include <fbjni/fbjni.h>
 #include "TripPoint.hpp"
 
+#include "DateTimeWithZone.hpp"
+#include "Distance.hpp"
+#include "DistanceUnits.hpp"
+#include "JDateTimeWithZone.hpp"
+#include "JDistance.hpp"
+#include "JDistanceUnits.hpp"
+#include "JTravelEstimates.hpp"
+#include "TravelEstimates.hpp"
+#include <optional>
 #include <string>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
@@ -37,10 +46,22 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       double longitude = this->getFieldValue(fieldLongitude);
       static const auto fieldName = clazz->getField<jni::JString>("name");
       jni::local_ref<jni::JString> name = this->getFieldValue(fieldName);
+      static const auto fieldTravelEstimates = clazz->getField<JTravelEstimates>("travelEstimates");
+      jni::local_ref<JTravelEstimates> travelEstimates = this->getFieldValue(fieldTravelEstimates);
+      static const auto fieldAddress = clazz->getField<jni::JString>("address");
+      jni::local_ref<jni::JString> address = this->getFieldValue(fieldAddress);
+      static const auto fieldTripText = clazz->getField<jni::JString>("tripText");
+      jni::local_ref<jni::JString> tripText = this->getFieldValue(fieldTripText);
+      static const auto fieldTripIcon = clazz->getField<jni::JDouble>("tripIcon");
+      jni::local_ref<jni::JDouble> tripIcon = this->getFieldValue(fieldTripIcon);
       return TripPoint(
         latitude,
         longitude,
-        name->toStdString()
+        name->toStdString(),
+        travelEstimates->toCpp(),
+        address != nullptr ? std::make_optional(address->toStdString()) : std::nullopt,
+        tripText != nullptr ? std::make_optional(tripText->toStdString()) : std::nullopt,
+        tripIcon != nullptr ? std::make_optional(tripIcon->value()) : std::nullopt
       );
     }
 
@@ -53,7 +74,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       return newInstance(
         value.latitude,
         value.longitude,
-        jni::make_jstring(value.name)
+        jni::make_jstring(value.name),
+        JTravelEstimates::fromCpp(value.travelEstimates),
+        value.address.has_value() ? jni::make_jstring(value.address.value()) : nullptr,
+        value.tripText.has_value() ? jni::make_jstring(value.tripText.value()) : nullptr,
+        value.tripIcon.has_value() ? jni::JDouble::valueOf(value.tripIcon.value()) : nullptr
       );
     }
   };

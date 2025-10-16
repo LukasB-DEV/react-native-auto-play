@@ -39,12 +39,13 @@ extension CPRouteChoice {
 
         return routeId
     }
-    
-    func getTravelEstimates() throws -> CPTravelEstimates? {
+
+    func getTravelEstimates() -> [CPTravelEstimates] {
         guard let userInfo = self.userInfo as? [String: Any],
-            let travelEstimates = userInfo["travelEstimates"] as? CPTravelEstimates
+            let travelEstimates = userInfo["travelEstimates"]
+                as? [CPTravelEstimates]
         else {
-            throw AutoPlayError.propertyNotFoundError("travelEstimates on CPRouteChoice")
+            return []
         }
 
         return travelEstimates

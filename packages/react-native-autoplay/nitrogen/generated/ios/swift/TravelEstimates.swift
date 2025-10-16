@@ -18,8 +18,8 @@ public extension TravelEstimates {
   /**
    * Create a new instance of `TravelEstimates`.
    */
-  init(distanceRemaining: Distance, timeRemaining: Double) {
-    self.init(distanceRemaining, timeRemaining)
+  init(distanceRemaining: Distance, timeRemaining: Double, arrivalTime: DateTimeWithZone) {
+    self.init(distanceRemaining, timeRemaining, arrivalTime)
   }
 
   var distanceRemaining: Distance {
@@ -41,6 +41,17 @@ public extension TravelEstimates {
     @inline(__always)
     set {
       self.__timeRemaining = newValue
+    }
+  }
+  
+  var arrivalTime: DateTimeWithZone {
+    @inline(__always)
+    get {
+      return self.__arrivalTime
+    }
+    @inline(__always)
+    set {
+      self.__arrivalTime = newValue
     }
   }
 }

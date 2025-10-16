@@ -22,6 +22,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertTemplateCo
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
+// Forward declaration of `DateTimeWithZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `Distance` to properly resolve imports.
@@ -84,6 +86,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
+// Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 
 // Include C++ defined types
 #include "AlertAction.hpp"
@@ -93,6 +97,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityS
 #include "AlertTemplateConfig.hpp"
 #include "AutoText.hpp"
 #include "ColorScheme.hpp"
+#include "DateTimeWithZone.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "EventName.hpp"
@@ -124,6 +129,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityS
 #include "TripPoint.hpp"
 #include "TripPreviewTextConfiguration.hpp"
 #include "VisibilityState.hpp"
+#include "VisibleTravelEstimate.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>

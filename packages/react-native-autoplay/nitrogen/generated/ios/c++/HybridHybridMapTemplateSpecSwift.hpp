@@ -28,6 +28,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `NitroColor` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
+// Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
@@ -48,12 +50,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
 // Forward declaration of `TripConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
-// Forward declaration of `TripPoint` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
+// Forward declaration of `TripPoint` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
+// Forward declaration of `DateTimeWithZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
 // Forward declaration of `TripPreviewTextConfiguration` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 
@@ -69,6 +73,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroColor.hpp"
+#include "VisibleTravelEstimate.hpp"
 #include "Point.hpp"
 #include "ColorScheme.hpp"
 #include "NitroNavigationAlert.hpp"
@@ -79,9 +84,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
 #include "TripConfig.hpp"
-#include "TripPoint.hpp"
 #include "RouteChoice.hpp"
+#include "TripPoint.hpp"
 #include "TravelEstimates.hpp"
+#include "DateTimeWithZone.hpp"
 #include "TripPreviewTextConfiguration.hpp"
 
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
@@ -157,6 +163,24 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     }
     inline void updateGuidanceBackgroundColor(const std::string& templateId, const std::optional<NitroColor>& color) override {
       auto __result = _swiftPart.updateGuidanceBackgroundColor(templateId, color);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void updateVisibleTravelEstimate(const std::string& templateId, VisibleTravelEstimate visibleTravelEstimate) override {
+      auto __result = _swiftPart.updateVisibleTravelEstimate(templateId, static_cast<int>(visibleTravelEstimate));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void updateTravelEstimates(const std::string& templateId, const std::vector<TripPoint>& steps) override {
+      auto __result = _swiftPart.updateTravelEstimates(templateId, steps);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void stopNavigation(const std::string& templateId) override {
+      auto __result = _swiftPart.stopNavigation(templateId);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

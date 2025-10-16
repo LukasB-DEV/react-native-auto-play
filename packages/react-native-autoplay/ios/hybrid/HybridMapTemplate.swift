@@ -68,4 +68,23 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
             template.updateGuidanceBackgroundColor(color: color)
         }
     }
+    
+    func updateVisibleTravelEstimate(templateId: String, visibleTravelEstimate: VisibleTravelEstimate) throws {
+        try RootModule.withMapTemplate(templateId: templateId) { template in
+            template.updateVisibleTravelEstimate(visibleTravelEstimate: visibleTravelEstimate)
+        }
+    }
+    
+    func updateTravelEstimates(templateId: String, steps: [TripPoint]) throws {
+        try RootModule.withMapTemplate(templateId: templateId) { template in
+            try template.updateTravelEstimates(steps: steps)
+        }
+    }
+    
+    func stopNavigation(templateId: String) throws {
+        try RootModule.withMapTemplate(templateId: templateId) { template in
+            template.stopNavigation()
+        }
+    }
+    
 }

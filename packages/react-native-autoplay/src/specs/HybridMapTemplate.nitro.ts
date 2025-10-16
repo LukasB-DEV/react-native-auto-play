@@ -1,6 +1,6 @@
 import type { HybridObject } from 'react-native-nitro-modules';
-import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
-import type { TripConfig, TripPreviewTextConfiguration } from '../types/Trip';
+import type { NitroMapTemplateConfig, VisibleTravelEstimate } from '../templates/MapTemplate';
+import type { TripConfig, TripPoint, TripPreviewTextConfiguration } from '../types/Trip';
 import type { NitroNavigationAlert } from '../utils/NitroAlert';
 import type { NitroColor } from '../utils/NitroColor';
 import type { NitroMapButton } from '../utils/NitroMapButton';
@@ -34,4 +34,13 @@ export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios
    * Sets the background color to use for the navigation information.
    */
   updateGuidanceBackgroundColor(templateId: string, color?: NitroColor): void;
+
+  updateVisibleTravelEstimate(
+    templateId: string,
+    visibleTravelEstimate: VisibleTravelEstimate
+  ): void;
+
+  updateTravelEstimates(templateId: string, steps: Array<TripPoint>): void;
+
+  stopNavigation(templateId: string): void;
 }

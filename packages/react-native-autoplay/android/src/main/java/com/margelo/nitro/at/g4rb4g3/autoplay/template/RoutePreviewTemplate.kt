@@ -47,8 +47,8 @@ class RoutePreviewTemplate(
                                 Parser.parseText(
                                     AutoText(
                                         "${Parser.PLACEHOLDER_DURATION} (${Parser.PLACEHOLDER_DISTANCE})",
-                                        route.travelEstimates.distanceRemaining,
-                                        route.travelEstimates.timeRemaining
+                                        route.steps.last().travelEstimates.distanceRemaining,
+                                        route.steps.last().travelEstimates.timeRemaining
                                     )
                                 )
                             )

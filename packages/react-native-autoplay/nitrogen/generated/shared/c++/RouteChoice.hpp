@@ -23,12 +23,12 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-// Forward declaration of `TravelEstimates` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
+// Forward declaration of `TripPoint` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 
 #include <string>
 #include <vector>
-#include "TravelEstimates.hpp"
+#include "TripPoint.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -41,11 +41,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     std::vector<std::string> summaryVariants     SWIFT_PRIVATE;
     std::vector<std::string> additionalInformationVariants     SWIFT_PRIVATE;
     std::vector<std::string> selectionSummaryVariants     SWIFT_PRIVATE;
-    TravelEstimates travelEstimates     SWIFT_PRIVATE;
+    std::vector<TripPoint> steps     SWIFT_PRIVATE;
 
   public:
     RouteChoice() = default;
-    explicit RouteChoice(std::string id, std::vector<std::string> summaryVariants, std::vector<std::string> additionalInformationVariants, std::vector<std::string> selectionSummaryVariants, TravelEstimates travelEstimates): id(id), summaryVariants(summaryVariants), additionalInformationVariants(additionalInformationVariants), selectionSummaryVariants(selectionSummaryVariants), travelEstimates(travelEstimates) {}
+    explicit RouteChoice(std::string id, std::vector<std::string> summaryVariants, std::vector<std::string> additionalInformationVariants, std::vector<std::string> selectionSummaryVariants, std::vector<TripPoint> steps): id(id), summaryVariants(summaryVariants), additionalInformationVariants(additionalInformationVariants), selectionSummaryVariants(selectionSummaryVariants), steps(steps) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -62,7 +62,7 @@ namespace margelo::nitro {
         JSIConverter<std::vector<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "summaryVariants")),
         JSIConverter<std::vector<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "additionalInformationVariants")),
         JSIConverter<std::vector<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "selectionSummaryVariants")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::fromJSI(runtime, obj.getProperty(runtime, "travelEstimates"))
+        JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>>::fromJSI(runtime, obj.getProperty(runtime, "steps"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::RouteChoice& arg) {
@@ -71,7 +71,7 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "summaryVariants", JSIConverter<std::vector<std::string>>::toJSI(runtime, arg.summaryVariants));
       obj.setProperty(runtime, "additionalInformationVariants", JSIConverter<std::vector<std::string>>::toJSI(runtime, arg.additionalInformationVariants));
       obj.setProperty(runtime, "selectionSummaryVariants", JSIConverter<std::vector<std::string>>::toJSI(runtime, arg.selectionSummaryVariants));
-      obj.setProperty(runtime, "travelEstimates", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::toJSI(runtime, arg.travelEstimates));
+      obj.setProperty(runtime, "steps", JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>>::toJSI(runtime, arg.steps));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -86,7 +86,7 @@ namespace margelo::nitro {
       if (!JSIConverter<std::vector<std::string>>::canConvert(runtime, obj.getProperty(runtime, "summaryVariants"))) return false;
       if (!JSIConverter<std::vector<std::string>>::canConvert(runtime, obj.getProperty(runtime, "additionalInformationVariants"))) return false;
       if (!JSIConverter<std::vector<std::string>>::canConvert(runtime, obj.getProperty(runtime, "selectionSummaryVariants"))) return false;
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::canConvert(runtime, obj.getProperty(runtime, "travelEstimates"))) return false;
+      if (!JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint>>::canConvert(runtime, obj.getProperty(runtime, "steps"))) return false;
       return true;
     }
   };

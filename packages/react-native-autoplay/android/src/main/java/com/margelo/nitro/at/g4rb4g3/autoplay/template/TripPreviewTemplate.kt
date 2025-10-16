@@ -24,7 +24,8 @@ class TripPreviewTemplate(
     selectedTripId: String?,
     val textConfig: TripPreviewTextConfiguration,
     val onTripSelected: (String, String) -> Unit,
-    val onTripStarted: (String, String) -> Unit
+    val onTripStarted: (String, String) -> Unit,
+    val mapTemplateId: String
 ) : Screen(carContext) {
     var selectedTripIndex = selectedTripId?.let {
         trips.indexOfFirst { trip -> trip.id == selectedTripId }
@@ -35,8 +36,7 @@ class TripPreviewTemplate(
         marker = TAG
         // for whatever reason CarPlay fires this when opening up the trip selector so we do the same on AA
         onTripSelected(
-            trips[selectedTripIndex].id,
-            trips[selectedTripIndex].routeChoices.first().id
+            trips[selectedTripIndex].id, trips[selectedTripIndex].routeChoices.first().id
         )
     }
 
@@ -55,7 +55,7 @@ class TripPreviewTemplate(
                     setTitle(
                         "${textConfig.travelEstimatesTitle} ${
                             Parser.formatToTimestamp(
-                                selectedRoute.travelEstimates.timeRemaining
+                                selectedRoute.steps.last().travelEstimates.arrivalTime
                             )
                         }"
                     )
@@ -63,8 +63,8 @@ class TripPreviewTemplate(
                         Parser.parseText(
                             AutoText(
                                 "${Parser.PLACEHOLDER_DURATION} (${Parser.PLACEHOLDER_DISTANCE})",
-                                selectedRoute.travelEstimates.distanceRemaining,
-                                selectedRoute.travelEstimates.timeRemaining
+                                selectedRoute.steps.last().travelEstimates.distanceRemaining,
+                                selectedRoute.steps.last().travelEstimates.timeRemaining
                             )
                         )
                     )
@@ -73,7 +73,17 @@ class TripPreviewTemplate(
                     setTitle(textConfig.startButtonTitle)
                     setFlags(Action.FLAG_PRIMARY)
                     setOnClickListener {
+                        // we have to slice away the first step since it is the origin
+                        val route = selectedRoute.copy(
+                            steps = selectedRoute.steps.slice(1 until selectedRoute.steps.size)
+                                .toTypedArray()
+                        )
+                        val trip = selectedTrip.copy(routeChoices = arrayOf(route))
+
+                        MapTemplate.startNavigation(trip)
+
                         onTripStarted(selectedTrip.id, selectedRoute.id)
+
                         finish()
                     }
                 }.build())
@@ -82,8 +92,7 @@ class TripPreviewTemplate(
                         setIcon(
                             CarIcon.Builder(
                                 IconCompat.createWithResource(
-                                    carContext,
-                                    R.drawable.alt_route
+                                    carContext, R.drawable.alt_route
                                 )
                             ).build()
                         )
@@ -109,7 +118,7 @@ class TripPreviewTemplate(
             }.build()
             setContentTemplate(PaneTemplate.Builder(pane).apply {
                 setHeader(Header.Builder().apply {
-                    setTitle(selectedTrip.destination.name)
+                    setTitle(selectedRoute.steps.last().name)
                     setStartHeaderAction(Action.BACK)
                     if (trips.size > 1) {
                         addEndHeaderAction(Action.Builder().apply {

@@ -1,6 +1,5 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.util.Log
@@ -9,6 +8,7 @@ import androidx.car.app.model.Action
 import androidx.car.app.model.CarColor
 import androidx.car.app.model.CarIcon
 import androidx.car.app.model.CarText
+import androidx.car.app.model.DateTimeWithZone
 import androidx.car.app.model.Distance
 import androidx.car.app.model.DistanceSpan
 import androidx.car.app.model.DurationSpan
@@ -16,6 +16,7 @@ import androidx.car.app.model.Header
 import androidx.car.app.model.ItemList
 import androidx.car.app.model.Row
 import androidx.car.app.model.Toggle
+import androidx.car.app.navigation.model.TravelEstimate
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
@@ -26,10 +27,13 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TravelEstimates
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
+import kotlin.time.Duration
 
 object Parser {
     const val TAG = "Parser"
@@ -144,8 +148,7 @@ object Parser {
                     AndroidAutoTemplate.getTypedConfig<ListTemplateConfig>(templateId)
                         ?.let { config ->
                             val section = config.sections?.get(sectionIndex)
-                                ?.copy(selectedIndex = it.toDouble())
-                                ?: return@let
+                                ?.copy(selectedIndex = it.toDouble()) ?: return@let
                             config.sections.set(sectionIndex, section)
 
                             AndroidAutoScreen.getScreen(templateId)?.applyConfigUpdate()
@@ -188,12 +191,19 @@ object Parser {
         }.build()
     }
 
-    fun formatToTimestamp(duration: Double): String {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.SECOND, duration.toInt())
+    fun formatToTimestamp(time: com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DateTimeWithZone): String {
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = time.timeSinceEpochMillis.toLong()
+        }
 
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(calendar.time)
+    }
+
+    fun parseDateTimeWithZone(time: com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DateTimeWithZone): DateTimeWithZone {
+        return DateTimeWithZone.create(
+            time.timeSinceEpochMillis.toLong(), TimeZone.getTimeZone(time.timezone)
+        )
     }
 
     fun parseText(strings: Array<String>): CarText {
@@ -208,10 +218,20 @@ object Parser {
         }.build()
     }
 
+    fun parseTravelEstimates(travelEstimates: TravelEstimates): TravelEstimate {
+        val travelEstimate = TravelEstimate.Builder(
+            parseDistance(travelEstimates.distanceRemaining),
+            parseDateTimeWithZone(travelEstimates.arrivalTime)
+        ).apply {
+            setRemainingTimeSeconds(travelEstimates.timeRemaining.toLong())
+        }.build()
+
+        return travelEstimate
+    }
+
     fun parseColor(color: NitroColor): CarColor {
         return CarColor.createCustom(
-            color.lightColor.toInt(),
-            color.darkColor.toInt()
+            color.lightColor.toInt(), color.darkColor.toInt()
         )
     }
 }

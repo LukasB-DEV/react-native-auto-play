@@ -4,7 +4,7 @@ import { HybridAutoPlay, HybridMapTemplate } from '..';
 import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { ActionButtonAndroid, MapButton, MapPanButton } from '../types/Button';
 import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
-import type { TripConfig, TripPreviewTextConfiguration } from '../types/Trip';
+import type { TripConfig, TripPoint, TripPreviewTextConfiguration } from '../types/Trip';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NavigationAlert, NitroAlertUtil } from '../utils/NitroAlert';
 import { type NitroColor, NitroColorUtil, type ThemedColor } from '../utils/NitroColor';
@@ -20,6 +20,7 @@ export type AutoPlayCluster = string & { __brand: 'uuid' };
 export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayCluster;
 
 type Point = { x: number; y: number };
+export type VisibleTravelEstimate = 'first' | 'last';
 
 export type ActionsAndroidMap<T> =
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>]
@@ -32,6 +33,12 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
 
   actions?: Array<NitroAction>;
   guidanceBackgroundColor?: NitroColor;
+
+  /**
+   * show either the next or final step travel estimates, defaults to final step so last
+   */
+  visibleTravelEstimate?: VisibleTravelEstimate;
+
   /**
    * callback for single finger pan gesture
    * @param translation distance in pixels along the x & y axis that has been scrolled since the last touch position during the scroll event
@@ -162,6 +169,27 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     onTripSelected: (tripId: string, routeId: string) => void,
     onTripStarted: (tripId: string, routeId: string) => void
   ) {
+    if (
+      trips.length === 0 ||
+      trips.some(
+        (t) => t.routeChoices.length === 0 || t.routeChoices.some((r) => r.steps.length < 2)
+      )
+    ) {
+      throw new Error(
+        'Invalid trips passed, either no trips or some trips routeChoice or steps are empty'
+      );
+    }
+
+    if (
+      __DEV__ &&
+      Platform.OS === 'android' &&
+      new Set(trips.flatMap((t) => t.routeChoices.flatMap((r) => r.steps.at(-1)?.name))).size > 1
+    ) {
+      console.warn(
+        'found none distinct destination names, while this is possible it might lead to exceeding the step count, check https://developer.android.com/design/ui/cars/guides/ux-requirements/plan-task-flows#steps-refreshes for details'
+      );
+    }
+
     HybridMapTemplate.showTripSelector(
       this.id,
       trips,
@@ -181,5 +209,21 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       this.id,
       NitroColorUtil.convertThemed({ darkColor, lightColor })
     );
+  }
+
+  public updateVisibleTravelEstimate(visibleTravelEstimate: VisibleTravelEstimate) {
+    HybridMapTemplate.updateVisibleTravelEstimate(this.id, visibleTravelEstimate);
+  }
+
+  /**
+   * updates travel estimates
+   * @param steps all future steps, do not put in origin or passed steps
+   */
+  public updateTravelEstimates(steps: Array<TripPoint>) {
+    HybridMapTemplate.updateTravelEstimates(this.id, steps);
+  }
+
+  public stopNavigation() {
+    HybridMapTemplate.stopNavigation(this.id);
   }
 }

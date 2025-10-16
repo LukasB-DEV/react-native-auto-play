@@ -234,8 +234,9 @@ class Parser {
             text: AutoText(
                 text:
                     "\(Parser.PLACEHOLDER_DURATION) (\(Parser.PLACEHOLDER_DISTANCE))",
-                distance: routeChoice.travelEstimates.distanceRemaining,
-                duration: routeChoice.travelEstimates.timeRemaining
+                distance: routeChoice.steps.last!.travelEstimates
+                    .distanceRemaining,
+                duration: routeChoice.steps.last!.travelEstimates.timeRemaining
             )
         )!
 
@@ -259,9 +260,10 @@ class Parser {
 
         route.userInfo = [
             "id": routeChoice.id,
-            "travelEstimates": parseTravelEstiamtes(
-                travelEstimates: routeChoice.travelEstimates
-            ),
+            // we don't want to keep the origin travel estimate
+            "travelEstimates": routeChoice.steps[1...].map { step in
+                parseTravelEstiamtes(travelEstimates: step.travelEstimates)
+            },
         ]
 
         return route
@@ -270,8 +272,12 @@ class Parser {
     static func parseTrips(trips: [TripConfig]) -> [CPTrip] {
         return trips.map { tripConfig in
             let trip = CPTrip(
-                origin: parseTripPoint(point: tripConfig.origin),
-                destination: parseTripPoint(point: tripConfig.destination),
+                origin: parseTripPoint(
+                    point: tripConfig.routeChoices.first!.steps.first!
+                ),
+                destination: parseTripPoint(
+                    point: tripConfig.routeChoices.first!.steps.last!
+                ),
                 routeChoices: tripConfig.routeChoices.map { routeChoice in
                     Parser.parseRouteChoice(routeChoice: routeChoice)
                 }

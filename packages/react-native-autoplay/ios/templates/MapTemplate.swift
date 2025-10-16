@@ -19,6 +19,8 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
     var onTripSelected: ((_ tripId: String, _ routeId: String) -> Void)?
     var onTripStarted: ((_ tripId: String, _ routeId: String) -> Void)?
 
+    var navigationSession: CPNavigationSession?
+
     init(config: MapTemplateConfig) {
         self.config = config
 
@@ -53,7 +55,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                 }
             }
         }
-        
+
         updateGuidanceBackgroundColor(color: config.guidanceBackgroundColor)
     }
 
@@ -274,10 +276,10 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             textConfiguration: textConfiguration
         )
 
-        try tripPreviews.forEach { trip in
+        tripPreviews.forEach { trip in
             guard
-                let travelEstimates = try trip.routeChoices.first?
-                    .getTravelEstimates()
+                let travelEstimates = trip.routeChoices.first?
+                    .getTravelEstimates().last
             else { return }
 
             template.updateEstimates(travelEstimates, for: trip)
@@ -304,7 +306,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
             if let travelEstimates = try trip.routeChoices.first(where: {
                 try $0.getRouteId() == routeId
-            })?.getTravelEstimates() {
+            })?.getTravelEstimates().last {
                 mapTemplate.updateEstimates(travelEstimates, for: trip)
             }
         } catch {
@@ -321,26 +323,83 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             do {
                 let tripId = try trip.getTripId()
                 let routeId = try routeChoice.getRouteId()
-                
+
                 onTripStarted(tripId, routeId)
             } catch {
                 print("Unexpected error: \(error).")
             }
         }
-        
+
         hideTripSelector()
+
+        let trip = CPTrip(
+            origin: trip.origin,
+            destination: trip.destination,
+            routeChoices: [routeChoice]
+        )
+
+        if let travelEstimates = config.visibleTravelEstimate == .first
+            ? routeChoice.getTravelEstimates().first
+            : routeChoice.getTravelEstimates().last
+        {
+            mapTemplate.updateEstimates(travelEstimates, for: trip)
+        }
+
+        self.navigationSession = mapTemplate.startNavigationSession(for: trip)
     }
-    
+
     func updateGuidanceBackgroundColor(color: NitroColor?) {
         guard let template = self.template as? CPMapTemplate else { return }
-        
+
         config.guidanceBackgroundColor = color
-        
+
         guard let color = Parser.parseColor(color: color) else {
             template.guidanceBackgroundColor = .systemGray
             return
         }
-        
+
         template.guidanceBackgroundColor = color
+    }
+
+    func updateVisibleTravelEstimate(
+        visibleTravelEstimate: VisibleTravelEstimate?
+    ) {
+        guard let template = self.template as? CPMapTemplate else { return }
+
+        if let visibleTravelEstimate = visibleTravelEstimate {
+            config.visibleTravelEstimate = visibleTravelEstimate
+        }
+
+        guard let trip = navigationSession?.trip else { return }
+
+        let travelEstaimtes = trip.routeChoices.first?
+            .getTravelEstimates()
+        if let estimates = config.visibleTravelEstimate == .first
+            ? travelEstaimtes?.first : travelEstaimtes?.last
+        {
+            template.updateEstimates(estimates, for: trip)
+        }
+
+    }
+
+    func updateTravelEstimates(steps: [TripPoint]) throws {
+        guard let route = navigationSession?.trip.routeChoices.first else {
+            return
+        }
+
+        if var userInfo = route.userInfo as? [String: Any?] {
+            userInfo["travelEstimates"] = steps.map { step in
+                Parser.parseTravelEstiamtes(
+                    travelEstimates: step.travelEstimates
+                )
+            }
+            route.userInfo = userInfo
+        }
+
+        updateVisibleTravelEstimate(visibleTravelEstimate: nil)
+    }
+
+    func stopNavigation() {
+        navigationSession?.finishTrip()
     }
 }

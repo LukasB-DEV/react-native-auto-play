@@ -18,7 +18,7 @@ public extension RouteChoice {
   /**
    * Create a new instance of `RouteChoice`.
    */
-  init(id: String, summaryVariants: [String], additionalInformationVariants: [String], selectionSummaryVariants: [String], travelEstimates: TravelEstimates) {
+  init(id: String, summaryVariants: [String], additionalInformationVariants: [String], selectionSummaryVariants: [String], steps: [TripPoint]) {
     self.init(std.string(id), { () -> bridge.std__vector_std__string_ in
       var __vector = bridge.create_std__vector_std__string_(summaryVariants.count)
       for __item in summaryVariants {
@@ -37,7 +37,13 @@ public extension RouteChoice {
         __vector.push_back(std.string(__item))
       }
       return __vector
-    }(), travelEstimates)
+    }(), { () -> bridge.std__vector_TripPoint_ in
+      var __vector = bridge.create_std__vector_TripPoint_(steps.count)
+      for __item in steps {
+        __vector.push_back(__item)
+      }
+      return __vector
+    }())
   }
 
   var id: String {
@@ -102,14 +108,20 @@ public extension RouteChoice {
     }
   }
   
-  var travelEstimates: TravelEstimates {
+  var steps: [TripPoint] {
     @inline(__always)
     get {
-      return self.__travelEstimates
+      return self.__steps.map({ __item in __item })
     }
     @inline(__always)
     set {
-      self.__travelEstimates = newValue
+      self.__steps = { () -> bridge.std__vector_TripPoint_ in
+        var __vector = bridge.create_std__vector_TripPoint_(newValue.count)
+        for __item in newValue {
+          __vector.push_back(__item)
+        }
+        return __vector
+      }()
     }
   }
 }

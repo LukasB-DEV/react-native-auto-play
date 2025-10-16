@@ -10,8 +10,10 @@
 #include <fbjni/fbjni.h>
 #include "TripConfig.hpp"
 
+#include "DateTimeWithZone.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "JDateTimeWithZone.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
 #include "JRouteChoice.hpp"
@@ -20,6 +22,7 @@
 #include "RouteChoice.hpp"
 #include "TravelEstimates.hpp"
 #include "TripPoint.hpp"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -44,16 +47,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       static const auto clazz = javaClassStatic();
       static const auto fieldId = clazz->getField<jni::JString>("id");
       jni::local_ref<jni::JString> id = this->getFieldValue(fieldId);
-      static const auto fieldOrigin = clazz->getField<JTripPoint>("origin");
-      jni::local_ref<JTripPoint> origin = this->getFieldValue(fieldOrigin);
-      static const auto fieldDestination = clazz->getField<JTripPoint>("destination");
-      jni::local_ref<JTripPoint> destination = this->getFieldValue(fieldDestination);
       static const auto fieldRouteChoices = clazz->getField<jni::JArrayClass<JRouteChoice>>("routeChoices");
       jni::local_ref<jni::JArrayClass<JRouteChoice>> routeChoices = this->getFieldValue(fieldRouteChoices);
       return TripConfig(
         id->toStdString(),
-        origin->toCpp(),
-        destination->toCpp(),
         [&]() {
           size_t __size = routeChoices->size();
           std::vector<RouteChoice> __vector;
@@ -75,8 +72,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static jni::local_ref<JTripConfig::javaobject> fromCpp(const TripConfig& value) {
       return newInstance(
         jni::make_jstring(value.id),
-        JTripPoint::fromCpp(value.origin),
-        JTripPoint::fromCpp(value.destination),
         [&]() {
           size_t __size = value.routeChoices.size();
           jni::local_ref<jni::JArrayClass<JRouteChoice>> __array = jni::JArrayClass<JRouteChoice>::newArray(__size);

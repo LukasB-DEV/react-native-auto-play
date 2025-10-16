@@ -18,8 +18,8 @@ public extension TripConfig {
   /**
    * Create a new instance of `TripConfig`.
    */
-  init(id: String, origin: TripPoint, destination: TripPoint, routeChoices: [RouteChoice]) {
-    self.init(std.string(id), origin, destination, { () -> bridge.std__vector_RouteChoice_ in
+  init(id: String, routeChoices: [RouteChoice]) {
+    self.init(std.string(id), { () -> bridge.std__vector_RouteChoice_ in
       var __vector = bridge.create_std__vector_RouteChoice_(routeChoices.count)
       for __item in routeChoices {
         __vector.push_back(__item)
@@ -36,28 +36,6 @@ public extension TripConfig {
     @inline(__always)
     set {
       self.__id = std.string(newValue)
-    }
-  }
-  
-  var origin: TripPoint {
-    @inline(__always)
-    get {
-      return self.__origin
-    }
-    @inline(__always)
-    set {
-      self.__origin = newValue
-    }
-  }
-  
-  var destination: TripPoint {
-    @inline(__always)
-    get {
-      return self.__destination
-    }
-    @inline(__always)
-    set {
-      self.__destination = newValue
     }
   }
   

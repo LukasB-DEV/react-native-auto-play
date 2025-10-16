@@ -10,12 +10,17 @@
 #include <fbjni/fbjni.h>
 #include "RouteChoice.hpp"
 
+#include "DateTimeWithZone.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "JDateTimeWithZone.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
 #include "JTravelEstimates.hpp"
+#include "JTripPoint.hpp"
 #include "TravelEstimates.hpp"
+#include "TripPoint.hpp"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -46,8 +51,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<jni::JArrayClass<jni::JString>> additionalInformationVariants = this->getFieldValue(fieldAdditionalInformationVariants);
       static const auto fieldSelectionSummaryVariants = clazz->getField<jni::JArrayClass<jni::JString>>("selectionSummaryVariants");
       jni::local_ref<jni::JArrayClass<jni::JString>> selectionSummaryVariants = this->getFieldValue(fieldSelectionSummaryVariants);
-      static const auto fieldTravelEstimates = clazz->getField<JTravelEstimates>("travelEstimates");
-      jni::local_ref<JTravelEstimates> travelEstimates = this->getFieldValue(fieldTravelEstimates);
+      static const auto fieldSteps = clazz->getField<jni::JArrayClass<JTripPoint>>("steps");
+      jni::local_ref<jni::JArrayClass<JTripPoint>> steps = this->getFieldValue(fieldSteps);
       return RouteChoice(
         id->toStdString(),
         [&]() {
@@ -80,7 +85,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
           }
           return __vector;
         }(),
-        travelEstimates->toCpp()
+        [&]() {
+          size_t __size = steps->size();
+          std::vector<TripPoint> __vector;
+          __vector.reserve(__size);
+          for (size_t __i = 0; __i < __size; __i++) {
+            auto __element = steps->getElement(__i);
+            __vector.push_back(__element->toCpp());
+          }
+          return __vector;
+        }()
       );
     }
 
@@ -119,7 +133,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
           }
           return __array;
         }(),
-        JTravelEstimates::fromCpp(value.travelEstimates)
+        [&]() {
+          size_t __size = value.steps.size();
+          jni::local_ref<jni::JArrayClass<JTripPoint>> __array = jni::JArrayClass<JTripPoint>::newArray(__size);
+          for (size_t __i = 0; __i < __size; __i++) {
+            const auto& __element = value.steps[__i];
+            __array->setElement(__i, *JTripPoint::fromCpp(__element));
+          }
+          return __array;
+        }()
       );
     }
   };

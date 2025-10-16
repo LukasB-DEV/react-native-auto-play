@@ -29,7 +29,19 @@ data class TripPoint
     val longitude: Double,
     @DoNotStrip
     @Keep
-    val name: String
+    val name: String,
+    @DoNotStrip
+    @Keep
+    val travelEstimates: TravelEstimates,
+    @DoNotStrip
+    @Keep
+    val address: String?,
+    @DoNotStrip
+    @Keep
+    val tripText: String?,
+    @DoNotStrip
+    @Keep
+    val tripIcon: Double?
   ) {
   /* main constructor */
 }

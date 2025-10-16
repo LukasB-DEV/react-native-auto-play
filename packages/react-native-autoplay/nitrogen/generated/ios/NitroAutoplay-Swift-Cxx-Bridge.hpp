@@ -20,6 +20,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertStyle;
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
+// Forward declaration of `DateTimeWithZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `Distance` to properly resolve imports.
@@ -70,6 +72,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
+// Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridHybridAutoPlaySpec_cxx` to properly resolve imports.
@@ -88,6 +92,7 @@ namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
 #include "AlertStyle.hpp"
 #include "AutoText.hpp"
 #include "ColorScheme.hpp"
+#include "DateTimeWithZone.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "HybridHybridAutoPlaySpec.hpp"
@@ -113,6 +118,7 @@ namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
 #include "TripConfig.hpp"
 #include "TripPoint.hpp"
 #include "VisibilityState.hpp"
+#include "VisibleTravelEstimate.hpp"
 #include <NitroModules/FastVectorCopy.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
@@ -617,6 +623,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return *optional;
   }
   
+  // pragma MARK: std::optional<VisibleTravelEstimate>
+  /**
+   * Specialized version of `std::optional<VisibleTravelEstimate>`.
+   */
+  using std__optional_VisibleTravelEstimate_ = std::optional<VisibleTravelEstimate>;
+  inline std::optional<VisibleTravelEstimate> create_std__optional_VisibleTravelEstimate_(const VisibleTravelEstimate& value) noexcept {
+    return std::optional<VisibleTravelEstimate>(value);
+  }
+  inline bool has_value_std__optional_VisibleTravelEstimate_(const std::optional<VisibleTravelEstimate>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline VisibleTravelEstimate get_std__optional_VisibleTravelEstimate_(const std::optional<VisibleTravelEstimate>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::optional<Point>
   /**
    * Specialized version of `std::optional<Point>`.
@@ -845,6 +866,17 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   }
   inline std::function<void(AlertDismissalReason /* reason */)> get_std__optional_std__function_void_AlertDismissalReason____reason______(const std::optional<std::function<void(AlertDismissalReason /* reason */)>>& optional) noexcept {
     return *optional;
+  }
+  
+  // pragma MARK: std::vector<TripPoint>
+  /**
+   * Specialized version of `std::vector<TripPoint>`.
+   */
+  using std__vector_TripPoint_ = std::vector<TripPoint>;
+  inline std::vector<TripPoint> create_std__vector_TripPoint_(size_t size) noexcept {
+    std::vector<TripPoint> vector;
+    vector.reserve(size);
+    return vector;
   }
   
   // pragma MARK: std::vector<RouteChoice>

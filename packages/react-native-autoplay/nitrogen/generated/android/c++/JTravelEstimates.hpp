@@ -10,10 +10,13 @@
 #include <fbjni/fbjni.h>
 #include "TravelEstimates.hpp"
 
+#include "DateTimeWithZone.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "JDateTimeWithZone.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
+#include <string>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -38,9 +41,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JDistance> distanceRemaining = this->getFieldValue(fieldDistanceRemaining);
       static const auto fieldTimeRemaining = clazz->getField<double>("timeRemaining");
       double timeRemaining = this->getFieldValue(fieldTimeRemaining);
+      static const auto fieldArrivalTime = clazz->getField<JDateTimeWithZone>("arrivalTime");
+      jni::local_ref<JDateTimeWithZone> arrivalTime = this->getFieldValue(fieldArrivalTime);
       return TravelEstimates(
         distanceRemaining->toCpp(),
-        timeRemaining
+        timeRemaining,
+        arrivalTime->toCpp()
       );
     }
 
@@ -52,7 +58,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static jni::local_ref<JTravelEstimates::javaobject> fromCpp(const TravelEstimates& value) {
       return newInstance(
         JDistance::fromCpp(value.distanceRemaining),
-        value.timeRemaining
+        value.timeRemaining,
+        JDateTimeWithZone::fromCpp(value.arrivalTime)
       );
     }
   };

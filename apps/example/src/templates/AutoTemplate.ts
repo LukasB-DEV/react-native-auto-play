@@ -3,8 +3,11 @@ import {
   type Alert,
   type BackButton,
   HybridAutoPlay,
+  type ImageButton,
   type MapTemplate,
   type MapTemplateConfig,
+  type TripPoint,
+  type VisibleTravelEstimate,
 } from '@g4rb4g3/react-native-autoplay';
 import { Platform } from 'react-native';
 import { AutoTrip, TextConfig } from '../config/AutoTrip';
@@ -60,6 +63,68 @@ const actions: Actions<any> = {
   },
 };
 
+const stopNavigation: ImageButton<MapTemplate> = {
+  image: {
+    name: 'close',
+  },
+  onPress: (template) => {
+    template.stopNavigation();
+    template.setActions(mapActions);
+  },
+  type: 'image',
+};
+
+const plusOne: ImageButton<MapTemplate> = {
+  image: {
+    name: 'add',
+  },
+  onPress: (template) => estimatesUpdate(template, 'add'),
+  type: 'image',
+};
+
+const minusOne: ImageButton<MapTemplate> = {
+  image: {
+    name: 'remove',
+  },
+  onPress: (template) => estimatesUpdate(template, 'remove'),
+  type: 'image',
+};
+
+let visibleTravelEstimate: VisibleTravelEstimate = 'first';
+
+const toggleEta: ImageButton<MapTemplate> = {
+  image: {
+    name: 'refresh',
+  },
+  onPress: (template) => {
+    visibleTravelEstimate = visibleTravelEstimate === 'first' ? 'last' : 'first';
+    template.updateVisibleTravelEstimate(visibleTravelEstimate);
+  },
+  type: 'image',
+};
+
+let steps: Array<TripPoint> = [];
+
+const estimatesUpdate = (template: MapTemplate, type: 'add' | 'remove') => {
+  steps = steps.map((s) => ({
+    ...s,
+    travelEstimates: {
+      arrivalTime: {
+        ...s.travelEstimates.arrivalTime,
+        timeSinceEpochMillis:
+          s.travelEstimates.arrivalTime.timeSinceEpochMillis + (type === 'add' ? 60000 : -60000),
+      },
+      distanceRemaining: {
+        ...s.travelEstimates.distanceRemaining,
+        value: s.travelEstimates.distanceRemaining.value + (type === 'add' ? 1 : -1),
+      },
+      timeRemaining: s.travelEstimates.timeRemaining + (type === 'add' ? 60 : -60),
+    },
+  }));
+
+  template.updateTravelEstimates(steps);
+};
+
 const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   if (Platform.OS === 'ios') {
     template.setActions({
@@ -82,11 +147,24 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   };
 
   const onTripStarted = (tripId: string, routeId: string) => {
+    template.setActions({
+      android: [stopNavigation, toggleEta, plusOne, minusOne],
+      ios: {
+        leadingNavigationBarButtons: [toggleEta, stopNavigation],
+        trailingNavigationBarButtons: [plusOne, minusOne],
+      },
+    });
+
     if (Platform.OS === 'ios') {
-      template.setActions(mapActions);
       template.setMapButtons(mapButtons);
     }
+
     console.log(`started trip ${tripId} using route ${routeId}`);
+
+    steps =
+      AutoTrip.find((t) => t.id === tripId)
+        ?.routeChoices.find((r) => r.id === routeId)
+        ?.steps.slice(1) ?? [];
   };
 
   template.showTripSelector(AutoTrip, null, TextConfig, onTripSelected, onTripStarted);
@@ -121,15 +199,15 @@ const mapActions: MapTemplateConfig['actions'] = {
     leadingNavigationBarButtons: [
       {
         type: 'image',
-        image: { name: 'grid_3x3' },
-        onPress: () => AutoGridTemplate.getTemplate().push(),
-      },
-      {
-        type: 'image',
         image: {
           name: 'list',
         },
         onPress: () => AutoListTemplate.getTemplate().push(),
+      },
+      {
+        type: 'image',
+        image: { name: 'grid_3x3' },
+        onPress: () => AutoGridTemplate.getTemplate().push(),
       },
     ],
     trailingNavigationBarButtons: [

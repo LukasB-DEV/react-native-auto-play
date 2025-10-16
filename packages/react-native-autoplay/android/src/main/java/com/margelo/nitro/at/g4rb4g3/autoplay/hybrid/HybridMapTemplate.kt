@@ -38,7 +38,7 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
             ?: throw IllegalArgumentException("showTripSelector failed, screenManager not found")
 
         val screen = TripPreviewTemplate(
-            context, trips, selectedTripId, textConfig, onTripSelected, onTripStarted
+            context, trips, selectedTripId, textConfig, onTripSelected, onTripStarted, templateId
         )
 
         UiThreadUtil.runOnUiThread {
@@ -69,10 +69,24 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
     }
 
     override fun updateGuidanceBackgroundColor(
-        templateId: String,
-        color: NitroColor?
+        templateId: String, color: NitroColor?
     ) {
         val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
         template.updateGuidanceBackgroundColor(color)
+    }
+
+    override fun updateVisibleTravelEstimate(
+        templateId: String, visibleTravelEstimate: VisibleTravelEstimate
+    ) {
+        val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
+        template.updateVisibleTravelEstimate(visibleTravelEstimate)
+    }
+
+    override fun updateTravelEstimates(templateId: String, steps: Array<TripPoint>) {
+        MapTemplate.updateTravelEstimates(steps)
+    }
+
+    override fun stopNavigation(templateId: String) {
+        MapTemplate.stopNavigation()
     }
 }

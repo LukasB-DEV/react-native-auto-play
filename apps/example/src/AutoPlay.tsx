@@ -37,6 +37,7 @@ const registerRunnable = () => {
     const rootTemplate = new MapTemplate({
       component: AutoPlayRoot,
       id: 'AutoPlayRoot',
+      visibleTravelEstimate: 'first',
       onWillAppear: () => console.log('onWillAppear'),
       onDidAppear: () => console.log('onDidAppear'),
       onWillDisappear: () => console.log('onWillDisappear'),

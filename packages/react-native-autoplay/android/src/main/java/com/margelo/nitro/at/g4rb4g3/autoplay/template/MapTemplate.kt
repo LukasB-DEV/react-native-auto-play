@@ -9,17 +9,29 @@ import androidx.car.app.model.AlertCallback
 import androidx.car.app.model.CarColor
 import androidx.car.app.model.CarIcon
 import androidx.car.app.model.Template
+import androidx.car.app.navigation.NavigationManager
+import androidx.car.app.navigation.NavigationManagerCallback
+import androidx.car.app.navigation.model.Destination
 import androidx.car.app.navigation.model.NavigationTemplate
+import androidx.car.app.navigation.model.RoutingInfo
+import androidx.car.app.navigation.model.Trip
+import com.facebook.react.bridge.UiThreadUtil
+import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertActionStyle
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertDismissalReason
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButtonType
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroNavigationAlert
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TravelEstimates
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripPoint
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VisibleTravelEstimate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
+import java.security.InvalidParameterException
 
 class MapTemplate(
     context: CarContext, config: MapTemplateConfig
@@ -30,6 +42,10 @@ class MapTemplate(
         get() = config.id
 
     private var alertId: Double? = null
+
+    init {
+        mapTemplate = this
+    }
 
     private fun parseMapButtons(buttons: Array<NitroMapButton>): ActionStrip {
         return ActionStrip.Builder().apply {
@@ -100,6 +116,20 @@ class MapTemplate(
             config.guidanceBackgroundColor?.let {
                 setBackgroundColor(Parser.parseColor(it))
             }
+            destinationTravelEstimates[config.visibleTravelEstimate]?.let {
+                setDestinationTravelEstimate(
+                    Parser.parseTravelEstimates(it)
+                )
+            }
+            if (isNavigating) {
+                navigationInfo?.let {
+                    setNavigationInfo(it)
+                } ?: run {
+                    setNavigationInfo(RoutingInfo.Builder().apply {
+                        setLoading(true)
+                    }.build())
+                }
+            }
         }.build()
     }
 
@@ -131,7 +161,7 @@ class MapTemplate(
 
     fun setMapActions(buttons: Array<NitroMapButton>?) {
         config = config.copy(mapButtons = buttons)
-        super.applyConfigUpdate()
+        applyConfigUpdate()
     }
 
     fun showAlert(alertConfig: NitroNavigationAlert) {
@@ -206,6 +236,99 @@ class MapTemplate(
 
     fun updateGuidanceBackgroundColor(color: NitroColor?) {
         config = config.copy(guidanceBackgroundColor = color)
-        super.applyConfigUpdate()
+        applyConfigUpdate()
+    }
+
+    fun updateVisibleTravelEstimate(
+        visibleTravelEstimate: VisibleTravelEstimate
+    ) {
+        config = config.copy(visibleTravelEstimate = visibleTravelEstimate)
+        applyConfigUpdate()
+    }
+
+    companion object {
+        var isNavigating = false
+        var navigationInfo: RoutingInfo? = null
+
+        private var mapTemplate: MapTemplate? = null
+        private lateinit var navigationManager: NavigationManager
+        private var destinationTravelEstimates = mutableMapOf<VisibleTravelEstimate, TravelEstimates>()
+
+
+        private val navigationManagerCallback = object : NavigationManagerCallback {
+            override fun onAutoDriveEnabled() {
+
+            }
+
+            override fun onStopNavigation() {
+                navigationEnded()
+            }
+        }
+
+        fun updateTrip(steps: Array<TripPoint>) {
+            val trip = Trip.Builder().apply {
+                steps.map { step ->
+                    val travelEstimate = Parser.parseTravelEstimates(step.travelEstimates)
+                    addDestination(
+                        Destination.Builder().apply {
+                            setName(step.name)
+                        }.build(), travelEstimate
+                    )
+                }
+            }.build()
+
+            UiThreadUtil.runOnUiThread {
+                navigationManager.updateTrip(trip)
+            }
+        }
+
+        fun updateDestinationTravelEstimates(steps: Array<TripPoint>) {
+            destinationTravelEstimates[VisibleTravelEstimate.FIRST] = steps.first().travelEstimates
+            destinationTravelEstimates[VisibleTravelEstimate.LAST] = steps.last().travelEstimates
+        }
+
+        fun startNavigation(trip: TripConfig) {
+            isNavigating = true
+            val steps = trip.routeChoices.first().steps
+
+            updateDestinationTravelEstimates(steps)
+
+            mapTemplate?.applyConfigUpdate()
+
+            UiThreadUtil.runOnUiThread {
+                val context = AndroidAutoSession.getRootContext()
+                    ?: throw InvalidParameterException("startNavigation, could not get root car context")
+
+                navigationManager = context.getCarService(NavigationManager::class.java)
+                navigationManager.setNavigationManagerCallback(navigationManagerCallback)
+                navigationManager.navigationStarted()
+
+                updateTrip(steps)
+            }
+
+            updateTrip(steps)
+        }
+
+        fun updateTravelEstimates(steps: Array<TripPoint>) {
+            updateDestinationTravelEstimates(steps)
+            mapTemplate?.applyConfigUpdate()
+
+            updateTrip(steps)
+        }
+
+        fun stopNavigation() {
+            UiThreadUtil.runOnUiThread {
+                navigationManager.navigationEnded()
+            }
+            navigationEnded()
+        }
+
+        fun navigationEnded() {
+            isNavigating = false
+            destinationTravelEstimates.clear()
+            navigationInfo = null
+
+            mapTemplate?.applyConfigUpdate()
+        }
     }
 }

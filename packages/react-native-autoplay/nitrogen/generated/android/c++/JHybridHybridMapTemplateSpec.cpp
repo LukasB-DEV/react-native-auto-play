@@ -23,6 +23,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `NitroColor` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
+// Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
@@ -43,12 +45,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
 // Forward declaration of `TripConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
-// Forward declaration of `TripPoint` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
+// Forward declaration of `TripPoint` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
+// Forward declaration of `DateTimeWithZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
 // Forward declaration of `TripPreviewTextConfiguration` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 
@@ -74,6 +78,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "JNitroAlignment.hpp"
 #include "NitroColor.hpp"
 #include "JNitroColor.hpp"
+#include "VisibleTravelEstimate.hpp"
+#include "JVisibleTravelEstimate.hpp"
 #include "Point.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
 #include "JPoint.hpp"
@@ -99,12 +105,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "JAlertDismissalReason.hpp"
 #include "TripConfig.hpp"
 #include "JTripConfig.hpp"
-#include "TripPoint.hpp"
-#include "JTripPoint.hpp"
 #include "RouteChoice.hpp"
 #include "JRouteChoice.hpp"
+#include "TripPoint.hpp"
+#include "JTripPoint.hpp"
 #include "TravelEstimates.hpp"
 #include "JTravelEstimates.hpp"
+#include "DateTimeWithZone.hpp"
+#include "JDateTimeWithZone.hpp"
 #include "TripPreviewTextConfiguration.hpp"
 #include "JTripPreviewTextConfiguration.hpp"
 #include "JFunc_void_std__string_std__string.hpp"
@@ -174,6 +182,26 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   void JHybridHybridMapTemplateSpec::updateGuidanceBackgroundColor(const std::string& templateId, const std::optional<NitroColor>& color) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroColor> /* color */)>("updateGuidanceBackgroundColor");
     method(_javaPart, jni::make_jstring(templateId), color.has_value() ? JNitroColor::fromCpp(color.value()) : nullptr);
+  }
+  void JHybridHybridMapTemplateSpec::updateVisibleTravelEstimate(const std::string& templateId, VisibleTravelEstimate visibleTravelEstimate) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JVisibleTravelEstimate> /* visibleTravelEstimate */)>("updateVisibleTravelEstimate");
+    method(_javaPart, jni::make_jstring(templateId), JVisibleTravelEstimate::fromCpp(visibleTravelEstimate));
+  }
+  void JHybridHybridMapTemplateSpec::updateTravelEstimates(const std::string& templateId, const std::vector<TripPoint>& steps) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JTripPoint>> /* steps */)>("updateTravelEstimates");
+    method(_javaPart, jni::make_jstring(templateId), [&]() {
+      size_t __size = steps.size();
+      jni::local_ref<jni::JArrayClass<JTripPoint>> __array = jni::JArrayClass<JTripPoint>::newArray(__size);
+      for (size_t __i = 0; __i < __size; __i++) {
+        const auto& __element = steps[__i];
+        __array->setElement(__i, *JTripPoint::fromCpp(__element));
+      }
+      return __array;
+    }());
+  }
+  void JHybridHybridMapTemplateSpec::stopNavigation(const std::string& templateId) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("stopNavigation");
+    method(_javaPart, jni::make_jstring(templateId));
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
