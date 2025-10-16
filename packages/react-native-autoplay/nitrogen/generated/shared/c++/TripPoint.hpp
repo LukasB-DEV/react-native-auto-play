@@ -28,7 +28,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates
 
 #include <string>
 #include "TravelEstimates.hpp"
-#include <optional>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -41,13 +40,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     double longitude     SWIFT_PRIVATE;
     std::string name     SWIFT_PRIVATE;
     TravelEstimates travelEstimates     SWIFT_PRIVATE;
-    std::optional<std::string> address     SWIFT_PRIVATE;
-    std::optional<std::string> tripText     SWIFT_PRIVATE;
-    std::optional<double> tripIcon     SWIFT_PRIVATE;
 
   public:
     TripPoint() = default;
-    explicit TripPoint(double latitude, double longitude, std::string name, TravelEstimates travelEstimates, std::optional<std::string> address, std::optional<std::string> tripText, std::optional<double> tripIcon): latitude(latitude), longitude(longitude), name(name), travelEstimates(travelEstimates), address(address), tripText(tripText), tripIcon(tripIcon) {}
+    explicit TripPoint(double latitude, double longitude, std::string name, TravelEstimates travelEstimates): latitude(latitude), longitude(longitude), name(name), travelEstimates(travelEstimates) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -63,10 +59,7 @@ namespace margelo::nitro {
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "latitude")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "longitude")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "name")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::fromJSI(runtime, obj.getProperty(runtime, "travelEstimates")),
-        JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "address")),
-        JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "tripText")),
-        JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, "tripIcon"))
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::fromJSI(runtime, obj.getProperty(runtime, "travelEstimates"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::TripPoint& arg) {
@@ -75,9 +68,6 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "longitude", JSIConverter<double>::toJSI(runtime, arg.longitude));
       obj.setProperty(runtime, "name", JSIConverter<std::string>::toJSI(runtime, arg.name));
       obj.setProperty(runtime, "travelEstimates", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::toJSI(runtime, arg.travelEstimates));
-      obj.setProperty(runtime, "address", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.address));
-      obj.setProperty(runtime, "tripText", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.tripText));
-      obj.setProperty(runtime, "tripIcon", JSIConverter<std::optional<double>>::toJSI(runtime, arg.tripIcon));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -92,9 +82,6 @@ namespace margelo::nitro {
       if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "longitude"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "name"))) return false;
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::canConvert(runtime, obj.getProperty(runtime, "travelEstimates"))) return false;
-      if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "address"))) return false;
-      if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "tripText"))) return false;
-      if (!JSIConverter<std::optional<double>>::canConvert(runtime, obj.getProperty(runtime, "tripIcon"))) return false;
       return true;
     }
   };

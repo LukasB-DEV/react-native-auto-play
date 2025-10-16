@@ -109,16 +109,15 @@ const estimatesUpdate = (template: MapTemplate, type: 'add' | 'remove') => {
   steps = steps.map((s) => ({
     ...s,
     travelEstimates: {
-      arrivalTime: {
-        ...s.travelEstimates.arrivalTime,
-        timeSinceEpochMillis:
-          s.travelEstimates.arrivalTime.timeSinceEpochMillis + (type === 'add' ? 60000 : -60000),
-      },
+      ...s.travelEstimates,
       distanceRemaining: {
         ...s.travelEstimates.distanceRemaining,
         value: s.travelEstimates.distanceRemaining.value + (type === 'add' ? 1 : -1),
       },
-      timeRemaining: s.travelEstimates.timeRemaining + (type === 'add' ? 60 : -60),
+      timeRemaining: {
+        ...s.travelEstimates.timeRemaining,
+        seconds: s.travelEstimates.timeRemaining.seconds + (type === 'add' ? 60 : -60),
+      },
     },
   }));
 

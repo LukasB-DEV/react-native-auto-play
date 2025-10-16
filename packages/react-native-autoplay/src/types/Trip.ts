@@ -1,4 +1,4 @@
-import type { Distance } from './Text';
+import type { AutoText, Distance } from './Text';
 
 export type RouteChoice = {
   id: string;
@@ -32,18 +32,6 @@ export type TripPoint = {
    * includes the duration until arriving at this step, distance to this step and arrival time with timezone
    */
   travelEstimates: TravelEstimates;
-  /**
-   * @namespace Android
-   */
-  address?: string;
-  /**
-   * @namespace Android
-   */
-  tripText?: string;
-  /**
-   * @namespace Android
-   */
-  tripIcon?: number;
 };
 
 export type TripConfig = {
@@ -62,22 +50,20 @@ export type TripPreviewTextConfiguration = {
   travelEstimatesTitle: string;
 };
 
-export type DateTimeWithZone = {
-  timeSinceEpochMillis: number;
+export type DurationWithTimeZone = {
   timezone: string;
+  seconds: number;
 };
 
 export type TravelEstimates = {
-  /**
-   * Distance remaining, setting it to a negative number will put the timeRemaining in the maneuver
-   */
   distanceRemaining: Distance;
+  timeRemaining: DurationWithTimeZone;
   /**
-   * Time remaining in seconds
+   * @namespace Android
    */
-  timeRemaining: number;
-  /**
-   * arrival time in ms and timezone
-   */
-  arrivalTime: DateTimeWithZone;
+  tripText?: AutoText;
+  // /**
+  //  * @namespace Android
+  //  */
+  // tripIcon?: number;
 };

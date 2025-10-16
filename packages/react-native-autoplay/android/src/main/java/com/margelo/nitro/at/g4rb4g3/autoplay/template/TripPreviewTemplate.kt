@@ -55,7 +55,7 @@ class TripPreviewTemplate(
                     setTitle(
                         "${textConfig.travelEstimatesTitle} ${
                             Parser.formatToTimestamp(
-                                selectedRoute.steps.last().travelEstimates.arrivalTime
+                                selectedRoute.steps.last().travelEstimates.timeRemaining
                             )
                         }"
                     )
@@ -64,7 +64,7 @@ class TripPreviewTemplate(
                             AutoText(
                                 "${Parser.PLACEHOLDER_DURATION} (${Parser.PLACEHOLDER_DISTANCE})",
                                 selectedRoute.steps.last().travelEstimates.distanceRemaining,
-                                selectedRoute.steps.last().travelEstimates.timeRemaining
+                                selectedRoute.steps.last().travelEstimates.timeRemaining.seconds
                             )
                         )
                     )

@@ -10,12 +10,15 @@
 #include <fbjni/fbjni.h>
 #include "TravelEstimates.hpp"
 
-#include "DateTimeWithZone.hpp"
+#include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
-#include "JDateTimeWithZone.hpp"
+#include "DurationWithTimeZone.hpp"
+#include "JAutoText.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
+#include "JDurationWithTimeZone.hpp"
+#include <optional>
 #include <string>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
@@ -39,14 +42,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       static const auto clazz = javaClassStatic();
       static const auto fieldDistanceRemaining = clazz->getField<JDistance>("distanceRemaining");
       jni::local_ref<JDistance> distanceRemaining = this->getFieldValue(fieldDistanceRemaining);
-      static const auto fieldTimeRemaining = clazz->getField<double>("timeRemaining");
-      double timeRemaining = this->getFieldValue(fieldTimeRemaining);
-      static const auto fieldArrivalTime = clazz->getField<JDateTimeWithZone>("arrivalTime");
-      jni::local_ref<JDateTimeWithZone> arrivalTime = this->getFieldValue(fieldArrivalTime);
+      static const auto fieldTimeRemaining = clazz->getField<JDurationWithTimeZone>("timeRemaining");
+      jni::local_ref<JDurationWithTimeZone> timeRemaining = this->getFieldValue(fieldTimeRemaining);
+      static const auto fieldTripText = clazz->getField<JAutoText>("tripText");
+      jni::local_ref<JAutoText> tripText = this->getFieldValue(fieldTripText);
       return TravelEstimates(
         distanceRemaining->toCpp(),
-        timeRemaining,
-        arrivalTime->toCpp()
+        timeRemaining->toCpp(),
+        tripText != nullptr ? std::make_optional(tripText->toCpp()) : std::nullopt
       );
     }
 
@@ -58,8 +61,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static jni::local_ref<JTravelEstimates::javaobject> fromCpp(const TravelEstimates& value) {
       return newInstance(
         JDistance::fromCpp(value.distanceRemaining),
-        value.timeRemaining,
-        JDateTimeWithZone::fromCpp(value.arrivalTime)
+        JDurationWithTimeZone::fromCpp(value.timeRemaining),
+        value.tripText.has_value() ? JAutoText::fromCpp(value.tripText.value()) : nullptr
       );
     }
   };

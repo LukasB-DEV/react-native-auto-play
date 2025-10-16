@@ -15,12 +15,11 @@ export const AutoTrip: Array<TripConfig> = [
             longitude: 0,
             name: 'Your position',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now(),
+              distanceRemaining: { value: 0, unit: 'meters' },
+              timeRemaining: {
+                seconds: 0,
                 timezone: 'Europe/Vienna',
               },
-              distanceRemaining: { value: 0, unit: 'meters' },
-              timeRemaining: 0,
             },
           },
           {
@@ -28,25 +27,29 @@ export const AutoTrip: Array<TripConfig> = [
             longitude: 0,
             name: 'Charger',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now() + 2 * 3600000,
+              distanceRemaining: { unit: 'kilometers', value: 200 },
+              timeRemaining: {
+                seconds: 2 * 3600,
                 timezone: 'Europe/Berlin',
               },
-              distanceRemaining: { unit: 'kilometers', value: 200 },
-              timeRemaining: 2 * 3600,
+              tripText: {
+                text: 'Blazing fast charger',
+              },
             },
           },
           {
             latitude: 0,
             longitude: 0,
-            name: 'Dresden',
+            name: 'Kyiv',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now() + 4.5 * 3600000,
-                timezone: 'Europe/Berlin',
-              },
               distanceRemaining: { unit: 'kilometers', value: 400 },
-              timeRemaining: 4.5 * 3600,
+              timeRemaining: {
+                seconds: 4.5 * 3600,
+                timezone: 'Europe/Kyiv',
+              },
+              tripText: {
+                text: 'From 🇦🇹 with sweat, tears and pain 😉',
+              },
             },
           },
         ],
@@ -62,25 +65,23 @@ export const AutoTrip: Array<TripConfig> = [
             longitude: 0,
             name: 'Your position',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now(),
+              distanceRemaining: { value: 0, unit: 'meters' },
+              timeRemaining: {
+                seconds: 0,
                 timezone: 'Europe/Vienna',
               },
-              distanceRemaining: { value: 0, unit: 'meters' },
-              timeRemaining: 0,
             },
           },
           {
             latitude: 0,
             longitude: 0,
-            name: 'Dresden',
+            name: 'Kyiv',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now() + 5.5 * 3600000,
-                timezone: 'Europe/Berlin',
-              },
               distanceRemaining: { unit: 'kilometers', value: 350 },
-              timeRemaining: 5.5 * 3600,
+              timeRemaining: {
+                seconds: 5.5 * 3600,
+                timezone: 'Europe/Kyiv',
+              },
             },
           },
         ],
@@ -101,25 +102,35 @@ export const AutoTrip: Array<TripConfig> = [
             longitude: 0,
             name: 'Your position',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now(),
+              distanceRemaining: { value: 0, unit: 'meters' },
+              timeRemaining: {
+                seconds: 0,
                 timezone: 'Europe/Vienna',
               },
-              distanceRemaining: { value: 0, unit: 'meters' },
-              timeRemaining: 0,
             },
           },
           {
             latitude: 0,
             longitude: 0,
-            name: 'Dresden',
+            name: 'Charger',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now() + 4.5 * 3600000,
+              distanceRemaining: { unit: 'kilometers', value: 200 },
+              timeRemaining: {
+                seconds: 2 * 3600,
                 timezone: 'Europe/Berlin',
               },
+            },
+          },
+          {
+            latitude: 0,
+            longitude: 0,
+            name: 'Kyiv',
+            travelEstimates: {
               distanceRemaining: { unit: 'kilometers', value: 400 },
-              timeRemaining: 4.5 * 3600,
+              timeRemaining: {
+                seconds: 4.5 * 3600,
+                timezone: 'Europe/Kyiv',
+              },
             },
           },
         ],
@@ -140,25 +151,23 @@ export const AutoTrip: Array<TripConfig> = [
             longitude: 0,
             name: 'Your position',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now(),
+              distanceRemaining: { value: 0, unit: 'meters' },
+              timeRemaining: {
+                seconds: 0,
                 timezone: 'Europe/Vienna',
               },
-              distanceRemaining: { value: 0, unit: 'meters' },
-              timeRemaining: 0,
             },
           },
           {
             latitude: 0,
             longitude: 0,
-            name: 'Dresden',
+            name: 'Kyiv',
             travelEstimates: {
-              arrivalTime: {
-                timeSinceEpochMillis: Date.now() + 5.5 * 3600000,
-                timezone: 'Europe/Berlin',
+              distanceRemaining: { unit: 'kilometers', value: 350 },
+              timeRemaining: {
+                seconds: 5.5 * 3600,
+                timezone: 'Europe/Kyiv',
               },
-              distanceRemaining: { unit: 'kilometers', value: 450 },
-              timeRemaining: 5.5 * 3600,
             },
           },
         ],

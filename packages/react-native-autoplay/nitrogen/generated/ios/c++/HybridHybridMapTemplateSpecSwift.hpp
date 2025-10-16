@@ -56,8 +56,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
-// Forward declaration of `DateTimeWithZone` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
+// Forward declaration of `DurationWithTimeZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DurationWithTimeZone; }
 // Forward declaration of `TripPreviewTextConfiguration` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 
@@ -87,7 +87,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "RouteChoice.hpp"
 #include "TripPoint.hpp"
 #include "TravelEstimates.hpp"
-#include "DateTimeWithZone.hpp"
+#include "DurationWithTimeZone.hpp"
 #include "TripPreviewTextConfiguration.hpp"
 
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"

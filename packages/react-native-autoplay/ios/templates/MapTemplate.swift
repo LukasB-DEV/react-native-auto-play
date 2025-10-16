@@ -107,17 +107,15 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         )
     }
 
-    // MARK: display style
+    // MARK: maneuver style
     func mapTemplate(
         _ mapTemplate: CPMapTemplate,
         displayStyleFor maneuver: CPManeuver
     ) -> CPManeuverDisplayStyle {
-        return .leadingSymbol  // same as CPManeuverDisplayStyleDefault
-        //        if(maneuver.instructionVariants.count == 0) {
-        //            return CPManeuverDisplayStyleSymbolOnly;
-        //        } else {
-        //            return CPManeuverDisplayStyleDefault;
-        //        }
+        if maneuver.instructionVariants.count == 0 {
+            return .symbolOnly
+        }
+        return .leadingSymbol
     }
 
     // MARK: navigation events

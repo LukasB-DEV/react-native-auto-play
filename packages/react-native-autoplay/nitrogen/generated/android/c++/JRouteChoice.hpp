@@ -10,12 +10,14 @@
 #include <fbjni/fbjni.h>
 #include "RouteChoice.hpp"
 
-#include "DateTimeWithZone.hpp"
+#include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
-#include "JDateTimeWithZone.hpp"
+#include "DurationWithTimeZone.hpp"
+#include "JAutoText.hpp"
 #include "JDistance.hpp"
 #include "JDistanceUnits.hpp"
+#include "JDurationWithTimeZone.hpp"
 #include "JTravelEstimates.hpp"
 #include "JTripPoint.hpp"
 #include "TravelEstimates.hpp"

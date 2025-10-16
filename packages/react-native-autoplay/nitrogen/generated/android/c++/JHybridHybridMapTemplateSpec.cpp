@@ -51,8 +51,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
-// Forward declaration of `DateTimeWithZone` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
+// Forward declaration of `DurationWithTimeZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DurationWithTimeZone; }
 // Forward declaration of `TripPreviewTextConfiguration` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 
@@ -111,8 +111,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "JTripPoint.hpp"
 #include "TravelEstimates.hpp"
 #include "JTravelEstimates.hpp"
-#include "DateTimeWithZone.hpp"
-#include "JDateTimeWithZone.hpp"
+#include "DurationWithTimeZone.hpp"
+#include "JDurationWithTimeZone.hpp"
 #include "TripPreviewTextConfiguration.hpp"
 #include "JTripPreviewTextConfiguration.hpp"
 #include "JFunc_void_std__string_std__string.hpp"

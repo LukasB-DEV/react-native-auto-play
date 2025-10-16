@@ -236,7 +236,7 @@ class Parser {
                     "\(Parser.PLACEHOLDER_DURATION) (\(Parser.PLACEHOLDER_DISTANCE))",
                 distance: routeChoice.steps.last!.travelEstimates
                     .distanceRemaining,
-                duration: routeChoice.steps.last!.travelEstimates.timeRemaining
+                duration: routeChoice.steps.last!.travelEstimates.timeRemaining.seconds
             )
         )!
 
@@ -296,7 +296,7 @@ class Parser {
             distanceRemaining: parseDistance(
                 distance: travelEstimates.distanceRemaining
             ),
-            timeRemaining: travelEstimates.timeRemaining
+            timeRemaining: travelEstimates.timeRemaining.seconds
         )
     }
 

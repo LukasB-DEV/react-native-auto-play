@@ -18,8 +18,14 @@ public extension TravelEstimates {
   /**
    * Create a new instance of `TravelEstimates`.
    */
-  init(distanceRemaining: Distance, timeRemaining: Double, arrivalTime: DateTimeWithZone) {
-    self.init(distanceRemaining, timeRemaining, arrivalTime)
+  init(distanceRemaining: Distance, timeRemaining: DurationWithTimeZone, tripText: AutoText?) {
+    self.init(distanceRemaining, timeRemaining, { () -> bridge.std__optional_AutoText_ in
+      if let __unwrappedValue = tripText {
+        return bridge.create_std__optional_AutoText_(__unwrappedValue)
+      } else {
+        return .init()
+      }
+    }())
   }
 
   var distanceRemaining: Distance {
@@ -33,7 +39,7 @@ public extension TravelEstimates {
     }
   }
   
-  var timeRemaining: Double {
+  var timeRemaining: DurationWithTimeZone {
     @inline(__always)
     get {
       return self.__timeRemaining
@@ -44,14 +50,20 @@ public extension TravelEstimates {
     }
   }
   
-  var arrivalTime: DateTimeWithZone {
+  var tripText: AutoText? {
     @inline(__always)
     get {
-      return self.__arrivalTime
+      return self.__tripText.value
     }
     @inline(__always)
     set {
-      self.__arrivalTime = newValue
+      self.__tripText = { () -> bridge.std__optional_AutoText_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_AutoText_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
     }
   }
 }

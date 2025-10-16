@@ -25,11 +25,15 @@
 
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
-// Forward declaration of `DateTimeWithZone` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
+// Forward declaration of `DurationWithTimeZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DurationWithTimeZone; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 
 #include "Distance.hpp"
-#include "DateTimeWithZone.hpp"
+#include "DurationWithTimeZone.hpp"
+#include "AutoText.hpp"
+#include <optional>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -39,12 +43,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   struct TravelEstimates {
   public:
     Distance distanceRemaining     SWIFT_PRIVATE;
-    double timeRemaining     SWIFT_PRIVATE;
-    DateTimeWithZone arrivalTime     SWIFT_PRIVATE;
+    DurationWithTimeZone timeRemaining     SWIFT_PRIVATE;
+    std::optional<AutoText> tripText     SWIFT_PRIVATE;
 
   public:
     TravelEstimates() = default;
-    explicit TravelEstimates(Distance distanceRemaining, double timeRemaining, DateTimeWithZone arrivalTime): distanceRemaining(distanceRemaining), timeRemaining(timeRemaining), arrivalTime(arrivalTime) {}
+    explicit TravelEstimates(Distance distanceRemaining, DurationWithTimeZone timeRemaining, std::optional<AutoText> tripText): distanceRemaining(distanceRemaining), timeRemaining(timeRemaining), tripText(tripText) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -58,15 +62,15 @@ namespace margelo::nitro {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates(
         JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance>::fromJSI(runtime, obj.getProperty(runtime, "distanceRemaining")),
-        JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "timeRemaining")),
-        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DateTimeWithZone>::fromJSI(runtime, obj.getProperty(runtime, "arrivalTime"))
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DurationWithTimeZone>::fromJSI(runtime, obj.getProperty(runtime, "timeRemaining")),
+        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>>::fromJSI(runtime, obj.getProperty(runtime, "tripText"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "distanceRemaining", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance>::toJSI(runtime, arg.distanceRemaining));
-      obj.setProperty(runtime, "timeRemaining", JSIConverter<double>::toJSI(runtime, arg.timeRemaining));
-      obj.setProperty(runtime, "arrivalTime", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DateTimeWithZone>::toJSI(runtime, arg.arrivalTime));
+      obj.setProperty(runtime, "timeRemaining", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DurationWithTimeZone>::toJSI(runtime, arg.timeRemaining));
+      obj.setProperty(runtime, "tripText", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>>::toJSI(runtime, arg.tripText));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -78,8 +82,8 @@ namespace margelo::nitro {
         return false;
       }
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::Distance>::canConvert(runtime, obj.getProperty(runtime, "distanceRemaining"))) return false;
-      if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "timeRemaining"))) return false;
-      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DateTimeWithZone>::canConvert(runtime, obj.getProperty(runtime, "arrivalTime"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::DurationWithTimeZone>::canConvert(runtime, obj.getProperty(runtime, "timeRemaining"))) return false;
+      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>>::canConvert(runtime, obj.getProperty(runtime, "tripText"))) return false;
       return true;
     }
   };

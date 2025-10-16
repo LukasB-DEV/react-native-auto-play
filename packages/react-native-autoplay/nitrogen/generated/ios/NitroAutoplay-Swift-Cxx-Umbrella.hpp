@@ -22,12 +22,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertTemplateCo
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
-// Forward declaration of `DateTimeWithZone` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DateTimeWithZone; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
+// Forward declaration of `DurationWithTimeZone` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DurationWithTimeZone; }
 // Forward declaration of `EventName` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class EventName; }
 // Forward declaration of `GridTemplateConfig` to properly resolve imports.
@@ -97,9 +97,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "AlertTemplateConfig.hpp"
 #include "AutoText.hpp"
 #include "ColorScheme.hpp"
-#include "DateTimeWithZone.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "DurationWithTimeZone.hpp"
 #include "EventName.hpp"
 #include "GridTemplateConfig.hpp"
 #include "HybridHybridAutoPlaySpec.hpp"

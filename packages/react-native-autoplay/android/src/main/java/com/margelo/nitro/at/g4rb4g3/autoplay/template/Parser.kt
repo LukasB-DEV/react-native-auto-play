@@ -20,6 +20,7 @@ import androidx.car.app.navigation.model.TravelEstimate
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DurationWithTimeZone
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
@@ -33,7 +34,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.time.Duration
 
 object Parser {
     const val TAG = "Parser"
@@ -191,18 +191,22 @@ object Parser {
         }.build()
     }
 
-    fun formatToTimestamp(time: com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DateTimeWithZone): String {
+    fun formatToTimestamp(time: DurationWithTimeZone): String {
         val calendar = Calendar.getInstance().apply {
-            timeInMillis = time.timeSinceEpochMillis.toLong()
+            add(Calendar.SECOND, time.seconds.toInt())
         }
 
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(calendar.time)
     }
 
-    fun parseDateTimeWithZone(time: com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DateTimeWithZone): DateTimeWithZone {
+    fun parseDurationWithTimeZone(time: DurationWithTimeZone): DateTimeWithZone {
+        val calendar = Calendar.getInstance().apply {
+            add(Calendar.SECOND, time.seconds.toInt())
+        }
+
         return DateTimeWithZone.create(
-            time.timeSinceEpochMillis.toLong(), TimeZone.getTimeZone(time.timezone)
+            calendar.time.time, TimeZone.getTimeZone(time.timezone)
         )
     }
 
@@ -221,9 +225,15 @@ object Parser {
     fun parseTravelEstimates(travelEstimates: TravelEstimates): TravelEstimate {
         val travelEstimate = TravelEstimate.Builder(
             parseDistance(travelEstimates.distanceRemaining),
-            parseDateTimeWithZone(travelEstimates.arrivalTime)
+            parseDurationWithTimeZone(travelEstimates.timeRemaining)
         ).apply {
-            setRemainingTimeSeconds(travelEstimates.timeRemaining.toLong())
+            setRemainingTimeSeconds(travelEstimates.timeRemaining.seconds.toLong())
+            travelEstimates.tripText?.let {
+                setTripText(parseText(it))
+            }
+//            travelEstimates.tripIcon?.let {
+//                setTripIcon(CarIcon.APP_ICON)
+//            }
         }.build()
 
         return travelEstimate

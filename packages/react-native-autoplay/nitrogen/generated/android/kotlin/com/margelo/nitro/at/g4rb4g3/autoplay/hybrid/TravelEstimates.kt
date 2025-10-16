@@ -26,10 +26,10 @@ data class TravelEstimates
     val distanceRemaining: Distance,
     @DoNotStrip
     @Keep
-    val timeRemaining: Double,
+    val timeRemaining: DurationWithTimeZone,
     @DoNotStrip
     @Keep
-    val arrivalTime: DateTimeWithZone
+    val tripText: AutoText?
   ) {
   /* main constructor */
 }

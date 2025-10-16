@@ -18,26 +18,8 @@ public extension TripPoint {
   /**
    * Create a new instance of `TripPoint`.
    */
-  init(latitude: Double, longitude: Double, name: String, travelEstimates: TravelEstimates, address: String?, tripText: String?, tripIcon: Double?) {
-    self.init(latitude, longitude, std.string(name), travelEstimates, { () -> bridge.std__optional_std__string_ in
-      if let __unwrappedValue = address {
-        return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_std__string_ in
-      if let __unwrappedValue = tripText {
-        return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_double_ in
-      if let __unwrappedValue = tripIcon {
-        return bridge.create_std__optional_double_(__unwrappedValue)
-      } else {
-        return .init()
-      }
-    }())
+  init(latitude: Double, longitude: Double, name: String, travelEstimates: TravelEstimates) {
+    self.init(latitude, longitude, std.string(name), travelEstimates)
   }
 
   var latitude: Double {
@@ -81,71 +63,6 @@ public extension TripPoint {
     @inline(__always)
     set {
       self.__travelEstimates = newValue
-    }
-  }
-  
-  var address: String? {
-    @inline(__always)
-    get {
-      return { () -> String? in
-        if bridge.has_value_std__optional_std__string_(self.__address) {
-          let __unwrapped = bridge.get_std__optional_std__string_(self.__address)
-          return String(__unwrapped)
-        } else {
-          return nil
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__address = { () -> bridge.std__optional_std__string_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var tripText: String? {
-    @inline(__always)
-    get {
-      return { () -> String? in
-        if bridge.has_value_std__optional_std__string_(self.__tripText) {
-          let __unwrapped = bridge.get_std__optional_std__string_(self.__tripText)
-          return String(__unwrapped)
-        } else {
-          return nil
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__tripText = { () -> bridge.std__optional_std__string_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var tripIcon: Double? {
-    @inline(__always)
-    get {
-      return self.__tripIcon.value
-    }
-    @inline(__always)
-    set {
-      self.__tripIcon = { () -> bridge.std__optional_double_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_double_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
     }
   }
 }
