@@ -20,10 +20,7 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
     }
 
     override fun showNavigationAlert(templateId: String, alert: NitroNavigationAlert) {
-        val template = AndroidAutoTemplate.Companion.getTemplate(templateId) as? MapTemplate
-            ?: throw IllegalArgumentException(
-                "showNavigationAlert failed, $templateId not of instance MapTemplate"
-            )
+        val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
         template.showAlert(alert)
     }
 
@@ -67,11 +64,15 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
     override fun setTemplateMapButtons(
         templateId: String, buttons: Array<NitroMapButton>?
     ) {
-        val template = AndroidAutoTemplate.Companion.getTemplate(templateId)
-        if (template !is MapTemplate) {
-            throw IllegalArgumentException("setTemplateMapButtons failed, template $templateId is not of type MapTemplate")
-        }
-
+        val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
         template.setMapActions(buttons)
+    }
+
+    override fun updateGuidanceBackgroundColor(
+        templateId: String,
+        color: NitroColor?
+    ) {
+        val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
+        template.updateGuidanceBackgroundColor(color)
     }
 }

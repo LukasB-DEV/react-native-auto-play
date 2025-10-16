@@ -2,6 +2,7 @@ import type { HybridObject } from 'react-native-nitro-modules';
 import type { NitroMapTemplateConfig } from '../templates/MapTemplate';
 import type { TripConfig, TripPreviewTextConfiguration } from '../types/Trip';
 import type { NitroNavigationAlert } from '../utils/NitroAlert';
+import type { NitroColor } from '../utils/NitroColor';
 import type { NitroMapButton } from '../utils/NitroMapButton';
 import type { NitroTemplateConfig } from './HybridAutoPlay.nitro';
 
@@ -28,4 +29,9 @@ export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios
    * update the map buttons on a map template
    */
   setTemplateMapButtons(templateId: string, buttons?: Array<NitroMapButton>): void;
+
+  /**
+   * Sets the background color to use for the navigation information.
+   */
+  updateGuidanceBackgroundColor(templateId: string, color?: NitroColor): void;
 }

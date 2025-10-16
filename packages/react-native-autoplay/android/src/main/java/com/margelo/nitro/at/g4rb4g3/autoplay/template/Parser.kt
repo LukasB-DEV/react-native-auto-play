@@ -1,10 +1,12 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
+import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.util.Log
 import androidx.car.app.CarContext
 import androidx.car.app.model.Action
+import androidx.car.app.model.CarColor
 import androidx.car.app.model.CarIcon
 import androidx.car.app.model.CarText
 import androidx.car.app.model.Distance
@@ -22,6 +24,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 import java.text.SimpleDateFormat
@@ -203,5 +206,12 @@ object Parser {
                 addVariant(string)
             }
         }.build()
+    }
+
+    fun parseColor(color: NitroColor): CarColor {
+        return CarColor.createCustom(
+            color.lightColor.toInt(),
+            color.darkColor.toInt()
+        )
     }
 }

@@ -21,6 +21,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroActionType; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
+// Forward declaration of `NitroColor` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
@@ -70,6 +72,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "JNitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "JNitroAlignment.hpp"
+#include "NitroColor.hpp"
+#include "JNitroColor.hpp"
 #include "Point.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
 #include "JPoint.hpp"
@@ -166,6 +170,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       }
       return __array;
     }() : nullptr);
+  }
+  void JHybridHybridMapTemplateSpec::updateGuidanceBackgroundColor(const std::string& templateId, const std::optional<NitroColor>& color) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroColor> /* color */)>("updateGuidanceBackgroundColor");
+    method(_javaPart, jni::make_jstring(templateId), color.has_value() ? JNitroColor::fromCpp(color.value()) : nullptr);
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

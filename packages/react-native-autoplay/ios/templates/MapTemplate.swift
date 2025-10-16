@@ -53,6 +53,8 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                 }
             }
         }
+        
+        updateGuidanceBackgroundColor(color: config.guidanceBackgroundColor)
     }
 
     override func onWillAppear(animted: Bool) {
@@ -327,5 +329,18 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         }
         
         hideTripSelector()
+    }
+    
+    func updateGuidanceBackgroundColor(color: NitroColor?) {
+        guard let template = self.template as? CPMapTemplate else { return }
+        
+        config.guidanceBackgroundColor = color
+        
+        guard let color = Parser.parseColor(color: color) else {
+            template.guidanceBackgroundColor = .systemGray
+            return
+        }
+        
+        template.guidanceBackgroundColor = color
     }
 }

@@ -69,6 +69,10 @@ abstract class HybridHybridMapTemplateSpec: HybridObject() {
     val __result = setTemplateMapButtons(templateId, buttons?.let { it })
     return __result
   }
+  
+  @DoNotStrip
+  @Keep
+  abstract fun updateGuidanceBackgroundColor(templateId: String, color: NitroColor?): Unit
 
   private external fun initHybrid(): HybridData
 

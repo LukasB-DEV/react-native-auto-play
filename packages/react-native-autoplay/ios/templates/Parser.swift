@@ -6,6 +6,7 @@
 //
 
 import CarPlay
+import React
 import UIKit
 
 struct Actions {
@@ -291,5 +292,23 @@ class Parser {
             ),
             timeRemaining: travelEstimates.timeRemaining
         )
+    }
+
+    static func parseColor(color: NitroColor?) -> UIColor? {
+        guard let color else { return nil }
+
+        let darkColor = RCTConvert.uiColor(color.darkColor) ?? .systemGray
+        let lightColor = RCTConvert.uiColor(color.lightColor) ?? .systemGray
+
+        return UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return darkColor
+            case .light, .unspecified:
+                return lightColor
+            @unknown default:
+                return lightColor
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
-import { Platform, processColor } from 'react-native';
+import { Platform } from 'react-native';
 import { glyphMap } from '../types/Glyphmap';
 import type { AutoImage } from '../types/Image';
+import { NitroColorUtil } from './NitroColor';
 
 /**
  * we need to map the ButtonImage.name from GlyphName to
@@ -25,10 +26,10 @@ function convert(image?: AutoImage): NitroImage | undefined {
     ...rest,
     size,
     glyph: glyphMap[name],
-    color: processColor(color) as number | undefined,
-    backgroundColor: processColor(Platform.OS === 'android' ? 'transparent' : backgroundColor) as
-      | number
-      | undefined,
+    color: NitroColorUtil.convert(color) as number | undefined,
+    backgroundColor: NitroColorUtil.convert(
+      Platform.OS === 'android' ? 'transparent' : backgroundColor
+    ) as number | undefined,
   };
 }
 

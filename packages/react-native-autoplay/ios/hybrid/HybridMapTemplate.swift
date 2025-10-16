@@ -62,5 +62,10 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
             template.hideTripSelector()
         }
     }
-
+    
+    func updateGuidanceBackgroundColor(templateId: String, color: NitroColor?) throws {
+        try RootModule.withMapTemplate(templateId: templateId) { template in
+            template.updateGuidanceBackgroundColor(color: color)
+        }
+    }
 }

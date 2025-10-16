@@ -19,6 +19,7 @@ public protocol HybridHybridMapTemplateSpec_protocol: HybridObject {
   func showTripSelector(templateId: String, trips: [TripConfig], selectedTripId: String?, textConfig: TripPreviewTextConfiguration, onTripSelected: @escaping (_ tripId: String, _ routeId: String) -> Void, onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void) throws -> Void
   func hideTripSelector(templateId: String) throws -> Void
   func setTemplateMapButtons(templateId: String, buttons: [NitroMapButton]?) throws -> Void
+  func updateGuidanceBackgroundColor(templateId: String, color: NitroColor?) throws -> Void
 }
 
 /// See ``HybridHybridMapTemplateSpec``

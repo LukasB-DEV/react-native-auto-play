@@ -35,6 +35,11 @@ abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
             return templates[id]
         }
 
+        inline fun <reified T> getTemplate(id: String): T {
+            val template = templates[id] as? T
+            return template ?: throw IllegalArgumentException()
+        }
+
         fun getConfig(id: String): Any? {
             return templates[id]?.config
         }

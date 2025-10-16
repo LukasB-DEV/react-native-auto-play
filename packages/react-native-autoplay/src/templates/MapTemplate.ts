@@ -7,6 +7,7 @@ import type { ColorScheme, RootComponentInitialProps } from '../types/RootCompon
 import type { TripConfig, TripPreviewTextConfiguration } from '../types/Trip';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NavigationAlert, NitroAlertUtil } from '../utils/NitroAlert';
+import { type NitroColor, NitroColorUtil, type ThemedColor } from '../utils/NitroColor';
 import { NitroMapButton } from '../utils/NitroMapButton';
 import {
   type ActionsIos,
@@ -30,7 +31,7 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
   mapButtons?: Array<NitroMapButton>;
 
   actions?: Array<NitroAction>;
-
+  guidanceBackgroundColor?: NitroColor;
   /**
    * callback for single finger pan gesture
    * @param translation distance in pixels along the x & y axis that has been scrolled since the last touch position during the scroll event
@@ -68,7 +69,10 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
 
 export type MapButtons<T> = Array<MapButton<T> | MapPanButton<T>>;
 
-export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id' | 'mapButtons' | 'actions'> & {
+export type MapTemplateConfig = Omit<
+  NitroMapTemplateConfig,
+  'id' | 'mapButtons' | 'actions' | 'guidanceBackgroundColor'
+> & {
   /**
    * since we need to find the proper Android screen/iOS scene only certain ids can be used on this template
    */
@@ -90,6 +94,11 @@ export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'id' | 'mapButtons'
     android?: ActionsAndroidMap<MapTemplate>;
     ios?: ActionsIos<MapTemplate>;
   };
+
+  /**
+   * Sets the background color to use for the navigation information.
+   */
+  guidanceBackgroundColor?: ThemedColor;
 };
 
 const convertActions = (template: MapTemplate, actions: MapTemplateConfig['actions']) => {
@@ -104,7 +113,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
   constructor(config: MapTemplateConfig) {
     super(config);
 
-    const { component, mapButtons, actions, ...baseConfig } = config;
+    const { component, mapButtons, actions, guidanceBackgroundColor, ...baseConfig } = config;
 
     AppRegistry.registerComponent(
       this.id,
@@ -120,6 +129,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       ...baseConfig,
       id: this.id,
       actions: convertActions(this.template, actions),
+      guidanceBackgroundColor: NitroColorUtil.convertThemed(guidanceBackgroundColor),
       mapButtons: NitroMapButton.convert(this.template, mapButtons),
     };
 
@@ -164,5 +174,12 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
 
   public hideTripSelector() {
     HybridMapTemplate.hideTripSelector(this.id);
+  }
+
+  public updateGuidanceBackgroundColor(lightColor: string, darkColor: string) {
+    HybridMapTemplate.updateGuidanceBackgroundColor(
+      this.id,
+      NitroColorUtil.convertThemed({ darkColor, lightColor })
+    );
   }
 }

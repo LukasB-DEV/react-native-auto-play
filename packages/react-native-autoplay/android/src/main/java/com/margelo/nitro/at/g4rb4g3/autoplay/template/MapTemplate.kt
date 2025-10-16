@@ -17,6 +17,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButtonType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroNavigationAlert
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 
@@ -95,6 +96,9 @@ class MapTemplate(
             }
             config.actions?.let { actions ->
                 setActionStrip(parseMapActions(actions))
+            }
+            config.guidanceBackgroundColor?.let {
+                setBackgroundColor(Parser.parseColor(it))
             }
         }.build()
     }
@@ -198,5 +202,10 @@ class MapTemplate(
         }
 
         context.getCarService(AppManager::class.java).showAlert(alert)
+    }
+
+    fun updateGuidanceBackgroundColor(color: NitroColor?) {
+        config = config.copy(guidanceBackgroundColor = color)
+        super.applyConfigUpdate()
     }
 }

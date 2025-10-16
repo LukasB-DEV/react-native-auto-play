@@ -17,13 +17,7 @@ class HybridListTemplate : HybridHybridListTemplateSpec() {
     override fun updateListTemplateSections(
         templateId: String, sections: Array<NitroSection>?
     ) {
-        val template = AndroidAutoTemplate.Companion.getTemplate(templateId)
-            ?: throw IllegalArgumentException("updateListTemplateSections failed, template $templateId not found")
-
-        if (template !is ListTemplate) {
-            throw IllegalArgumentException("setTemplateMapButtons failed, template $templateId is not of type ListTemplate")
-        }
-
+        val template = AndroidAutoTemplate.Companion.getTemplate<ListTemplate>(templateId)
         template.updateSections(sections)
     }
 }

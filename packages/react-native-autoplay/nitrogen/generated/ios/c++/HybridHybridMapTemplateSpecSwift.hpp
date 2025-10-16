@@ -26,6 +26,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroActionType; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
+// Forward declaration of `NitroColor` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
@@ -66,6 +68,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewText
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
+#include "NitroColor.hpp"
 #include "Point.hpp"
 #include "ColorScheme.hpp"
 #include "NitroNavigationAlert.hpp"
@@ -148,6 +151,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     }
     inline void setTemplateMapButtons(const std::string& templateId, const std::optional<std::vector<NitroMapButton>>& buttons) override {
       auto __result = _swiftPart.setTemplateMapButtons(templateId, buttons);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void updateGuidanceBackgroundColor(const std::string& templateId, const std::optional<NitroColor>& color) override {
+      auto __result = _swiftPart.updateGuidanceBackgroundColor(templateId, color);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
