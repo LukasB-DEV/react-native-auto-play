@@ -22,7 +22,7 @@ const backButton: BackButton<any> = {
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
-const actions: Actions<any> = {
+const headerActions: Actions<any> = {
   android: {
     startHeaderAction: backButton,
     endHeaderActions: [
@@ -70,7 +70,7 @@ const stopNavigation: ImageButton<MapTemplate> = {
   },
   onPress: (template) => {
     template.stopNavigation();
-    template.setActions(mapActions);
+    template.setHeaderActions(mapHeaderActions);
   },
   type: 'image',
 };
@@ -127,12 +127,12 @@ const estimatesUpdate = (template: MapTemplate, type: 'add' | 'remove') => {
 
 const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   if (Platform.OS === 'ios') {
-    template.setActions({
+    template.setHeaderActions({
       ios: {
         backButton: {
           type: 'back',
           onPress: () => {
-            template.setActions(mapActions);
+            template.setHeaderActions(mapHeaderActions);
             template.setMapButtons(mapButtons);
             template.hideTripSelector();
           },
@@ -147,7 +147,7 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   };
 
   const onTripStarted = (tripId: string, routeId: string) => {
-    template.setActions({
+    template.setHeaderActions({
       android: [stopNavigation, toggleEta, plusOne, minusOne],
       ios: {
         leadingNavigationBarButtons: [toggleEta, stopNavigation],
@@ -170,7 +170,7 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   template.showTripSelector(AutoTrip, null, TextConfig, onTripSelected, onTripStarted);
 };
 
-const mapActions: MapTemplateConfig['actions'] = {
+const mapHeaderActions: MapTemplateConfig['headerActions'] = {
   android: [
     {
       type: 'image',
@@ -296,4 +296,4 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
   },
 ];
 
-export const AutoTemplate = { actions, mapActions, mapButtons };
+export const AutoTemplate = { headerActions, mapHeaderActions, mapButtons };

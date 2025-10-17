@@ -68,7 +68,7 @@ const registerRunnable = () => {
       onClick: ({ x, y }) => console.log('*** onClick', x, y),
       onDoubleClick: ({ x, y }) => console.log('*** onDoubleClick', x, y),
       onAppearanceDidChange: (colorScheme) => console.log('*** onAppearanceDidChange', colorScheme),
-      actions: AutoTemplate.mapActions,
+      headerActions: AutoTemplate.mapHeaderActions,
       mapButtons: AutoTemplate.mapButtons,
     });
     rootTemplate.setRootTemplate();

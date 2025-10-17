@@ -5,7 +5,7 @@ const getTemplate = (): MessageTemplate => {
   return new MessageTemplate({
     title: { text: 'message' },
     message: { text: 'message' },
-    actions: AutoTemplate.actions,
+    headerActions: AutoTemplate.headerActions,
     onWillAppear: () => console.log('MessageTemplate onWillAppear'),
     onDidAppear: () => console.log('MessageTemplate onDidAppear'),
     onWillDisappear: () => console.log('MessageTemplate onWillDisappear'),
