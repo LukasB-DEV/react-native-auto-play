@@ -358,6 +358,7 @@ class MapTemplate(
                         current.roadFollowingManeuverVariants?.let {
                             setRoad(it.first())
                         }
+                        // TODO: add ManeuverType mapping
                         setManeuver(Maneuver.Builder(Maneuver.TYPE_STRAIGHT).apply {
                             setIcon(Parser.parseImage(context, current.symbolImage))
                         }.build())
@@ -371,6 +372,7 @@ class MapTemplate(
                             it.roadFollowingManeuverVariants?.let {
                                 setRoad(it.first())
                             }
+                            // TODO: add ManeuverType mapping
                             setManeuver(Maneuver.Builder(Maneuver.TYPE_STRAIGHT).apply {
                                 setIcon(Parser.parseImage(context, it.symbolImage))
                             }.build())
