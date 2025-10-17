@@ -1,0 +1,59 @@
+//
+//  ListTemplate.swift
+//  Pods
+//
+//  Created by Manuel Auer on 08.10.25.
+//
+
+import CarPlay
+
+class MessageTemplate: AutoPlayTemplate {
+    var config: MessageTemplateConfig
+
+    init(config: MessageTemplateConfig) {
+        self.config = config
+        
+        let template = CPInformationTemplate(
+            title: Parser.parseText(text: config.title) ?? "",
+            layout: .leading,
+            items: [],
+            actions: []
+        )
+
+        super.init(
+            templateId: config.id,
+            template: template,
+            header: config.actions
+        )
+
+        invalidate()
+    }
+
+    override func invalidate() {
+        guard let template = self.template as? CPInformationTemplate else {
+            return
+        }
+
+        setBarButtons()
+    }
+
+    override func onWillAppear(animted: Bool) {
+        config.onWillAppear?(animted)
+    }
+
+    override func onDidAppear(animted: Bool) {
+        config.onDidDisappear?(animted)
+    }
+
+    override func onWillDisappear(animted: Bool) {
+        config.onWillDisappear?(animted)
+    }
+
+    override func onDidDisappear(animted: Bool) {
+        config.onDidDisappear?(animted)
+    }
+
+    override func onPopped() {
+        config.onPopped?()
+    }
+}
