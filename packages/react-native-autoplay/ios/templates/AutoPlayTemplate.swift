@@ -22,7 +22,7 @@ class AutoPlayTemplate: NSObject {
         guard let template = template as? CPBarButtonProviding else { return }
 
         if let headerActions = barButtons {
-            let parsedActions = Parser.parseActions(headerActions: headerActions)
+            let parsedActions = Parser.parseHeaderActions(headerActions: headerActions)
 
             template.backButton = parsedActions.backButton
             template.leadingNavigationBarButtons =

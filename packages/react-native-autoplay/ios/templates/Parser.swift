@@ -9,7 +9,7 @@ import CarPlay
 import React
 import UIKit
 
-struct Actions {
+struct HeaderActions {
     let leadingNavigationBarButtons: [CPBarButton]
     let trailingNavigationBarButtons: [CPBarButton]
     let backButton: CPBarButton?
@@ -19,7 +19,7 @@ class Parser {
     static let PLACEHOLDER_DISTANCE = "{distance}"
     static let PLACEHOLDER_DURATION = "{duration}"
 
-    static func parseActions(headerActions: [NitroAction]?) -> Actions {
+    static func parseHeaderActions(headerActions: [NitroAction]?) -> HeaderActions {
         var leadingNavigationBarButtons: [CPBarButton] = []
         var trailingNavigationBarButtons: [CPBarButton] = []
         var backButton: CPBarButton?
@@ -54,7 +54,7 @@ class Parser {
             }
         }
 
-        return Actions(
+        return HeaderActions(
             leadingNavigationBarButtons: leadingNavigationBarButtons,
             trailingNavigationBarButtons: trailingNavigationBarButtons,
             backButton: backButton
