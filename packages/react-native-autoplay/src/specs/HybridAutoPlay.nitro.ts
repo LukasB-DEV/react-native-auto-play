@@ -31,10 +31,12 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
    * @namespace iOS
    */
   presentTemplate(templateId: string): Promise<void>;
+
   /**
-   * @namespace iOS
+   * @namespace ios
+   * @param animate - defaults to true
    */
-  dismissTemplate(): Promise<void>;
+  dismissTemplate(animate?: boolean): Promise<void>;
 
   /**
    * sets the specified template as root template, initializes a new stack
@@ -50,13 +52,15 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
 
   /**
    * remove the top template from the stack
+   * @param animate - defaults to true
    */
-  popTemplate(): Promise<void>;
+  popTemplate(animate?: boolean): Promise<void>;
 
   /**
    * remove all templates from the stack except the root template
+   * @param animate - defaults to true
    */
-  popToRootTemplate(): Promise<void>;
+  popToRootTemplate(animate?: boolean): Promise<void>;
 
   /**
    * removes all templates until the specified one is the top template

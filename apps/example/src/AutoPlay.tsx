@@ -55,10 +55,10 @@ const registerRunnable = () => {
       component: AutoPlayRoot,
       id: 'AutoPlayRoot',
       visibleTravelEstimate: 'first',
-      onWillAppear: () => console.log('onWillAppear'),
-      onDidAppear: () => console.log('onDidAppear'),
-      onWillDisappear: () => console.log('onWillDisappear'),
-      onDidDisappear: () => console.log('onDidDisappear'),
+      onWillAppear: () => console.log('AutoPlayRoot onWillAppear'),
+      onDidAppear: () => console.log('AutoPlayRoot onDidAppear'),
+      onWillDisappear: () => console.log('AutoPlayRoot onWillDisappear'),
+      onDidDisappear: () => console.log('AutoPlayRoot onDidDisappear'),
       onDidUpdatePanGestureWithTranslation: ({ x, y }) => {
         console.log('*** onDidUpdatePanGestureWithTranslation', x, y);
       },
