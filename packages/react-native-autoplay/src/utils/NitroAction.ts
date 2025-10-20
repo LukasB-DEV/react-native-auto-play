@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
-import type { ActionsAndroidMap } from '../templates/MapTemplate';
-import type { Actions, ActionsAndroid, ActionsIos } from '../templates/Template';
+import type { HeaderActionsAndroidMap } from '../templates/MapTemplate';
+import type { HeaderActions, HeaderActionsAndroid, HeaderActionsIos } from '../templates/Template';
 import type {
   ActionButtonAndroid,
   ActionButtonIos,
@@ -83,14 +83,14 @@ const convertToNitro = <T>(
 
 const convertAndroidMap = <T>(
   template: T,
-  actions?: ActionsAndroidMap<T>
+  actions?: HeaderActionsAndroidMap<T>
 ): Array<NitroAction> | undefined => {
   return actions?.map<NitroAction>((action) => convertToNitro(template, action, undefined));
 };
 
-function convertIos<T>(template: T, actions: ActionsIos<T>): Array<NitroAction>;
-function convertIos<T>(template: T, actions?: ActionsIos<T>): Array<NitroAction> | undefined;
-function convertIos<T>(template: T, actions?: ActionsIos<T>): Array<NitroAction> | undefined {
+function convertIos<T>(template: T, actions: HeaderActionsIos<T>): Array<NitroAction>;
+function convertIos<T>(template: T, actions?: HeaderActionsIos<T>): Array<NitroAction> | undefined;
+function convertIos<T>(template: T, actions?: HeaderActionsIos<T>): Array<NitroAction> | undefined {
   if (actions == null) {
     return undefined;
   }
@@ -142,14 +142,14 @@ function convertIos<T>(template: T, actions?: ActionsIos<T>): Array<NitroAction>
   return nitroActions;
 }
 
-function convertAndroid<T>(template: T, actions: ActionsAndroid<T>): Array<NitroAction>;
+function convertAndroid<T>(template: T, actions: HeaderActionsAndroid<T>): Array<NitroAction>;
 function convertAndroid<T>(
   template: T,
-  actions?: ActionsAndroid<T>
+  actions?: HeaderActionsAndroid<T>
 ): Array<NitroAction> | undefined;
 function convertAndroid<T>(
   template: T,
-  actions?: ActionsAndroid<T>
+  actions?: HeaderActionsAndroid<T>
 ): Array<NitroAction> | undefined {
   if (actions == null) {
     return undefined;
@@ -179,9 +179,9 @@ function convertAndroid<T>(
   return nitroActions;
 }
 
-function convert<T>(template: T, actions: Actions<T>): Array<NitroAction>;
-function convert<T>(template: T, actions?: Actions<T>): Array<NitroAction> | undefined;
-function convert<T>(template: T, actions?: Actions<T>): Array<NitroAction> | undefined {
+function convert<T>(template: T, actions: HeaderActions<T>): Array<NitroAction>;
+function convert<T>(template: T, actions?: HeaderActions<T>): Array<NitroAction> | undefined;
+function convert<T>(template: T, actions?: HeaderActions<T>): Array<NitroAction> | undefined {
   return Platform.OS === 'android'
     ? convertAndroid(template, actions?.android)
     : convertIos(template, actions?.ios);

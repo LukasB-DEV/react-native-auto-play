@@ -3,7 +3,12 @@ import type { AutoImage } from '../types/Image';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NitroSection, NitroSectionUtil } from '../utils/NitroSection';
-import { type Actions, type NitroTemplateConfig, Template, type TemplateConfig } from './Template';
+import {
+  type HeaderActions,
+  type NitroTemplateConfig,
+  Template,
+  type TemplateConfig,
+} from './Template';
 
 type BaseRow = {
   title: AutoText;
@@ -61,7 +66,7 @@ export type ListTemplateConfig = Omit<NitroListTemplateConfig, 'headerActions' |
   /**
    * action buttons, usually at the the top right on Android and a top bar on iOS
    */
-  headerActions?: Actions<ListTemplate>;
+  headerActions?: HeaderActions<ListTemplate>;
 
   /**
    * a container that groups your list items into sections.
@@ -69,7 +74,7 @@ export type ListTemplateConfig = Omit<NitroListTemplateConfig, 'headerActions' |
   sections?: Section<ListTemplate>;
 };
 
-export class ListTemplate extends Template<ListTemplateConfig, Actions<ListTemplate>> {
+export class ListTemplate extends Template<ListTemplateConfig, HeaderActions<ListTemplate>> {
   private template = this;
 
   constructor(config: ListTemplateConfig) {

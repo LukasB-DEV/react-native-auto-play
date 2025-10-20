@@ -1,7 +1,7 @@
 import {
-  type Actions,
   type Alert,
   type BackButton,
+  type HeaderActions,
   HybridAutoPlay,
   type ImageButton,
   type MapTemplate,
@@ -24,7 +24,7 @@ const backButton: BackButton<any> = {
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
-const headerActions: Actions<any> = {
+const headerActions: HeaderActions<any> = {
   android: {
     startHeaderAction: backButton,
     endHeaderActions: [
@@ -70,7 +70,7 @@ const headerActions: Actions<any> = {
 
 export const onTripFinished = (template: MapTemplate) => {
   template.stopNavigation();
-  template.setActions(mapActions);
+  template.setHeaderActions(mapHeaderActions);
 
   dispatch(setIsNavigating(false));
 };
@@ -138,7 +138,7 @@ export const estimatesUpdate = (template: MapTemplate, type: 'initial' | 'add' |
 export const onTripStarted = (tripId: string, routeId: string, template: MapTemplate) => {
   dispatch(setIsNavigating(true));
 
-  template.setActions({
+  template.setHeaderActions({
     android: [stopNavigation, toggleEta, plusOne, minusOne],
     ios: {
       leadingNavigationBarButtons: [toggleEta, stopNavigation],

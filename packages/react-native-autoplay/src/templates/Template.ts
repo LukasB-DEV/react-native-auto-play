@@ -3,22 +3,21 @@ import { HybridAutoPlay } from '..';
 import type { ActionButtonAndroid, ActionButtonIos, AppButton, BackButton } from '../types/Button';
 import { NitroActionUtil } from '../utils/NitroAction';
 
-export type ActionsIos<T> = {
+export type HeaderActionsIos<T> = {
   backButton?: BackButton<T>;
   leadingNavigationBarButtons?: [ActionButtonIos<T>, ActionButtonIos<T>] | [ActionButtonIos<T>];
   trailingNavigationBarButtons?: [ActionButtonIos<T>, ActionButtonIos<T>] | [ActionButtonIos<T>];
 };
 
-export type ActionsAndroid<T> = {
+export type HeaderActionsAndroid<T> = {
   startHeaderAction?: AppButton | BackButton<T>;
   endHeaderActions?: [ActionButtonAndroid<T>, ActionButtonAndroid<T>] | [ActionButtonAndroid<T>];
 };
 
-export type Actions<T> = {
-  android?: ActionsAndroid<T>;
-  ios?: ActionsIos<T>;
+export type HeaderActions<T> = {
+  android?: HeaderActionsAndroid<T>;
+  ios?: HeaderActionsIos<T>;
 };
-
 export interface NitroTemplateConfig {
   id: string;
 }
@@ -83,7 +82,7 @@ export class Template<TemplateConfigType, ActionsType> {
   }
 
   public setHeaderActions<T>(headerActions?: ActionsType) {
-    const nitroActions = NitroActionUtil.convert(headerActions as Actions<T>);
+    const nitroActions = NitroActionUtil.convert(headerActions as HeaderActions<T>);
     HybridAutoPlay.setTemplateHeaderActions(this.id, nitroActions);
   }
 }

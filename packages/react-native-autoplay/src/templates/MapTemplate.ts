@@ -16,7 +16,7 @@ import { type NavigationAlert, NitroAlertUtil } from '../utils/NitroAlert';
 import { type NitroColor, NitroColorUtil, type ThemedColor } from '../utils/NitroColor';
 import { NitroMapButton } from '../utils/NitroMapButton';
 import {
-  type ActionsIos,
+  type HeaderActionsIos,
   type NitroTemplateConfig,
   Template,
   type TemplateConfig,
@@ -28,7 +28,7 @@ export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayClust
 type Point = { x: number; y: number };
 export type VisibleTravelEstimate = 'first' | 'last';
 
-export type ActionsAndroidMap<T> =
+export type HeaderActionsAndroidMap<T> =
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>]
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>]
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>]
@@ -104,8 +104,8 @@ export type MapTemplateConfig = Omit<
    * action buttons, usually at the the top right on Android and a top bar on iOS
    */
   headerActions?: {
-    android?: ActionsAndroidMap<MapTemplate>;
-    ios?: ActionsIos<MapTemplate>;
+    android?: HeaderActionsAndroidMap<MapTemplate>;
+    ios?: HeaderActionsIos<MapTemplate>;
   };
 
   /**
