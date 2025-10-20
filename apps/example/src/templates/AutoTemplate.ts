@@ -51,6 +51,7 @@ const headerActions: Actions<any> = {
         title: 'help',
         onPress: () => {
           console.log('*** help \\o/');
+          AutoMessageTemplate.getTemplate().push();
         },
       },
       {
