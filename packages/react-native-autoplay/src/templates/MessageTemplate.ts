@@ -12,7 +12,8 @@ export interface NitroMessageTemplateConfig extends TemplateConfig {
 
 export type MessageTemplateConfig = Omit<NitroMessageTemplateConfig, 'headerActions'> & {
   /**
-   * action buttons, usually at the the top right on Android and a top bar on iOS
+   * action buttons, usually at the top right on Android
+   * @namespace android
    */
   headerActions?: Actions<MessageTemplate>;
   /**
