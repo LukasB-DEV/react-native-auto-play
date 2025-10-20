@@ -34,10 +34,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertAction
 #include "VisibilityState.hpp"
 #include "JFunc_void_VisibilityState.hpp"
 #include "JVisibilityState.hpp"
+#include <optional>
 #include "SafeAreaInsets.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
 #include "JSafeAreaInsets.hpp"
-#include <optional>
 #include "NitroAction.hpp"
 #include <vector>
 #include "JNitroAction.hpp"
@@ -121,9 +121,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::dismissTemplate() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("dismissTemplate");
-    auto __result = method(_javaPart);
+  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::dismissTemplate(std::optional<bool> animate) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JBoolean> /* animate */)>("dismissTemplate");
+    auto __result = method(_javaPart, animate.has_value() ? jni::JBoolean::valueOf(animate.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<void>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
@@ -166,9 +166,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::popTemplate() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("popTemplate");
-    auto __result = method(_javaPart);
+  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::popTemplate(std::optional<bool> animate) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JBoolean> /* animate */)>("popTemplate");
+    auto __result = method(_javaPart, animate.has_value() ? jni::JBoolean::valueOf(animate.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<void>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
@@ -181,9 +181,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::popToRootTemplate() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("popToRootTemplate");
-    auto __result = method(_javaPart);
+  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::popToRootTemplate(std::optional<bool> animate) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JBoolean> /* animate */)>("popToRootTemplate");
+    auto __result = method(_javaPart, animate.has_value() ? jni::JBoolean::valueOf(animate.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<void>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {

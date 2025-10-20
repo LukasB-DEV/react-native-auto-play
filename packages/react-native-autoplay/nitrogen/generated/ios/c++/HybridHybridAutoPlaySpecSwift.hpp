@@ -34,8 +34,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertAction
 #include <string>
 #include "VisibilityState.hpp"
 #include <NitroModules/Promise.hpp>
-#include "SafeAreaInsets.hpp"
 #include <optional>
+#include "SafeAreaInsets.hpp"
 #include "NitroAction.hpp"
 #include <vector>
 #include "NitroImage.hpp"
@@ -108,8 +108,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<void>> dismissTemplate() override {
-      auto __result = _swiftPart.dismissTemplate();
+    inline std::shared_ptr<Promise<void>> dismissTemplate(std::optional<bool> animate) override {
+      auto __result = _swiftPart.dismissTemplate(animate);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
@@ -132,16 +132,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<void>> popTemplate() override {
-      auto __result = _swiftPart.popTemplate();
+    inline std::shared_ptr<Promise<void>> popTemplate(std::optional<bool> animate) override {
+      auto __result = _swiftPart.popTemplate(animate);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<void>> popToRootTemplate() override {
-      auto __result = _swiftPart.popToRootTemplate();
+    inline std::shared_ptr<Promise<void>> popToRootTemplate(std::optional<bool> animate) override {
+      auto __result = _swiftPart.popToRootTemplate(animate);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -64,7 +64,7 @@ abstract class HybridHybridAutoPlaySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun dismissTemplate(): Promise<Unit>
+  abstract fun dismissTemplate(animate: Boolean?): Promise<Unit>
   
   @DoNotStrip
   @Keep
@@ -76,11 +76,11 @@ abstract class HybridHybridAutoPlaySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun popTemplate(): Promise<Unit>
+  abstract fun popTemplate(animate: Boolean?): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  abstract fun popToRootTemplate(): Promise<Unit>
+  abstract fun popToRootTemplate(animate: Boolean?): Promise<Unit>
   
   @DoNotStrip
   @Keep

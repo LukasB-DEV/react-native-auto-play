@@ -169,9 +169,9 @@ open class HybridHybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func dismissTemplate() -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func dismissTemplate(animate: bridge.std__optional_bool_) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      let __result = try self.__implementation.dismissTemplate()
+      let __result = try self.__implementation.dismissTemplate(animate: animate.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
         let __promise = bridge.create_std__shared_ptr_Promise_void__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
@@ -226,9 +226,9 @@ open class HybridHybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func popTemplate() -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func popTemplate(animate: bridge.std__optional_bool_) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      let __result = try self.__implementation.popTemplate()
+      let __result = try self.__implementation.popTemplate(animate: animate.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
         let __promise = bridge.create_std__shared_ptr_Promise_void__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
@@ -245,9 +245,9 @@ open class HybridHybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func popToRootTemplate() -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func popToRootTemplate(animate: bridge.std__optional_bool_) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      let __result = try self.__implementation.popToRootTemplate()
+      let __result = try self.__implementation.popToRootTemplate(animate: animate.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
         let __promise = bridge.create_std__shared_ptr_Promise_void__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)

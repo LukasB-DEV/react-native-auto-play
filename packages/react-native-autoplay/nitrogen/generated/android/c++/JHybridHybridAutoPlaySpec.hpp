@@ -56,11 +56,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) override;
     std::function<void()> addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) override;
     std::shared_ptr<Promise<void>> presentTemplate(const std::string& templateId) override;
-    std::shared_ptr<Promise<void>> dismissTemplate() override;
+    std::shared_ptr<Promise<void>> dismissTemplate(std::optional<bool> animate) override;
     std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) override;
     std::shared_ptr<Promise<void>> pushTemplate(const std::string& templateId) override;
-    std::shared_ptr<Promise<void>> popTemplate() override;
-    std::shared_ptr<Promise<void>> popToRootTemplate() override;
+    std::shared_ptr<Promise<void>> popTemplate(std::optional<bool> animate) override;
+    std::shared_ptr<Promise<void>> popToRootTemplate(std::optional<bool> animate) override;
     std::shared_ptr<Promise<void>> popToTemplate(const std::string& templateId) override;
     std::function<void()> addSafeAreaInsetsListener(const std::string& moduleName, const std::function<void(const SafeAreaInsets& /* insets */)>& callback) override;
     void setTemplateHeaderActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& headerActions) override;

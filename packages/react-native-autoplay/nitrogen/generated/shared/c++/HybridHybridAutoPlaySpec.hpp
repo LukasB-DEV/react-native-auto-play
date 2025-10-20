@@ -27,10 +27,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 #include <string>
 #include "VisibilityState.hpp"
 #include <NitroModules/Promise.hpp>
+#include <optional>
 #include "SafeAreaInsets.hpp"
 #include "NitroAction.hpp"
 #include <vector>
-#include <optional>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -66,11 +66,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       virtual std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) = 0;
       virtual std::function<void()> addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) = 0;
       virtual std::shared_ptr<Promise<void>> presentTemplate(const std::string& templateId) = 0;
-      virtual std::shared_ptr<Promise<void>> dismissTemplate() = 0;
+      virtual std::shared_ptr<Promise<void>> dismissTemplate(std::optional<bool> animate) = 0;
       virtual std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) = 0;
       virtual std::shared_ptr<Promise<void>> pushTemplate(const std::string& templateId) = 0;
-      virtual std::shared_ptr<Promise<void>> popTemplate() = 0;
-      virtual std::shared_ptr<Promise<void>> popToRootTemplate() = 0;
+      virtual std::shared_ptr<Promise<void>> popTemplate(std::optional<bool> animate) = 0;
+      virtual std::shared_ptr<Promise<void>> popToRootTemplate(std::optional<bool> animate) = 0;
       virtual std::shared_ptr<Promise<void>> popToTemplate(const std::string& templateId) = 0;
       virtual std::function<void()> addSafeAreaInsetsListener(const std::string& moduleName, const std::function<void(const SafeAreaInsets& /* insets */)>& callback) = 0;
       virtual void setTemplateHeaderActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& headerActions) = 0;
