@@ -12,9 +12,10 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import com.margelo.nitro.autoplay.BuildConfig
 import com.margelo.nitro.autoplay.R
+import kotlin.math.max
 
 object SymbolFont {
-    val TAG = "SymbolFont"
+    const val TAG = "SymbolFont"
 
     private var typeface: Typeface? = null
 
@@ -39,20 +40,21 @@ object SymbolFont {
             return null
         }
 
-        val canvasSize = 32
+        val virtualScreenDensity = context.resources.displayMetrics.density
+        val scale = BuildConfig.SCALE_FACTOR * virtualScreenDensity
+
+        // Minimum recommended image size is 36dp according to https://developers.google.com/cars/design/create-apps/ux-requirements/templated-apps#navigation
+        val canvasSize = (max(36f, size) * scale).toInt()
         val bitmap = createBitmap(canvasSize, canvasSize)
         val canvas = Canvas(bitmap)
 
         // Fill background
         canvas.drawColor(backgroundColor)
 
-        val virtualScreenDensity = context.resources.displayMetrics.density
-        val scale = BuildConfig.SCALE_FACTOR * virtualScreenDensity
-
         // Setup text paint
         val paint = Paint().apply {
             typeface = font
-            textSize = size * scale
+            textSize = canvasSize.toFloat()
             this.color = color
             isAntiAlias = true
             textAlign = Paint.Align.LEFT
