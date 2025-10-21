@@ -30,7 +30,6 @@ object SymbolFont {
     fun imageFromGlyph(
         context: Context,
         glyph: Double,
-        size: Float,
         color: Int = android.graphics.Color.BLACK,
         backgroundColor: Int = android.graphics.Color.WHITE
     ): Bitmap? {
@@ -44,7 +43,7 @@ object SymbolFont {
         val scale = BuildConfig.SCALE_FACTOR * virtualScreenDensity
 
         // Minimum recommended image size is 36dp according to https://developers.google.com/cars/design/create-apps/ux-requirements/templated-apps#navigation
-        val canvasSize = (max(36f, size) * scale).toInt()
+        val canvasSize = (36 * scale).toInt()
         val bitmap = createBitmap(canvasSize, canvasSize)
         val canvas = Canvas(bitmap)
 
@@ -85,7 +84,6 @@ object SymbolFont {
         return imageFromGlyph(
             context = context,
             glyph = image.glyph,
-            size = image.size.toFloat(),
             color = color,
             backgroundColor = backgroundColor
         )!!

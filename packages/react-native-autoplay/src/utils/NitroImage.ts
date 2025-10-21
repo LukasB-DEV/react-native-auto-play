@@ -9,7 +9,6 @@ import { NitroColorUtil } from './NitroColor';
  */
 export type NitroImage = {
   glyph: number;
-  size: number;
   color?: number;
   backgroundColor?: number;
 };
@@ -21,10 +20,9 @@ function convert(image?: AutoImage): NitroImage | undefined {
     return undefined;
   }
 
-  const { name, size = 22, color = 'white', backgroundColor = 'transparent', ...rest } = image;
+  const { name, color = 'white', backgroundColor = 'transparent', ...rest } = image;
   return {
     ...rest,
-    size,
     glyph: glyphMap[name],
     color: NitroColorUtil.convert(color) as number | undefined,
     backgroundColor: NitroColorUtil.convert(

@@ -4,66 +4,42 @@ import { AutoTemplate } from './AutoTemplate';
 const getButtons = (color: string): Array<GridButton<GridTemplate>> => [
   {
     title: { text: '#1' },
-    image: {
-      name: 'star',
-      color,
-      size: 26,
-    },
+    image: { name: 'star', color },
     onPress: (template) => {
       template.updateGrid(getButtons('red'));
     },
   },
   {
     title: { text: '#2' },
-    image: {
-      name: 'star',
-      color,
-      size: 26,
-    },
+    image: { name: 'star', color },
     onPress: (template) => {
       template.updateGrid(getButtons('yellow'));
     },
   },
   {
     title: { text: '#3' },
-    image: {
-      name: 'star',
-      color,
-      size: 26,
-    },
+    image: { name: 'star', color },
     onPress: (template) => {
       template.updateGrid(getButtons('pink'));
     },
   },
   {
     title: { text: '#4' },
-    image: {
-      name: 'star',
-      color,
-      size: 26,
-    },
+    image: { name: 'star', color },
     onPress: (template) => {
       template.updateGrid(getButtons('violet'));
     },
   },
   {
     title: { text: '#5' },
-    image: {
-      name: 'star',
-      color,
-      size: 26,
-    },
+    image: { name: 'star', color },
     onPress: (template) => {
       template.updateGrid(getButtons('green'));
     },
   },
   {
     title: { text: '#6' },
-    image: {
-      name: 'star',
-      color,
-      size: 26,
-    },
+    image: { name: 'star', color },
     onPress: (template) => {
       template.updateGrid(getButtons('blue'));
     },
