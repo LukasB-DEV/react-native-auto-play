@@ -12,24 +12,17 @@ class MessageTemplate: AutoPlayTemplate {
 
     init(config: MessageTemplateConfig) {
         self.config = config
-                        
-        let template = CPAlertTemplate(titleVariants: [Parser.parseText(text: config.message)!], actions: Parser.parseAlertActions(alertActions: config.actions))
+
+        let template = CPAlertTemplate(
+            titleVariants: [Parser.parseText(text: config.message)!],
+            actions: Parser.parseAlertActions(alertActions: config.actions)
+        )
 
         super.init(
             templateId: config.id,
             template: template,
             header: config.headerActions
         )
-
-        invalidate()
-    }
-
-    override func invalidate() {
-        guard let template = self.template as? CPInformationTemplate else {
-            return
-        }
-
-        setBarButtons()
     }
 
     override func onWillAppear(animted: Bool) {

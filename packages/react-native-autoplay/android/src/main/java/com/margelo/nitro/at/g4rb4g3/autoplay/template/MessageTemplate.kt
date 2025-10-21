@@ -1,7 +1,6 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
 import androidx.car.app.CarContext
-import androidx.car.app.model.CarText
 import androidx.car.app.model.MessageTemplate
 import androidx.car.app.model.Template
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MessageTemplateConfig
@@ -15,8 +14,7 @@ class MessageTemplate(context: CarContext, config: MessageTemplateConfig) :
         get() = config.id
 
     override fun parse(): Template {
-        return MessageTemplate.Builder(config.message.text).apply {
-            // Additional configuration can be added here in the future
+        return MessageTemplate.Builder(Parser.parseText(config.message)).apply {
             config.title?.let { title ->
                 setHeader(Parser.parseHeader(context, title, config.headerActions))
             }
@@ -60,6 +58,6 @@ class MessageTemplate(context: CarContext, config: MessageTemplateConfig) :
     }
 
     companion object {
-
+        const val TAG = "MessageTemplate"
     }
 }

@@ -11,6 +11,9 @@ import {
 
 export interface NitroMessageTemplateConfig extends TemplateConfig {
   headerActions?: Array<NitroAction>;
+  /**
+   * @namespace Android title shown on header
+   */
   title?: AutoText;
   message: AutoText;
   actions?: Array<NitroAction>;
@@ -20,12 +23,12 @@ export interface NitroMessageTemplateConfig extends TemplateConfig {
 export type MessageTemplateConfig = Omit<NitroMessageTemplateConfig, 'headerActions' | 'image'> & {
   /**
    * action buttons, usually at the top right on Android
-   * @namespace android
+   * @namespace Android
    */
   headerActions?: HeaderActions<MessageTemplate>;
   /**
    * image shown at the top of the message on Android
-   * @namespace android
+   * @namespace Android
    */
   image?: AutoImage;
 };
@@ -53,9 +56,5 @@ export class MessageTemplate extends Template<
     };
 
     HybridMessageTemplate.createMessageTemplate(nitroConfig);
-  }
-
-  public push(): Promise<void> {
-    return super.push();
   }
 }

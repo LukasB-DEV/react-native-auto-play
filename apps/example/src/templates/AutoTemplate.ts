@@ -6,6 +6,7 @@ import {
   type ImageButton,
   type MapTemplate,
   type MapTemplateConfig,
+  TextPlaceholders,
   type TripPoint,
   type VisibleTravelEstimate,
 } from '@g4rb4g3/react-native-autoplay';
@@ -34,7 +35,10 @@ const headerActions: HeaderActions<any> = {
         title: 'help',
         onPress: () => {
           console.log('*** help \\o/');
-          AutoMessageTemplate.getTemplate(false).push();
+          AutoMessageTemplate.getTemplate({
+            text: `help \\o/ ${TextPlaceholders.Duration}`,
+            duration: 4711,
+          }).push();
         },
       },
       {
@@ -54,7 +58,10 @@ const headerActions: HeaderActions<any> = {
         title: 'help',
         onPress: () => {
           console.log('*** help \\o/');
-          AutoMessageTemplate.getTemplate(false).push();
+          AutoMessageTemplate.getTemplate({
+            text: `help \\o/ ${TextPlaceholders.Duration}`,
+            duration: 4711,
+          }).push();
         },
       },
       {
@@ -306,7 +313,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
     },
     onPress: () => {
-      AutoMessageTemplate.getTemplate().push();
+      AutoMessageTemplate.getTemplate({ text: 'message' }).push();
     },
   },
 ];
