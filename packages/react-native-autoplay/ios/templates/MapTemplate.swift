@@ -392,31 +392,48 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
     func updateManeuvers(maneuvers: [NitroManeuver]) {
         guard let navigationSession = navigationSession else { return }
-        
+
         var upcomingManeuvers: [CPManeuver] = []
-        
-        maneuvers.forEach { nitroManeuver in
-            if let maneuver = navigationSession.upcomingManeuvers
-                .first(where: { $0.id == nitroManeuver.id })
+
+        for (index, nitroManeuver) in maneuvers.enumerated() {
+            if let maneuverIndex = navigationSession.upcomingManeuvers
+                .firstIndex(where: { $0.id == nitroManeuver.id })
             {
                 navigationSession.updateEstimates(
                     Parser.parseTravelEstiamtes(
                         travelEstimates: nitroManeuver.travelEstimates
                     ),
-                    for: maneuver
+                    for: navigationSession.upcomingManeuvers[maneuverIndex]
                 )
-                return
+
+                if index != maneuverIndex {
+                    upcomingManeuvers.append(
+                        navigationSession.upcomingManeuvers.first(
+                            where: { $0.id == nitroManeuver.id }
+                        )!
+                    )
+                }
+                continue
             }
-            
+
             let maneuver = Parser.parseManeuver(nitroManeuver: nitroManeuver)
             upcomingManeuvers.append(maneuver)
         }
-        
-        if #available(iOS 17.4, *) {
-            navigationSession.add(upcomingManeuvers)
+
+        if upcomingManeuvers.count > 0 {
+            if #available(iOS 17.4, *) {
+                let sessionManeuvers = upcomingManeuvers.filter { m in
+                    !navigationSession.upcomingManeuvers.contains { u in
+                        u.id == m.id
+                    }
+                }
+
+                navigationSession.add(sessionManeuvers)
+            }
+
+            navigationSession.upcomingManeuvers = upcomingManeuvers
+            return
         }
-        
-        navigationSession.upcomingManeuvers = upcomingManeuvers
     }
 
     func startNavigation(trip: CPTrip) {

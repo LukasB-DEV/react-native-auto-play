@@ -17,9 +17,9 @@ import {
 import { startAppListening } from './state/store';
 import {
   AutoTemplate,
-  estimatesUpdate,
   onTripFinished,
   onTripStarted,
+  updateTripEstimates,
 } from './templates/AutoTemplate';
 
 const AutoPlayRoot = (props: RootComponentInitialProps) => {
@@ -71,7 +71,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
           dispatch(setSelectedTrip({ routeId, tripId }));
           onTripStarted(tripId, routeId, mapTemplate);
           mapTemplate.startNavigation({ id: tripId, routeChoice });
-          estimatesUpdate(mapTemplate, 'initial');
+          updateTripEstimates(mapTemplate, 'initial');
         },
       })
     );
