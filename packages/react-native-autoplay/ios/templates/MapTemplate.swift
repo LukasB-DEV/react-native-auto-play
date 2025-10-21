@@ -210,7 +210,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             return
         }
 
-        let image = SymbolFont.imageFromNitroImage(image: alertConfig.image, size: 32)
+        let image = SymbolFont.imageFromNitroImage(image: alertConfig.image, padding: false)
 
         let style = Parser.parseActionAlertStyle(
             style: alertConfig.primaryAction.style

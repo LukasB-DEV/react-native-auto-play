@@ -174,7 +174,7 @@ class Parser {
                 let listItem = CPListItem(
                     text: parseText(text: item.title),
                     detailText: parseText(text: item.detailedText),
-                    image: SymbolFont.imageFromNitroImage(image: item.image, size: 32),
+                    image: SymbolFont.imageFromNitroImage(image: item.image, padding: false),
                     accessoryImage: isSelected
                         ? UIImage.checkmark : toggleImage,
                     accessoryType: item.browsable == true

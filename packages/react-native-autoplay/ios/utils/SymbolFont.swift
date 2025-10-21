@@ -53,14 +53,15 @@ class SymbolFont {
         glyph: Double,
         size: CGFloat,
         color: UIColor = .black,
-        backgroundColor: UIColor = .white
+        backgroundColor: UIColor = .white,
+        padding: Bool
     ) -> UIImage? {
         if !SymbolFont.isRegistered {
             SymbolFont.loadFont()
         }
 
         guard let fontName = SymbolFont.fontName,
-            let font = UIFont(name: fontName, size: size)
+              let font = UIFont(name: fontName, size: padding ? size * 0.8 : size)
         else {
             return nil
         }
@@ -75,7 +76,7 @@ class SymbolFont {
             string: codepoint,
             attributes: attributes
         )
-        let canvasSize = CGSize(width: 32, height: 32)
+        let canvasSize = CGSize(width: size, height: size)
         let rect = CGRect(origin: .zero, size: canvasSize)
 
         // Start drawing
@@ -98,7 +99,7 @@ class SymbolFont {
         return image
     }
     
-    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 22) -> UIImage? {
+    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, padding: Bool = true) -> UIImage? {
         guard let image else { return nil }
         
         let color = RCTConvert.uiColor(image.color) ?? .black
@@ -110,7 +111,8 @@ class SymbolFont {
             glyph: image.glyph,
             size: size,
             color: color,
-            backgroundColor: backgroundColor
+            backgroundColor: backgroundColor,
+            padding: padding
         )!
     }
 }
