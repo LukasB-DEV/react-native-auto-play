@@ -10,14 +10,8 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
-// Forward declaration of `AlertAction` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertAction; }
 // Forward declaration of `AlertDismissalReason` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
-// Forward declaration of `AlertStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertStyle; }
-// Forward declaration of `AlertTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AlertTemplateConfig; }
 // Forward declaration of `ArrivalDirection` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ArrivalDirection; }
 // Forward declaration of `AttributedInstructionVariantImage` to properly resolve imports.
@@ -48,6 +42,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridGrid
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridListTemplateSpec; }
 // Forward declaration of `HybridHybridMapTemplateSpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridMapTemplateSpec; }
+// Forward declaration of `HybridHybridMessageTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridMessageTemplateSpec; }
 // Forward declaration of `KeepType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class KeepType; }
 // Forward declaration of `LaneGuidance` to properly resolve imports.
@@ -62,6 +58,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct ListTemplateCon
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ManeuverType; }
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MapTemplateConfig; }
+// Forward declaration of `MessageTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MessageTemplateConfig; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
@@ -120,11 +118,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityS
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 
 // Include C++ defined types
-#include "AlertAction.hpp"
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
-#include "AlertStyle.hpp"
-#include "AlertTemplateConfig.hpp"
 #include "ArrivalDirection.hpp"
 #include "AttributedInstructionVariant.hpp"
 #include "AttributedInstructionVariantImage.hpp"
@@ -140,6 +135,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "HybridHybridGridTemplateSpec.hpp"
 #include "HybridHybridListTemplateSpec.hpp"
 #include "HybridHybridMapTemplateSpec.hpp"
+#include "HybridHybridMessageTemplateSpec.hpp"
 #include "KeepType.hpp"
 #include "Lane.hpp"
 #include "LaneGuidance.hpp"
@@ -147,6 +143,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "ListTemplateConfig.hpp"
 #include "ManeuverType.hpp"
 #include "MapTemplateConfig.hpp"
+#include "MessageTemplateConfig.hpp"
 #include "NavigationAlertAction.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
@@ -202,6 +199,8 @@ namespace NitroAutoplay { class HybridHybridGridTemplateSpec_cxx; }
 namespace NitroAutoplay { class HybridHybridListTemplateSpec_cxx; }
 // Forward declaration of `HybridHybridMapTemplateSpec_cxx` to properly resolve imports.
 namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
+// Forward declaration of `HybridHybridMessageTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridMessageTemplateSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroAutoplay-Swift.h")

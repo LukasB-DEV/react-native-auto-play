@@ -1,13 +1,14 @@
 import {
-  type Actions,
   type Alert,
   type AutoManeuvers,
   type BackButton,
+  type HeaderActions,
   HybridAutoPlay,
   type ImageButton,
   ManeuverType,
   type MapTemplate,
   type MapTemplateConfig,
+  TextPlaceholders,
   TrafficSide,
   type TripPoint,
   TurnType,
@@ -19,6 +20,7 @@ import { setIsNavigating, setSelectedTrip } from '../state/navigationSlice';
 import { dispatch } from '../state/store';
 import { AutoGridTemplate } from './AutoGridTemplate';
 import { AutoListTemplate } from './AutoListTemplate';
+import { AutoMessageTemplate } from './AutoMessageTemplate';
 
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
 const backButton: BackButton<any> = {
@@ -27,7 +29,7 @@ const backButton: BackButton<any> = {
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
-const actions: Actions<any> = {
+const headerActions: HeaderActions<any> = {
   android: {
     startHeaderAction: backButton,
     endHeaderActions: [
@@ -37,6 +39,10 @@ const actions: Actions<any> = {
         title: 'help',
         onPress: () => {
           console.log('*** help \\o/');
+          AutoMessageTemplate.getTemplate({
+            text: `help \\o/ ${TextPlaceholders.Duration}`,
+            duration: 4711,
+          }).push();
         },
       },
       {
@@ -56,6 +62,10 @@ const actions: Actions<any> = {
         title: 'help',
         onPress: () => {
           console.log('*** help \\o/');
+          AutoMessageTemplate.getTemplate({
+            text: `help \\o/ ${TextPlaceholders.Duration}`,
+            duration: 4711,
+          }).push();
         },
       },
       {
@@ -71,7 +81,7 @@ const actions: Actions<any> = {
 
 export const onTripFinished = (template: MapTemplate) => {
   template.stopNavigation();
-  template.setActions(mapActions);
+  template.setHeaderActions(mapHeaderActions);
 
   dispatch(setIsNavigating(false));
 };
@@ -210,7 +220,7 @@ export const estimatesUpdate = (template: MapTemplate, type: 'initial' | 'add' |
 export const onTripStarted = (tripId: string, routeId: string, template: MapTemplate) => {
   dispatch(setIsNavigating(true));
 
-  template.setActions({
+  template.setHeaderActions({
     android: [stopNavigation, toggleEta, plusOne, minusOne],
     ios: {
       leadingNavigationBarButtons: [toggleEta, stopNavigation],
@@ -232,12 +242,12 @@ export const onTripStarted = (tripId: string, routeId: string, template: MapTemp
 
 const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   if (Platform.OS === 'ios') {
-    template.setActions({
+    template.setHeaderActions({
       ios: {
         backButton: {
           type: 'back',
           onPress: () => {
-            template.setActions(mapActions);
+            template.setHeaderActions(mapHeaderActions);
             template.setMapButtons(mapButtons);
             template.hideTripSelector();
           },
@@ -257,7 +267,7 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   );
 };
 
-const mapActions: MapTemplateConfig['actions'] = {
+const mapHeaderActions: MapTemplateConfig['headerActions'] = {
   android: [
     {
       type: 'image',
@@ -370,6 +380,17 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
       template.showAlert(AutoAlert(remaining));
     },
   },
+  {
+    type: 'custom',
+    image: {
+      name: 'message',
+      color: 'rgba(255, 255, 255, 1)',
+      backgroundColor: 'rgba(66, 66, 66, 0.5)',
+    },
+    onPress: () => {
+      AutoMessageTemplate.getTemplate({ text: 'message' }).push();
+    },
+  },
 ];
 
-export const AutoTemplate = { actions, mapActions, mapButtons };
+export const AutoTemplate = { headerActions, mapHeaderActions, mapButtons };

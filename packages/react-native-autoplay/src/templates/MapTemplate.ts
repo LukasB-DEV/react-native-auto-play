@@ -18,7 +18,7 @@ import { type NitroColor, NitroColorUtil, type ThemedColor } from '../utils/Nitr
 import { type NitroManeuver, NitroManeuverUtil } from '../utils/NitroManeuver';
 import { NitroMapButton } from '../utils/NitroMapButton';
 import {
-  type ActionsIos,
+  type HeaderActionsIos,
   type NitroTemplateConfig,
   Template,
   type TemplateConfig,
@@ -30,7 +30,7 @@ export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayClust
 type Point = { x: number; y: number };
 export type VisibleTravelEstimate = 'first' | 'last';
 
-export type ActionsAndroidMap<T> =
+export type HeaderActionsAndroidMap<T> =
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>]
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>]
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>]
@@ -39,7 +39,7 @@ export type ActionsAndroidMap<T> =
 export interface NitroMapTemplateConfig extends TemplateConfig {
   mapButtons?: Array<NitroMapButton>;
 
-  actions?: Array<NitroAction>;
+  headerActions?: Array<NitroAction>;
   guidanceBackgroundColor?: NitroColor;
 
   /**
@@ -86,7 +86,7 @@ export type MapButtons<T> = Array<MapButton<T> | MapPanButton<T>>;
 
 export type MapTemplateConfig = Omit<
   NitroMapTemplateConfig,
-  'id' | 'mapButtons' | 'actions' | 'guidanceBackgroundColor'
+  'id' | 'mapButtons' | 'headerActions' | 'guidanceBackgroundColor'
 > & {
   /**
    * since we need to find the proper Android screen/iOS scene only certain ids can be used on this template
@@ -105,9 +105,9 @@ export type MapTemplateConfig = Omit<
   /**
    * action buttons, usually at the the top right on Android and a top bar on iOS
    */
-  actions?: {
-    android?: ActionsAndroidMap<MapTemplate>;
-    ios?: ActionsIos<MapTemplate>;
+  headerActions?: {
+    android?: HeaderActionsAndroidMap<MapTemplate>;
+    ios?: HeaderActionsIos<MapTemplate>;
   };
 
   /**
@@ -116,19 +116,22 @@ export type MapTemplateConfig = Omit<
   guidanceBackgroundColor?: ThemedColor;
 };
 
-const convertActions = (template: MapTemplate, actions: MapTemplateConfig['actions']) => {
+const convertActions = (
+  template: MapTemplate,
+  headerActions: MapTemplateConfig['headerActions']
+) => {
   return Platform.OS === 'android'
-    ? NitroActionUtil.convertAndroidMap(template, actions?.android)
-    : NitroActionUtil.convertIos(template, actions?.ios);
+    ? NitroActionUtil.convertAndroidMap(template, headerActions?.android)
+    : NitroActionUtil.convertIos(template, headerActions?.ios);
 };
 
-export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['actions']> {
+export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['headerActions']> {
   private template = this;
 
   constructor(config: MapTemplateConfig) {
     super(config);
 
-    const { component, mapButtons, actions, guidanceBackgroundColor, ...baseConfig } = config;
+    const { component, mapButtons, headerActions, guidanceBackgroundColor, ...baseConfig } = config;
 
     AppRegistry.registerComponent(
       this.id,
@@ -147,7 +150,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     const nitroConfig: NitroMapTemplateConfig & NitroTemplateConfig = {
       ...baseConfig,
       id: this.id,
-      actions: convertActions(this.template, actions),
+      headerActions: convertActions(this.template, headerActions),
       guidanceBackgroundColor: NitroColorUtil.convertThemed(guidanceBackgroundColor),
       mapButtons: NitroMapButton.convert(this.template, mapButtons),
     };
@@ -160,9 +163,9 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     HybridMapTemplate.setTemplateMapButtons(this.id, buttons);
   }
 
-  public override setActions(actions: MapTemplateConfig['actions']) {
-    const nitroActions = convertActions(this.template, actions);
-    HybridAutoPlay.setTemplateActions(this.id, nitroActions);
+  public override setHeaderActions(headerActions: MapTemplateConfig['headerActions']) {
+    const nitroActions = convertActions(this.template, headerActions);
+    HybridAutoPlay.setTemplateHeaderActions(this.id, nitroActions);
   }
 
   /**
