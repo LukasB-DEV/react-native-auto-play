@@ -43,6 +43,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       static const auto clazz = javaClassStatic();
       static const auto fieldDEPART = clazz->getStaticField<JManeuverType>("DEPART");
       static const auto fieldARRIVE = clazz->getStaticField<JManeuverType>("ARRIVE");
+      static const auto fieldARRIVELEFT = clazz->getStaticField<JManeuverType>("ARRIVELEFT");
+      static const auto fieldARRIVERIGHT = clazz->getStaticField<JManeuverType>("ARRIVERIGHT");
       static const auto fieldSTRAIGHT = clazz->getStaticField<JManeuverType>("STRAIGHT");
       static const auto fieldTURN = clazz->getStaticField<JManeuverType>("TURN");
       static const auto fieldROUNDABOUT = clazz->getStaticField<JManeuverType>("ROUNDABOUT");
@@ -57,6 +59,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
           return clazz->getStaticFieldValue(fieldDEPART);
         case ManeuverType::ARRIVE:
           return clazz->getStaticFieldValue(fieldARRIVE);
+        case ManeuverType::ARRIVELEFT:
+          return clazz->getStaticFieldValue(fieldARRIVELEFT);
+        case ManeuverType::ARRIVERIGHT:
+          return clazz->getStaticFieldValue(fieldARRIVERIGHT);
         case ManeuverType::STRAIGHT:
           return clazz->getStaticFieldValue(fieldSTRAIGHT);
         case ManeuverType::TURN:

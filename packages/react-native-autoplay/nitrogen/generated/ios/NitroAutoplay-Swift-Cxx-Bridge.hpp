@@ -12,8 +12,6 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
 // Forward declaration of `AlertDismissalReason` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
-// Forward declaration of `ArrivalDirection` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ArrivalDirection; }
 // Forward declaration of `AttributedInstructionVariantImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariantImage; }
 // Forward declaration of `AttributedInstructionVariant` to properly resolve imports.
@@ -116,7 +114,6 @@ namespace NitroAutoplay { class HybridHybridMessageTemplateSpec_cxx; }
 // Include C++ defined types
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
-#include "ArrivalDirection.hpp"
 #include "AttributedInstructionVariant.hpp"
 #include "AttributedInstructionVariantImage.hpp"
 #include "AutoText.hpp"
@@ -958,21 +955,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     std::vector<AttributedInstructionVariant> vector;
     vector.reserve(size);
     return vector;
-  }
-  
-  // pragma MARK: std::optional<ArrivalDirection>
-  /**
-   * Specialized version of `std::optional<ArrivalDirection>`.
-   */
-  using std__optional_ArrivalDirection_ = std::optional<ArrivalDirection>;
-  inline std::optional<ArrivalDirection> create_std__optional_ArrivalDirection_(const ArrivalDirection& value) noexcept {
-    return std::optional<ArrivalDirection>(value);
-  }
-  inline bool has_value_std__optional_ArrivalDirection_(const std::optional<ArrivalDirection>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline ArrivalDirection get_std__optional_ArrivalDirection_(const std::optional<ArrivalDirection>& optional) noexcept {
-    return *optional;
   }
   
   // pragma MARK: std::optional<TurnType>

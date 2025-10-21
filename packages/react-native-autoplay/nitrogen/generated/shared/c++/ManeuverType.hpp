@@ -26,6 +26,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   enum class ManeuverType {
     DEPART      SWIFT_NAME(depart) = 0,
     ARRIVE      SWIFT_NAME(arrive) = 10,
+    ARRIVELEFT      SWIFT_NAME(arriveleft) = 11,
+    ARRIVERIGHT      SWIFT_NAME(arriveright) = 12,
     STRAIGHT      SWIFT_NAME(straight) = 20,
     TURN      SWIFT_NAME(turn) = 30,
     ROUNDABOUT      SWIFT_NAME(roundabout) = 40,
@@ -65,6 +67,8 @@ namespace margelo::nitro {
       switch (integer) {
         case 0 /* DEPART */: return true;
         case 10 /* ARRIVE */: return true;
+        case 11 /* ARRIVELEFT */: return true;
+        case 12 /* ARRIVERIGHT */: return true;
         case 20 /* STRAIGHT */: return true;
         case 30 /* TURN */: return true;
         case 40 /* ROUNDABOUT */: return true;

@@ -21,6 +21,10 @@ public extension ManeuverType {
         self = .depart
       case "Arrive":
         self = .arrive
+      case "ArriveLeft":
+        self = .arriveleft
+      case "ArriveRight":
+        self = .arriveright
       case "Straight":
         self = .straight
       case "Turn":
@@ -51,6 +55,10 @@ public extension ManeuverType {
         return "Depart"
       case .arrive:
         return "Arrive"
+      case .arriveleft:
+        return "ArriveLeft"
+      case .arriveright:
+        return "ArriveRight"
       case .straight:
         return "Straight"
       case .turn:

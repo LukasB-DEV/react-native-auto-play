@@ -18,15 +18,21 @@ struct HeaderActions {
 class Parser {
     static let PLACEHOLDER_DISTANCE = "{distance}"
     static let PLACEHOLDER_DURATION = "{duration}"
-    
-    static func parseAlertActions(alertActions: [NitroAction]?) -> [CPAlertAction] {
+
+    static func parseAlertActions(alertActions: [NitroAction]?)
+        -> [CPAlertAction]
+    {
         var actions: [CPAlertAction] = []
 
         if let alertActions = alertActions {
             alertActions.forEach { alertAction in
-                let action = CPAlertAction(title: alertAction.title!, style: parseActionAlertStyle(style: alertAction.style), handler: { actionHandler in
-                    alertAction.onPress()
-                })
+                let action = CPAlertAction(
+                    title: alertAction.title!,
+                    style: parseActionAlertStyle(style: alertAction.style),
+                    handler: { actionHandler in
+                        alertAction.onPress()
+                    }
+                )
 
                 actions.append(action)
             }
@@ -35,7 +41,9 @@ class Parser {
         return actions
     }
 
-    static func parseHeaderActions(headerActions: [NitroAction]?) -> HeaderActions {
+    static func parseHeaderActions(headerActions: [NitroAction]?)
+        -> HeaderActions
+    {
         var leadingNavigationBarButtons: [CPBarButton] = []
         var trailingNavigationBarButtons: [CPBarButton] = []
         var backButton: CPBarButton?
@@ -254,7 +262,8 @@ class Parser {
                     "\(Parser.PLACEHOLDER_DURATION) (\(Parser.PLACEHOLDER_DISTANCE))",
                 distance: routeChoice.steps.last!.travelEstimates
                     .distanceRemaining,
-                duration: routeChoice.steps.last!.travelEstimates.timeRemaining.seconds
+                duration: routeChoice.steps.last!.travelEstimates.timeRemaining
+                    .seconds
             )
         )!
 
@@ -286,7 +295,7 @@ class Parser {
 
         return route
     }
-    
+
     static func parseTrip(tripConfig: TripConfig) -> CPTrip {
         let routeChoices = parseRouteChoice(routeChoice: tripConfig.routeChoice)
         let trip = CPTrip(
@@ -300,7 +309,7 @@ class Parser {
         )
 
         trip.userInfo = ["id": tripConfig.id]
-        
+
         return trip
     }
 
@@ -352,23 +361,35 @@ class Parser {
             }
         }
     }
-    
-    static func parseManeuver (nitroManeuver: NitroManeuver) -> CPManeuver {
+
+    static func parseManeuver(nitroManeuver: NitroManeuver) -> CPManeuver {
         let maneuver = CPManeuver()
         maneuver.id = nitroManeuver.id
-        
-        maneuver.attributedInstructionVariants = nitroManeuver.attributedInstructionVariants.map { variant in
-            let attributedString = NSMutableAttributedString(string: variant.text)
-            if let nitroImages = variant.images {
-                nitroImages.forEach { image in
-                    let attachment = NSTextAttachment(image: SymbolFont.imageFromNitroImage(image: image.image)!)
-                    let container = NSAttributedString(attachment: attachment)
-                    attributedString.insert(container, at: Int(image.position))
+
+        maneuver.attributedInstructionVariants = nitroManeuver
+            .attributedInstructionVariants.map { variant in
+                let attributedString = NSMutableAttributedString(
+                    string: variant.text
+                )
+                if let nitroImages = variant.images {
+                    nitroImages.forEach { image in
+                        let attachment = NSTextAttachment(
+                            image: SymbolFont.imageFromNitroImage(
+                                image: image.image
+                            )!
+                        )
+                        let container = NSAttributedString(
+                            attachment: attachment
+                        )
+                        attributedString.insert(
+                            container,
+                            at: Int(image.position)
+                        )
+                    }
                 }
+                return attributedString
             }
-            return attributedString
-        }
-        
+
         maneuver.initialTravelEstimates = Parser.parseTravelEstiamtes(
             travelEstimates: nitroManeuver.travelEstimates
         )
@@ -380,22 +401,22 @@ class Parser {
         )
 
         if #available(iOS 17.4, *) {
-            maneuver.maneuverType = CPManeuverType(
-                rawValue: UInt(nitroManeuver.maneuverType.rawValue)
-            )!
+            maneuver.maneuverType = getManeuverType(maneuver: nitroManeuver)
             maneuver.trafficSide = CPTrafficSide(
                 rawValue: UInt(nitroManeuver.trafficSide.rawValue)
             )!
             maneuver.roadFollowingManeuverVariants =
-                nitroManeuver.roadFollowingManeuverVariants
+                nitroManeuver.roadName
 
-            if let junctionType = nitroManeuver.junctionType?.rawValue {
-                maneuver.junctionType = CPJunctionType(
-                    rawValue: UInt(junctionType)
-                )!
+            if nitroManeuver.maneuverType == .roundabout {
+                maneuver.junctionType = .roundabout
             }
 
-            if let junctionExitAngle = nitroManeuver.junctionExitAngle {
+            if nitroManeuver.maneuverType == .turn {
+                maneuver.junctionType = .intersection
+            }
+
+            if let junctionExitAngle = nitroManeuver.angle {
                 maneuver.junctionExitAngle = Measurement(
                     value: junctionExitAngle,
                     unit: UnitAngle.degrees
@@ -403,7 +424,7 @@ class Parser {
             }
 
             if let junctionElementAngles = nitroManeuver
-                .junctionElementAngles
+                .elementAngles
             {
                 maneuver.junctionElementAngles = Set(
                     junctionElementAngles.map {
@@ -450,7 +471,84 @@ class Parser {
                 maneuver.linkedLaneGuidance = laneGuidance
             }
         }
-        
+
         return maneuver
+    }
+
+    @available(iOS 17.4, *)
+    static func getManeuverType(maneuver: NitroManeuver) -> CPManeuverType {
+        switch maneuver.maneuverType {
+        case .depart:
+            return .startRoute
+        case .arrive:
+            return .arriveAtDestination
+        case .arriveleft:
+            return .arriveAtDestinationLeft
+        case .arriveright:
+            return .arriveAtDestinationRight
+        case .straight:
+            return .straightAhead
+        case .turn:
+            switch maneuver.turnType {
+            case .normalleft:
+                return .leftTurn
+            case .normalright:
+                return .rightTurn
+            case .sharpleft:
+                return .sharpLeftTurn
+            case .sharpright:
+                return .sharpRightTurn
+            case .slightleft:
+                return .slightLeftTurn
+            case .slightright:
+                return .slightRightTurn
+            case .uturnright, .uturnleft:
+                return .uTurn
+            default:
+                return .noTurn
+            }
+        case .roundabout:
+            if let exitNumber = maneuver.exitNumber {
+                if exitNumber < 1 || exitNumber > 19 {
+                    return .exitRoundabout
+                }
+                let maneuverType =
+                    CPManeuverType.roundaboutExit1.rawValue
+                    + (UInt(exitNumber) - 1)
+                return CPManeuverType(rawValue: maneuverType) ?? .exitRoundabout
+            }
+            return .exitRoundabout
+        case .offramp:
+            switch maneuver.offRampType {
+            case .slightleft, .normalleft:
+                return .highwayOffRampLeft
+            case .slightright, .normalright:
+                return .highwayOffRampRight
+            default:
+                return .offRamp
+            }
+        case .onramp:
+            return .onRamp
+        case .fork:
+            switch maneuver.forkType {
+            case .left:
+                return .slightLeftTurn
+            case .right:
+                return .slightRightTurn
+            default:
+                return .noTurn
+            }
+        case .enterferry:
+            return .enter_Ferry
+        case .keep:
+            switch maneuver.keepType {
+            case .left:
+                return .keepLeft
+            case .right:
+                return .keepRight
+            default:
+                return .followRoad
+            }
+        }
     }
 }

@@ -32,9 +32,6 @@ data class NitroManeuver
     val junctionImage: NitroImage?,
     @DoNotStrip
     @Keep
-    val arrivalDirection: ArrivalDirection?,
-    @DoNotStrip
-    @Keep
     val turnType: TurnType?,
     @DoNotStrip
     @Keep

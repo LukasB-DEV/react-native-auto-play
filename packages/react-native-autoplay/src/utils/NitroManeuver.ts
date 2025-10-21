@@ -1,5 +1,4 @@
 import {
-  type ArrivalDirection,
   type AutoManeuver,
   type BaseManeuver,
   type ForkType,
@@ -25,7 +24,6 @@ export interface NitroManeuver extends BaseManeuver {
   attributedInstructionVariants: Array<AttributedInstructionVariant>;
   symbolImage: NitroImage;
   junctionImage?: NitroImage;
-  arrivalDirection?: ArrivalDirection;
   turnType?: TurnType;
   angle?: number;
   elementAngles?: Array<number>;
@@ -50,8 +48,6 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     roadName,
   } = autoManeuver;
 
-  const arrivalDirection =
-    maneuverType === ManeuverType.Arrive ? autoManeuver.arrivalDirection : undefined;
   const elementAngles =
     maneuverType === ManeuverType.Turn || maneuverType === ManeuverType.Roundabout
       ? autoManeuver.elementAngles
@@ -84,7 +80,6 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     })),
     junctionImage: NitroImageUtil.convert(junctionImage),
     symbolImage: NitroImageUtil.convert(symbolImage),
-    arrivalDirection,
     elementAngles,
     angle,
     turnType,

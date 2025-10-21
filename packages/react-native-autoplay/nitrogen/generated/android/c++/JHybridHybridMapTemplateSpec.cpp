@@ -61,8 +61,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroManeuver; 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariant; }
 // Forward declaration of `AttributedInstructionVariantImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariantImage; }
-// Forward declaration of `ArrivalDirection` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ArrivalDirection; }
 // Forward declaration of `TurnType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TurnType; }
 // Forward declaration of `OffRampType` to properly resolve imports.
@@ -152,8 +150,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "JAttributedInstructionVariant.hpp"
 #include "AttributedInstructionVariantImage.hpp"
 #include "JAttributedInstructionVariantImage.hpp"
-#include "ArrivalDirection.hpp"
-#include "JArrivalDirection.hpp"
 #include "TurnType.hpp"
 #include "JTurnType.hpp"
 #include "OffRampType.hpp"

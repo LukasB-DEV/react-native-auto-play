@@ -4,6 +4,8 @@ import type { TravelEstimates } from './Trip';
 export enum ManeuverType {
   Depart = 0,
   Arrive = 10,
+  ArriveLeft = 11,
+  ArriveRight = 12,
   Straight = 20,
   Turn = 30,
   Roundabout = 40,
@@ -12,12 +14,6 @@ export enum ManeuverType {
   Fork = 70,
   EnterFerry = 80,
   Keep = 90,
-}
-
-export enum ArrivalDirection {
-  Left = 0,
-  Right = 1,
-  Straight = 2,
 }
 
 export enum TrafficSide {
@@ -85,8 +81,11 @@ export interface BaseManeuver {
 }
 
 export interface WaypointManeuver extends BaseManeuver {
-  maneuverType: ManeuverType.Arrive | ManeuverType.Depart;
-  arrivalDirection: ArrivalDirection;
+  maneuverType:
+    | ManeuverType.Arrive
+    | ManeuverType.ArriveLeft
+    | ManeuverType.ArriveRight
+    | ManeuverType.Depart;
 }
 
 export interface StraightManeuver extends BaseManeuver {

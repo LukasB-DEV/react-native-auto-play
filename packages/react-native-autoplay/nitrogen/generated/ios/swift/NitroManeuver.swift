@@ -18,7 +18,7 @@ public extension NitroManeuver {
   /**
    * Create a new instance of `NitroManeuver`.
    */
-  init(attributedInstructionVariants: [AttributedInstructionVariant], symbolImage: NitroImage, junctionImage: NitroImage?, arrivalDirection: ArrivalDirection?, turnType: TurnType?, angle: Double?, elementAngles: [Double]?, exitNumber: Double?, offRampType: OffRampType?, onRampType: OnRampType?, forkType: ForkType?, keepType: KeepType?, id: String, travelEstimates: TravelEstimates, trafficSide: TrafficSide, linkedLaneGuidance: LaneGuidance?, maneuverType: ManeuverType, roadName: [String]?, highwayExitLabel: String?) {
+  init(attributedInstructionVariants: [AttributedInstructionVariant], symbolImage: NitroImage, junctionImage: NitroImage?, turnType: TurnType?, angle: Double?, elementAngles: [Double]?, exitNumber: Double?, offRampType: OffRampType?, onRampType: OnRampType?, forkType: ForkType?, keepType: KeepType?, id: String, travelEstimates: TravelEstimates, trafficSide: TrafficSide, linkedLaneGuidance: LaneGuidance?, maneuverType: ManeuverType, roadName: [String]?, highwayExitLabel: String?) {
     self.init({ () -> bridge.std__vector_AttributedInstructionVariant_ in
       var __vector = bridge.create_std__vector_AttributedInstructionVariant_(attributedInstructionVariants.count)
       for __item in attributedInstructionVariants {
@@ -28,12 +28,6 @@ public extension NitroManeuver {
     }(), symbolImage, { () -> bridge.std__optional_NitroImage_ in
       if let __unwrappedValue = junctionImage {
         return bridge.create_std__optional_NitroImage_(__unwrappedValue)
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_ArrivalDirection_ in
-      if let __unwrappedValue = arrivalDirection {
-        return bridge.create_std__optional_ArrivalDirection_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -152,23 +146,6 @@ public extension NitroManeuver {
       self.__junctionImage = { () -> bridge.std__optional_NitroImage_ in
         if let __unwrappedValue = newValue {
           return bridge.create_std__optional_NitroImage_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var arrivalDirection: ArrivalDirection? {
-    @inline(__always)
-    get {
-      return self.__arrivalDirection.has_value() ? self.__arrivalDirection.pointee : nil
-    }
-    @inline(__always)
-    set {
-      self.__arrivalDirection = { () -> bridge.std__optional_ArrivalDirection_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_ArrivalDirection_(__unwrappedValue)
         } else {
           return .init()
         }

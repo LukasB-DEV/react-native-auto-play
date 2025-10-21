@@ -10,7 +10,6 @@
 #include <fbjni/fbjni.h>
 #include "NitroManeuver.hpp"
 
-#include "ArrivalDirection.hpp"
 #include "AttributedInstructionVariant.hpp"
 #include "AttributedInstructionVariantImage.hpp"
 #include "AutoText.hpp"
@@ -18,7 +17,6 @@
 #include "DistanceUnits.hpp"
 #include "DurationWithTimeZone.hpp"
 #include "ForkType.hpp"
-#include "JArrivalDirection.hpp"
 #include "JAttributedInstructionVariant.hpp"
 #include "JAttributedInstructionVariantImage.hpp"
 #include "JAutoText.hpp"
@@ -77,8 +75,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JNitroImage> symbolImage = this->getFieldValue(fieldSymbolImage);
       static const auto fieldJunctionImage = clazz->getField<JNitroImage>("junctionImage");
       jni::local_ref<JNitroImage> junctionImage = this->getFieldValue(fieldJunctionImage);
-      static const auto fieldArrivalDirection = clazz->getField<JArrivalDirection>("arrivalDirection");
-      jni::local_ref<JArrivalDirection> arrivalDirection = this->getFieldValue(fieldArrivalDirection);
       static const auto fieldTurnType = clazz->getField<JTurnType>("turnType");
       jni::local_ref<JTurnType> turnType = this->getFieldValue(fieldTurnType);
       static const auto fieldAngle = clazz->getField<jni::JDouble>("angle");
@@ -122,7 +118,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         }(),
         symbolImage->toCpp(),
         junctionImage != nullptr ? std::make_optional(junctionImage->toCpp()) : std::nullopt,
-        arrivalDirection != nullptr ? std::make_optional(arrivalDirection->toCpp()) : std::nullopt,
         turnType != nullptr ? std::make_optional(turnType->toCpp()) : std::nullopt,
         angle != nullptr ? std::make_optional(angle->value()) : std::nullopt,
         elementAngles != nullptr ? std::make_optional([&]() {
@@ -173,7 +168,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         }(),
         JNitroImage::fromCpp(value.symbolImage),
         value.junctionImage.has_value() ? JNitroImage::fromCpp(value.junctionImage.value()) : nullptr,
-        value.arrivalDirection.has_value() ? JArrivalDirection::fromCpp(value.arrivalDirection.value()) : nullptr,
         value.turnType.has_value() ? JTurnType::fromCpp(value.turnType.value()) : nullptr,
         value.angle.has_value() ? jni::JDouble::valueOf(value.angle.value()) : nullptr,
         value.elementAngles.has_value() ? [&]() {

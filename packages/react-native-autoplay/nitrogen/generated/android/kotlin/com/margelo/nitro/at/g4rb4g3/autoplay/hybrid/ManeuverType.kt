@@ -18,6 +18,8 @@ import com.facebook.proguard.annotations.DoNotStrip
 enum class ManeuverType(@DoNotStrip @Keep val value: Int) {
   DEPART(0),
   ARRIVE(10),
+  ARRIVELEFT(11),
+  ARRIVERIGHT(12),
   STRAIGHT(20),
   TURN(30),
   ROUNDABOUT(40),

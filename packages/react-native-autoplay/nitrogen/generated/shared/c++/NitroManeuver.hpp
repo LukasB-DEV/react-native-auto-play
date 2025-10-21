@@ -27,8 +27,6 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariant; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
-// Forward declaration of `ArrivalDirection` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ArrivalDirection; }
 // Forward declaration of `TurnType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TurnType; }
 // Forward declaration of `OffRampType` to properly resolve imports.
@@ -52,7 +50,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ManeuverTyp
 #include <vector>
 #include "NitroImage.hpp"
 #include <optional>
-#include "ArrivalDirection.hpp"
 #include "TurnType.hpp"
 #include "OffRampType.hpp"
 #include "OnRampType.hpp"
@@ -74,7 +71,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     std::vector<AttributedInstructionVariant> attributedInstructionVariants     SWIFT_PRIVATE;
     NitroImage symbolImage     SWIFT_PRIVATE;
     std::optional<NitroImage> junctionImage     SWIFT_PRIVATE;
-    std::optional<ArrivalDirection> arrivalDirection     SWIFT_PRIVATE;
     std::optional<TurnType> turnType     SWIFT_PRIVATE;
     std::optional<double> angle     SWIFT_PRIVATE;
     std::optional<std::vector<double>> elementAngles     SWIFT_PRIVATE;
@@ -93,7 +89,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   public:
     NitroManeuver() = default;
-    explicit NitroManeuver(std::vector<AttributedInstructionVariant> attributedInstructionVariants, NitroImage symbolImage, std::optional<NitroImage> junctionImage, std::optional<ArrivalDirection> arrivalDirection, std::optional<TurnType> turnType, std::optional<double> angle, std::optional<std::vector<double>> elementAngles, std::optional<double> exitNumber, std::optional<OffRampType> offRampType, std::optional<OnRampType> onRampType, std::optional<ForkType> forkType, std::optional<KeepType> keepType, std::string id, TravelEstimates travelEstimates, TrafficSide trafficSide, std::optional<LaneGuidance> linkedLaneGuidance, ManeuverType maneuverType, std::optional<std::vector<std::string>> roadName, std::optional<std::string> highwayExitLabel): attributedInstructionVariants(attributedInstructionVariants), symbolImage(symbolImage), junctionImage(junctionImage), arrivalDirection(arrivalDirection), turnType(turnType), angle(angle), elementAngles(elementAngles), exitNumber(exitNumber), offRampType(offRampType), onRampType(onRampType), forkType(forkType), keepType(keepType), id(id), travelEstimates(travelEstimates), trafficSide(trafficSide), linkedLaneGuidance(linkedLaneGuidance), maneuverType(maneuverType), roadName(roadName), highwayExitLabel(highwayExitLabel) {}
+    explicit NitroManeuver(std::vector<AttributedInstructionVariant> attributedInstructionVariants, NitroImage symbolImage, std::optional<NitroImage> junctionImage, std::optional<TurnType> turnType, std::optional<double> angle, std::optional<std::vector<double>> elementAngles, std::optional<double> exitNumber, std::optional<OffRampType> offRampType, std::optional<OnRampType> onRampType, std::optional<ForkType> forkType, std::optional<KeepType> keepType, std::string id, TravelEstimates travelEstimates, TrafficSide trafficSide, std::optional<LaneGuidance> linkedLaneGuidance, ManeuverType maneuverType, std::optional<std::vector<std::string>> roadName, std::optional<std::string> highwayExitLabel): attributedInstructionVariants(attributedInstructionVariants), symbolImage(symbolImage), junctionImage(junctionImage), turnType(turnType), angle(angle), elementAngles(elementAngles), exitNumber(exitNumber), offRampType(offRampType), onRampType(onRampType), forkType(forkType), keepType(keepType), id(id), travelEstimates(travelEstimates), trafficSide(trafficSide), linkedLaneGuidance(linkedLaneGuidance), maneuverType(maneuverType), roadName(roadName), highwayExitLabel(highwayExitLabel) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -109,7 +105,6 @@ namespace margelo::nitro {
         JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AttributedInstructionVariant>>::fromJSI(runtime, obj.getProperty(runtime, "attributedInstructionVariants")),
         JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>::fromJSI(runtime, obj.getProperty(runtime, "symbolImage")),
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>>::fromJSI(runtime, obj.getProperty(runtime, "junctionImage")),
-        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::ArrivalDirection>>::fromJSI(runtime, obj.getProperty(runtime, "arrivalDirection")),
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TurnType>>::fromJSI(runtime, obj.getProperty(runtime, "turnType")),
         JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, "angle")),
         JSIConverter<std::optional<std::vector<double>>>::fromJSI(runtime, obj.getProperty(runtime, "elementAngles")),
@@ -132,7 +127,6 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "attributedInstructionVariants", JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AttributedInstructionVariant>>::toJSI(runtime, arg.attributedInstructionVariants));
       obj.setProperty(runtime, "symbolImage", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>::toJSI(runtime, arg.symbolImage));
       obj.setProperty(runtime, "junctionImage", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>>::toJSI(runtime, arg.junctionImage));
-      obj.setProperty(runtime, "arrivalDirection", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::ArrivalDirection>>::toJSI(runtime, arg.arrivalDirection));
       obj.setProperty(runtime, "turnType", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TurnType>>::toJSI(runtime, arg.turnType));
       obj.setProperty(runtime, "angle", JSIConverter<std::optional<double>>::toJSI(runtime, arg.angle));
       obj.setProperty(runtime, "elementAngles", JSIConverter<std::optional<std::vector<double>>>::toJSI(runtime, arg.elementAngles));
@@ -161,7 +155,6 @@ namespace margelo::nitro {
       if (!JSIConverter<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AttributedInstructionVariant>>::canConvert(runtime, obj.getProperty(runtime, "attributedInstructionVariants"))) return false;
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>::canConvert(runtime, obj.getProperty(runtime, "symbolImage"))) return false;
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroImage>>::canConvert(runtime, obj.getProperty(runtime, "junctionImage"))) return false;
-      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::ArrivalDirection>>::canConvert(runtime, obj.getProperty(runtime, "arrivalDirection"))) return false;
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TurnType>>::canConvert(runtime, obj.getProperty(runtime, "turnType"))) return false;
       if (!JSIConverter<std::optional<double>>::canConvert(runtime, obj.getProperty(runtime, "angle"))) return false;
       if (!JSIConverter<std::optional<std::vector<double>>>::canConvert(runtime, obj.getProperty(runtime, "elementAngles"))) return false;
