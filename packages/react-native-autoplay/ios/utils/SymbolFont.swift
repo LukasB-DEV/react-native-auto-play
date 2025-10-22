@@ -121,7 +121,7 @@ class SymbolFont {
     }
 
     static func imageFromLanes(
-        laneImages: [LaneImage],
+        laneImages: Array<LaneImage>.SubSequence,
         size: Int,
     ) -> UIImage {
         let width = size * laneImages.count

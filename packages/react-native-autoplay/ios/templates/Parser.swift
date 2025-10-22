@@ -444,8 +444,9 @@ class Parser {
                 }
 
                 if laneImages.count > 0 {
+                    // CarPlay has a limitation of 120x18 for the symbolImage on secondaryManeuver that shows lanes only
                     let secondarySymbolImage = SymbolFont.imageFromLanes(
-                        laneImages: laneImages,
+                        laneImages: laneImages.prefix(Int(120 / 18)),
                         size: 18
                     )
                     maneuver.secondarySymbolImage = secondarySymbolImage
