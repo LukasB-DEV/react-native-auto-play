@@ -1,4 +1,10 @@
-import { type CleanupCallback, HybridAutoPlay } from '@g4rb4g3/react-native-autoplay';
+import {
+  type AndroidAutoPermissions,
+  type CleanupCallback,
+  HybridAutoPlay,
+  type Telemetry,
+  useAndroidAutoTelemetryPermission,
+} from '@g4rb4g3/react-native-autoplay';
 import { useEffect, useState } from 'react';
 import { Button, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -17,11 +23,40 @@ function App() {
   );
 }
 
+const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
+  'com.google.android.gms.permission.CAR_FUEL',
+  'com.google.android.gms.permission.CAR_MILEAGE',
+];
+
+/*const ANDROID_AUTOMOTIVE_PERMISSIONS: Array<AndroidAutoPermissions> = [
+  'android.car.permission.CAR_ENERGY',
+  'android.car.permission.CAR_INFO',
+  'android.car.permission.CAR_EXTERIOR_ENVIRONMENT',
+  'android.car.permission.CAR_ENERGY_PORTS',
+];*/
+
 function AppContent() {
   const dispatch = useAppDispatch();
 
   const isNavigating = useAppSelector((state) => state.navigation.isNavigating);
   const selectedTrip = useAppSelector((state) => state.navigation.selectedTrip);
+
+  const permissionsGranted = useAndroidAutoTelemetryPermission(true, ANDROID_AUTO_PERMISSIONS);
+
+  useEffect(() => {
+    if (!permissionsGranted) {
+      return;
+    }
+
+    console.log('*** telemetry permissions granted, registering telemetry listener');
+    const removeListener = HybridAutoPlay.registerAndroidAutoTelemetryListener((tlm: Telemetry) => {
+      console.log('*** auto tlm incoming', tlm);
+    });
+
+    return () => {
+      removeListener();
+    };
+  }, [permissionsGranted]);
 
   const [isConnected, setIsConnected] = useState(false);
   const [isRootVisible, setIsRootVisible] = useState(false);
@@ -50,6 +85,7 @@ function AppContent() {
       <Text>Head unit root visible: {String(isRootVisible)}</Text>
       <Text>isNavigating: {String(isNavigating)}</Text>
       <Text>selectedTrip: {JSON.stringify(selectedTrip)}</Text>
+      <Text>telemetry permissions granted: {String(permissionsGranted)}</Text>
       {isNavigating ? (
         <Button
           title="stop navigation"
