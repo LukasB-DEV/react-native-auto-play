@@ -23,8 +23,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
-// Forward declaration of `NitroColor` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 // Forward declaration of `Point` to properly resolve imports.
@@ -108,8 +106,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "JNitroAlignment.hpp"
 #include "AlertActionStyle.hpp"
 #include "JAlertActionStyle.hpp"
-#include "NitroColor.hpp"
-#include "JNitroColor.hpp"
 #include "VisibleTravelEstimate.hpp"
 #include "JVisibleTravelEstimate.hpp"
 #include "Point.hpp"
@@ -241,9 +237,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       return __array;
     }() : nullptr);
   }
-  void JHybridHybridMapTemplateSpec::updateGuidanceBackgroundColor(const std::string& templateId, const std::optional<NitroColor>& color) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroColor> /* color */)>("updateGuidanceBackgroundColor");
-    method(_javaPart, jni::make_jstring(templateId), color.has_value() ? JNitroColor::fromCpp(color.value()) : nullptr);
+  void JHybridHybridMapTemplateSpec::updateGuidanceBackgroundColor(const std::string& templateId, double color) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, double /* color */)>("updateGuidanceBackgroundColor");
+    method(_javaPart, jni::make_jstring(templateId), color);
   }
   void JHybridHybridMapTemplateSpec::updateVisibleTravelEstimate(const std::string& templateId, VisibleTravelEstimate visibleTravelEstimate) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JVisibleTravelEstimate> /* visibleTravelEstimate */)>("updateVisibleTravelEstimate");

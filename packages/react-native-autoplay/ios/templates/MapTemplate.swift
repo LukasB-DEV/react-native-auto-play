@@ -338,12 +338,12 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         startNavigation(trip: trip)
     }
 
-    func updateGuidanceBackgroundColor(color: NitroColor?) {
+    func updateGuidanceBackgroundColor(color: Double?) {
         guard let template = self.template as? CPMapTemplate else { return }
 
         config.guidanceBackgroundColor = color
 
-        guard let color = Parser.parseColor(color: color) else {
+        guard let color = RCTConvert.uiColor(color) else {
             template.guidanceBackgroundColor = .black
             return
         }

@@ -56,8 +56,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
-// Forward declaration of `NitroColor` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroGridButton; }
 // Forward declaration of `NitroImage` to properly resolve imports.
@@ -138,7 +136,6 @@ namespace NitroAutoplay { class HybridHybridMessageTemplateSpec_cxx; }
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
-#include "NitroColor.hpp"
 #include "NitroGridButton.hpp"
 #include "NitroImage.hpp"
 #include "NitroManeuver.hpp"
@@ -610,21 +607,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return optional.has_value();
   }
   inline std::vector<NitroMapButton> get_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::optional<NitroColor>
-  /**
-   * Specialized version of `std::optional<NitroColor>`.
-   */
-  using std__optional_NitroColor_ = std::optional<NitroColor>;
-  inline std::optional<NitroColor> create_std__optional_NitroColor_(const NitroColor& value) noexcept {
-    return std::optional<NitroColor>(value);
-  }
-  inline bool has_value_std__optional_NitroColor_(const std::optional<NitroColor>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline NitroColor get_std__optional_NitroColor_(const std::optional<NitroColor>& optional) noexcept {
     return *optional;
   }
   

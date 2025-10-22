@@ -189,9 +189,9 @@ open class HybridHybridMapTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func updateGuidanceBackgroundColor(templateId: std.string, color: bridge.std__optional_NitroColor_) -> bridge.Result_void_ {
+  public final func updateGuidanceBackgroundColor(templateId: std.string, color: Double) -> bridge.Result_void_ {
     do {
-      try self.__implementation.updateGuidanceBackgroundColor(templateId: String(templateId), color: color.value)
+      try self.__implementation.updateGuidanceBackgroundColor(templateId: String(templateId), color: color)
       return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()

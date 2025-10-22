@@ -18,7 +18,7 @@ public extension MapTemplateConfig {
   /**
    * Create a new instance of `MapTemplateConfig`.
    */
-  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, mapButtons: [NitroMapButton]?, headerActions: [NitroAction]?, guidanceBackgroundColor: NitroColor?, visibleTravelEstimate: VisibleTravelEstimate?, onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?) {
+  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, mapButtons: [NitroMapButton]?, headerActions: [NitroAction]?, guidanceBackgroundColor: Double?, visibleTravelEstimate: VisibleTravelEstimate?, onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?) {
     self.init(std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
@@ -88,9 +88,9 @@ public extension MapTemplateConfig {
       } else {
         return .init()
       }
-    }(), { () -> bridge.std__optional_NitroColor_ in
+    }(), { () -> bridge.std__optional_double_ in
       if let __unwrappedValue = guidanceBackgroundColor {
-        return bridge.create_std__optional_NitroColor_(__unwrappedValue)
+        return bridge.create_std__optional_double_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -403,16 +403,16 @@ public extension MapTemplateConfig {
     }
   }
   
-  var guidanceBackgroundColor: NitroColor? {
+  var guidanceBackgroundColor: Double? {
     @inline(__always)
     get {
       return self.__guidanceBackgroundColor.value
     }
     @inline(__always)
     set {
-      self.__guidanceBackgroundColor = { () -> bridge.std__optional_NitroColor_ in
+      self.__guidanceBackgroundColor = { () -> bridge.std__optional_double_ in
         if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_NitroColor_(__unwrappedValue)
+          return bridge.create_std__optional_double_(__unwrappedValue)
         } else {
           return .init()
         }

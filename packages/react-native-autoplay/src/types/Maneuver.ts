@@ -159,16 +159,22 @@ export interface PreferredLane extends Lane {
   isPreferred: boolean;
 }
 
+export interface ManeuverImage {
+  name: GlyphName;
+  /**
+   * make sure to specify a color with a proper contrast ratio to MapTemplateConfig.guidanceBackgroundColor
+   * defaults to white
+   */
+  color?: string;
+}
+
 export interface GlyphLane {
   /**
    * all images from all lanes will be merged and
    * @namespace Android setLanesImage called on the specified step/maneuver
    * @namespace iOS be set as symbolImage on the secondary maneuver (a new one will be generated, in case you specify a secondary maneuver it will not be shown then)
    */
-  image?: {
-    name: GlyphName;
-    color: string;
-  };
+  image?: ManeuverImage;
 }
 
 export type Maneuver =
@@ -187,8 +193,8 @@ export type AutoManeuver = Maneuver & {
     text: string;
     images?: Array<{ image: AutoImage; position: number }>;
   }>;
-  symbolImage: AutoImage;
-  junctionImage?: AutoImage;
+  symbolImage: ManeuverImage;
+  junctionImage?: ManeuverImage;
   linkedLaneGuidance?: {
     instructionVariants: Array<string>;
     lanes: Array<(PreferredLane & GlyphLane) | (Lane & GlyphLane)>;

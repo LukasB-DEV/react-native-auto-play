@@ -28,8 +28,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
-// Forward declaration of `NitroColor` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
 // Forward declaration of `Point` to properly resolve imports.
@@ -103,7 +101,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "AlertActionStyle.hpp"
-#include "NitroColor.hpp"
 #include "VisibleTravelEstimate.hpp"
 #include "Point.hpp"
 #include "ColorScheme.hpp"
@@ -207,8 +204,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         std::rethrow_exception(__result.error());
       }
     }
-    inline void updateGuidanceBackgroundColor(const std::string& templateId, const std::optional<NitroColor>& color) override {
-      auto __result = _swiftPart.updateGuidanceBackgroundColor(templateId, color);
+    inline void updateGuidanceBackgroundColor(const std::string& templateId, double color) override {
+      auto __result = _swiftPart.updateGuidanceBackgroundColor(templateId, std::forward<decltype(color)>(color));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -348,25 +348,10 @@ class Parser {
         )
     }
 
-    static func parseColor(color: NitroColor?) -> UIColor? {
-        guard let color else { return nil }
-
-        let darkColor = RCTConvert.uiColor(color.darkColor) ?? .systemGray
-        let lightColor = RCTConvert.uiColor(color.lightColor) ?? .systemGray
-
-        return UIColor { traitCollection in
-            switch traitCollection.userInterfaceStyle {
-            case .dark:
-                return darkColor
-            case .light, .unspecified:
-                return lightColor
-            @unknown default:
-                return lightColor
-            }
-        }
-    }
-
-    static func parseManeuver(nitroManeuver: NitroManeuver, traitCollection: UITraitCollection) -> CPManeuver {
+    static func parseManeuver(
+        nitroManeuver: NitroManeuver,
+        traitCollection: UITraitCollection
+    ) -> CPManeuver {
         let maneuver = CPManeuver(id: nitroManeuver.id)
 
         maneuver.attributedInstructionVariants = nitroManeuver
@@ -456,7 +441,7 @@ class Parser {
                         return nitroLaneGuidance.image
                     }
                 }
-                
+
                 maneuver.laneImages = laneImages
             }
         }

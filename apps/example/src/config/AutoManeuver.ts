@@ -11,7 +11,12 @@ import { updateTripEstimates } from '../templates/AutoTemplate';
 const getManeuvers = (): Array<AutoManeuver> => [
   {
     id: uuid.v4(),
-    attributedInstructionVariants: [{ text: 'Straight' }],
+    attributedInstructionVariants: [
+      {
+        text: 'Straight',
+        images: [{ image: { name: 'music_note' }, position: 'Straight'.length }],
+      },
+    ],
     travelEstimates: {
       distanceRemaining: { unit: 'meters', value: 1000 },
       timeRemaining: { seconds: 10, timezone: 'Europe/Berlin' },

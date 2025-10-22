@@ -7,7 +7,6 @@ import type {
   TripsConfig,
 } from '../types/Trip';
 import type { NitroNavigationAlert } from '../utils/NitroAlert';
-import type { NitroColor } from '../utils/NitroColor';
 import type { NitroManeuver } from '../utils/NitroManeuver';
 import type { NitroMapButton } from '../utils/NitroMapButton';
 import type { NitroTemplateConfig } from './HybridAutoPlay.nitro';
@@ -39,7 +38,7 @@ export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios
   /**
    * Sets the background color to use for the navigation information.
    */
-  updateGuidanceBackgroundColor(templateId: string, color?: NitroColor): void;
+  updateGuidanceBackgroundColor(templateId: string, color: number): void;
 
   updateVisibleTravelEstimate(
     templateId: string,

@@ -14,7 +14,7 @@ import type {
 } from '../types/Trip';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NavigationAlert, NitroAlertUtil } from '../utils/NitroAlert';
-import { type NitroColor, NitroColorUtil, type ThemedColor } from '../utils/NitroColor';
+import { NitroColorUtil } from '../utils/NitroColor';
 import { type NitroManeuver, NitroManeuverUtil } from '../utils/NitroManeuver';
 import { NitroMapButton } from '../utils/NitroMapButton';
 import {
@@ -40,7 +40,7 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
   mapButtons?: Array<NitroMapButton>;
 
   headerActions?: Array<NitroAction>;
-  guidanceBackgroundColor?: NitroColor;
+  guidanceBackgroundColor?: number;
 
   /**
    * show either the next or final step travel estimates, defaults to final step so last
@@ -112,8 +112,9 @@ export type MapTemplateConfig = Omit<
 
   /**
    * Sets the background color to use for the navigation information.
+   * defaults to black
    */
-  guidanceBackgroundColor?: ThemedColor;
+  guidanceBackgroundColor?: string;
 };
 
 const convertActions = (
@@ -151,7 +152,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       ...baseConfig,
       id: this.id,
       headerActions: convertActions(this.template, headerActions),
-      guidanceBackgroundColor: NitroColorUtil.convertThemed(guidanceBackgroundColor),
+      guidanceBackgroundColor: NitroColorUtil.convert(guidanceBackgroundColor ?? 'black'),
       mapButtons: NitroMapButton.convert(this.template, mapButtons),
     };
 
@@ -219,11 +220,8 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     HybridMapTemplate.hideTripSelector(this.id);
   }
 
-  public updateGuidanceBackgroundColor(lightColor: string, darkColor: string) {
-    HybridMapTemplate.updateGuidanceBackgroundColor(
-      this.id,
-      NitroColorUtil.convertThemed({ darkColor, lightColor })
-    );
+  public updateGuidanceBackgroundColor(color: string) {
+    HybridMapTemplate.updateGuidanceBackgroundColor(this.id, NitroColorUtil.convert(color));
   }
 
   public updateVisibleTravelEstimate(visibleTravelEstimate: VisibleTravelEstimate) {

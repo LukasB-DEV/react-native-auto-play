@@ -63,7 +63,7 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
         }
     }
     
-    func updateGuidanceBackgroundColor(templateId: String, color: NitroColor?) throws {
+    func updateGuidanceBackgroundColor(templateId: String, color: Double) throws {
         try RootModule.withMapTemplate(templateId: templateId) { template in
             template.updateGuidanceBackgroundColor(color: color)
         }

@@ -114,6 +114,7 @@ const registerRunnable = () => {
       component: AutoPlayRoot,
       id: 'AutoPlayRoot',
       visibleTravelEstimate: 'first',
+      guidanceBackgroundColor: 'blue',
       onWillAppear: () => console.log('AutoPlayRoot onWillAppear'),
       onDidAppear: () => console.log('AutoPlayRoot onDidAppear'),
       onWillDisappear: () => console.log('AutoPlayRoot onWillDisappear'),

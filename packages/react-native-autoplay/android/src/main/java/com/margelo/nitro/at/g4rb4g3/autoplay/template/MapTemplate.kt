@@ -24,7 +24,6 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertDismissalReason
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroManeuver
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButtonType
@@ -237,7 +236,7 @@ class MapTemplate(
         context.getCarService(AppManager::class.java).showAlert(alert)
     }
 
-    fun updateGuidanceBackgroundColor(color: NitroColor?) {
+    fun updateGuidanceBackgroundColor(color: Double?) {
         config = config.copy(guidanceBackgroundColor = color)
         applyConfigUpdate()
     }
@@ -353,7 +352,7 @@ class MapTemplate(
                     // TODO: add image from attributedInstructionVariants to cue
                     Step.Builder(Parser.parseText(current.attributedInstructionVariants.map { it.text }
                         .toTypedArray())).apply {
-                        current.roadFollowingManeuverVariants?.let {
+                        current.roadName?.let {
                             setRoad(it.first())
                         }
                         // TODO: add ManeuverType mapping
@@ -367,7 +366,7 @@ class MapTemplate(
                         // TODO: add image from attributedInstructionVariants to cue
                         Step.Builder(Parser.parseText(it.attributedInstructionVariants.map { it.text }
                             .toTypedArray())).apply {
-                            it.roadFollowingManeuverVariants?.let {
+                            it.roadName?.let {
                                 setRoad(it.first())
                             }
                             // TODO: add ManeuverType mapping

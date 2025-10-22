@@ -27,7 +27,6 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TravelEstimates
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
@@ -245,9 +244,9 @@ object Parser {
         return travelEstimate
     }
 
-    fun parseColor(color: NitroColor): CarColor {
+    fun parseColor(color: Double): CarColor {
         return CarColor.createCustom(
-            color.lightColor.toInt(), color.darkColor.toInt()
+            color.toInt(), color.toInt()
         )
     }
 }

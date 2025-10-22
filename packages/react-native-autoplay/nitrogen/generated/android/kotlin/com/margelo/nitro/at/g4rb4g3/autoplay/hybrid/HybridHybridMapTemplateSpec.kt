@@ -67,7 +67,7 @@ abstract class HybridHybridMapTemplateSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun updateGuidanceBackgroundColor(templateId: String, color: NitroColor?): Unit
+  abstract fun updateGuidanceBackgroundColor(templateId: String, color: Double): Unit
   
   @DoNotStrip
   @Keep

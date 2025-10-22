@@ -69,7 +69,7 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
     }
 
     override fun updateGuidanceBackgroundColor(
-        templateId: String, color: NitroColor?
+        templateId: String, color: Double
     ) {
         val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
         template.updateGuidanceBackgroundColor(color)

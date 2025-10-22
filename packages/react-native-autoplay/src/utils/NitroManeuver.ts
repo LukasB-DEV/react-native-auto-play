@@ -99,7 +99,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
             image: lane.image
               ? {
                   glyph: glyphMap[lane.image.name],
-                  color: NitroColorUtil.convert(lane.image.color),
+                  color: NitroColorUtil.convert(lane.image.color ?? 'white'),
                 }
               : undefined,
           })),
@@ -114,8 +114,18 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
         position,
       })),
     })),
-    junctionImage: NitroImageUtil.convert(junctionImage),
-    symbolImage: NitroImageUtil.convert(symbolImage),
+    junctionImage: junctionImage
+      ? NitroImageUtil.convert({
+          name: junctionImage.name,
+          darkColor: junctionImage.color,
+          lightColor: junctionImage.color,
+        })
+      : undefined,
+    symbolImage: NitroImageUtil.convert({
+      name: symbolImage.name,
+      darkColor: symbolImage.color ?? 'white',
+      lightColor: symbolImage.color ?? 'white',
+    }),
     elementAngles,
     angle,
     turnType,
