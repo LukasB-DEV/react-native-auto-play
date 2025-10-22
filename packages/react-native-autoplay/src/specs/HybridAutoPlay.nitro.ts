@@ -74,7 +74,7 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
   /**
    * Register a listener for Android Auto telemetry data. Should be registered only after the telemetry permissions are granted as it starts the telemetry listener on the native side.
    * @param callback the callback to receive the telemetry data
-   * @returns a cleanup callback to remove the listener
+   * @returns a promise that resolves when the telemetry listener is successfully started
    */
   registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) => void): Promise<void>;
 
