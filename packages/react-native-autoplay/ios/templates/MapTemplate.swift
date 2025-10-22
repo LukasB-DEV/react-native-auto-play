@@ -48,7 +48,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                     let icon = SymbolFont.imageFromNitroImage(
                         image: image,
                         size: CPButtonMaximumImageSize.height,
-                        padding: 0.6
+                        fontScale: 0.65
                     )!
                     return CPMapButton(image: icon) { _ in
                         button.onPress()

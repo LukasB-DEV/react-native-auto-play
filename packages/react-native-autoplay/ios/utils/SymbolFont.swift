@@ -54,14 +54,14 @@ class SymbolFont {
         size: CGFloat,
         color: UIColor = .black,
         backgroundColor: UIColor = .white,
-        padding: CGFloat
+        fontScale: CGFloat
     ) -> UIImage? {
         if !SymbolFont.isRegistered {
             SymbolFont.loadFont()
         }
 
         guard let fontName = SymbolFont.fontName,
-              let font = UIFont(name: fontName, size: size * padding)
+              let font = UIFont(name: fontName, size: size * fontScale)
         else {
             return nil
         }
@@ -99,7 +99,7 @@ class SymbolFont {
         return image
     }
     
-    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, padding: CGFloat = 1) -> UIImage? {
+    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, fontScale: CGFloat = 1) -> UIImage? {
         guard let image else { return nil }
         
         let color = RCTConvert.uiColor(image.color) ?? .black
@@ -112,7 +112,7 @@ class SymbolFont {
             size: size,
             color: color,
             backgroundColor: backgroundColor,
-            padding: padding
+            fontScale: fontScale
         )!
     }
 }

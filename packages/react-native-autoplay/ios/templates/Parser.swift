@@ -61,7 +61,7 @@ class Parser {
                     ? CPBarButton(
                         image: SymbolFont.imageFromNitroImage(
                             image: action.image!,
-                            padding: 0.8
+                            fontScale: 0.8
                         )!
                     ) { _ in action.onPress() }
                     : CPBarButton(title: action.title ?? "") { _ in
