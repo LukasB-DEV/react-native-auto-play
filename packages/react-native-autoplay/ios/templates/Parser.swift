@@ -18,15 +18,21 @@ struct HeaderActions {
 class Parser {
     static let PLACEHOLDER_DISTANCE = "{distance}"
     static let PLACEHOLDER_DURATION = "{duration}"
-    
-    static func parseAlertActions(alertActions: [NitroAction]?) -> [CPAlertAction] {
+
+    static func parseAlertActions(alertActions: [NitroAction]?)
+        -> [CPAlertAction]
+    {
         var actions: [CPAlertAction] = []
 
         if let alertActions = alertActions {
             alertActions.forEach { alertAction in
-                let action = CPAlertAction(title: alertAction.title!, style: parseActionAlertStyle(style: alertAction.style), handler: { actionHandler in
-                    alertAction.onPress()
-                })
+                let action = CPAlertAction(
+                    title: alertAction.title!,
+                    style: parseActionAlertStyle(style: alertAction.style),
+                    handler: { actionHandler in
+                        alertAction.onPress()
+                    }
+                )
 
                 actions.append(action)
             }
@@ -35,7 +41,9 @@ class Parser {
         return actions
     }
 
-    static func parseHeaderActions(headerActions: [NitroAction]?) -> HeaderActions {
+    static func parseHeaderActions(headerActions: [NitroAction]?)
+        -> HeaderActions
+    {
         var leadingNavigationBarButtons: [CPBarButton] = []
         var trailingNavigationBarButtons: [CPBarButton] = []
         var backButton: CPBarButton?
@@ -53,7 +61,7 @@ class Parser {
                     ? CPBarButton(
                         image: SymbolFont.imageFromNitroImage(
                             image: action.image!,
-                            padding: true
+                            padding: 0.8
                         )!
                     ) { _ in action.onPress() }
                     : CPBarButton(title: action.title ?? "") { _ in
@@ -175,7 +183,7 @@ class Parser {
                 let listItem = CPListItem(
                     text: parseText(text: item.title),
                     detailText: parseText(text: item.detailedText),
-                    image: SymbolFont.imageFromNitroImage(image: item.image, padding: false),
+                    image: SymbolFont.imageFromNitroImage(image: item.image),
                     accessoryImage: isSelected
                         ? UIImage.checkmark : toggleImage,
                     accessoryType: item.browsable == true
@@ -255,7 +263,8 @@ class Parser {
                     "\(Parser.PLACEHOLDER_DURATION) (\(Parser.PLACEHOLDER_DISTANCE))",
                 distance: routeChoice.steps.last!.travelEstimates
                     .distanceRemaining,
-                duration: routeChoice.steps.last!.travelEstimates.timeRemaining.seconds
+                duration: routeChoice.steps.last!.travelEstimates.timeRemaining
+                    .seconds
             )
         )!
 
@@ -287,7 +296,7 @@ class Parser {
 
         return route
     }
-    
+
     static func parseTrip(tripConfig: TripConfig) -> CPTrip {
         let routeChoices = parseRouteChoice(routeChoice: tripConfig.routeChoice)
         let trip = CPTrip(
@@ -301,7 +310,7 @@ class Parser {
         )
 
         trip.userInfo = ["id": tripConfig.id]
-        
+
         return trip
     }
 

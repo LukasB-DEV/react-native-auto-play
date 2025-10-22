@@ -45,8 +45,7 @@ class GridTemplate: AutoPlayTemplate {
                 titleVariants: [Parser.parseText(text: button.title)!],
                 image: SymbolFont.imageFromNitroImage(
                     image: button.image,
-                    size: gridButtonHeight,
-                    padding: false
+                    size: gridButtonHeight
                 )!
             ) { _ in
                 button.onPress()

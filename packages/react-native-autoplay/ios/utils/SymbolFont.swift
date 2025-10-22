@@ -54,14 +54,14 @@ class SymbolFont {
         size: CGFloat,
         color: UIColor = .black,
         backgroundColor: UIColor = .white,
-        padding: Bool
+        padding: CGFloat
     ) -> UIImage? {
         if !SymbolFont.isRegistered {
             SymbolFont.loadFont()
         }
 
         guard let fontName = SymbolFont.fontName,
-              let font = UIFont(name: fontName, size: padding ? size * 0.8 : size)
+              let font = UIFont(name: fontName, size: size * padding)
         else {
             return nil
         }
@@ -83,9 +83,9 @@ class SymbolFont {
         UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
 
-        // Fill background
+        // Fill circular background
         context.setFillColor(backgroundColor.cgColor)
-        context.fill(rect)
+        context.fillEllipse(in: rect)
 
         // Draw glyph
         let textSize = attrString.size()
@@ -99,7 +99,7 @@ class SymbolFont {
         return image
     }
     
-    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, padding: Bool) -> UIImage? {
+    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, padding: CGFloat = 1) -> UIImage? {
         guard let image else { return nil }
         
         let color = RCTConvert.uiColor(image.color) ?? .black

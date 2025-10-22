@@ -45,7 +45,11 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         if let mapButtons = config.mapButtons {
             template.mapButtons = mapButtons.map { button in
                 if let image = button.image {
-                    let icon = SymbolFont.imageFromNitroImage(image: image, padding: true)!
+                    let icon = SymbolFont.imageFromNitroImage(
+                        image: image,
+                        size: CPButtonMaximumImageSize.height,
+                        padding: 0.6
+                    )!
                     return CPMapButton(image: icon) { _ in
                         button.onPress()
                     }
@@ -210,7 +214,10 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             return
         }
 
-        let image = SymbolFont.imageFromNitroImage(image: alertConfig.image, padding: false)
+        let image = SymbolFont.imageFromNitroImage(
+            image: alertConfig.image,
+            padding: false
+        )
 
         let style = Parser.parseActionAlertStyle(
             style: alertConfig.primaryAction.style
@@ -389,12 +396,12 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
         updateVisibleTravelEstimate(visibleTravelEstimate: nil)
     }
-    
+
     func startNavigation(trip: CPTrip) {
         guard let template = self.template as? CPMapTemplate else { return }
-        
+
         let routeChoice = trip.routeChoices.first
-        
+
         if let travelEstimates = config.visibleTravelEstimate == .first
             ? routeChoice?.getTravelEstimates().first
             : routeChoice?.getTravelEstimates().last
