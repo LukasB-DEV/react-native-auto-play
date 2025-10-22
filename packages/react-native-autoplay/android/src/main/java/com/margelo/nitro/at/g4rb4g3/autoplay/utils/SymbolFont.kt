@@ -6,6 +6,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.Typeface
+import android.util.Log
+import androidx.car.app.CarContext
 import androidx.core.content.res.ResourcesCompat
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import androidx.core.graphics.createBitmap
@@ -77,21 +79,21 @@ object SymbolFont {
         return bitmap
     }
 
-    fun imageFromNitroImage(context: Context, image: NitroImage): Bitmap {
-        val color = image.color?.toInt() ?: android.graphics.Color.BLACK
+    fun imageFromNitroImage(context: CarContext, image: NitroImage): Bitmap {
+        var color = (if (context.isDarkMode) image.darkColor?.toInt() else image.lightColor?.toInt()) ?: android.graphics.Color.BLACK
         val backgroundColor = image.backgroundColor?.toInt() ?: android.graphics.Color.WHITE
 
         return imageFromGlyph(
             context = context,
             glyph = image.glyph,
-            color = color,
+            color = color ,
             backgroundColor = backgroundColor
         )!!
     }
 
-    fun iconFromNitroImage(context: Context, image: NitroImage): IconCompat {
+    fun iconFromNitroImage(context: CarContext, image: NitroImage): IconCompat {
         val bitmap = imageFromNitroImage(context, image)
-
+        
         return IconCompat.createWithBitmap(bitmap)
     }
 }
