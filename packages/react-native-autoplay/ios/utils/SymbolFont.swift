@@ -6,8 +6,8 @@
 //
 
 import CoreText
-import UIKit
 import React
+import UIKit
 
 class SymbolFont {
     private static var isRegistered = false
@@ -52,57 +52,101 @@ class SymbolFont {
     static func imageFromGlyph(
         glyph: Double,
         size: CGFloat,
-        color: UIColor = .black,
+        lightColor: UIColor,
+        darkColor: UIColor,
         backgroundColor: UIColor = .white,
-        fontScale: CGFloat
+        fontScale: CGFloat,
+        noImageAsset: Bool
     ) -> UIImage? {
         if !SymbolFont.isRegistered {
             SymbolFont.loadFont()
         }
 
         guard let fontName = SymbolFont.fontName,
-              let font = UIFont(name: fontName, size: size * fontScale)
+            let font = UIFont(name: fontName, size: size * fontScale)
         else {
             return nil
         }
 
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: color,
-        ]
-
         let codepoint = String(UnicodeScalar(UInt32(glyph))!)
-        let attrString = NSAttributedString(
-            string: codepoint,
-            attributes: attributes
-        )
         let canvasSize = CGSize(width: size, height: size)
         let rect = CGRect(origin: .zero, size: canvasSize)
 
-        // Start drawing
-        UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        // Create a helper function to draw the image with a specific color
+        func createImage(with color: UIColor) -> UIImage? {
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: font,
+                .foregroundColor: color,
+            ]
 
-        // Fill circular background
-        context.setFillColor(backgroundColor.cgColor)
-        context.fillEllipse(in: rect)
+            let attrString = NSAttributedString(
+                string: codepoint,
+                attributes: attributes
+            )
 
-        // Draw glyph
-        let textSize = attrString.size()
-        let x = (canvasSize.width - textSize.width) / 2
-        let y = (canvasSize.height - textSize.height) / 2
-        attrString.draw(at: CGPoint(x: x, y: y))
+            // Start drawing
+            UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
+            guard let context = UIGraphicsGetCurrentContext() else {
+                return nil
+            }
 
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+            // Fill circular background
+            context.setFillColor(backgroundColor.cgColor)
+            context.fillEllipse(in: rect)
 
-        return image
+            // Draw glyph
+            let textSize = attrString.size()
+            let x = (canvasSize.width - textSize.width) / 2
+            let y = (canvasSize.height - textSize.height) / 2
+            attrString.draw(at: CGPoint(x: x, y: y))
+
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            return image
+        }
+
+        // Create images for both light and dark modes
+        guard let lightImage = createImage(with: lightColor),
+            let darkImage = createImage(with: darkColor)
+        else {
+            return nil
+        }
+
+        if noImageAsset {
+            return UIScreen.main.traitCollection.userInterfaceStyle == .light
+                ? lightImage : darkImage
+        }
+
+        // Create a UIImageAsset that contains both light and dark variants
+        let imageAsset = UIImageAsset()
+
+        // Register the light image for light trait collection
+        let lightTraits = UITraitCollection(traitsFrom: [
+            UITraitCollection(userInterfaceStyle: .light)
+        ])
+        imageAsset.register(lightImage, with: lightTraits)
+
+        // Register the dark image for dark trait collection
+        let darkTraits = UITraitCollection(traitsFrom: [
+            UITraitCollection(userInterfaceStyle: .dark)
+        ])
+        imageAsset.register(darkImage, with: darkTraits)
+
+        // Return an image from the asset that will automatically switch based on the interface style
+        return imageAsset.image(with: UIScreen.main.traitCollection)
     }
-    
-    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, fontScale: CGFloat = 1) -> UIImage? {
+
+    static func imageFromNitroImage(
+        image: NitroImage?,
+        size: CGFloat = 32,
+        fontScale: CGFloat = 1,
+        noImageAsset: Bool = false
+    ) -> UIImage? {
         guard let image else { return nil }
-        
-        let color = RCTConvert.uiColor(image.color) ?? .black
+
+        let lightColor = RCTConvert.uiColor(image.lightColor) ?? .black
+        let darkColor = RCTConvert.uiColor(image.darkColor) ?? .black
         let backgroundColor =
             RCTConvert.uiColor(image.backgroundColor)
             ?? .white
@@ -110,9 +154,11 @@ class SymbolFont {
         return SymbolFont.imageFromGlyph(
             glyph: image.glyph,
             size: size,
-            color: color,
+            lightColor: lightColor,
+            darkColor: darkColor,
             backgroundColor: backgroundColor,
-            fontScale: fontScale
+            fontScale: fontScale,
+            noImageAsset: noImageAsset
         )!
     }
 }
