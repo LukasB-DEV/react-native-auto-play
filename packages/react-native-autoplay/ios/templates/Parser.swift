@@ -41,7 +41,10 @@ class Parser {
         return actions
     }
 
-    static func parseHeaderActions(headerActions: [NitroAction]?)
+    static func parseHeaderActions(
+        headerActions: [NitroAction]?,
+        traitCollection: UITraitCollection
+    )
         -> HeaderActions
     {
         var leadingNavigationBarButtons: [CPBarButton] = []
@@ -60,7 +63,11 @@ class Parser {
                     action.image != nil
                     ? CPBarButton(
                         image: SymbolFont.imageFromNitroImage(
-                            image: action.image!
+                            image: action.image!,
+                            fontScale: 0.8,
+                            // this icon is not scaled properly when used as image asset, so we use the plain image, as CP does the correct coloring anyways
+                            noImageAsset: true,
+                            traitCollection: traitCollection
                         )!
                     ) { _ in action.onPress() }
                     : CPBarButton(title: action.title ?? "") { _ in
@@ -162,7 +169,8 @@ class Parser {
 
     static func parseSections(
         sections: [NitroSection]?,
-        updateSection: @escaping (NitroSection, Int) -> Void
+        updateSection: @escaping (NitroSection, Int) -> Void,
+        traitCollection: UITraitCollection
     ) -> [CPListSection] {
         guard let sections else { return [] }
 
@@ -182,7 +190,10 @@ class Parser {
                 let listItem = CPListItem(
                     text: parseText(text: item.title),
                     detailText: parseText(text: item.detailedText),
-                    image: SymbolFont.imageFromNitroImage(image: item.image),
+                    image: SymbolFont.imageFromNitroImage(
+                        image: item.image,
+                        traitCollection: traitCollection
+                    ),
                     accessoryImage: isSelected
                         ? UIImage.checkmark : toggleImage,
                     accessoryType: item.browsable == true
@@ -355,7 +366,7 @@ class Parser {
         }
     }
 
-    static func parseManeuver(nitroManeuver: NitroManeuver) -> CPManeuver {
+    static func parseManeuver(nitroManeuver: NitroManeuver, traitCollection: UITraitCollection) -> CPManeuver {
         let maneuver = CPManeuver(id: nitroManeuver.id)
 
         maneuver.attributedInstructionVariants = nitroManeuver
@@ -367,7 +378,8 @@ class Parser {
                     nitroImages.forEach { image in
                         let attachment = NSTextAttachment(
                             image: SymbolFont.imageFromNitroImage(
-                                image: image.image
+                                image: image.image,
+                                traitCollection: traitCollection
                             )!
                         )
                         let container = NSAttributedString(
@@ -386,10 +398,12 @@ class Parser {
             travelEstimates: nitroManeuver.travelEstimates
         )
         maneuver.symbolImage = SymbolFont.imageFromNitroImage(
-            image: nitroManeuver.symbolImage
+            image: nitroManeuver.symbolImage,
+            traitCollection: traitCollection
         )
         maneuver.junctionImage = SymbolFont.imageFromNitroImage(
-            image: nitroManeuver.junctionImage
+            image: nitroManeuver.junctionImage,
+            traitCollection: traitCollection
         )
 
         if #available(iOS 17.4, *) {
@@ -442,15 +456,8 @@ class Parser {
                         return nitroLaneGuidance.image
                     }
                 }
-
-                if laneImages.count > 0 {
-                    // CarPlay has a limitation of 120x18 for the symbolImage on secondaryManeuver that shows lanes only
-                    let secondarySymbolImage = SymbolFont.imageFromLanes(
-                        laneImages: laneImages.prefix(Int(120 / 18)),
-                        size: 18
-                    )
-                    maneuver.secondarySymbolImage = secondarySymbolImage
-                }
+                
+                maneuver.laneImages = laneImages
             }
         }
 

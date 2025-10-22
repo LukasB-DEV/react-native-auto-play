@@ -38,7 +38,8 @@ class ListTemplate: AutoPlayTemplate {
         template.updateSections(
             Parser.parseSections(
                 sections: config.sections,
-                updateSection: self.updateSection(section:sectionIndex:)
+                updateSection: self.updateSection(section:sectionIndex:),
+                traitCollection: traitCollection
             )
         )
     }

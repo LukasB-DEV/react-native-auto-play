@@ -6,7 +6,7 @@ const getTemplate = (message: AutoText): MessageTemplate => {
   return new MessageTemplate({
     title: { text: 'header title' },
     message,
-    image: { name: 'info', size: 56 },
+    image: { name: 'info' },
     actions: [
       {
         type: 'custom',

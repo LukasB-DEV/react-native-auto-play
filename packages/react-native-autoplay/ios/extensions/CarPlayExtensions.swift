@@ -89,14 +89,14 @@ extension CPManeuver {
             self.userInfo = info
         }
     }
-    var secondarySymbolImage: UIImage? {
+    var laneImages: [LaneImage]? {
         get {
-            return (self.userInfo as? [String: Any])?["secondarySymbolImage"]
-                as? UIImage
+            return (self.userInfo as? [String: Any])?["laneImages"]
+                as? [LaneImage]
         }
         set {
             var info = (self.userInfo as? [String: Any]) ?? [:]
-            info["secondarySymbolImage"] = newValue
+            info["laneImages"] = newValue
             self.userInfo = info
         }
     }

@@ -296,7 +296,8 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
     type: 'custom',
     image: {
       name: 'ev_station',
-      color: 'rgba(255, 255, 255, 1)',
+      darkColor: 'rgba(255, 0, 0, 1)',
+      lightColor: 'rgba(0, 255, 0, 1)',
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
     },
     onPress: (template) => {
@@ -318,7 +319,8 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
     type: 'custom',
     image: {
       name: 'message',
-      color: 'rgba(255, 255, 255, 1)',
+      darkColor: 'rgba(255, 0, 0, 1)',
+      lightColor: 'rgba(0, 255, 0, 1)',
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
     },
     onPress: () => {

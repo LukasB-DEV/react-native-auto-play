@@ -44,7 +44,12 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         if let mapButtons = config.mapButtons {
             template.mapButtons = mapButtons.map { button in
                 if let image = button.image {
-                    let icon = SymbolFont.imageFromNitroImage(image: image)!
+                    let icon = SymbolFont.imageFromNitroImage(
+                        image: image,
+                        size: CPButtonMaximumImageSize.height,
+                        fontScale: 0.65,
+                        traitCollection: traitCollection
+                    )!
                     return CPMapButton(image: icon) { _ in
                         button.onPress()
                     }
@@ -209,7 +214,10 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             return
         }
 
-        let image = SymbolFont.imageFromNitroImage(image: alertConfig.image)
+        let image = SymbolFont.imageFromNitroImage(
+            image: alertConfig.image,
+            traitCollection: traitCollection
+        )
 
         let style = Parser.parseActionAlertStyle(
             style: alertConfig.primaryAction.style
@@ -336,7 +344,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         config.guidanceBackgroundColor = color
 
         guard let color = Parser.parseColor(color: color) else {
-            template.guidanceBackgroundColor = .systemGray
+            template.guidanceBackgroundColor = .black
             return
         }
 
@@ -412,15 +420,24 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                 continue
             }
 
-            let maneuver = Parser.parseManeuver(nitroManeuver: nitroManeuver)
+            let maneuver = Parser.parseManeuver(
+                nitroManeuver: nitroManeuver,
+                traitCollection: traitCollection
+            )
             upcomingManeuvers.append(maneuver)
         }
 
         if upcomingManeuvers.count > 0 {
             if #available(iOS 17.4, *) {
                 upcomingManeuvers = upcomingManeuvers.flatMap { maneuver in
-                    if let secondarySymbolImage = maneuver.secondarySymbolImage
-                    {
+                    if let laneImages = maneuver.laneImages {
+                        // CarPlay has a limitation of 120x18 for the symbolImage on secondaryManeuver that shows lanes only
+                        let secondarySymbolImage = SymbolFont.imageFromLanes(
+                            laneImages: laneImages.prefix(Int(120 / 18)),
+                            size: 18,
+                            traitCollection: traitCollection
+                        )
+
                         let secondaryManeuver = CPManeuver(
                             id: maneuver.id + "-lanes",
                             isSecondary: true

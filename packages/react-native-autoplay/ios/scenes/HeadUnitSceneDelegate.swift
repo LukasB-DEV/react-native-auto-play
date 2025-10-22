@@ -26,7 +26,7 @@ class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate {
         )
 
         let props: [String: Any] = [
-            "colorScheme": window.screen.traitCollection
+            "colorScheme": interfaceController.carTraitCollection
                 .userInterfaceStyle == .dark ? "dark" : "light",
             "window": [
                 "height": window.bounds.size.height,
