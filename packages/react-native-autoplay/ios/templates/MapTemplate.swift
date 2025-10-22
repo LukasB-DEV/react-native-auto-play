@@ -45,7 +45,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         if let mapButtons = config.mapButtons {
             template.mapButtons = mapButtons.map { button in
                 if let image = button.image {
-                    let icon = SymbolFont.imageFromNitroImage(image: image)!
+                    let icon = SymbolFont.imageFromNitroImage(image: image, padding: true)!
                     return CPMapButton(image: icon) { _ in
                         button.onPress()
                     }

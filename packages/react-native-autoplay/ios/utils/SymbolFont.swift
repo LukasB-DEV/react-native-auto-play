@@ -99,7 +99,7 @@ class SymbolFont {
         return image
     }
     
-    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, padding: Bool = true) -> UIImage? {
+    static func imageFromNitroImage(image: NitroImage?, size: CGFloat = 32, padding: Bool) -> UIImage? {
         guard let image else { return nil }
         
         let color = RCTConvert.uiColor(image.color) ?? .black
