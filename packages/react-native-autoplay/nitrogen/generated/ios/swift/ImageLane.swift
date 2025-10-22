@@ -50,11 +50,7 @@ public extension ImageLane {
   var angles: [Double] {
     @inline(__always)
     get {
-      return { () -> [Double] in
-        let __data = bridge.get_data_std__vector_double_(self.__angles)
-        let __size = self.__angles.size()
-        return Array(UnsafeBufferPointer(start: __data, count: __size))
-      }()
+      return self.__angles.map({ __item in __item })
     }
     @inline(__always)
     set {
