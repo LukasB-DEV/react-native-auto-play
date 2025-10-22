@@ -1,6 +1,7 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type { TemplateConfig } from '../templates/Template';
 import type { CleanupCallback, EventName, SafeAreaInsets, VisibilityState } from '../types/Event';
+import type { Telemetry } from '../types/Telemetry';
 import type { NitroAction } from '../utils/NitroAction';
 
 export interface NitroTemplateConfig extends TemplateConfig {
@@ -69,4 +70,16 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
    * update a templates headerActions
    */
   setTemplateHeaderActions(templateId: string, headerActions?: Array<NitroAction>): void;
+
+  /**
+   * Register a listener for Android Auto telemetry data. Should be registered only after the telemetry permissions are granted as it starts the telemetry listener on the native side.
+   * @param callback the callback to receive the telemetry data
+   * @returns a cleanup callback to remove the listener
+   */
+  registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) => void): Promise<void>;
+
+  /**
+   * Stop the Android Auto telemetry listener.
+   */
+  stopAndroidAutoTelemetry(): void;
 }

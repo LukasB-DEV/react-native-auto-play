@@ -2,6 +2,7 @@ package com.margelo.nitro.at.g4rb4g3.autoplay.hybrid
 
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
+import com.margelo.nitro.at.g4rb4g3.autoplay.CarPlayTelemetryObserver
 import com.margelo.nitro.at.g4rb4g3.autoplay.VirtualRenderer
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ThreadUtil
@@ -21,6 +22,22 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
         return {
             listeners[eventType]?.removeAll { it === callback }
         }
+    }
+
+    override fun registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) -> Unit): Promise<Unit> {
+        return Promise.Companion.async {
+            val carContext =
+                AndroidAutoSession.Companion.getCarContext(AndroidAutoSession.Companion.ROOT_SESSION)
+            if (carContext == null) {
+                TODO("No carContext available in registerAndroidAutoTelemetryListener")
+            }
+
+            CarPlayTelemetryObserver.startTelemetryObserver(carContext, callback)
+        }
+    }
+
+    override fun stopAndroidAutoTelemetry() {
+        CarPlayTelemetryObserver.stopTelemetryObserver()
     }
 
     override fun addListenerRenderState(

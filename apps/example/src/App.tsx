@@ -43,18 +43,29 @@ function AppContent() {
 
   const permissionsGranted = useAndroidAutoTelemetryPermission(true, ANDROID_AUTO_PERMISSIONS);
 
+  const [telemetry, setTlm] = useState<Telemetry | null>(null);
+
   useEffect(() => {
     if (!permissionsGranted) {
       return;
     }
 
     console.log('*** telemetry permissions granted, registering telemetry listener');
-    const removeListener = HybridAutoPlay.registerAndroidAutoTelemetryListener((tlm: Telemetry) => {
+    HybridAutoPlay.registerAndroidAutoTelemetryListener((tlm: Telemetry) => {
+      setTlm((prevTlm) => {
+        return { ...prevTlm, ...tlm };
+      });
       console.log('*** auto tlm incoming', tlm);
-    });
+    })
+      .then(() => {
+        console.log('*** telemetry listener registered');
+      })
+      .catch((error) => {
+        console.log('*** error registering telemetry listener', error);
+      });
 
     return () => {
-      removeListener();
+      HybridAutoPlay.stopAndroidAutoTelemetry();
     };
   }, [permissionsGranted]);
 
@@ -86,6 +97,48 @@ function AppContent() {
       <Text>isNavigating: {String(isNavigating)}</Text>
       <Text>selectedTrip: {JSON.stringify(selectedTrip)}</Text>
       <Text>telemetry permissions granted: {String(permissionsGranted)}</Text>
+      {telemetry ? <Text>---- telemetry ----</Text> : null}
+      {telemetry?.batteryLevel ? (
+        <Text>
+          batteryLevel: {telemetry.batteryLevel.value} ({telemetry.batteryLevel.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.fuelLevel ? (
+        <Text>
+          fuelLevel: {telemetry.fuelLevel.value} ({telemetry.fuelLevel.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.speed ? (
+        <Text>
+          speed: {telemetry.speed.value} ({telemetry.speed.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.range ? (
+        <Text>
+          range: {telemetry.range.value} ({telemetry.range.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.odometer ? (
+        <Text>
+          odometer: {telemetry.odometer.value} ({telemetry.odometer.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.vehicle?.name ? (
+        <Text>
+          vehicle: {telemetry.vehicle.name.value} ({telemetry.vehicle.name.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.vehicle?.year ? (
+        <Text>
+          vehicle: {telemetry.vehicle.year.value} ({telemetry.vehicle.year.timestamp})
+        </Text>
+      ) : null}
+      {telemetry?.vehicle?.manufacturer ? (
+        <Text>
+          vehicle: {telemetry.vehicle.manufacturer.value} (
+          {telemetry.vehicle.manufacturer.timestamp})
+        </Text>
+      ) : null}
       {isNavigating ? (
         <Button
           title="stop navigation"
