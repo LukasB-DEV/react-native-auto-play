@@ -103,6 +103,8 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         if (config.onAppearanceDidChange != null) {
             val colorScheme = if (carContext.isDarkMode) ColorScheme.DARK else ColorScheme.LIGHT
             config.onAppearanceDidChange(colorScheme)
+
+            AndroidAutoScreen.invalidateScreens()
         }
     }
 

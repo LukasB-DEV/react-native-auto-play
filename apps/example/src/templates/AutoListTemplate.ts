@@ -50,6 +50,8 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
       checked: showRadios,
       image: {
         name: 'alarm',
+        lightColor: 'red',
+        darkColor: 'orange',
       },
       onPress: (template, checked) => {
         template.updateSections(getMainSection(checked));

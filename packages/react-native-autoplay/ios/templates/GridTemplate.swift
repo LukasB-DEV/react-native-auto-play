@@ -33,11 +33,20 @@ class GridTemplate: AutoPlayTemplate {
         }
 
         setBarButtons()
+        let gridButtonHeight: CGFloat
+        if #available(iOS 26.0, *) {
+            gridButtonHeight = CPGridTemplate.maximumGridButtonImageSize.height
+        } else {
+            gridButtonHeight = 44
+        }
 
         let buttons = config.buttons.map { button in
             CPGridButton(
                 titleVariants: [Parser.parseText(text: button.title)!],
-                image: SymbolFont.imageFromNitroImage(image: button.image)!
+                image: SymbolFont.imageFromNitroImage(
+                    image: button.image,
+                    size: gridButtonHeight
+                )!
             ) { _ in
                 button.onPress()
             }

@@ -6,15 +6,16 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.Typeface
+import androidx.car.app.CarContext
 import androidx.core.content.res.ResourcesCompat
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import com.margelo.nitro.autoplay.BuildConfig
 import com.margelo.nitro.autoplay.R
 
 object SymbolFont {
-    val TAG = "SymbolFont"
+    const val TAG = "SymbolFont"
 
     private var typeface: Typeface? = null
 
@@ -29,7 +30,6 @@ object SymbolFont {
     fun imageFromGlyph(
         context: Context,
         glyph: Double,
-        size: Float,
         color: Int = android.graphics.Color.BLACK,
         backgroundColor: Int = android.graphics.Color.WHITE
     ): Bitmap? {
@@ -39,20 +39,21 @@ object SymbolFont {
             return null
         }
 
-        val canvasSize = 32
+        val virtualScreenDensity = context.resources.displayMetrics.density
+        val scale = BuildConfig.SCALE_FACTOR * virtualScreenDensity
+
+        // Minimum recommended image size is 36dp according to https://developers.google.com/cars/design/create-apps/ux-requirements/templated-apps#navigation
+        val canvasSize = (36 * scale).toInt()
         val bitmap = createBitmap(canvasSize, canvasSize)
         val canvas = Canvas(bitmap)
 
         // Fill background
         canvas.drawColor(backgroundColor)
 
-        val virtualScreenDensity = context.resources.displayMetrics.density
-        val scale = BuildConfig.SCALE_FACTOR * virtualScreenDensity
-
         // Setup text paint
         val paint = Paint().apply {
             typeface = font
-            textSize = size * scale
+            textSize = canvasSize.toFloat()
             this.color = color
             isAntiAlias = true
             textAlign = Paint.Align.LEFT
@@ -76,20 +77,21 @@ object SymbolFont {
         return bitmap
     }
 
-    fun imageFromNitroImage(context: Context, image: NitroImage): Bitmap {
-        val color = image.color?.toInt() ?: android.graphics.Color.BLACK
+    fun imageFromNitroImage(context: CarContext, image: NitroImage): Bitmap {
+        val color =
+            (if (context.isDarkMode) image.darkColor?.toInt() else image.lightColor?.toInt())
+                ?: android.graphics.Color.BLACK
         val backgroundColor = image.backgroundColor?.toInt() ?: android.graphics.Color.WHITE
 
         return imageFromGlyph(
             context = context,
             glyph = image.glyph,
-            size = image.size.toFloat(),
             color = color,
             backgroundColor = backgroundColor
         )!!
     }
 
-    fun iconFromNitroImage(context: Context, image: NitroImage): IconCompat {
+    fun iconFromNitroImage(context: CarContext, image: NitroImage): IconCompat {
         val bitmap = imageFromNitroImage(context, image)
 
         return IconCompat.createWithBitmap(bitmap)
