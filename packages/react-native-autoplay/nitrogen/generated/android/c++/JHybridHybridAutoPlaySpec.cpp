@@ -23,6 +23,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
+// Forward declaration of `Telemetry` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Telemetry; }
+// Forward declaration of `NumericTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NumericTelemetryItem; }
+// Forward declaration of `VehicleTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct VehicleTelemetryItem; }
+// Forward declaration of `StringTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetryItem; }
 
 #include <functional>
 #include "JFunc_void.hpp"
@@ -49,6 +57,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertAction
 #include "JNitroAlignment.hpp"
 #include "AlertActionStyle.hpp"
 #include "JAlertActionStyle.hpp"
+#include "Telemetry.hpp"
+#include "JFunc_void_Telemetry.hpp"
+#include "JTelemetry.hpp"
+#include "NumericTelemetryItem.hpp"
+#include "JNumericTelemetryItem.hpp"
+#include "VehicleTelemetryItem.hpp"
+#include "JVehicleTelemetryItem.hpp"
+#include "StringTelemetryItem.hpp"
+#include "JStringTelemetryItem.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -207,6 +224,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       }
       return __array;
     }() : nullptr);
+  }
+  std::function<void()> JHybridHybridAutoPlaySpec::registerAndroidAutoTelemetryListener(const std::function<void(const Telemetry& /* tlm */)>& callback) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_Telemetry::javaobject> /* callback */)>("registerAndroidAutoTelemetryListener_cxx");
+    auto __result = method(_javaPart, JFunc_void_Telemetry_cxx::fromCpp(callback));
+    return [&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return [__resultRef]() -> void {
+          return __resultRef->invoke();
+        };
+      }
+    }();
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

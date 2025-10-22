@@ -56,18 +56,26 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroRow; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroSectionType; }
 // Forward declaration of `NitroSection` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroSection; }
+// Forward declaration of `NumericTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NumericTelemetryItem; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SafeAreaInsets; }
+// Forward declaration of `StringTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetryItem; }
+// Forward declaration of `Telemetry` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Telemetry; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
 // Forward declaration of `TripPoint` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 // Forward declaration of `TripsConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripsConfig; }
+// Forward declaration of `VehicleTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct VehicleTelemetryItem; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
@@ -110,12 +118,16 @@ namespace NitroAutoplay { class HybridHybridMessageTemplateSpec_cxx; }
 #include "NitroRow.hpp"
 #include "NitroSection.hpp"
 #include "NitroSectionType.hpp"
+#include "NumericTelemetryItem.hpp"
 #include "Point.hpp"
 #include "RouteChoice.hpp"
 #include "SafeAreaInsets.hpp"
+#include "StringTelemetryItem.hpp"
+#include "Telemetry.hpp"
 #include "TravelEstimates.hpp"
 #include "TripPoint.hpp"
 #include "TripsConfig.hpp"
+#include "VehicleTelemetryItem.hpp"
 #include "VisibilityState.hpp"
 #include "VisibleTravelEstimate.hpp"
 #include <NitroModules/FastVectorCopy.hpp>
@@ -349,6 +361,73 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   }
   inline std::vector<NitroAction> get_std__optional_std__vector_NitroAction__(const std::optional<std::vector<NitroAction>>& optional) noexcept {
     return *optional;
+  }
+  
+  // pragma MARK: std::optional<NumericTelemetryItem>
+  /**
+   * Specialized version of `std::optional<NumericTelemetryItem>`.
+   */
+  using std__optional_NumericTelemetryItem_ = std::optional<NumericTelemetryItem>;
+  inline std::optional<NumericTelemetryItem> create_std__optional_NumericTelemetryItem_(const NumericTelemetryItem& value) noexcept {
+    return std::optional<NumericTelemetryItem>(value);
+  }
+  inline bool has_value_std__optional_NumericTelemetryItem_(const std::optional<NumericTelemetryItem>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline NumericTelemetryItem get_std__optional_NumericTelemetryItem_(const std::optional<NumericTelemetryItem>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<StringTelemetryItem>
+  /**
+   * Specialized version of `std::optional<StringTelemetryItem>`.
+   */
+  using std__optional_StringTelemetryItem_ = std::optional<StringTelemetryItem>;
+  inline std::optional<StringTelemetryItem> create_std__optional_StringTelemetryItem_(const StringTelemetryItem& value) noexcept {
+    return std::optional<StringTelemetryItem>(value);
+  }
+  inline bool has_value_std__optional_StringTelemetryItem_(const std::optional<StringTelemetryItem>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline StringTelemetryItem get_std__optional_StringTelemetryItem_(const std::optional<StringTelemetryItem>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<VehicleTelemetryItem>
+  /**
+   * Specialized version of `std::optional<VehicleTelemetryItem>`.
+   */
+  using std__optional_VehicleTelemetryItem_ = std::optional<VehicleTelemetryItem>;
+  inline std::optional<VehicleTelemetryItem> create_std__optional_VehicleTelemetryItem_(const VehicleTelemetryItem& value) noexcept {
+    return std::optional<VehicleTelemetryItem>(value);
+  }
+  inline bool has_value_std__optional_VehicleTelemetryItem_(const std::optional<VehicleTelemetryItem>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline VehicleTelemetryItem get_std__optional_VehicleTelemetryItem_(const std::optional<VehicleTelemetryItem>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::function<void(const Telemetry& /* tlm */)>
+  /**
+   * Specialized version of `std::function<void(const Telemetry&)>`.
+   */
+  using Func_void_Telemetry = std::function<void(const Telemetry& /* tlm */)>;
+  /**
+   * Wrapper class for a `std::function<void(const Telemetry& / * tlm * /)>`, this can be used from Swift.
+   */
+  class Func_void_Telemetry_Wrapper final {
+  public:
+    explicit Func_void_Telemetry_Wrapper(std::function<void(const Telemetry& /* tlm */)>&& func): _function(std::make_unique<std::function<void(const Telemetry& /* tlm */)>>(std::move(func))) {}
+    inline void call(Telemetry tlm) const noexcept {
+      _function->operator()(tlm);
+    }
+  private:
+    std::unique_ptr<std::function<void(const Telemetry& /* tlm */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_Telemetry create_Func_void_Telemetry(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_Telemetry_Wrapper wrap_Func_void_Telemetry(Func_void_Telemetry value) noexcept {
+    return Func_void_Telemetry_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::shared_ptr<HybridHybridAutoPlaySpec>

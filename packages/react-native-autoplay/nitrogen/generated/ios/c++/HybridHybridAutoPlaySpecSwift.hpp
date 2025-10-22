@@ -28,6 +28,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
+// Forward declaration of `Telemetry` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Telemetry; }
+// Forward declaration of `NumericTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NumericTelemetryItem; }
+// Forward declaration of `VehicleTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct VehicleTelemetryItem; }
+// Forward declaration of `StringTelemetryItem` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetryItem; }
 
 #include <functional>
 #include "EventName.hpp"
@@ -42,6 +50,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertAction
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "AlertActionStyle.hpp"
+#include "Telemetry.hpp"
+#include "NumericTelemetryItem.hpp"
+#include "VehicleTelemetryItem.hpp"
+#include "StringTelemetryItem.hpp"
 
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
 
@@ -153,6 +165,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+    }
+    inline std::function<void()> registerAndroidAutoTelemetryListener(const std::function<void(const Telemetry& /* tlm */)>& callback) override {
+      auto __result = _swiftPart.registerAndroidAutoTelemetryListener(callback);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
     }
 
   private:

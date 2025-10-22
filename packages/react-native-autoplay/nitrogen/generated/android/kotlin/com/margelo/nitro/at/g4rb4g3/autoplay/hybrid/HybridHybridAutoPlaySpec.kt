@@ -95,6 +95,15 @@ abstract class HybridHybridAutoPlaySpec: HybridObject() {
     val __result = setTemplateHeaderActions(templateId, headerActions?.let { it })
     return __result
   }
+  
+  abstract fun registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) -> Unit): () -> Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun registerAndroidAutoTelemetryListener_cxx(callback: Func_void_Telemetry): Func_void {
+    val __result = registerAndroidAutoTelemetryListener(callback)
+    return Func_void_java(__result)
+  }
 
   private external fun initHybrid(): HybridData
 

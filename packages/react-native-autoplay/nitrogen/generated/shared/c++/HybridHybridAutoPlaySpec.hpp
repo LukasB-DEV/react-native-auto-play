@@ -21,6 +21,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityS
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SafeAreaInsets; }
 // Forward declaration of `NitroAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
+// Forward declaration of `Telemetry` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Telemetry; }
 
 #include <functional>
 #include "EventName.hpp"
@@ -31,6 +33,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 #include "SafeAreaInsets.hpp"
 #include "NitroAction.hpp"
 #include <vector>
+#include "Telemetry.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -72,6 +75,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       virtual std::shared_ptr<Promise<void>> popToTemplate(const std::string& templateId, std::optional<bool> animate) = 0;
       virtual std::function<void()> addSafeAreaInsetsListener(const std::string& moduleName, const std::function<void(const SafeAreaInsets& /* insets */)>& callback) = 0;
       virtual void setTemplateHeaderActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& headerActions) = 0;
+      virtual std::function<void()> registerAndroidAutoTelemetryListener(const std::function<void(const Telemetry& /* tlm */)>& callback) = 0;
 
     protected:
       // Hybrid Setup

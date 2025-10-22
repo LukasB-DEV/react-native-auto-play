@@ -49,6 +49,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     };
   }
   
+  // pragma MARK: std::function<void(const Telemetry& /* tlm */)>
+  Func_void_Telemetry create_Func_void_Telemetry(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_Telemetry::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const Telemetry& tlm) mutable -> void {
+      swiftClosure.call(tlm);
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<HybridHybridAutoPlaySpec>
   std::shared_ptr<HybridHybridAutoPlaySpec> create_std__shared_ptr_HybridHybridAutoPlaySpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     NitroAutoplay::HybridHybridAutoPlaySpec_cxx swiftPart = NitroAutoplay::HybridHybridAutoPlaySpec_cxx::fromUnsafe(swiftUnsafePointer);
