@@ -31,7 +31,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   enum class EventName {
     DIDCONNECT      SWIFT_NAME(didconnect) = 0,
     DIDDISCONNECT      SWIFT_NAME(diddisconnect) = 1,
-    DIDRECEIVETELEMETRY      SWIFT_NAME(didreceivetelemetry) = 2,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -46,7 +45,6 @@ namespace margelo::nitro {
       switch (hashString(unionValue.c_str(), unionValue.size())) {
         case hashString("didConnect"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDCONNECT;
         case hashString("didDisconnect"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDDISCONNECT;
-        case hashString("didReceiveTelemetry"): return margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDRECEIVETELEMETRY;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum EventName - invalid value!");
       }
@@ -55,7 +53,6 @@ namespace margelo::nitro {
       switch (arg) {
         case margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDCONNECT: return JSIConverter<std::string>::toJSI(runtime, "didConnect");
         case margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDDISCONNECT: return JSIConverter<std::string>::toJSI(runtime, "didDisconnect");
-        case margelo::nitro::at::g4rb4g3::autoplay::hybrid::EventName::DIDRECEIVETELEMETRY: return JSIConverter<std::string>::toJSI(runtime, "didReceiveTelemetry");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert EventName to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -69,7 +66,6 @@ namespace margelo::nitro {
       switch (hashString(unionValue.c_str(), unionValue.size())) {
         case hashString("didConnect"):
         case hashString("didDisconnect"):
-        case hashString("didReceiveTelemetry"):
           return true;
         default:
           return false;
