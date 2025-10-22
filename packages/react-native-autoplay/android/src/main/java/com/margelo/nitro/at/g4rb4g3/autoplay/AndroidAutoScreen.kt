@@ -13,11 +13,13 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.GridTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MessageTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.GridTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.ListTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.MessageTemplate
 
 class AndroidAutoScreen(
     carContext: CarContext, private val moduleName: String, private var template: Template
@@ -88,6 +90,7 @@ class AndroidAutoScreen(
             is MapTemplateConfig -> MapTemplate(carContext, config)
             is ListTemplateConfig -> ListTemplate(carContext, config)
             is GridTemplateConfig -> GridTemplate(carContext, config)
+            is MessageTemplateConfig -> MessageTemplate(carContext, config)
             else -> null
         }?.let {
             AndroidAutoTemplate.setTemplate(moduleName, it)
@@ -123,6 +126,12 @@ class AndroidAutoScreen(
                     return null
                 }
                 return it.value.screenManager
+            }
+        }
+
+        fun invalidateScreens() {
+            for (screen in screens) {
+                screen.value.applyConfigUpdate(true)
             }
         }
     }
