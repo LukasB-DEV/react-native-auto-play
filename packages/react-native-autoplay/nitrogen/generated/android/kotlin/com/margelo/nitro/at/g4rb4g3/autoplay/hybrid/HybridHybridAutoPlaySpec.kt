@@ -96,11 +96,11 @@ abstract class HybridHybridAutoPlaySpec: HybridObject() {
     return __result
   }
   
-  abstract fun registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) -> Unit): Promise<Unit>
+  abstract fun registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry?) -> Unit): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  private fun registerAndroidAutoTelemetryListener_cxx(callback: Func_void_Telemetry): Promise<Unit> {
+  private fun registerAndroidAutoTelemetryListener_cxx(callback: Func_void_std__optional_Telemetry_): Promise<Unit> {
     val __result = registerAndroidAutoTelemetryListener(callback)
     return __result
   }

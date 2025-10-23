@@ -283,12 +283,18 @@ open class HybridHybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func registerAndroidAutoTelemetryListener(callback: bridge.Func_void_Telemetry) -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func registerAndroidAutoTelemetryListener(callback: bridge.Func_void_std__optional_Telemetry_) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      let __result = try self.__implementation.registerAndroidAutoTelemetryListener(callback: { () -> (Telemetry) -> Void in
-        let __wrappedFunction = bridge.wrap_Func_void_Telemetry(callback)
-        return { (__tlm: Telemetry) -> Void in
-          __wrappedFunction.call(__tlm)
+      let __result = try self.__implementation.registerAndroidAutoTelemetryListener(callback: { () -> (Telemetry?) -> Void in
+        let __wrappedFunction = bridge.wrap_Func_void_std__optional_Telemetry_(callback)
+        return { (__tlm: Telemetry?) -> Void in
+          __wrappedFunction.call({ () -> bridge.std__optional_Telemetry_ in
+            if let __unwrappedValue = __tlm {
+              return bridge.create_std__optional_Telemetry_(__unwrappedValue)
+            } else {
+              return .init()
+            }
+          }())
         }
       }())
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in

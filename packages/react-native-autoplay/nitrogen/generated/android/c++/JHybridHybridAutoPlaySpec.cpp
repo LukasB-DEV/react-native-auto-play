@@ -58,7 +58,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetry
 #include "AlertActionStyle.hpp"
 #include "JAlertActionStyle.hpp"
 #include "Telemetry.hpp"
-#include "JFunc_void_Telemetry.hpp"
+#include "JFunc_void_std__optional_Telemetry_.hpp"
 #include "JTelemetry.hpp"
 #include "NumericTelemetryItem.hpp"
 #include "JNumericTelemetryItem.hpp"
@@ -225,9 +225,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       return __array;
     }() : nullptr);
   }
-  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::registerAndroidAutoTelemetryListener(const std::function<void(const Telemetry& /* tlm */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JFunc_void_Telemetry::javaobject> /* callback */)>("registerAndroidAutoTelemetryListener_cxx");
-    auto __result = method(_javaPart, JFunc_void_Telemetry_cxx::fromCpp(callback));
+  std::shared_ptr<Promise<void>> JHybridHybridAutoPlaySpec::registerAndroidAutoTelemetryListener(const std::function<void(const std::optional<Telemetry>& /* tlm */)>& callback) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JFunc_void_std__optional_Telemetry_::javaobject> /* callback */)>("registerAndroidAutoTelemetryListener_cxx");
+    auto __result = method(_javaPart, JFunc_void_std__optional_Telemetry__cxx::fromCpp(callback));
     return [&]() {
       auto __promise = Promise<void>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {

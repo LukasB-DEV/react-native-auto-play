@@ -408,26 +408,41 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::function<void(const Telemetry& /* tlm */)>
+  // pragma MARK: std::optional<Telemetry>
   /**
-   * Specialized version of `std::function<void(const Telemetry&)>`.
+   * Specialized version of `std::optional<Telemetry>`.
    */
-  using Func_void_Telemetry = std::function<void(const Telemetry& /* tlm */)>;
+  using std__optional_Telemetry_ = std::optional<Telemetry>;
+  inline std::optional<Telemetry> create_std__optional_Telemetry_(const Telemetry& value) noexcept {
+    return std::optional<Telemetry>(value);
+  }
+  inline bool has_value_std__optional_Telemetry_(const std::optional<Telemetry>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline Telemetry get_std__optional_Telemetry_(const std::optional<Telemetry>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::function<void(const std::optional<Telemetry>& /* tlm */)>
   /**
-   * Wrapper class for a `std::function<void(const Telemetry& / * tlm * /)>`, this can be used from Swift.
+   * Specialized version of `std::function<void(const std::optional<Telemetry>&)>`.
    */
-  class Func_void_Telemetry_Wrapper final {
+  using Func_void_std__optional_Telemetry_ = std::function<void(const std::optional<Telemetry>& /* tlm */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::optional<Telemetry>& / * tlm * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__optional_Telemetry__Wrapper final {
   public:
-    explicit Func_void_Telemetry_Wrapper(std::function<void(const Telemetry& /* tlm */)>&& func): _function(std::make_unique<std::function<void(const Telemetry& /* tlm */)>>(std::move(func))) {}
-    inline void call(Telemetry tlm) const noexcept {
+    explicit Func_void_std__optional_Telemetry__Wrapper(std::function<void(const std::optional<Telemetry>& /* tlm */)>&& func): _function(std::make_unique<std::function<void(const std::optional<Telemetry>& /* tlm */)>>(std::move(func))) {}
+    inline void call(std::optional<Telemetry> tlm) const noexcept {
       _function->operator()(tlm);
     }
   private:
-    std::unique_ptr<std::function<void(const Telemetry& /* tlm */)>> _function;
+    std::unique_ptr<std::function<void(const std::optional<Telemetry>& /* tlm */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_Telemetry create_Func_void_Telemetry(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_Telemetry_Wrapper wrap_Func_void_Telemetry(Func_void_Telemetry value) noexcept {
-    return Func_void_Telemetry_Wrapper(std::move(value));
+  Func_void_std__optional_Telemetry_ create_Func_void_std__optional_Telemetry_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__optional_Telemetry__Wrapper wrap_Func_void_std__optional_Telemetry_(Func_void_std__optional_Telemetry_ value) noexcept {
+    return Func_void_std__optional_Telemetry__Wrapper(std::move(value));
   }
   
   // pragma MARK: std::shared_ptr<HybridHybridAutoPlaySpec>
