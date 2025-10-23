@@ -67,7 +67,7 @@ object CarPlayTelemetryObserver {
 
             if (tlm != null) {
                 telemetryCallbacks.forEach { callback ->
-                    callback(telemetryHolder.toTelemetry())
+                    callback(tlm)
                 }
             }
 

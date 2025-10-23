@@ -1,15 +1,11 @@
-import {
-  type CleanupCallback,
-  HybridAutoPlay,
-  useAndroidAutoTelemetry,
-} from '@g4rb4g3/react-native-autoplay';
+import { type CleanupCallback, HybridAutoPlay } from '@g4rb4g3/react-native-autoplay';
 import { useEffect, useState } from 'react';
-import { Button, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
+import { Button, Platform, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AutoTrip } from './config/AutoTrip';
 import { actionStartNavigation, actionStopNavigation } from './state/navigationSlice';
 import { useAppDispatch, useAppSelector } from './state/store';
-import { ANDROID_AUTO_PERMISSIONS, TelemetryView } from './TelemetryView';
+import { TelemetryView } from './TelemetryView';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -49,18 +45,13 @@ function AppContent() {
     };
   }, []);
 
-  const { permissionsGranted, telemetry } = useAndroidAutoTelemetry({
-    requiredPermissions: ANDROID_AUTO_PERMISSIONS,
-  });
-
   return (
     <SafeAreaView style={styles.container}>
       <Text>AutoPlay connected: {String(isConnected)}</Text>
       <Text>Head unit root visible: {String(isRootVisible)}</Text>
       <Text>isNavigating: {String(isNavigating)}</Text>
       <Text>selectedTrip: {JSON.stringify(selectedTrip)}</Text>
-      <Text>telemetry permissions granted: {String(permissionsGranted)}</Text>
-      <TelemetryView telemetry={telemetry} />
+      {Platform.OS === 'android' ? <TelemetryView /> : null}
       {isNavigating ? (
         <Button
           title="stop navigation"

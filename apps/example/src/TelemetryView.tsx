@@ -1,17 +1,17 @@
 import {
   type AndroidAutoPermissions,
   AndroidAutoTelemetryPermissions,
-  type Telemetry,
+  useAndroidAutoTelemetry,
 } from '@g4rb4g3/react-native-autoplay';
 import { Text } from 'react-native';
 
-export const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
+const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
   AndroidAutoTelemetryPermissions.Speed,
   AndroidAutoTelemetryPermissions.Energy,
   AndroidAutoTelemetryPermissions.Odometer,
 ];
 
-/*export const ANDROID_AUTOMOTIVE_PERMISSIONS: Array<AndroidAutoPermissions> = [
+/*const ANDROID_AUTOMOTIVE_PERMISSIONS: Array<AndroidAutoPermissions> = [
   AndroidAutomotiveTelemetryPermissions.Energy,
   AndroidAutomotiveTelemetryPermissions.Info,
   AndroidAutomotiveTelemetryPermissions.ExteriorEnvironment,
@@ -19,9 +19,14 @@ export const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
   AndroidAutomotiveTelemetryPermissions.Speed,
 ];*/
 
-export function TelemetryView({ telemetry }: { telemetry: Telemetry | null }) {
+export function TelemetryView() {
+  const { permissionsGranted, telemetry } = useAndroidAutoTelemetry({
+    requiredPermissions: ANDROID_AUTO_PERMISSIONS,
+  });
+
   return (
     <>
+      <Text>telemetry permissions granted: {String(permissionsGranted)}</Text>
       {telemetry ? <Text>---- last incoming tlm ----</Text> : null}
       {telemetry?.batteryLevel ? (
         <Text>
