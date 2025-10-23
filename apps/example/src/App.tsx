@@ -1,9 +1,9 @@
 import {
   type AndroidAutoPermissions,
+  AndroidAutoTelemetryPermissions,
   type CleanupCallback,
   HybridAutoPlay,
-  type Telemetry,
-  useAndroidAutoTelemetryPermission,
+  useAndroidAutoTelemetry,
 } from '@g4rb4g3/react-native-autoplay';
 import { useEffect, useState } from 'react';
 import { Button, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
@@ -23,16 +23,15 @@ function App() {
   );
 }
 
-const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
-  'com.google.android.gms.permission.CAR_FUEL',
-  'com.google.android.gms.permission.CAR_MILEAGE',
-];
+const { Speed, Energy, Odometer } = AndroidAutoTelemetryPermissions;
+const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [Speed, Energy, Odometer];
 
 /*const ANDROID_AUTOMOTIVE_PERMISSIONS: Array<AndroidAutoPermissions> = [
-  'android.car.permission.CAR_ENERGY',
-  'android.car.permission.CAR_INFO',
-  'android.car.permission.CAR_EXTERIOR_ENVIRONMENT',
-  'android.car.permission.CAR_ENERGY_PORTS',
+  AndroidAutomotiveTelemetryPermissions.Energy,
+  AndroidAutomotiveTelemetryPermissions.Info,
+  AndroidAutomotiveTelemetryPermissions.ExteriorEnvironment,
+  AndroidAutomotiveTelemetryPermissions.EnergyPorts,
+  AndroidAutomotiveTelemetryPermissions.Speed,
 ];*/
 
 function AppContent() {
@@ -40,24 +39,6 @@ function AppContent() {
 
   const isNavigating = useAppSelector((state) => state.navigation.isNavigating);
   const selectedTrip = useAppSelector((state) => state.navigation.selectedTrip);
-
-  const permissionsGranted = useAndroidAutoTelemetryPermission(true, ANDROID_AUTO_PERMISSIONS);
-
-  const [telemetry, setTelemetry] = useState<Telemetry | null>(null);
-
-  useEffect(() => {
-    if (!permissionsGranted) {
-      return;
-    }
-
-    HybridAutoPlay.registerAndroidAutoTelemetryListener((tlm: Telemetry) => {
-      setTelemetry(tlm);
-    }).catch(() => {});
-
-    return () => {
-      HybridAutoPlay.stopAndroidAutoTelemetry();
-    };
-  }, [permissionsGranted]);
 
   const [isConnected, setIsConnected] = useState(false);
   const [isRootVisible, setIsRootVisible] = useState(false);
@@ -79,6 +60,10 @@ function AppContent() {
       }
     };
   }, []);
+
+  const { permissionsGranted, telemetry } = useAndroidAutoTelemetry({
+    requiredPermissions: ANDROID_AUTO_PERMISSIONS,
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -156,6 +141,7 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
   },
 });
 

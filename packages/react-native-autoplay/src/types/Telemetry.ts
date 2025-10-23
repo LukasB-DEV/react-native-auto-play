@@ -2,14 +2,22 @@ import type { Permission } from 'react-native/types';
 
 export type AndroidAutoPermissions =
   | Permission
-  | 'com.google.android.gms.permission.CAR_FUEL'
-  | 'com.google.android.gms.permission.CAR_SPEED'
-  | 'com.google.android.gms.permission.CAR_MILEAGE'
-  | 'android.car.permission.CAR_ENERGY'
-  | 'android.car.permission.CAR_INFO'
-  | 'android.car.permission.CAR_EXTERIOR_ENVIRONMENT'
-  | 'android.car.permission.CAR_ENERGY_PORTS'
-  | 'android.car.permission.CAR_SPEED';
+  | AndroidAutoTelemetryPermissions
+  | AndroidAutomotiveTelemetryPermissions;
+
+export enum AndroidAutoTelemetryPermissions {
+  Speed = 'com.google.android.gms.permission.CAR_SPEED',
+  Energy = 'com.google.android.gms.permission.CAR_FUEL',
+  Odometer = 'com.google.android.gms.permission.CAR_MILEAGE',
+}
+
+export enum AndroidAutomotiveTelemetryPermissions {
+  Info = 'android.car.permission.CAR_INFO',
+  Speed = 'android.car.permission.CAR_SPEED',
+  Energy = 'android.car.permission.CAR_ENERGY',
+  ExteriorEnvironment = 'android.car.permission.CAR_EXTERIOR_ENVIRONMENT',
+  EnergyPorts = 'android.car.permission.CAR_ENERGY_PORTS',
+}
 
 export type PermissionRequestResult = { granted: Array<string>; denied: Array<string> } | null;
 

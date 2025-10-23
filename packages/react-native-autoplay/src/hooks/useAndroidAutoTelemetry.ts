@@ -1,6 +1,20 @@
 import { useEffect, useState } from 'react';
 import { type Permission, PermissionsAndroid } from 'react-native';
-import type { AndroidAutoPermissions } from '../types/Telemetry';
+import { HybridAutoPlay } from '..';
+import type { AndroidAutoPermissions, Telemetry } from '../types/Telemetry';
+
+interface Props {
+  /**
+   * Can be used to delay asking for permissions if set to false. True by default.
+   * Can be used to request other permissions first, so the permission request dialogs do not overlap.
+   * @default true
+   */
+  requestTelemetryPermissions?: boolean;
+  /**
+   * The permissions to check.
+   */
+  requiredPermissions: Array<AndroidAutoPermissions>;
+}
 
 /**
  * Hook to check if the telemetry permissions are granted. If the permissions are not granted, it will request them from the user.
@@ -9,11 +23,12 @@ import type { AndroidAutoPermissions } from '../types/Telemetry';
  * @param requestTelemetryPermissions If true, the telemetry permissions will be requested from the user. Can be set to false initially, in case other permissions need to be requested first, so the permission request dialogs do not overlap.
  * @returns true if the telemetry permissions are granted, false otherwise.
  */
-export const useAndroidAutoTelemetryPermission = (
-  requestTelemetryPermissions: boolean,
-  requiredPermissions: Array<AndroidAutoPermissions>
-) => {
+export const useAndroidAutoTelemetry = ({
+  requestTelemetryPermissions = true,
+  requiredPermissions,
+}: Props) => {
   const [permissionsGranted, setPermissionsGranted] = useState(false);
+  const [telemetry, setTelemetry] = useState<Telemetry | null>(null);
 
   useEffect(() => {
     const checkPermissions = async () => {
@@ -31,7 +46,13 @@ export const useAndroidAutoTelemetryPermission = (
 
   useEffect(() => {
     if (permissionsGranted) {
-      return;
+      HybridAutoPlay.registerAndroidAutoTelemetryListener((tlm: Telemetry) => {
+        setTelemetry(tlm);
+      }).catch(() => {});
+
+      return () => {
+        HybridAutoPlay.stopAndroidAutoTelemetry();
+      };
     }
 
     if (requestTelemetryPermissions) {
@@ -49,7 +70,8 @@ export const useAndroidAutoTelemetryPermission = (
         })
         .catch((e) => console.error('*** Android Auto telemetry permissions error', e));
     }
+    return;
   }, [permissionsGranted, requestTelemetryPermissions, requiredPermissions]);
 
-  return permissionsGranted;
+  return { permissionsGranted, telemetry };
 };

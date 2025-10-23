@@ -19,6 +19,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NumericTelemetryItem
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.StringTelemetryItem
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Telemetry
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VehicleTelemetryItem
+import com.margelo.nitro.autoplay.BuildConfig
 
 object CarPlayTelemetryObserver {
     private lateinit var callback: (Telemetry) -> Unit
@@ -91,7 +92,7 @@ object CarPlayTelemetryObserver {
                 callback(tlm)
             }
 
-            handler.postDelayed(this, /*BuildConfig.CARPLAY_TELEMETRY_INTERVAL_MS*/ 4000)
+            handler.postDelayed(this, BuildConfig.TELEMETRY_UPDATE_INTERVAL)
         }
     }
 

@@ -20,7 +20,7 @@ export const HybridMessageTemplate =
   NitroModules.createHybridObject<NitroHybridMessageTemplate>('HybridMessageTemplate');
 
 export * from './components/SafeAreaView';
-export * from './hooks/useAndroidAutoTelemetryPermissions';
+export * from './hooks/useAndroidAutoTelemetry';
 export * from './hooks/useMapTemplate';
 export * from './hooks/useSafeAreaInsets';
 export * from './templates/GridTemplate';
