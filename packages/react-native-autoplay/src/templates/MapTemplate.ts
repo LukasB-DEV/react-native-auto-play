@@ -14,7 +14,6 @@ import type {
 } from '../types/Trip';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NavigationAlert, NitroAlertUtil } from '../utils/NitroAlert';
-import { NitroColorUtil } from '../utils/NitroColor';
 import { type NitroManeuver, NitroManeuverUtil } from '../utils/NitroManeuver';
 import { NitroMapButton } from '../utils/NitroMapButton';
 import {
@@ -40,7 +39,6 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
   mapButtons?: Array<NitroMapButton>;
 
   headerActions?: Array<NitroAction>;
-  guidanceBackgroundColor?: number;
 
   /**
    * show either the next or final step travel estimates, defaults to final step so last
@@ -86,7 +84,7 @@ export type MapButtons<T> = Array<MapButton<T> | MapPanButton<T>>;
 
 export type MapTemplateConfig = Omit<
   NitroMapTemplateConfig,
-  'id' | 'mapButtons' | 'headerActions' | 'guidanceBackgroundColor'
+  'id' | 'mapButtons' | 'headerActions'
 > & {
   /**
    * since we need to find the proper Android screen/iOS scene only certain ids can be used on this template
@@ -109,12 +107,6 @@ export type MapTemplateConfig = Omit<
     android?: HeaderActionsAndroidMap<MapTemplate>;
     ios?: HeaderActionsIos<MapTemplate>;
   };
-
-  /**
-   * Sets the background color to use for the navigation information.
-   * defaults to black
-   */
-  guidanceBackgroundColor?: string;
 };
 
 const convertActions = (
@@ -132,7 +124,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
   constructor(config: MapTemplateConfig) {
     super(config);
 
-    const { component, mapButtons, headerActions, guidanceBackgroundColor, ...baseConfig } = config;
+    const { component, mapButtons, headerActions, ...baseConfig } = config;
 
     AppRegistry.registerComponent(
       this.id,
@@ -152,7 +144,6 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       ...baseConfig,
       id: this.id,
       headerActions: convertActions(this.template, headerActions),
-      guidanceBackgroundColor: NitroColorUtil.convert(guidanceBackgroundColor ?? 'black'),
       mapButtons: NitroMapButton.convert(this.template, mapButtons),
     };
 
@@ -220,10 +211,6 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     HybridMapTemplate.hideTripSelector(this.id);
   }
 
-  public updateGuidanceBackgroundColor(color: string) {
-    HybridMapTemplate.updateGuidanceBackgroundColor(this.id, NitroColorUtil.convert(color));
-  }
-
   public updateVisibleTravelEstimate(visibleTravelEstimate: VisibleTravelEstimate) {
     HybridMapTemplate.updateVisibleTravelEstimate(this.id, visibleTravelEstimate);
   }
@@ -236,6 +223,12 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     HybridMapTemplate.updateTravelEstimates(this.id, steps);
   }
 
+  /**
+   * sets or updates maneuvers, make sure to call startNavigation first!
+   * @namespace Android sets all the supplied maneuvers whenever called
+   * @namespace iOS will update travelEstimates and cardBackgroundColor only when passing in maneuvers with the same id
+   * ⚠️ updating the cardBackgroundColor works a bit different on Android that applies it immediately while iOS will apply it only on a subsequent update for unknown reasons
+   */
   public updateManeuvers(maneuvers: AutoManeuvers) {
     const nitroManeuvers = maneuvers.reduce((acc, maneuver) => {
       if (maneuver == null) {

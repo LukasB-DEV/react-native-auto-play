@@ -80,8 +80,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneGuidance; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct PreferredImageLane; }
 // Forward declaration of `ImageLane` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct ImageLane; }
-// Forward declaration of `LaneImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneImage; }
 // Forward declaration of `TrafficSide` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TrafficSide; }
 // Forward declaration of `ManeuverType` to properly resolve imports.
@@ -128,7 +126,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "PreferredImageLane.hpp"
 #include "ImageLane.hpp"
 #include <variant>
-#include "LaneImage.hpp"
 #include "TrafficSide.hpp"
 #include "ManeuverType.hpp"
 #include "TripConfig.hpp"
@@ -200,12 +197,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     }
     inline void setTemplateMapButtons(const std::string& templateId, const std::optional<std::vector<NitroMapButton>>& buttons) override {
       auto __result = _swiftPart.setTemplateMapButtons(templateId, buttons);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-    }
-    inline void updateGuidanceBackgroundColor(const std::string& templateId, double color) override {
-      auto __result = _swiftPart.updateGuidanceBackgroundColor(templateId, std::forward<decltype(color)>(color));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

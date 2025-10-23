@@ -14,9 +14,9 @@
 #include "ImageLane.hpp"
 #include <variant>
 #include "JPreferredImageLane.hpp"
-#include "LaneImage.hpp"
+#include "NitroImage.hpp"
+#include "JNitroImage.hpp"
 #include <optional>
-#include "JLaneImage.hpp"
 #include <vector>
 #include "JImageLane.hpp"
 

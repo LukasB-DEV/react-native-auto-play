@@ -62,42 +62,42 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
             template.hideTripSelector()
         }
     }
-    
-    func updateGuidanceBackgroundColor(templateId: String, color: Double) throws {
+
+    func updateVisibleTravelEstimate(
+        templateId: String,
+        visibleTravelEstimate: VisibleTravelEstimate
+    ) throws {
         try RootModule.withMapTemplate(templateId: templateId) { template in
-            template.updateGuidanceBackgroundColor(color: color)
+            template.updateVisibleTravelEstimate(
+                visibleTravelEstimate: visibleTravelEstimate
+            )
         }
     }
-    
-    func updateVisibleTravelEstimate(templateId: String, visibleTravelEstimate: VisibleTravelEstimate) throws {
-        try RootModule.withMapTemplate(templateId: templateId) { template in
-            template.updateVisibleTravelEstimate(visibleTravelEstimate: visibleTravelEstimate)
-        }
-    }
-    
+
     func updateTravelEstimates(templateId: String, steps: [TripPoint]) throws {
         try RootModule.withMapTemplate(templateId: templateId) { template in
             template.updateTravelEstimates(steps: steps)
         }
     }
-    
-    func updateManeuvers(templateId: String, maneuvers: [NitroManeuver]) throws {
+
+    func updateManeuvers(templateId: String, maneuvers: [NitroManeuver]) throws
+    {
         try RootModule.withMapTemplate(templateId: templateId) { template in
             template.updateManeuvers(maneuvers: maneuvers)
         }
     }
-    
+
     func startNavigation(templateId: String, trip: TripConfig) throws {
         try RootModule.withMapTemplate(templateId: templateId) { template in
             let trip = Parser.parseTrip(tripConfig: trip)
             template.startNavigation(trip: trip)
         }
     }
-    
+
     func stopNavigation(templateId: String) throws {
         try RootModule.withMapTemplate(templateId: templateId) { template in
             template.stopNavigation()
         }
     }
-    
+
 }

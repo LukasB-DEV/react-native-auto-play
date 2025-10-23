@@ -80,6 +80,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     std::optional<ForkType> forkType     SWIFT_PRIVATE;
     std::optional<KeepType> keepType     SWIFT_PRIVATE;
     std::optional<LaneGuidance> linkedLaneGuidance     SWIFT_PRIVATE;
+    double cardBackgroundColor     SWIFT_PRIVATE;
     std::string id     SWIFT_PRIVATE;
     TravelEstimates travelEstimates     SWIFT_PRIVATE;
     TrafficSide trafficSide     SWIFT_PRIVATE;
@@ -89,7 +90,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   public:
     NitroManeuver() = default;
-    explicit NitroManeuver(std::vector<AttributedInstructionVariant> attributedInstructionVariants, NitroImage symbolImage, std::optional<NitroImage> junctionImage, std::optional<TurnType> turnType, std::optional<double> angle, std::optional<std::vector<double>> elementAngles, std::optional<double> exitNumber, std::optional<OffRampType> offRampType, std::optional<OnRampType> onRampType, std::optional<ForkType> forkType, std::optional<KeepType> keepType, std::optional<LaneGuidance> linkedLaneGuidance, std::string id, TravelEstimates travelEstimates, TrafficSide trafficSide, ManeuverType maneuverType, std::optional<std::vector<std::string>> roadName, std::optional<std::string> highwayExitLabel): attributedInstructionVariants(attributedInstructionVariants), symbolImage(symbolImage), junctionImage(junctionImage), turnType(turnType), angle(angle), elementAngles(elementAngles), exitNumber(exitNumber), offRampType(offRampType), onRampType(onRampType), forkType(forkType), keepType(keepType), linkedLaneGuidance(linkedLaneGuidance), id(id), travelEstimates(travelEstimates), trafficSide(trafficSide), maneuverType(maneuverType), roadName(roadName), highwayExitLabel(highwayExitLabel) {}
+    explicit NitroManeuver(std::vector<AttributedInstructionVariant> attributedInstructionVariants, NitroImage symbolImage, std::optional<NitroImage> junctionImage, std::optional<TurnType> turnType, std::optional<double> angle, std::optional<std::vector<double>> elementAngles, std::optional<double> exitNumber, std::optional<OffRampType> offRampType, std::optional<OnRampType> onRampType, std::optional<ForkType> forkType, std::optional<KeepType> keepType, std::optional<LaneGuidance> linkedLaneGuidance, double cardBackgroundColor, std::string id, TravelEstimates travelEstimates, TrafficSide trafficSide, ManeuverType maneuverType, std::optional<std::vector<std::string>> roadName, std::optional<std::string> highwayExitLabel): attributedInstructionVariants(attributedInstructionVariants), symbolImage(symbolImage), junctionImage(junctionImage), turnType(turnType), angle(angle), elementAngles(elementAngles), exitNumber(exitNumber), offRampType(offRampType), onRampType(onRampType), forkType(forkType), keepType(keepType), linkedLaneGuidance(linkedLaneGuidance), cardBackgroundColor(cardBackgroundColor), id(id), travelEstimates(travelEstimates), trafficSide(trafficSide), maneuverType(maneuverType), roadName(roadName), highwayExitLabel(highwayExitLabel) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -114,6 +115,7 @@ namespace margelo::nitro {
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::ForkType>>::fromJSI(runtime, obj.getProperty(runtime, "forkType")),
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::KeepType>>::fromJSI(runtime, obj.getProperty(runtime, "keepType")),
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::LaneGuidance>>::fromJSI(runtime, obj.getProperty(runtime, "linkedLaneGuidance")),
+        JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "cardBackgroundColor")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "id")),
         JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::fromJSI(runtime, obj.getProperty(runtime, "travelEstimates")),
         JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TrafficSide>::fromJSI(runtime, obj.getProperty(runtime, "trafficSide")),
@@ -136,6 +138,7 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "forkType", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::ForkType>>::toJSI(runtime, arg.forkType));
       obj.setProperty(runtime, "keepType", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::KeepType>>::toJSI(runtime, arg.keepType));
       obj.setProperty(runtime, "linkedLaneGuidance", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::LaneGuidance>>::toJSI(runtime, arg.linkedLaneGuidance));
+      obj.setProperty(runtime, "cardBackgroundColor", JSIConverter<double>::toJSI(runtime, arg.cardBackgroundColor));
       obj.setProperty(runtime, "id", JSIConverter<std::string>::toJSI(runtime, arg.id));
       obj.setProperty(runtime, "travelEstimates", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::toJSI(runtime, arg.travelEstimates));
       obj.setProperty(runtime, "trafficSide", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TrafficSide>::toJSI(runtime, arg.trafficSide));
@@ -164,6 +167,7 @@ namespace margelo::nitro {
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::ForkType>>::canConvert(runtime, obj.getProperty(runtime, "forkType"))) return false;
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::KeepType>>::canConvert(runtime, obj.getProperty(runtime, "keepType"))) return false;
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::LaneGuidance>>::canConvert(runtime, obj.getProperty(runtime, "linkedLaneGuidance"))) return false;
+      if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "cardBackgroundColor"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "id"))) return false;
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TravelEstimates>::canConvert(runtime, obj.getProperty(runtime, "travelEstimates"))) return false;
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::TrafficSide>::canConvert(runtime, obj.getProperty(runtime, "trafficSide"))) return false;

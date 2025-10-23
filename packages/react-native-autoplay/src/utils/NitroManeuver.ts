@@ -1,4 +1,3 @@
-import { glyphMap } from '../types/Glyphmap';
 import {
   type AutoManeuver,
   type BaseManeuver,
@@ -25,17 +24,12 @@ type AttributedInstructionVariant = {
   images?: Array<AttributedInstructionVariantImage>;
 };
 
-type LaneImage = {
-  glyph: number;
-  color: number;
-};
-
 interface PreferredImageLane extends PreferredLane {
-  image?: LaneImage;
+  image: NitroImage;
 }
 
 interface ImageLane extends Lane {
-  image?: LaneImage;
+  image: NitroImage;
 }
 
 export interface LaneGuidance {
@@ -56,6 +50,7 @@ export interface NitroManeuver extends BaseManeuver {
   forkType?: ForkType;
   keepType?: KeepType;
   linkedLaneGuidance?: LaneGuidance;
+  cardBackgroundColor: number;
 }
 
 function convertManeuverImage(image: ManeuverImage): NitroImage;
@@ -83,6 +78,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     highwayExitLabel,
     linkedLaneGuidance,
     roadName,
+    cardBackgroundColor,
   } = autoManeuver;
 
   const elementAngles =
@@ -110,12 +106,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
           ...linkedLaneGuidance,
           lanes: linkedLaneGuidance.lanes.map((lane) => ({
             ...lane,
-            image: lane.image
-              ? {
-                  glyph: glyphMap[lane.image.name],
-                  color: NitroColorUtil.convert(lane.image.color ?? 'white'),
-                }
-              : undefined,
+            image: convertManeuverImage(lane.image),
           })),
         }
       : undefined,
@@ -138,6 +129,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     onRampType,
     forkType,
     keepType,
+    cardBackgroundColor: NitroColorUtil.convert(cardBackgroundColor),
   };
 }
 

@@ -82,7 +82,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       virtual void showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted) = 0;
       virtual void hideTripSelector(const std::string& templateId) = 0;
       virtual void setTemplateMapButtons(const std::string& templateId, const std::optional<std::vector<NitroMapButton>>& buttons) = 0;
-      virtual void updateGuidanceBackgroundColor(const std::string& templateId, double color) = 0;
       virtual void updateVisibleTravelEstimate(const std::string& templateId, VisibleTravelEstimate visibleTravelEstimate) = 0;
       virtual void updateTravelEstimates(const std::string& templateId, const std::vector<TripPoint>& steps) = 0;
       virtual void updateManeuvers(const std::string& templateId, const std::vector<NitroManeuver>& maneuvers) = 0;

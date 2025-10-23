@@ -18,32 +18,20 @@ public extension ImageLane {
   /**
    * Create a new instance of `ImageLane`.
    */
-  init(image: LaneImage?, angles: [Double]) {
-    self.init({ () -> bridge.std__optional_LaneImage_ in
-      if let __unwrappedValue = image {
-        return bridge.create_std__optional_LaneImage_(__unwrappedValue)
-      } else {
-        return .init()
-      }
-    }(), angles.withUnsafeBufferPointer { __pointer -> bridge.std__vector_double_ in
+  init(image: NitroImage, angles: [Double]) {
+    self.init(image, angles.withUnsafeBufferPointer { __pointer -> bridge.std__vector_double_ in
       return bridge.copy_std__vector_double_(__pointer.baseAddress!, angles.count)
     })
   }
 
-  var image: LaneImage? {
+  var image: NitroImage {
     @inline(__always)
     get {
-      return self.__image.value
+      return self.__image
     }
     @inline(__always)
     set {
-      self.__image = { () -> bridge.std__optional_LaneImage_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_LaneImage_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
+      self.__image = newValue
     }
   }
   

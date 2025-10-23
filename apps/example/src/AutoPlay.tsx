@@ -69,8 +69,8 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
           }
 
           dispatch(setSelectedTrip({ routeId, tripId }));
-          onTripStarted(tripId, routeId, mapTemplate);
           mapTemplate.startNavigation({ id: tripId, routeChoice });
+          onTripStarted(tripId, routeId, mapTemplate);
           updateTripEstimates(mapTemplate, 'initial');
         },
       })
@@ -114,7 +114,6 @@ const registerRunnable = () => {
       component: AutoPlayRoot,
       id: 'AutoPlayRoot',
       visibleTravelEstimate: 'first',
-      guidanceBackgroundColor: 'rgba(111, 0, 111, 1)',
       onWillAppear: () => console.log('AutoPlayRoot onWillAppear'),
       onDidAppear: () => console.log('AutoPlayRoot onDidAppear'),
       onWillDisappear: () => console.log('AutoPlayRoot onWillDisappear'),

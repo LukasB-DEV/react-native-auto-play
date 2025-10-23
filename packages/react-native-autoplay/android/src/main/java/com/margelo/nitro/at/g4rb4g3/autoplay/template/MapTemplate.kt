@@ -1,5 +1,6 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
+import android.graphics.Color
 import androidx.car.app.AppManager
 import androidx.car.app.CarContext
 import androidx.car.app.model.Action
@@ -12,10 +13,8 @@ import androidx.car.app.model.Template
 import androidx.car.app.navigation.NavigationManager
 import androidx.car.app.navigation.NavigationManagerCallback
 import androidx.car.app.navigation.model.Destination
-import androidx.car.app.navigation.model.Maneuver
 import androidx.car.app.navigation.model.NavigationTemplate
 import androidx.car.app.navigation.model.RoutingInfo
-import androidx.car.app.navigation.model.Step
 import androidx.car.app.navigation.model.Trip
 import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
@@ -109,14 +108,12 @@ class MapTemplate(
 
     override fun parse(): Template {
         return NavigationTemplate.Builder().apply {
+            setBackgroundColor(cardBackgroundColor)
             config.mapButtons?.let { buttons ->
                 setMapActionStrip(parseMapButtons(buttons))
             }
             config.headerActions?.let { headerActions ->
                 setActionStrip(parseMapActions(headerActions))
-            }
-            config.guidanceBackgroundColor?.let {
-                setBackgroundColor(Parser.parseColor(it))
             }
             destinationTravelEstimates[config.visibleTravelEstimate]?.let {
                 setDestinationTravelEstimate(
@@ -236,11 +233,6 @@ class MapTemplate(
         context.getCarService(AppManager::class.java).showAlert(alert)
     }
 
-    fun updateGuidanceBackgroundColor(color: Double?) {
-        config = config.copy(guidanceBackgroundColor = color)
-        applyConfigUpdate()
-    }
-
     fun updateVisibleTravelEstimate(
         visibleTravelEstimate: VisibleTravelEstimate
     ) {
@@ -251,6 +243,7 @@ class MapTemplate(
     companion object {
         var isNavigating = false
         var navigationInfo: RoutingInfo? = null
+        var cardBackgroundColor: CarColor = CarColor.createCustom(Color.BLACK, Color.BLACK)
 
         private var mapTemplate: MapTemplate? = null
         private lateinit var navigationManager: NavigationManager
@@ -338,6 +331,10 @@ class MapTemplate(
             val template = mapTemplate
                 ?: throw InvalidParameterException("updateManeuvers, could not get map template")
 
+            if (!this::navigationManager.isInitialized) {
+                throw InvalidParameterException("updateManeuvers, navigationManager not initialized, did you call startNavigation?")
+            }
+
             val current = maneuvers.getOrNull(0)
             val next = maneuvers.getOrNull(1)
 
@@ -347,29 +344,16 @@ class MapTemplate(
                 return
             }
 
+            cardBackgroundColor = Parser.parseColor(current.cardBackgroundColor)
+
             navigationInfo = RoutingInfo.Builder().apply {
                 setCurrentStep(
-                    Step.Builder(Parser.parseText(context,current.attributedInstructionVariants)).apply {
-                        current.roadName?.let {
-                            setRoad(it.first())
-                        }
-                        // TODO: add ManeuverType mapping
-                        setManeuver(Maneuver.Builder(Maneuver.TYPE_STRAIGHT).apply {
-                            setIcon(Parser.parseImage(context, current.symbolImage))
-                        }.build())
-                    }.build(), Parser.parseDistance(current.travelEstimates.distanceRemaining)
+                    Parser.parseStep(context, current),
+                    Parser.parseDistance(current.travelEstimates.distanceRemaining)
                 )
                 next?.let {
                     setNextStep(
-                        Step.Builder(Parser.parseText(context, it.attributedInstructionVariants)).apply {
-                            it.roadName?.let {
-                                setRoad(it.first())
-                            }
-                            // TODO: add ManeuverType mapping
-                            setManeuver(Maneuver.Builder(Maneuver.TYPE_STRAIGHT).apply {
-                                setIcon(Parser.parseImage(context, it.symbolImage))
-                            }.build())
-                        }.build()
+                        Parser.parseStep(context, next)
                     )
                 }
             }.build()

@@ -89,10 +89,10 @@ extension CPManeuver {
             self.userInfo = info
         }
     }
-    var laneImages: [LaneImage]? {
+    var laneImages: [NitroImage]? {
         get {
             return (self.userInfo as? [String: Any])?["laneImages"]
-                as? [LaneImage]
+                as? [NitroImage]
         }
         set {
             var info = (self.userInfo as? [String: Any]) ?? [:]

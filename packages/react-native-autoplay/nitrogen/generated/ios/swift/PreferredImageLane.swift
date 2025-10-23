@@ -18,32 +18,20 @@ public extension PreferredImageLane {
   /**
    * Create a new instance of `PreferredImageLane`.
    */
-  init(image: LaneImage?, highlightedAngle: Double, isPreferred: Bool, angles: [Double]) {
-    self.init({ () -> bridge.std__optional_LaneImage_ in
-      if let __unwrappedValue = image {
-        return bridge.create_std__optional_LaneImage_(__unwrappedValue)
-      } else {
-        return .init()
-      }
-    }(), highlightedAngle, isPreferred, angles.withUnsafeBufferPointer { __pointer -> bridge.std__vector_double_ in
+  init(image: NitroImage, highlightedAngle: Double, isPreferred: Bool, angles: [Double]) {
+    self.init(image, highlightedAngle, isPreferred, angles.withUnsafeBufferPointer { __pointer -> bridge.std__vector_double_ in
       return bridge.copy_std__vector_double_(__pointer.baseAddress!, angles.count)
     })
   }
 
-  var image: LaneImage? {
+  var image: NitroImage {
     @inline(__always)
     get {
-      return self.__image.value
+      return self.__image
     }
     @inline(__always)
     set {
-      self.__image = { () -> bridge.std__optional_LaneImage_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_LaneImage_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
+      self.__image = newValue
     }
   }
   

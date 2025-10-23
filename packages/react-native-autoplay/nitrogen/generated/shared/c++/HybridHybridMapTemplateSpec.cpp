@@ -19,7 +19,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       prototype.registerHybridMethod("showTripSelector", &HybridHybridMapTemplateSpec::showTripSelector);
       prototype.registerHybridMethod("hideTripSelector", &HybridHybridMapTemplateSpec::hideTripSelector);
       prototype.registerHybridMethod("setTemplateMapButtons", &HybridHybridMapTemplateSpec::setTemplateMapButtons);
-      prototype.registerHybridMethod("updateGuidanceBackgroundColor", &HybridHybridMapTemplateSpec::updateGuidanceBackgroundColor);
       prototype.registerHybridMethod("updateVisibleTravelEstimate", &HybridHybridMapTemplateSpec::updateVisibleTravelEstimate);
       prototype.registerHybridMethod("updateTravelEstimates", &HybridHybridMapTemplateSpec::updateTravelEstimates);
       prototype.registerHybridMethod("updateManeuvers", &HybridHybridMapTemplateSpec::updateManeuvers);

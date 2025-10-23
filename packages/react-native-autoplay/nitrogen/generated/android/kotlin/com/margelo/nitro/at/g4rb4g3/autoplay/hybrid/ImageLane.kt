@@ -19,7 +19,7 @@ import com.facebook.proguard.annotations.DoNotStrip
 data class ImageLane(
   @DoNotStrip
   @Keep
-  val image: LaneImage?,
+  val image: NitroImage,
   @DoNotStrip
   @Keep
   val angles: DoubleArray
@@ -32,7 +32,7 @@ data class ImageLane(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(image: LaneImage?, angles: DoubleArray): ImageLane {
+    private fun fromCpp(image: NitroImage, angles: DoubleArray): ImageLane {
       return ImageLane(image, angles)
     }
   }

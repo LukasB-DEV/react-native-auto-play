@@ -18,6 +18,10 @@ import androidx.car.app.model.Header
 import androidx.car.app.model.ItemList
 import androidx.car.app.model.Row
 import androidx.car.app.model.Toggle
+import androidx.car.app.navigation.model.Lane
+import androidx.car.app.navigation.model.LaneDirection
+import androidx.car.app.navigation.model.Maneuver
+import androidx.car.app.navigation.model.Step
 import androidx.car.app.navigation.model.TravelEstimate
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertActionStyle
@@ -25,18 +29,27 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AttributedInstructionVariant
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DurationWithTimeZone
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ForkType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.KeepType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ManeuverType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroManeuver
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.OffRampType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.OnRampType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TrafficSide
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TravelEstimates
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TurnType
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.math.abs
 
 object Parser {
     const val TAG = "Parser"
@@ -98,6 +111,10 @@ object Parser {
                 context, image
             )
         ).build()
+    }
+
+    fun parseImages(context: CarContext, images: List<NitroImage>): CarIcon {
+        return CarIcon.Builder(SymbolFont.imageFromNitroImages(context, images)).build()
     }
 
     const val PLACEHOLDER_DISTANCE = "{distance}"
@@ -290,5 +307,151 @@ object Parser {
         return CarColor.createCustom(
             color.toInt(), color.toInt()
         )
+    }
+
+    fun parseManeuver(context: CarContext, nitroManeuver: NitroManeuver): Maneuver {
+        val maneuverType = when (nitroManeuver.maneuverType) {
+            ManeuverType.DEPART -> Maneuver.TYPE_DEPART
+            ManeuverType.ARRIVE -> Maneuver.TYPE_DESTINATION
+            ManeuverType.ARRIVELEFT -> Maneuver.TYPE_DESTINATION_LEFT
+            ManeuverType.ARRIVERIGHT -> Maneuver.TYPE_DESTINATION_RIGHT
+            ManeuverType.STRAIGHT -> Maneuver.TYPE_STRAIGHT
+            ManeuverType.TURN -> {
+                when (nitroManeuver.turnType) {
+                    TurnType.NOTURN -> Maneuver.TYPE_STRAIGHT
+                    TurnType.SLIGHTLEFT -> Maneuver.TYPE_TURN_SLIGHT_LEFT
+                    TurnType.SLIGHTRIGHT -> Maneuver.TYPE_TURN_SLIGHT_RIGHT
+                    TurnType.NORMALLEFT -> Maneuver.TYPE_TURN_NORMAL_LEFT
+                    TurnType.NORMALRIGHT -> Maneuver.TYPE_TURN_NORMAL_RIGHT
+                    TurnType.SHARPLEFT -> Maneuver.TYPE_TURN_SHARP_LEFT
+                    TurnType.SHARPRIGHT -> Maneuver.TYPE_TURN_SHARP_RIGHT
+                    TurnType.UTURNLEFT -> Maneuver.TYPE_U_TURN_LEFT
+                    TurnType.UTURNRIGHT -> Maneuver.TYPE_U_TURN_RIGHT
+                    null -> Maneuver.TYPE_UNKNOWN
+                }
+            }
+
+            ManeuverType.ROUNDABOUT -> {
+                if (nitroManeuver.exitNumber != null && nitroManeuver.angle != null) {
+                    if (nitroManeuver.trafficSide == TrafficSide.LEFT) {
+                        Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW_WITH_ANGLE
+                    } else {
+                        Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW_WITH_ANGLE
+                    }
+                } else if (nitroManeuver.exitNumber != null) {
+                    if (nitroManeuver.trafficSide == TrafficSide.LEFT) {
+                        Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW
+                    } else {
+                        Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW
+                    }
+                } else {
+                    if (nitroManeuver.trafficSide == TrafficSide.LEFT) {
+                        Maneuver.TYPE_ROUNDABOUT_ENTER_CW
+                    } else {
+                        Maneuver.TYPE_ROUNDABOUT_ENTER_CCW
+                    }
+                }
+            }
+
+            ManeuverType.OFFRAMP -> {
+                when (nitroManeuver.offRampType) {
+                    OffRampType.SLIGHTLEFT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT
+                    OffRampType.SLIGHTRIGHT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_RIGHT
+                    OffRampType.NORMALLEFT -> Maneuver.TYPE_OFF_RAMP_NORMAL_LEFT
+                    OffRampType.NORMALRIGHT -> Maneuver.TYPE_OFF_RAMP_NORMAL_RIGHT
+                    null -> Maneuver.TYPE_UNKNOWN
+                }
+            }
+
+            ManeuverType.ONRAMP -> {
+                when (nitroManeuver.onRampType) {
+                    OnRampType.SLIGHTLEFT -> Maneuver.TYPE_ON_RAMP_SLIGHT_LEFT
+                    OnRampType.SLIGHTRIGHT -> Maneuver.TYPE_ON_RAMP_SLIGHT_RIGHT
+                    OnRampType.NORMALLEFT -> Maneuver.TYPE_ON_RAMP_NORMAL_LEFT
+                    OnRampType.NORMALRIGHT -> Maneuver.TYPE_ON_RAMP_NORMAL_RIGHT
+                    OnRampType.SHARPLEFT -> Maneuver.TYPE_ON_RAMP_SHARP_LEFT
+                    OnRampType.SHARPRIGHT -> Maneuver.TYPE_ON_RAMP_SHARP_RIGHT
+                    OnRampType.UTURNLEFT -> Maneuver.TYPE_ON_RAMP_U_TURN_LEFT
+                    OnRampType.UTURNRIGHT -> Maneuver.TYPE_ON_RAMP_U_TURN_RIGHT
+                    null -> Maneuver.TYPE_UNKNOWN
+                }
+            }
+
+            ManeuverType.FORK -> {
+                when (nitroManeuver.forkType) {
+                    ForkType.LEFT -> Maneuver.TYPE_FORK_LEFT
+                    ForkType.RIGHT -> Maneuver.TYPE_FORK_RIGHT
+                    null -> Maneuver.TYPE_UNKNOWN
+                }
+            }
+
+            ManeuverType.ENTERFERRY -> {
+                Maneuver.TYPE_FERRY_BOAT
+            }
+
+            ManeuverType.KEEP -> {
+                when (nitroManeuver.keepType) {
+                    KeepType.LEFT -> Maneuver.TYPE_KEEP_LEFT
+                    KeepType.RIGHT -> Maneuver.TYPE_KEEP_RIGHT
+                    KeepType.FOLLOWROAD -> Maneuver.TYPE_STRAIGHT
+                    null -> Maneuver.TYPE_UNKNOWN
+                }
+            }
+        }
+
+        return Maneuver.Builder(maneuverType).apply {
+            setIcon(parseImage(context, nitroManeuver.symbolImage))
+            if (nitroManeuver.maneuverType == ManeuverType.ROUNDABOUT) {
+                nitroManeuver.exitNumber?.let {
+                    setRoundaboutExitNumber(it.toInt())
+                }
+                nitroManeuver.angle?.let {
+                    setRoundaboutExitAngle(it.toInt())
+                }
+            }
+        }.build()
+    }
+
+    fun parseStep(context: CarContext, nitroManeuver: NitroManeuver): Step {
+        return Step.Builder(parseText(context, nitroManeuver.attributedInstructionVariants)).apply {
+            nitroManeuver.roadName?.firstOrNull()?.let {
+                setRoad(it)
+            }
+            setManeuver(parseManeuver(context, nitroManeuver))
+            nitroManeuver.linkedLaneGuidance?.let { laneGuidance ->
+                val lanes = laneGuidance.lanes.mapNotNull { it.asFirstOrNull() }
+                lanes.forEach { lane ->
+                    addLane(Lane.Builder().apply {
+                        LaneDirection.create(
+                            parseAngle(lane.highlightedAngle.toInt()), lane.isPreferred
+                        )
+                    }.build())
+                }
+
+                val laneImages = laneGuidance.lanes.mapNotNull {
+                    it.asFirstOrNull()?.image ?: it.asSecondOrNull()?.image
+                }
+                if (laneImages.isNotEmpty()) {
+                    setLanesImage(parseImages(context, laneImages))
+                }
+            }
+        }.build()
+    }
+
+    fun parseAngle(angle: Int): Int {
+        val absAngle = abs(angle)
+
+        return when {
+            absAngle < 10 -> LaneDirection.SHAPE_STRAIGHT
+            angle in 10 until 45 -> LaneDirection.SHAPE_SLIGHT_RIGHT
+            angle in -45 until -10 -> LaneDirection.SHAPE_SLIGHT_LEFT
+            angle in 45 until 135 -> LaneDirection.SHAPE_NORMAL_RIGHT
+            angle in -135 until -45 -> LaneDirection.SHAPE_NORMAL_LEFT
+            angle in 135 until 175 -> LaneDirection.SHAPE_SHARP_RIGHT
+            angle in -175 until -135 -> LaneDirection.SHAPE_SHARP_LEFT
+            angle in 175..180 -> LaneDirection.SHAPE_U_TURN_RIGHT
+            angle in -180..-175 -> LaneDirection.SHAPE_U_TURN_LEFT
+            else -> LaneDirection.SHAPE_UNKNOWN
+        }
     }
 }

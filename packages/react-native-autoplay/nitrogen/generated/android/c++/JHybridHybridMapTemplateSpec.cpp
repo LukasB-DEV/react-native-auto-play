@@ -75,8 +75,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneGuidance; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct PreferredImageLane; }
 // Forward declaration of `ImageLane` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct ImageLane; }
-// Forward declaration of `LaneImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneImage; }
 // Forward declaration of `TrafficSide` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TrafficSide; }
 // Forward declaration of `ManeuverType` to properly resolve imports.
@@ -165,8 +163,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include <variant>
 #include "JVariant_PreferredImageLane_ImageLane.hpp"
 #include "JPreferredImageLane.hpp"
-#include "LaneImage.hpp"
-#include "JLaneImage.hpp"
 #include "JImageLane.hpp"
 #include "TrafficSide.hpp"
 #include "JTrafficSide.hpp"
@@ -236,10 +232,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       }
       return __array;
     }() : nullptr);
-  }
-  void JHybridHybridMapTemplateSpec::updateGuidanceBackgroundColor(const std::string& templateId, double color) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, double /* color */)>("updateGuidanceBackgroundColor");
-    method(_javaPart, jni::make_jstring(templateId), color);
   }
   void JHybridHybridMapTemplateSpec::updateVisibleTravelEstimate(const std::string& templateId, VisibleTravelEstimate visibleTravelEstimate) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JVisibleTravelEstimate> /* visibleTravelEstimate */)>("updateVisibleTravelEstimate");

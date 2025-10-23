@@ -5,6 +5,7 @@ import {
   TrafficSide,
   TurnType,
 } from '@g4rb4g3/react-native-autoplay';
+import { Platform } from 'react-native';
 import uuid from 'react-native-uuid';
 import { updateTripEstimates } from '../templates/AutoTemplate';
 
@@ -51,6 +52,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
         { angles: [90], image: { name: 'turn_right', color: 'gray' } },
       ],
     },
+    cardBackgroundColor: 'black',
   },
   {
     id: uuid.v4(),
@@ -80,6 +82,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
         { angles: [90], image: { name: 'fork_right', color: 'gray' } },
       ],
     },
+    cardBackgroundColor: 'black',
   },
   {
     id: uuid.v4(),
@@ -96,6 +99,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     trafficSide: TrafficSide.Left,
     turnType: TurnType.NormalRight,
     angle: 90,
+    cardBackgroundColor: 'black',
   },
   {
     id: uuid.v4(),
@@ -110,6 +114,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     maneuverType: ManeuverType.Arrive,
     trafficSide: TrafficSide.Left,
     roadName: ['Destination St.'],
+    cardBackgroundColor: 'black',
   },
 ];
 
@@ -119,7 +124,6 @@ const playManeuvers = (template: MapTemplate) => {
   let maneuvers = getManeuvers();
 
   const [initialCurrent, initialNext] = maneuvers;
-
   template.updateManeuvers([initialCurrent, initialNext]);
 
   interval = setInterval(() => {
@@ -139,7 +143,15 @@ const playManeuvers = (template: MapTemplate) => {
       return;
     }
 
+    const cardBackgroundColor =
+      current.travelEstimates.distanceRemaining.value > (Platform.OS === 'ios' ? 600 : 500)
+        ? 'rgba(0, 0, 0, 1)'
+        : 'rgba(111, 0, 111, 1)';
+
+    current.cardBackgroundColor = cardBackgroundColor;
+
     template.updateManeuvers([current, next]);
+
     updateTripEstimates(template, 'remove');
   }, 1000);
 };

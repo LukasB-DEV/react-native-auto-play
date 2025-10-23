@@ -189,17 +189,6 @@ open class HybridHybridMapTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func updateGuidanceBackgroundColor(templateId: std.string, color: Double) -> bridge.Result_void_ {
-    do {
-      try self.__implementation.updateGuidanceBackgroundColor(templateId: String(templateId), color: color)
-      return bridge.create_Result_void_()
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
   public final func updateVisibleTravelEstimate(templateId: std.string, visibleTravelEstimate: Int32) -> bridge.Result_void_ {
     do {
       try self.__implementation.updateVisibleTravelEstimate(templateId: String(templateId), visibleTravelEstimate: margelo.nitro.at.g4rb4g3.autoplay.hybrid.VisibleTravelEstimate(rawValue: visibleTravelEstimate)!)

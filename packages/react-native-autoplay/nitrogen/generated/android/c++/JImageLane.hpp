@@ -10,8 +10,8 @@
 #include <fbjni/fbjni.h>
 #include "ImageLane.hpp"
 
-#include "JLaneImage.hpp"
-#include "LaneImage.hpp"
+#include "JNitroImage.hpp"
+#include "NitroImage.hpp"
 #include <optional>
 #include <vector>
 
@@ -34,12 +34,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     [[nodiscard]]
     ImageLane toCpp() const {
       static const auto clazz = javaClassStatic();
-      static const auto fieldImage = clazz->getField<JLaneImage>("image");
-      jni::local_ref<JLaneImage> image = this->getFieldValue(fieldImage);
+      static const auto fieldImage = clazz->getField<JNitroImage>("image");
+      jni::local_ref<JNitroImage> image = this->getFieldValue(fieldImage);
       static const auto fieldAngles = clazz->getField<jni::JArrayDouble>("angles");
       jni::local_ref<jni::JArrayDouble> angles = this->getFieldValue(fieldAngles);
       return ImageLane(
-        image != nullptr ? std::make_optional(image->toCpp()) : std::nullopt,
+        image->toCpp(),
         [&]() {
           size_t __size = angles->size();
           std::vector<double> __vector(__size);
@@ -55,12 +55,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JImageLane::javaobject> fromCpp(const ImageLane& value) {
-      using JSignature = JImageLane(jni::alias_ref<JLaneImage>, jni::alias_ref<jni::JArrayDouble>);
+      using JSignature = JImageLane(jni::alias_ref<JNitroImage>, jni::alias_ref<jni::JArrayDouble>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
         clazz,
-        value.image.has_value() ? JLaneImage::fromCpp(value.image.value()) : nullptr,
+        JNitroImage::fromCpp(value.image),
         [&]() {
           size_t __size = value.angles.size();
           jni::local_ref<jni::JArrayDouble> __array = jni::JArrayDouble::newArray(__size);

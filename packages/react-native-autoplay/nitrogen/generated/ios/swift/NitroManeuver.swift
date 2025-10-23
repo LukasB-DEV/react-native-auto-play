@@ -18,7 +18,7 @@ public extension NitroManeuver {
   /**
    * Create a new instance of `NitroManeuver`.
    */
-  init(attributedInstructionVariants: [AttributedInstructionVariant], symbolImage: NitroImage, junctionImage: NitroImage?, turnType: TurnType?, angle: Double?, elementAngles: [Double]?, exitNumber: Double?, offRampType: OffRampType?, onRampType: OnRampType?, forkType: ForkType?, keepType: KeepType?, linkedLaneGuidance: LaneGuidance?, id: String, travelEstimates: TravelEstimates, trafficSide: TrafficSide, maneuverType: ManeuverType, roadName: [String]?, highwayExitLabel: String?) {
+  init(attributedInstructionVariants: [AttributedInstructionVariant], symbolImage: NitroImage, junctionImage: NitroImage?, turnType: TurnType?, angle: Double?, elementAngles: [Double]?, exitNumber: Double?, offRampType: OffRampType?, onRampType: OnRampType?, forkType: ForkType?, keepType: KeepType?, linkedLaneGuidance: LaneGuidance?, cardBackgroundColor: Double, id: String, travelEstimates: TravelEstimates, trafficSide: TrafficSide, maneuverType: ManeuverType, roadName: [String]?, highwayExitLabel: String?) {
     self.init({ () -> bridge.std__vector_AttributedInstructionVariant_ in
       var __vector = bridge.create_std__vector_AttributedInstructionVariant_(attributedInstructionVariants.count)
       for __item in attributedInstructionVariants {
@@ -87,7 +87,7 @@ public extension NitroManeuver {
       } else {
         return .init()
       }
-    }(), std.string(id), travelEstimates, trafficSide, maneuverType, { () -> bridge.std__optional_std__vector_std__string__ in
+    }(), cardBackgroundColor, std.string(id), travelEstimates, trafficSide, maneuverType, { () -> bridge.std__optional_std__vector_std__string__ in
       if let __unwrappedValue = roadName {
         return bridge.create_std__optional_std__vector_std__string__({ () -> bridge.std__vector_std__string_ in
           var __vector = bridge.create_std__vector_std__string_(__unwrappedValue.count)
@@ -312,6 +312,17 @@ public extension NitroManeuver {
           return .init()
         }
       }()
+    }
+  }
+  
+  var cardBackgroundColor: Double {
+    @inline(__always)
+    get {
+      return self.__cardBackgroundColor
+    }
+    @inline(__always)
+    set {
+      self.__cardBackgroundColor = newValue
     }
   }
   

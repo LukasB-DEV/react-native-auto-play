@@ -67,10 +67,6 @@ abstract class HybridHybridMapTemplateSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun updateGuidanceBackgroundColor(templateId: String, color: Double): Unit
-  
-  @DoNotStrip
-  @Keep
   abstract fun updateVisibleTravelEstimate(templateId: String, visibleTravelEstimate: VisibleTravelEstimate): Unit
   
   @DoNotStrip

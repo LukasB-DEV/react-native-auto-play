@@ -168,7 +168,7 @@ class SymbolFont {
     }
 
     static func imageFromLanes(
-        laneImages: Array<LaneImage>.SubSequence,
+        laneImages: Array<NitroImage>.SubSequence,
         size: Int,
         traitCollection: UITraitCollection
     ) -> UIImage {
@@ -186,8 +186,8 @@ class SymbolFont {
             let image = imageFromGlyph(
                 glyph: laneImage.glyph,
                 size: CGFloat(size),
-                lightColor: RCTConvert.uiColor(laneImage.color),
-                darkColor: RCTConvert.uiColor(laneImage.color),
+                lightColor: RCTConvert.uiColor(laneImage.lightColor),
+                darkColor: RCTConvert.uiColor(laneImage.darkColor),
                 backgroundColor: UIColor.clear,
                 traitCollection: traitCollection
             )!
