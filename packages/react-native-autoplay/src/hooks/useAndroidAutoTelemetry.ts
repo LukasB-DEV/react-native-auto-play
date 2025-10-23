@@ -29,6 +29,21 @@ export const useAndroidAutoTelemetry = ({
 }: Props) => {
   const [permissionsGranted, setPermissionsGranted] = useState(false);
   const [telemetry, setTelemetry] = useState<Telemetry | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    const removeDidConnect = HybridAutoPlay.addListener('didConnect', () => setIsConnected(true));
+    const removeDidDisconnect = HybridAutoPlay.addListener('didDisconnect', () =>
+      setIsConnected(false)
+    );
+
+    setIsConnected(HybridAutoPlay.isConnected());
+
+    return () => {
+      removeDidConnect();
+      removeDidDisconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const checkPermissions = async () => {
@@ -45,17 +60,23 @@ export const useAndroidAutoTelemetry = ({
   }, [requiredPermissions]);
 
   useEffect(() => {
-    if (permissionsGranted) {
-      HybridAutoPlay.registerAndroidAutoTelemetryListener((tlm: Telemetry) => {
-        setTelemetry(tlm);
-      }).catch(() => {});
-
-      return () => {
-        HybridAutoPlay.stopAndroidAutoTelemetry();
-      };
+    if (!isConnected || !permissionsGranted) {
+      return;
     }
 
-    if (requestTelemetryPermissions) {
+    HybridAutoPlay.startAndroidAutoTelemetry().catch(() => {});
+    const remove = HybridAutoPlay.addListenerTelemetry((tlm: Telemetry | null) => {
+      setTelemetry(tlm);
+    });
+
+    return () => {
+      remove();
+      HybridAutoPlay.stopAndroidAutoTelemetry();
+    };
+  }, [isConnected, permissionsGranted]);
+
+  useEffect(() => {
+    if (requestTelemetryPermissions && requiredPermissions.length > 0) {
       // PermissionsAndroid is not aware of automotive permissions
       PermissionsAndroid.requestMultiple(requiredPermissions as Array<Permission>)
         .then((value) => {
@@ -71,7 +92,7 @@ export const useAndroidAutoTelemetry = ({
         .catch((e) => console.error('*** Android Auto telemetry permissions error', e));
     }
     return;
-  }, [permissionsGranted, requestTelemetryPermissions, requiredPermissions]);
+  }, [requestTelemetryPermissions, requiredPermissions]);
 
   return { permissionsGranted, telemetry };
 };

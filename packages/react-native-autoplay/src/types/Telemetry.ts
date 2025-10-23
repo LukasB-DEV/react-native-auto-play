@@ -44,10 +44,28 @@ type VehicleTelemetryItem = {
 };
 
 export type Telemetry = {
+  /**
+   * Speed in km/h
+   */
   speed?: NumericTelemetryItem;
+  /**
+   * Fuel level in %
+   */
   fuelLevel?: NumericTelemetryItem;
+  /**
+   * Battery level in %
+   */
   batteryLevel?: NumericTelemetryItem;
+  /**
+   * Range in km
+   */
   range?: NumericTelemetryItem;
+  /**
+   * Odometer in km
+   */
   odometer?: NumericTelemetryItem;
+  /**
+   * Vehicle information
+   */
   vehicle?: VehicleTelemetryItem;
 };

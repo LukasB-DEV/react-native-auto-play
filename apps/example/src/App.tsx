@@ -1,6 +1,4 @@
 import {
-  type AndroidAutoPermissions,
-  AndroidAutoTelemetryPermissions,
   type CleanupCallback,
   HybridAutoPlay,
   useAndroidAutoTelemetry,
@@ -11,6 +9,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AutoTrip } from './config/AutoTrip';
 import { actionStartNavigation, actionStopNavigation } from './state/navigationSlice';
 import { useAppDispatch, useAppSelector } from './state/store';
+import { ANDROID_AUTO_PERMISSIONS, TelemetryView } from './TelemetryView';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -22,17 +21,6 @@ function App() {
     </SafeAreaProvider>
   );
 }
-
-const { Speed, Energy, Odometer } = AndroidAutoTelemetryPermissions;
-const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [Speed, Energy, Odometer];
-
-/*const ANDROID_AUTOMOTIVE_PERMISSIONS: Array<AndroidAutoPermissions> = [
-  AndroidAutomotiveTelemetryPermissions.Energy,
-  AndroidAutomotiveTelemetryPermissions.Info,
-  AndroidAutomotiveTelemetryPermissions.ExteriorEnvironment,
-  AndroidAutomotiveTelemetryPermissions.EnergyPorts,
-  AndroidAutomotiveTelemetryPermissions.Speed,
-];*/
 
 function AppContent() {
   const dispatch = useAppDispatch();
@@ -72,48 +60,7 @@ function AppContent() {
       <Text>isNavigating: {String(isNavigating)}</Text>
       <Text>selectedTrip: {JSON.stringify(selectedTrip)}</Text>
       <Text>telemetry permissions granted: {String(permissionsGranted)}</Text>
-      {telemetry ? <Text>---- last incoming tlm ----</Text> : null}
-      {telemetry?.batteryLevel ? (
-        <Text>
-          batteryLevel: {telemetry.batteryLevel.value} ({telemetry.batteryLevel.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.fuelLevel ? (
-        <Text>
-          fuelLevel: {telemetry.fuelLevel.value} ({telemetry.fuelLevel.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.speed ? (
-        <Text>
-          speed: {telemetry.speed.value} ({telemetry.speed.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.range ? (
-        <Text>
-          range: {telemetry.range.value} ({telemetry.range.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.odometer ? (
-        <Text>
-          odometer: {telemetry.odometer.value} ({telemetry.odometer.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.vehicle?.name ? (
-        <Text>
-          vehicle name: {telemetry.vehicle.name.value} ({telemetry.vehicle.name.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.vehicle?.year ? (
-        <Text>
-          vehicle year: {telemetry.vehicle.year.value} ({telemetry.vehicle.year.timestamp})
-        </Text>
-      ) : null}
-      {telemetry?.vehicle?.manufacturer ? (
-        <Text>
-          vehicle manufacturer: {telemetry.vehicle.manufacturer.value} (
-          {telemetry.vehicle.manufacturer.timestamp})
-        </Text>
-      ) : null}
+      <TelemetryView telemetry={telemetry} />
       {isNavigating ? (
         <Button
           title="stop navigation"

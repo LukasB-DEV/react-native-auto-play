@@ -29,6 +29,12 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
   ): CleanupCallback;
 
   /**
+   * adds a listener for  Android Auto telemetry data
+   * @param callback
+   */
+  addListenerTelemetry(callback: (tlm: Telemetry | null) => void): CleanupCallback;
+
+  /**
    * sets the specified template as root template, initializes a new stack
    * Promise might contain an error message in case setting root template failed
    * can be used on any Android screen/iOS scene
@@ -76,10 +82,16 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
    * @param callback the callback to receive the telemetry data
    * @returns a promise that resolves when the telemetry listener is successfully started
    */
-  registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) => void): Promise<void>;
+  startAndroidAutoTelemetry(): Promise<void>;
 
   /**
    * Stop the Android Auto telemetry listener.
    */
   stopAndroidAutoTelemetry(): void;
+
+  /**
+   * Check if Android Auto is connected.
+   * @returns true if Android Auto is connected, false otherwise.
+   */
+  isConnected(): boolean;
 }

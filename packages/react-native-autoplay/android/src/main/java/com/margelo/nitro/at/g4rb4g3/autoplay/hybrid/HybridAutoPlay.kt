@@ -24,16 +24,24 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
         }
     }
 
-    override fun registerAndroidAutoTelemetryListener(callback: (tlm: Telemetry) -> Unit): Promise<Unit> {
+    override fun startAndroidAutoTelemetry(): Promise<Unit> {
         return Promise.Companion.async {
             val carContext =
-                AndroidAutoSession.Companion.getCarContext(AndroidAutoSession.Companion.ROOT_SESSION)
-            if (carContext == null) {
-                TODO("No carContext available in registerAndroidAutoTelemetryListener")
-            }
+                AndroidAutoSession.Companion.getCarContext(AndroidAutoSession.Companion.ROOT_SESSION) ?: throw IllegalArgumentException(
+                    "Car context not available, failed to start telemetry"
+                )
 
-            CarPlayTelemetryObserver.startTelemetryObserver(carContext, callback)
+
+            CarPlayTelemetryObserver.startTelemetryObserver(carContext)
         }
+    }
+
+    override fun addListenerTelemetry(callback: (Telemetry?) -> Unit): () -> Unit {
+        return CarPlayTelemetryObserver.addListener(callback)
+    }
+
+    override fun isConnected(): Boolean {
+        return AndroidAutoSession.getIsConnected()
     }
 
     override fun stopAndroidAutoTelemetry() {

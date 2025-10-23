@@ -3,6 +3,7 @@ import {
   MapTemplate,
   type RootComponentInitialProps,
   SafeAreaView,
+  useAndroidAutoTelemetry,
   useMapTemplate,
 } from '@g4rb4g3/react-native-autoplay';
 import type { UnsubscribeListener } from '@reduxjs/toolkit';
@@ -15,6 +16,7 @@ import {
   setSelectedTrip,
 } from './state/navigationSlice';
 import { startAppListening } from './state/store';
+import { ANDROID_AUTO_PERMISSIONS, TelemetryView } from './TelemetryView';
 import {
   AutoTemplate,
   estimatesUpdate,
@@ -93,6 +95,10 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
     };
   }, [mapTemplate]);
 
+  const { telemetry } = useAndroidAutoTelemetry({
+    requiredPermissions: ANDROID_AUTO_PERMISSIONS,
+  });
+
   return (
     <SafeAreaView
       style={{
@@ -104,6 +110,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
       </Text>
       <Text>{JSON.stringify(props.window)}</Text>
       <Text>Running as {props.id}</Text>
+      <TelemetryView telemetry={telemetry} />
     </SafeAreaView>
   );
 };

@@ -14,15 +14,12 @@ import androidx.car.app.hardware.info.Model
 import androidx.car.app.hardware.info.Speed
 import androidx.car.app.versioning.CarAppApiLevels
 import androidx.core.content.ContextCompat
-import com.facebook.react.bridge.Promise
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NumericTelemetryItem
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.StringTelemetryItem
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Telemetry
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VehicleTelemetryItem
 import com.margelo.nitro.autoplay.BuildConfig
 
 object CarPlayTelemetryObserver {
-    private lateinit var callback: (Telemetry) -> Unit
+    private var telemetryCallbacks: MutableList<(Telemetry?) -> Unit> = ArrayList();
+
     private var isRunning = false
     private var carContext: CarContext? = null
 
@@ -30,32 +27,10 @@ object CarPlayTelemetryObserver {
     private val handler = Handler(Looper.getMainLooper())
 
     private val mModelListener = OnCarDataAvailableListener<Model> {
-        val vehicle = VehicleTelemetryItem(
-            name = if (it.name.status == CarValue.STATUS_SUCCESS) {
-                it.name.value?.let { name ->
-                    StringTelemetryItem(it.name.timestampMillis / 1000.0, name)
-                } ?: null
-            } else null,
-        manufacturer = if (it.manufacturer.status == CarValue.STATUS_SUCCESS) {
-            it.manufacturer.value?.let { manufacturer ->
-                StringTelemetryItem(it.manufacturer.timestampMillis / 1000.0, manufacturer)
-            } ?: null
-        } else null,
-            year = if (it.year.status == CarValue.STATUS_SUCCESS) {
-                it.year.value?.let { year ->
-                    NumericTelemetryItem(it.year.timestampMillis / 1000.0, year.toDouble())
-                } ?: null
-            } else null
-        )
-
-        callback(Telemetry(
-            vehicle = vehicle,
-            speed = null,
-            fuelLevel = null,
-            batteryLevel = null,
-            range = null,
-            odometer = null
-        ))
+        telemetryHolder.updateVehicle(it)
+        telemetryCallbacks.forEach { callback ->
+            callback(telemetryHolder.toTelemetry())
+        }
     }
 
     private val mEnergyLevelListener = OnCarDataAvailableListener<EnergyLevel> { carEnergyLevel ->
@@ -80,7 +55,9 @@ object CarPlayTelemetryObserver {
 
     private val mMileageListener = OnCarDataAvailableListener<Mileage> { carMileage ->
         if (carMileage.odometerMeters.status == CarValue.STATUS_SUCCESS) {
-            telemetryHolder.updateOdometer(carMileage.odometerMeters.value?.div(1000f)) //m->km
+            // although this property is called Meters, it is actually km, see https://android-review.googlesource.com/c/platform/frameworks/support/+/3490009
+            // will be fixed properly with 1.8.0
+            telemetryHolder.updateOdometer(carMileage.odometerMeters.value) //m->km
         }
     }
 
@@ -89,19 +66,28 @@ object CarPlayTelemetryObserver {
             val tlm = telemetryHolder.toTelemetry()
 
             if (tlm != null) {
-                callback(tlm)
+                telemetryCallbacks.forEach { callback ->
+                    callback(telemetryHolder.toTelemetry())
+                }
             }
 
             handler.postDelayed(this, BuildConfig.TELEMETRY_UPDATE_INTERVAL)
         }
     }
 
+    fun addListener(callback: (Telemetry?) -> Unit): () -> Unit {
+        telemetryCallbacks.add(callback)
+
+         return {
+             telemetryCallbacks.remove(callback)
+        }
+    }
+
+
     fun startTelemetryObserver(
-        carContext: CarContext, callback: (Telemetry) -> Unit
+        carContext: CarContext
     ) {
         CarPlayTelemetryObserver.carContext = carContext
-        CarPlayTelemetryObserver.callback = callback
-
         if (carContext.carAppApiLevel < CarAppApiLevels.LEVEL_3) {
             throw UnsupportedOperationException("Telemetry not supported for this API level ${carContext.carAppApiLevel}")
             return
@@ -153,6 +139,12 @@ object CarPlayTelemetryObserver {
     }
 
     fun stopTelemetryObserver() {
+        if (!isRunning) {
+            return
+        }
+
+        isRunning = false
+
         carContext?.let {
             val carHardwareManager = it.getCarService(
                 CarHardwareManager::class.java
@@ -176,7 +168,5 @@ object CarPlayTelemetryObserver {
         }
 
         handler.removeCallbacks(emitter)
-
-        isRunning = false
     }
 }
