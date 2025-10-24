@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Telemetry
 import com.margelo.nitro.autoplay.BuildConfig
 
-object CarPlayTelemetryObserver {
+object AndroidAutoTelemetryObserver {
     private var telemetryCallbacks: MutableList<(Telemetry?) -> Unit> = ArrayList();
 
     private var isRunning = false
@@ -87,7 +87,7 @@ object CarPlayTelemetryObserver {
     fun startTelemetryObserver(
         carContext: CarContext
     ) {
-        CarPlayTelemetryObserver.carContext = carContext
+        AndroidAutoTelemetryObserver.carContext = carContext
         if (carContext.carAppApiLevel < CarAppApiLevels.LEVEL_3) {
             throw UnsupportedOperationException("Telemetry not supported for this API level ${carContext.carAppApiLevel}")
             return
@@ -109,7 +109,7 @@ object CarPlayTelemetryObserver {
 
         if (isRunning) {
             // we stop here to not re-register multiple listeners, only the single shot values can be requested multiple times by registering another tlm listener on RN side
-            Log.d(CarPlayTelemetryObserver.javaClass.name, "Telemetry observer is already running")
+            Log.d(AndroidAutoTelemetryObserver.javaClass.name, "Telemetry observer is already running")
             return
         }
 
@@ -135,7 +135,7 @@ object CarPlayTelemetryObserver {
 
         isRunning = true
 
-        Log.d(CarPlayTelemetryObserver.javaClass.name, "Telemetry observer started")
+        Log.d(AndroidAutoTelemetryObserver.javaClass.name, "Telemetry observer started")
     }
 
     fun stopTelemetryObserver() {

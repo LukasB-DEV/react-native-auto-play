@@ -2,7 +2,7 @@ package com.margelo.nitro.at.g4rb4g3.autoplay.hybrid
 
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
-import com.margelo.nitro.at.g4rb4g3.autoplay.CarPlayTelemetryObserver
+import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoTelemetryObserver
 import com.margelo.nitro.at.g4rb4g3.autoplay.VirtualRenderer
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ThreadUtil
@@ -32,12 +32,12 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
                 )
 
 
-            CarPlayTelemetryObserver.startTelemetryObserver(carContext)
+            AndroidAutoTelemetryObserver.startTelemetryObserver(carContext)
         }
     }
 
     override fun addListenerTelemetry(callback: (Telemetry?) -> Unit): () -> Unit {
-        return CarPlayTelemetryObserver.addListener(callback)
+        return AndroidAutoTelemetryObserver.addListener(callback)
     }
 
     override fun isConnected(): Boolean {
@@ -45,7 +45,7 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
     }
 
     override fun stopAndroidAutoTelemetry() {
-        CarPlayTelemetryObserver.stopTelemetryObserver()
+        AndroidAutoTelemetryObserver.stopTelemetryObserver()
     }
 
     override fun addListenerRenderState(
