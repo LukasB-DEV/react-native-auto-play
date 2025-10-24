@@ -57,7 +57,7 @@ object AndroidAutoTelemetryObserver {
         if (carMileage.odometerMeters.status == CarValue.STATUS_SUCCESS) {
             // although this property is called Meters, it is actually km, see https://android-review.googlesource.com/c/platform/frameworks/support/+/3490009
             // will be fixed properly with 1.8.0
-            telemetryHolder.updateOdometer(carMileage.odometerMeters.value) //m->km
+            telemetryHolder.updateOdometer(carMileage.odometerMeters.value)
         }
     }
 
