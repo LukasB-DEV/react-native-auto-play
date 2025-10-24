@@ -346,16 +346,15 @@ class MapTemplate(
 
             cardBackgroundColor = Parser.parseColor(current.cardBackgroundColor)
 
+            val currentStep = Parser.parseStep(context, current)
+            val nextStep = next?.let { Parser.parseStep(context, it) }
+
             navigationInfo = RoutingInfo.Builder().apply {
                 setCurrentStep(
-                    Parser.parseStep(context, current),
+                    currentStep,
                     Parser.parseDistance(current.travelEstimates.distanceRemaining)
                 )
-                next?.let {
-                    setNextStep(
-                        Parser.parseStep(context, next)
-                    )
-                }
+                nextStep?.let { setNextStep(it) }
             }.build()
 
             template.applyConfigUpdate()
@@ -363,10 +362,10 @@ class MapTemplate(
             UiThreadUtil.runOnUiThread {
                 navigationManager.updateTrip(Trip.Builder().apply {
                     addStep(
-                        navigationInfo!!.currentStep!!,
+                        currentStep,
                         Parser.parseTravelEstimates(current.travelEstimates)
                     )
-                    navigationInfo?.nextStep?.let {
+                    nextStep?.let {
                         addStep(it, Parser.parseTravelEstimates(next!!.travelEstimates))
                     }
                 }.build())
