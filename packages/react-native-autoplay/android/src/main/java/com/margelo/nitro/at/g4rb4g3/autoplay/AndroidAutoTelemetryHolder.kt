@@ -7,7 +7,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.StringTelemetryItem
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Telemetry
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VehicleTelemetryItem
 
-class CarPlayTelemetryHolder {
+class AndroidAutoTelemetryHolder {
     private var isDirty = false
     private val lock = Any()
 

@@ -23,7 +23,7 @@ object AndroidAutoTelemetryObserver {
     private var isRunning = false
     private var carContext: CarContext? = null
 
-    private val telemetryHolder = CarPlayTelemetryHolder()
+    private val telemetryHolder = AndroidAutoTelemetryHolder()
     private val handler = Handler(Looper.getMainLooper())
 
     private val mModelListener = OnCarDataAvailableListener<Model> {
