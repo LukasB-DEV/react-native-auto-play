@@ -1,6 +1,7 @@
-import type React from 'react';
+import React from 'react';
 import { AppRegistry, Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
+import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type {
   BaseCarPlayDashboardButton,
   HybridCarPlayDashboard as NitroHybridCarPlayDashboard,
@@ -40,7 +41,15 @@ class Dashboard {
       return;
     }
 
-    AppRegistry.registerComponent(this.id, () => component);
+    AppRegistry.registerComponent(
+      this.id,
+      () => (props) =>
+        React.createElement(SafeAreaInsetsProvider, {
+          moduleName: this.id,
+          // biome-ignore lint/correctness/noChildrenProp: there is no other way in a ts file
+          children: React.createElement(component, props),
+        })
+    );
     HybridCarPlayDashboard.initRootView();
   }
 
