@@ -15,7 +15,6 @@ class ClusterSceneDelegate: AutoPlayScene,
 {
     var clusterId = UUID().uuidString
     var instrumentClusterController: CPInstrumentClusterController?
-    var traitCollection = UIScreen.main.traitCollection
     var attributedInactiveDescriptionVariants: [NitroAttributedString] = []
 
     override init() {

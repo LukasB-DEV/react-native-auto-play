@@ -67,4 +67,8 @@ class SceneStore {
 
         return scene as? ClusterSceneDelegate
     }
+    
+    static func getRootTraitCollection() -> UITraitCollection {
+        return store[SceneStore.rootModuleName]!.traitCollection
+    }
 }

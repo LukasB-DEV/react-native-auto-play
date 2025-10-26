@@ -48,7 +48,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                         image: image,
                         size: CPButtonMaximumImageSize.height,
                         fontScale: 0.65,
-                        traitCollection: traitCollection
+                        traitCollection: SceneStore.getRootTraitCollection()
                     )!
                     return CPMapButton(image: icon) { _ in
                         button.onPress()
@@ -79,6 +79,14 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
     override func onPopped() {
         config.onPopped?()
+    }
+
+    override func traitCollectionDidChange() {
+        let traitColleciton = SceneStore.getRootTraitCollection()
+        self.config.onAppearanceDidChange?(
+            traitColleciton.userInterfaceStyle == .dark ? .dark : .light
+        )
+        self.invalidate()
     }
 
     // MARK: gestures
@@ -214,7 +222,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
         let image = SymbolFont.imageFromNitroImage(
             image: alertConfig.image,
-            traitCollection: traitCollection
+            traitCollection: SceneStore.getRootTraitCollection()
         )
 
         let style = Parser.parseActionAlertStyle(
@@ -411,7 +419,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
             let maneuver = Parser.parseManeuver(
                 nitroManeuver: nitroManeuver,
-                traitCollection: traitCollection
+                traitCollection: SceneStore.getRootTraitCollection()
             )
             upcomingManeuvers.append(maneuver)
         }
@@ -424,7 +432,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                         let secondarySymbolImage = SymbolFont.imageFromLanes(
                             laneImages: laneImages.prefix(Int(120 / 18)),
                             size: 18,
-                            traitCollection: traitCollection
+                            traitCollection: SceneStore.getRootTraitCollection()
                         )
 
                         let secondaryManeuver = CPManeuver(

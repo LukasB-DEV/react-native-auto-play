@@ -23,16 +23,12 @@ class AutoPlaySceneViewController: UIViewController {
         _ previousTraitCollection: UITraitCollection?
     ) {
         guard
-            let template = SceneStore.getScene(moduleName: moduleName)?
-                .templateStore.getTemplate(templateId: moduleName)
-                as? MapTemplate
+            let scene = SceneStore.getScene(moduleName: moduleName)
         else {
             return
         }
-
-        let isDark = traitCollection.userInterfaceStyle == .dark
-        template.config.onAppearanceDidChange?(isDark ? .dark : .light)
-        template.traitCollectionDidChange(traitColleciton: traitCollection)
+        
+        scene.traitCollectionDidChange(traitCollection: traitCollection)
     }
 
     override func viewDidLayoutSubviews() {
