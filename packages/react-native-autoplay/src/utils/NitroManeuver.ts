@@ -50,10 +50,15 @@ function convertManeuverImage(image?: ManeuverImage): NitroImage | undefined {
   if (image == null) {
     return undefined;
   }
+
+  const color =
+    typeof image.color === 'string'
+      ? { darkColor: image.color, lightColor: image.color }
+      : (image.color ?? { darkColor: 'white', lightColor: 'black' });
+
   return NitroImageUtil.convert({
     name: image.name,
-    darkColor: image.color ?? 'white',
-    lightColor: image.color ?? 'white',
+    ...color,
   });
 }
 

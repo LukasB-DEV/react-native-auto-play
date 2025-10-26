@@ -1,3 +1,4 @@
+import type { ThemedColor } from '../utils/NitroColor';
 import type { GlyphName } from './Glyphmap';
 import type { TravelEstimates } from './Trip';
 
@@ -162,9 +163,9 @@ export interface ManeuverImage {
   name: GlyphName;
   /**
    * make sure to specify a color with a proper contrast ratio to cardBackgroundColor otherwise it might not get applied
-   * defaults to white
+   * defaults to white/black for dark/light mode
    */
-  color?: string;
+  color?: ThemedColor | string;
 }
 
 export interface GlyphLane {

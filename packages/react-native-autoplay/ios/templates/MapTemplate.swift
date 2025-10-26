@@ -440,6 +440,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                             isSecondary: true
                         )
                         secondaryManeuver.symbolImage = secondarySymbolImage
+                        secondaryManeuver.cardBackgroundColor = maneuver.cardBackgroundColor
                         return [maneuver, secondaryManeuver]
                     } else {
                         return [maneuver]
