@@ -88,11 +88,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline void setAttributedInactiveDescriptionVariants(const std::string& clusterId, const std::vector<NitroAttributedString>& attributedInactiveDescriptionVariants) override {
+    inline std::shared_ptr<Promise<void>> setAttributedInactiveDescriptionVariants(const std::string& clusterId, const std::vector<NitroAttributedString>& attributedInactiveDescriptionVariants) override {
       auto __result = _swiftPart.setAttributedInactiveDescriptionVariants(clusterId, attributedInactiveDescriptionVariants);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
     }
 
   private:

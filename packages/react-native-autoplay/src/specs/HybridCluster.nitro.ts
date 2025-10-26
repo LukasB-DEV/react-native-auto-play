@@ -8,5 +8,5 @@ export interface HybridCluster extends HybridObject<{ android: 'kotlin'; ios: 's
   setAttributedInactiveDescriptionVariants(
     clusterId: string,
     attributedInactiveDescriptionVariants: Array<NitroAttributedString>
-  ): void;
+  ): Promise<void>;
 }

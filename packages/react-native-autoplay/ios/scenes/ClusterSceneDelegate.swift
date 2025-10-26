@@ -90,6 +90,7 @@ class ClusterSceneDelegate: AutoPlayScene,
         setState(state: .didappear)
     }
 
+    @MainActor
     func setAttributedInactiveDescriptionVariants(
         attributedInactiveDescriptionVariants:
             [NitroAttributedString]

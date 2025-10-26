@@ -41,7 +41,9 @@ class HybridCluster: HybridHybridClusterSpec {
         return Promise.async {
             if #available(iOS 15.4, *) {
                 try await MainActor.run {
-                    let scene = try SceneStore.getClusterScene(clusterId: clusterId)
+                    let scene = try SceneStore.getClusterScene(
+                        clusterId: clusterId
+                    )
                     scene?.initRootView()
                 }
             } else {
@@ -56,17 +58,23 @@ class HybridCluster: HybridHybridClusterSpec {
         clusterId: String,
         attributedInactiveDescriptionVariants:
             [NitroAttributedString]
-    ) throws {
-        if #available(iOS 15.4, *) {
-            let scene = try SceneStore.getClusterScene(clusterId: clusterId)
-            scene?.setAttributedInactiveDescriptionVariants(
-                attributedInactiveDescriptionVariants:
-                    attributedInactiveDescriptionVariants
-            )
-        } else {
-            throw AutoPlayError.unsupportedVersion(
-                "Cluster support only available on iOS >= 15.4"
-            )
+    ) throws -> Promise<Void> {
+        return Promise.async {
+            if #available(iOS 15.4, *) {
+                try await MainActor.run {
+                    let scene = try SceneStore.getClusterScene(
+                        clusterId: clusterId
+                    )
+                    scene?.setAttributedInactiveDescriptionVariants(
+                        attributedInactiveDescriptionVariants:
+                            attributedInactiveDescriptionVariants
+                    )
+                }
+            } else {
+                throw AutoPlayError.unsupportedVersion(
+                    "Cluster support only available on iOS >= 15.4"
+                )
+            }
         }
     }
 
