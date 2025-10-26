@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { Platform, Text, View } from 'react-native';
 import { Cluster } from './AutoPlayCluster';
 import { AutoPlayDashboard } from './AutoPlayDashboard';
+import { AutoManeuverUtil } from './config/AutoManeuver';
 import { AutoTrip } from './config/AutoTrip';
 import {
   actionStartNavigation,
@@ -139,7 +140,7 @@ const registerRunnable = () => {
   };
 
   const onDisconnect = () => {
-    // template.destroy();
+    AutoManeuverUtil.stopManeuvers();
   };
 
   CarPlayDashboard.setComponent(AutoPlayDashboard);

@@ -16,6 +16,10 @@ class Cluster {
 
   constructor() {
     HybridCluster.addListener('didConnect', (clusterId) => {
+      if (this.clusters[clusterId] != null) {
+        // in case didConnectWithWindow fires before didConnect
+        return;
+      }
       this.clusters[clusterId] = false;
       this.applyAttributedInactiveDescriptionVariants();
     });
@@ -26,6 +30,10 @@ class Cluster {
       });
     });
     HybridCluster.addListener('didDisconnectFromWindow', (clusterId) => {
+      if (this.clusters[clusterId] == null) {
+        // in case didDisconnect fires before didDisconnectFromWindow
+        return;
+      }
       this.clusters[clusterId] = false;
     });
     HybridCluster.addListener('didDisconnect', (clusterId) => {
