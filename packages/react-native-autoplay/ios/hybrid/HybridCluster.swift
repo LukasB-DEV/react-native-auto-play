@@ -58,23 +58,19 @@ class HybridCluster: HybridHybridClusterSpec {
         clusterId: String,
         attributedInactiveDescriptionVariants:
             [NitroAttributedString]
-    ) throws -> Promise<Void> {
-        return Promise.async {
-            if #available(iOS 15.4, *) {
-                try await MainActor.run {
-                    let scene = try SceneStore.getClusterScene(
-                        clusterId: clusterId
-                    )
-                    scene?.setAttributedInactiveDescriptionVariants(
-                        attributedInactiveDescriptionVariants:
-                            attributedInactiveDescriptionVariants
-                    )
-                }
-            } else {
-                throw AutoPlayError.unsupportedVersion(
-                    "Cluster support only available on iOS >= 15.4"
-                )
-            }
+    ) throws {
+        if #available(iOS 15.4, *) {
+            let scene = try SceneStore.getClusterScene(
+                clusterId: clusterId
+            )
+            scene?.setAttributedInactiveDescriptionVariants(
+                attributedInactiveDescriptionVariants:
+                    attributedInactiveDescriptionVariants
+            )
+        } else {
+            throw AutoPlayError.unsupportedVersion(
+                "Cluster support only available on iOS >= 15.4"
+            )
         }
     }
 

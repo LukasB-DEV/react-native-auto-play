@@ -15,6 +15,8 @@ class ClusterSceneDelegate: AutoPlayScene,
 {
     var clusterId = UUID().uuidString
     var instrumentClusterController: CPInstrumentClusterController?
+    var traitCollection = UIScreen.main.traitCollection
+    var attributedInactiveDescriptionVariants: [NitroAttributedString] = []
 
     override init() {
         super.init(moduleName: clusterId)
@@ -70,12 +72,15 @@ class ClusterSceneDelegate: AutoPlayScene,
     ) {
         // only the window disconnected but it could come back so do not call disconnect in here
         self.window = nil
-        HybridCluster.emit(event: .diddisconnectfromwindow, clusterId: clusterId)
+        HybridCluster.emit(
+            event: .diddisconnectfromwindow,
+            clusterId: clusterId
+        )
     }
 
     func contentStyleDidChange(_ contentStyle: UIUserInterfaceStyle) {
-        print("contentStyleDidChange")
-        //        RNCarPlay.clusterContentStyleDidChange(contentStyle, clusterId: clusterId)
+        traitCollection = UITraitCollection(userInterfaceStyle: contentStyle)
+        applyAttributedInactiveDescriptionVariants()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -94,16 +99,20 @@ class ClusterSceneDelegate: AutoPlayScene,
         setState(state: .didappear)
     }
 
-    @MainActor
     func setAttributedInactiveDescriptionVariants(
         attributedInactiveDescriptionVariants:
             [NitroAttributedString]
     ) {
+        self.attributedInactiveDescriptionVariants =
+            attributedInactiveDescriptionVariants
+        applyAttributedInactiveDescriptionVariants()
+    }
+
+    func applyAttributedInactiveDescriptionVariants() {
         instrumentClusterController?.attributedInactiveDescriptionVariants =
             Parser.parseAttributedStrings(
                 attributedStrings: attributedInactiveDescriptionVariants,
-                traitCollection: self.window?.traitCollection
-                    ?? UIScreen.main.traitCollection
+                traitCollection: traitCollection
             )
     }
 }

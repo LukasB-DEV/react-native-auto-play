@@ -58,7 +58,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       // Methods
       virtual std::function<void()> addListener(ClusterEventName eventType, const std::function<void(const std::string& /* clusterId */)>& callback) = 0;
       virtual std::shared_ptr<Promise<void>> initRootView(const std::string& clusterId) = 0;
-      virtual std::shared_ptr<Promise<void>> setAttributedInactiveDescriptionVariants(const std::string& clusterId, const std::vector<NitroAttributedString>& attributedInactiveDescriptionVariants) = 0;
+      virtual void setAttributedInactiveDescriptionVariants(const std::string& clusterId, const std::vector<NitroAttributedString>& attributedInactiveDescriptionVariants) = 0;
 
     protected:
       // Hybrid Setup
