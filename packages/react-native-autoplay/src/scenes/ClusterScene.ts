@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
 import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { HybridCluster as NitroHybridCluster } from '../specs/HybridCluster.nitro';
@@ -88,6 +88,12 @@ class Cluster {
   public setAttributedInactiveDescriptionVariants(
     attributedInactiveDescriptionVariants: Array<AutoAttributedString>
   ) {
+    if (Platform.OS !== 'ios') {
+      console.warn(
+        `ClusterScene.setAttributedInactiveDescriptionVariants not supported for ${Platform.OS}`
+      );
+      return;
+    }
     this.attributedInactiveDescriptionVariants = attributedInactiveDescriptionVariants;
     this.applyAttributedInactiveDescriptionVariants();
   }

@@ -11,6 +11,10 @@ class HybridCluster: HybridHybridClusterSpec {
         EventName: [String: (_:String) -> Void]
     ]()
 
+    private static var eventQueue = [
+        EventName: [String]  // clusterIds queued per event
+    ]()
+
     func addListener(
         eventType: EventName,
         callback: @escaping (_ clusterId: String) -> Void
@@ -18,6 +22,13 @@ class HybridCluster: HybridHybridClusterSpec {
         let uuid = UUID().uuidString
         HybridCluster.listeners[eventType, default: [:]][uuid] =
             callback
+
+        if let queuedClusterIds = HybridCluster.eventQueue[eventType] {
+            for clusterId in queuedClusterIds {
+                callback(clusterId)
+            }
+            HybridCluster.eventQueue[eventType] = nil
+        }
 
         return {
             HybridCluster.listeners[eventType]?.removeValue(
@@ -29,8 +40,10 @@ class HybridCluster: HybridHybridClusterSpec {
     func initRootView(clusterId: String) throws -> Promise<Void> {
         return Promise.async {
             if #available(iOS 15.4, *) {
-                let scene = try SceneStore.getClusterScene(clusterId: clusterId)
-                scene?.initRootView()
+                try await MainActor.run {
+                    let scene = try SceneStore.getClusterScene(clusterId: clusterId)
+                    scene?.initRootView()
+                }
             } else {
                 throw AutoPlayError.unsupportedVersion(
                     "Cluster support only available on iOS >= 15.4"
@@ -58,7 +71,14 @@ class HybridCluster: HybridHybridClusterSpec {
     }
 
     static func emit(event: EventName, clusterId: String) {
-        HybridCluster.listeners[event]?.values.forEach {
+        guard let listeners = HybridCluster.listeners[event], !listeners.isEmpty
+        else {
+            // no listeners -> queue the event
+            HybridCluster.eventQueue[event, default: []].append(clusterId)
+            return
+        }
+
+        listeners.values.forEach {
             $0(clusterId)
         }
     }
