@@ -8,6 +8,9 @@ import NitroModules
 
 class HybridCarPlayDashboard: HybridHybridCarPlayDashboardSpec {
     private static var listeners = [EventName: [String: () -> Void]]()
+    private static var colorSchemeListeners = [
+        String: (_:ColorScheme) -> Void
+    ]()
 
     func addListener(eventType: EventName, callback: @escaping () -> Void)
         throws -> () -> Void
@@ -43,9 +46,28 @@ class HybridCarPlayDashboard: HybridHybridCarPlayDashboardSpec {
         }
     }
 
+    func addListenerColorScheme(
+        callback: @escaping (_ payload: ColorScheme) -> Void
+    ) throws -> () -> Void {
+        let uuid = UUID().uuidString
+        HybridCarPlayDashboard.colorSchemeListeners[uuid] = callback
+
+        return {
+            HybridCarPlayDashboard.colorSchemeListeners.removeValue(
+                forKey: uuid
+            )
+        }
+    }
+
     static func emit(event: EventName) {
         HybridCarPlayDashboard.listeners[event]?.values.forEach {
             $0()
+        }
+    }
+
+    static func emitColorScheme(colorScheme: ColorScheme) {
+        HybridCarPlayDashboard.colorSchemeListeners.values.forEach {
+            $0(colorScheme)
         }
     }
 }

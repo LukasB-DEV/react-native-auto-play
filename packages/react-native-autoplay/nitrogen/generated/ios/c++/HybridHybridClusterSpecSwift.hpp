@@ -20,6 +20,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributed
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedStringImage; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
+// Forward declaration of `ColorScheme` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 
 #include <functional>
 #include "ClusterEventName.hpp"
@@ -30,6 +32,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
 #include "NitroAttributedStringImage.hpp"
 #include <optional>
 #include "NitroImage.hpp"
+#include "ColorScheme.hpp"
 
 #include "NitroAutoplay-Swift-Cxx-Umbrella.hpp"
 
@@ -93,6 +96,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+    }
+    inline std::function<void()> addListenerColorScheme(const std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>& callback) override {
+      auto __result = _swiftPart.addListenerColorScheme(callback);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
     }
 
   private:

@@ -17,6 +17,8 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ClusterEventName; }
 // Forward declaration of `NitroAttributedString` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedString; }
+// Forward declaration of `ColorScheme` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 
 #include <functional>
 #include "ClusterEventName.hpp"
@@ -24,6 +26,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributed
 #include <NitroModules/Promise.hpp>
 #include "NitroAttributedString.hpp"
 #include <vector>
+#include "ColorScheme.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -59,6 +62,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       virtual std::function<void()> addListener(ClusterEventName eventType, const std::function<void(const std::string& /* clusterId */)>& callback) = 0;
       virtual std::shared_ptr<Promise<void>> initRootView(const std::string& clusterId) = 0;
       virtual void setAttributedInactiveDescriptionVariants(const std::string& clusterId, const std::vector<NitroAttributedString>& attributedInactiveDescriptionVariants) = 0;
+      virtual std::function<void()> addListenerColorScheme(const std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>& callback) = 0;
 
     protected:
       // Hybrid Setup

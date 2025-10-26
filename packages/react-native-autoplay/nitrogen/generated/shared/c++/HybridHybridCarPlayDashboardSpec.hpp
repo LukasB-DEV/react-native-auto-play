@@ -17,12 +17,15 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class EventName; }
 // Forward declaration of `NitroCarPlayDashboardButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroCarPlayDashboardButton; }
+// Forward declaration of `ColorScheme` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 
 #include <functional>
 #include "EventName.hpp"
 #include <NitroModules/Promise.hpp>
 #include "NitroCarPlayDashboardButton.hpp"
 #include <vector>
+#include "ColorScheme.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -58,6 +61,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       virtual std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) = 0;
       virtual std::shared_ptr<Promise<void>> setButtons(const std::vector<NitroCarPlayDashboardButton>& buttons) = 0;
       virtual void initRootView() = 0;
+      virtual std::function<void()> addListenerColorScheme(const std::function<void(ColorScheme /* payload */)>& callback) = 0;
 
     protected:
       // Hybrid Setup

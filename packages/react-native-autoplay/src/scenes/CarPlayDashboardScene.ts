@@ -9,7 +9,7 @@ import type {
 } from '../specs/HybridCarPlayDashboard.nitro';
 import type { EventName, VisibilityState } from '../types/Event';
 import type { AutoImage } from '../types/Image';
-import type { RootComponentInitialProps } from '../types/RootComponent';
+import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
 import { NitroImageUtil } from '../utils/NitroImage';
 
 const HybridCarPlayDashboard =
@@ -102,6 +102,10 @@ class Dashboard {
       throw new Error(`CarPlayDashboard.addListener is not supported on ${Platform.OS}`);
     }
     return HybridAutoPlay.addListenerRenderState(this.id, callback);
+  }
+
+  public addListenerColorScheme(callback: (payload: ColorScheme) => void) {
+    return HybridCarPlayDashboard.addListenerColorScheme(callback);
   }
 }
 

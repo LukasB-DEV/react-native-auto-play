@@ -3,7 +3,7 @@ import { AppRegistry, Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
 import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { HybridCluster as NitroHybridCluster } from '../specs/HybridCluster.nitro';
-import type { RootComponentInitialProps } from '../types/RootComponent';
+import type { ColorScheme, RootComponentInitialProps } from '../types/RootComponent';
 import type { AutoAttributedString } from '../utils/NitroAttributedString';
 import { NitroImageUtil } from '../utils/NitroImage';
 
@@ -97,6 +97,10 @@ class Cluster {
     }
     this.attributedInactiveDescriptionVariants = attributedInactiveDescriptionVariants;
     this.applyAttributedInactiveDescriptionVariants();
+  }
+
+  public addListenerColorScheme(callback: (clusterId: string, payload: ColorScheme) => void) {
+    return HybridCluster.addListenerColorScheme(callback);
   }
 }
 

@@ -159,4 +159,24 @@ open class HybridHybridCarPlayDashboardSpec_cxx {
       return bridge.create_Result_void_(__exceptionPtr)
     }
   }
+  
+  @inline(__always)
+  public final func addListenerColorScheme(callback: bridge.Func_void_ColorScheme) -> bridge.Result_std__function_void____ {
+    do {
+      let __result = try self.__implementation.addListenerColorScheme(callback: { () -> (ColorScheme) -> Void in
+        let __wrappedFunction = bridge.wrap_Func_void_ColorScheme(callback)
+        return { (__payload: ColorScheme) -> Void in
+          __wrappedFunction.call(__payload.rawValue)
+        }
+      }())
+      let __resultCpp = { () -> bridge.Func_void in
+        let __closureWrapper = Func_void(__result)
+        return bridge.create_Func_void(__closureWrapper.toUnsafe())
+      }()
+      return bridge.create_Result_std__function_void____(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__function_void____(__exceptionPtr)
+    }
+  }
 }

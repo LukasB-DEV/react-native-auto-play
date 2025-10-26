@@ -28,8 +28,8 @@ class DashboardSceneDelegate: AutoPlayScene,
         self.dashboardController = dashboardController
         self.templateApplicationDashboardScene =
             templateApplicationDashboardScene
-
-        let traitCollection = templateApplicationDashboardScene.dashboardWindow
+        self.traitCollection =
+            templateApplicationDashboardScene.dashboardWindow
             .traitCollection
 
         let props: [String: Any] = [
@@ -95,5 +95,13 @@ class DashboardSceneDelegate: AutoPlayScene,
                 button.onPress?()
             }
         }
+    }
+
+    override func traitCollectionDidChange(traitCollection: UITraitCollection) {
+        super.traitCollectionDidChange(traitCollection: traitCollection)
+        HybridCarPlayDashboard.emitColorScheme(
+            colorScheme: traitCollection.userInterfaceStyle == .dark
+                ? .dark : .light
+        )
     }
 }

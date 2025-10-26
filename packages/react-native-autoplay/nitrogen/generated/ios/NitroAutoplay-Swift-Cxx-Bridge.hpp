@@ -476,6 +476,28 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return vector;
   }
   
+  // pragma MARK: std::function<void(ColorScheme /* payload */)>
+  /**
+   * Specialized version of `std::function<void(ColorScheme)>`.
+   */
+  using Func_void_ColorScheme = std::function<void(ColorScheme /* payload */)>;
+  /**
+   * Wrapper class for a `std::function<void(ColorScheme / * payload * /)>`, this can be used from Swift.
+   */
+  class Func_void_ColorScheme_Wrapper final {
+  public:
+    explicit Func_void_ColorScheme_Wrapper(std::function<void(ColorScheme /* payload */)>&& func): _function(std::make_unique<std::function<void(ColorScheme /* payload */)>>(std::move(func))) {}
+    inline void call(int payload) const noexcept {
+      _function->operator()(static_cast<ColorScheme>(payload));
+    }
+  private:
+    std::unique_ptr<std::function<void(ColorScheme /* payload */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_ColorScheme_Wrapper wrap_Func_void_ColorScheme(Func_void_ColorScheme value) noexcept {
+    return Func_void_ColorScheme_Wrapper(std::move(value));
+  }
+  
   // pragma MARK: std::shared_ptr<HybridHybridCarPlayDashboardSpec>
   /**
    * Specialized version of `std::shared_ptr<HybridHybridCarPlayDashboardSpec>`.
@@ -545,6 +567,28 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     std::vector<NitroAttributedString> vector;
     vector.reserve(size);
     return vector;
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&, ColorScheme)>`.
+   */
+  using Func_void_std__string_ColorScheme = std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * clusterId * /, ColorScheme / * payload * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_ColorScheme_Wrapper final {
+  public:
+    explicit Func_void_std__string_ColorScheme_Wrapper(std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>>(std::move(func))) {}
+    inline void call(std::string clusterId, int payload) const noexcept {
+      _function->operator()(clusterId, static_cast<ColorScheme>(payload));
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string_ColorScheme create_Func_void_std__string_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_ColorScheme_Wrapper wrap_Func_void_std__string_ColorScheme(Func_void_std__string_ColorScheme value) noexcept {
+    return Func_void_std__string_ColorScheme_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::shared_ptr<HybridHybridClusterSpec>
@@ -863,28 +907,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   }
   inline std::function<void(const Point& /* center */)> get_std__optional_std__function_void_const_Point_____center______(const std::optional<std::function<void(const Point& /* center */)>>& optional) noexcept {
     return *optional;
-  }
-  
-  // pragma MARK: std::function<void(ColorScheme /* colorScheme */)>
-  /**
-   * Specialized version of `std::function<void(ColorScheme)>`.
-   */
-  using Func_void_ColorScheme = std::function<void(ColorScheme /* colorScheme */)>;
-  /**
-   * Wrapper class for a `std::function<void(ColorScheme / * colorScheme * /)>`, this can be used from Swift.
-   */
-  class Func_void_ColorScheme_Wrapper final {
-  public:
-    explicit Func_void_ColorScheme_Wrapper(std::function<void(ColorScheme /* colorScheme */)>&& func): _function(std::make_unique<std::function<void(ColorScheme /* colorScheme */)>>(std::move(func))) {}
-    inline void call(int colorScheme) const noexcept {
-      _function->operator()(static_cast<ColorScheme>(colorScheme));
-    }
-  private:
-    std::unique_ptr<std::function<void(ColorScheme /* colorScheme */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_ColorScheme_Wrapper wrap_Func_void_ColorScheme(Func_void_ColorScheme value) noexcept {
-    return Func_void_ColorScheme_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::optional<std::function<void(ColorScheme /* colorScheme */)>>

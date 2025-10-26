@@ -1,5 +1,6 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type { CleanupCallback } from '../types/Event';
+import type { ColorScheme } from '../types/RootComponent';
 import type { NitroAttributedString } from '../utils/NitroAttributedString';
 
 type ClusterEventName =
@@ -15,4 +16,7 @@ export interface HybridCluster extends HybridObject<{ android: 'kotlin'; ios: 's
     clusterId: string,
     attributedInactiveDescriptionVariants: Array<NitroAttributedString>
   ): void;
+  addListenerColorScheme(
+    callback: (clusterId: string, payload: ColorScheme) => void
+  ): CleanupCallback;
 }

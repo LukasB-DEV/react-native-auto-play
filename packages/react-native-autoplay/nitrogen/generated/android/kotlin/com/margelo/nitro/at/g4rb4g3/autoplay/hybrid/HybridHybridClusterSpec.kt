@@ -57,6 +57,15 @@ abstract class HybridHybridClusterSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun setAttributedInactiveDescriptionVariants(clusterId: String, attributedInactiveDescriptionVariants: Array<NitroAttributedString>): Unit
+  
+  abstract fun addListenerColorScheme(callback: (clusterId: String, payload: ColorScheme) -> Unit): () -> Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun addListenerColorScheme_cxx(callback: Func_void_std__string_ColorScheme): Func_void {
+    val __result = addListenerColorScheme(callback)
+    return Func_void_java(__result)
+  }
 
   private external fun initHybrid(): HybridData
 

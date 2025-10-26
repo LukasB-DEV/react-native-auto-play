@@ -89,7 +89,7 @@ class AutoPlayScene: UIResponder {
         }
     }
     
-    func traitCollectionDidChange(traitCollection: UITraitCollection) {
+    open func traitCollectionDidChange(traitCollection: UITraitCollection) {
         self.traitCollection = traitCollection
         self.templateStore.traitCollectionDidChange()
     }

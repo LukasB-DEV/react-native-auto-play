@@ -17,6 +17,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       prototype.registerHybridMethod("addListener", &HybridHybridCarPlayDashboardSpec::addListener);
       prototype.registerHybridMethod("setButtons", &HybridHybridCarPlayDashboardSpec::setButtons);
       prototype.registerHybridMethod("initRootView", &HybridHybridCarPlayDashboardSpec::initRootView);
+      prototype.registerHybridMethod("addListenerColorScheme", &HybridHybridCarPlayDashboardSpec::addListenerColorScheme);
     });
   }
 

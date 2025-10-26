@@ -28,6 +28,10 @@ class ClusterSceneDelegate: AutoPlayScene,
     ) {
         instrumentClusterController.delegate = self
         self.instrumentClusterController = instrumentClusterController
+        self.traitCollection = UITraitCollection(
+            userInterfaceStyle: templateApplicationInstrumentClusterScene
+                .contentStyle
+        )
         HybridCluster.emit(event: .didconnect, clusterId: clusterId)
 
         //        let contentStyle = templateApplicationInstrumentClusterScene
@@ -53,8 +57,8 @@ class ClusterSceneDelegate: AutoPlayScene,
         self.window = instrumentClusterWindow
 
         let props: [String: Any] = [
-            "colorScheme": instrumentClusterWindow.screen.traitCollection
-                .userInterfaceStyle == .dark ? "dark" : "light",
+            "colorScheme": self.traitCollection.userInterfaceStyle == .dark
+                ? "dark" : "light",
             "window": [
                 "height": instrumentClusterWindow.screen.bounds.size.height,
                 "width": instrumentClusterWindow.screen.bounds.size.width,
@@ -77,9 +81,24 @@ class ClusterSceneDelegate: AutoPlayScene,
         )
     }
 
+    override func traitCollectionDidChange(traitCollection: UITraitCollection) {
+        super.traitCollectionDidChange(traitCollection: traitCollection)
+        applyAttributedInactiveDescriptionVariants()
+        HybridCluster.emitColorScheme(
+            clusterId: clusterId,
+            colorScheme: traitCollection.userInterfaceStyle == .dark
+                ? .dark : .light
+        )
+    }
+
     func contentStyleDidChange(_ contentStyle: UIUserInterfaceStyle) {
         traitCollection = UITraitCollection(userInterfaceStyle: contentStyle)
         applyAttributedInactiveDescriptionVariants()
+        HybridCluster.emitColorScheme(
+            clusterId: clusterId,
+            colorScheme: traitCollection.userInterfaceStyle == .dark
+                ? .dark : .light
+        )
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

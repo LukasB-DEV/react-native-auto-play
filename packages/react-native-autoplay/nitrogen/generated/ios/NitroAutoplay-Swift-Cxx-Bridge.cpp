@@ -67,6 +67,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return swiftPart.toUnsafe();
   }
   
+  // pragma MARK: std::function<void(ColorScheme /* payload */)>
+  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_ColorScheme::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](ColorScheme payload) mutable -> void {
+      swiftClosure.call(static_cast<int>(payload));
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<HybridHybridCarPlayDashboardSpec>
   std::shared_ptr<HybridHybridCarPlayDashboardSpec> create_std__shared_ptr_HybridHybridCarPlayDashboardSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     NitroAutoplay::HybridHybridCarPlayDashboardSpec_cxx swiftPart = NitroAutoplay::HybridHybridCarPlayDashboardSpec_cxx::fromUnsafe(swiftUnsafePointer);
@@ -88,6 +96,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     auto swiftClosure = NitroAutoplay::Func_void_std__string::fromUnsafe(swiftClosureWrapper);
     return [swiftClosure = std::move(swiftClosure)](const std::string& clusterId) mutable -> void {
       swiftClosure.call(clusterId);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>
+  Func_void_std__string_ColorScheme create_Func_void_std__string_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__string_ColorScheme::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& clusterId, ColorScheme payload) mutable -> void {
+      swiftClosure.call(clusterId, static_cast<int>(payload));
     };
   }
   
@@ -168,14 +184,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     auto swiftClosure = NitroAutoplay::Func_void_Point::fromUnsafe(swiftClosureWrapper);
     return [swiftClosure = std::move(swiftClosure)](const Point& center) mutable -> void {
       swiftClosure.call(center);
-    };
-  }
-  
-  // pragma MARK: std::function<void(ColorScheme /* colorScheme */)>
-  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_ColorScheme::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](ColorScheme colorScheme) mutable -> void {
-      swiftClosure.call(static_cast<int>(colorScheme));
     };
   }
   

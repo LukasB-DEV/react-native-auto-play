@@ -15,6 +15,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributed
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedStringImage; }
 // Forward declaration of `NitroImage` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
+// Forward declaration of `ColorScheme` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 
 #include <functional>
 #include "JFunc_void.hpp"
@@ -32,6 +34,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroImage; }
 #include "JNitroAttributedStringImage.hpp"
 #include "NitroImage.hpp"
 #include "JNitroImage.hpp"
+#include "ColorScheme.hpp"
+#include "JFunc_void_std__string_ColorScheme.hpp"
+#include "JColorScheme.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -100,6 +105,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       }
       return __array;
     }());
+  }
+  std::function<void()> JHybridHybridClusterSpec::addListenerColorScheme(const std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>& callback) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_std__string_ColorScheme::javaobject> /* callback */)>("addListenerColorScheme_cxx");
+    auto __result = method(_javaPart, JFunc_void_std__string_ColorScheme_cxx::fromCpp(callback));
+    return [&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return [__resultRef]() -> void {
+          return __resultRef->invoke();
+        };
+      }
+    }();
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

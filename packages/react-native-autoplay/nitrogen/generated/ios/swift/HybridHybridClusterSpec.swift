@@ -18,6 +18,7 @@ public protocol HybridHybridClusterSpec_protocol: HybridObject {
   func addListener(eventType: ClusterEventName, callback: @escaping (_ clusterId: String) -> Void) throws -> () -> Void
   func initRootView(clusterId: String) throws -> Promise<Void>
   func setAttributedInactiveDescriptionVariants(clusterId: String, attributedInactiveDescriptionVariants: [NitroAttributedString]) throws -> Void
+  func addListenerColorScheme(callback: @escaping (_ clusterId: String, _ payload: ColorScheme) -> Void) throws -> () -> Void
 }
 
 /// See ``HybridHybridClusterSpec``

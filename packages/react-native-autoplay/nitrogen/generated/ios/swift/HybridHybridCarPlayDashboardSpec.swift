@@ -18,6 +18,7 @@ public protocol HybridHybridCarPlayDashboardSpec_protocol: HybridObject {
   func addListener(eventType: EventName, callback: @escaping () -> Void) throws -> () -> Void
   func setButtons(buttons: [NitroCarPlayDashboardButton]) throws -> Promise<Void>
   func initRootView() throws -> Void
+  func addListenerColorScheme(callback: @escaping (_ payload: ColorScheme) -> Void) throws -> () -> Void
 }
 
 /// See ``HybridHybridCarPlayDashboardSpec``

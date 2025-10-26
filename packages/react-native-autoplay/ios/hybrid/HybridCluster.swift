@@ -15,6 +15,10 @@ class HybridCluster: HybridHybridClusterSpec {
         ClusterEventName: [String]  // clusterIds queued per event
     ]()
 
+    private static var colorSchemeListeners = [
+        String: (_: String, _: ColorScheme) -> Void
+    ]()
+
     func addListener(
         eventType: ClusterEventName,
         callback: @escaping (_ clusterId: String) -> Void
@@ -74,6 +78,19 @@ class HybridCluster: HybridHybridClusterSpec {
         }
     }
 
+    func addListenerColorScheme(
+        callback: @escaping (String, ColorScheme) -> Void
+    ) throws -> () -> Void {
+        let uuid = UUID().uuidString
+        HybridCluster.colorSchemeListeners[uuid] = callback
+
+        return {
+            HybridCluster.colorSchemeListeners.removeValue(
+                forKey: uuid
+            )
+        }
+    }
+
     static func emit(event: ClusterEventName, clusterId: String) {
         guard let listeners = HybridCluster.listeners[event], !listeners.isEmpty
         else {
@@ -84,6 +101,12 @@ class HybridCluster: HybridHybridClusterSpec {
 
         listeners.values.forEach {
             $0(clusterId)
+        }
+    }
+    
+    static func emitColorScheme(clusterId: String, colorScheme: ColorScheme) {
+        HybridCluster.colorSchemeListeners.values.forEach {
+            $0(clusterId, colorScheme)
         }
     }
 }
