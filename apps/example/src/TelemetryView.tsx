@@ -11,14 +11,6 @@ const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
   AndroidAutoTelemetryPermissions.Odometer,
 ];
 
-/*const ANDROID_AUTOMOTIVE_PERMISSIONS: Array<AndroidAutoPermissions> = [
-  AndroidAutomotiveTelemetryPermissions.Energy,
-  AndroidAutomotiveTelemetryPermissions.Info,
-  AndroidAutomotiveTelemetryPermissions.ExteriorEnvironment,
-  AndroidAutomotiveTelemetryPermissions.EnergyPorts,
-  AndroidAutomotiveTelemetryPermissions.Speed,
-];*/
-
 export function TelemetryView() {
   const { permissionsGranted, telemetry } = useAndroidAutoTelemetry({
     requiredPermissions: ANDROID_AUTO_PERMISSIONS,
