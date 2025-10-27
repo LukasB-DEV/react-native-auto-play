@@ -1,6 +1,5 @@
 import { NitroModules } from 'react-native-nitro-modules';
 import AutoPlayHeadlessJsTask from './AutoPlayHeadlessJsTask';
-import type { HybridAndroidAutoTelemetry as NitroHybridAndroidAutoTelemetry } from './specs/HybridAndroidAutoTelemetry.nitro';
 import type { HybridAutoPlay as NitroHybridAutoPlay } from './specs/HybridAutoPlay.nitro';
 import type { HybridGridTemplate as NitroHybridGridTemplate } from './specs/HybridGridTemplate.nitro';
 import type { HybridListTemplate as NitroHybridListTemplate } from './specs/HybridListTemplate.nitro';
@@ -11,8 +10,6 @@ AutoPlayHeadlessJsTask.registerHeadlessTask();
 
 export const HybridAutoPlay =
   NitroModules.createHybridObject<NitroHybridAutoPlay>('HybridAutoPlay');
-export const HybridAndroidAutoTelemetry =
-  NitroModules.createHybridObject<NitroHybridAndroidAutoTelemetry>('HybridAndroidAutoTelemetry');
 export const HybridListTemplate =
   NitroModules.createHybridObject<NitroHybridListTemplate>('HybridListTemplate');
 export const HybridGridTemplate =

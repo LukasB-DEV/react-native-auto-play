@@ -24,7 +24,7 @@ function AppContent() {
   const isNavigating = useAppSelector((state) => state.navigation.isNavigating);
   const selectedTrip = useAppSelector((state) => state.navigation.selectedTrip);
 
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(HybridAutoPlay.isConnected());
   const [isRootVisible, setIsRootVisible] = useState(false);
 
   useEffect(() => {

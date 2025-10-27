@@ -71,8 +71,8 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
   setTemplateHeaderActions(templateId: string, headerActions?: Array<NitroAction>): void;
 
   /**
-   * Check if Android Auto is connected.
-   * @returns true if Android Auto is connected, false otherwise.
+   * Check if AutoPlay is connected.
+   * @returns true if AutoPlay is connected, false otherwise.
    */
   isConnected(): boolean;
 }

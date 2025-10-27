@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
-import { type Permission, PermissionsAndroid } from 'react-native';
-import { HybridAndroidAutoTelemetry, HybridAutoPlay } from '..';
+import { type Permission, PermissionsAndroid, Platform } from 'react-native';
+import { NitroModules } from 'react-native-nitro-modules';
+import { HybridAutoPlay } from '..';
+import type { HybridAndroidAutoTelemetry as NitroHybridAndroidAutoTelemetry } from '../specs/HybridAndroidAutoTelemetry.nitro';
 import type { AndroidAutoPermissions, Telemetry } from '../types/Telemetry';
+
+const HybridAndroidAutoTelemetry =
+  Platform.OS === 'android'
+    ? NitroModules.createHybridObject<NitroHybridAndroidAutoTelemetry>('HybridAndroidAutoTelemetry')
+    : null;
 
 interface Props {
   /**
@@ -65,7 +72,7 @@ export const useAndroidAutoTelemetry = ({
       return;
     }
 
-    const remove = HybridAndroidAutoTelemetry.registerTelemetryListener(
+    const remove = HybridAndroidAutoTelemetry?.registerTelemetryListener(
       (tlm: Telemetry | null, errorMessage: string | null) => {
         setError(errorMessage);
         setTelemetry(tlm);
@@ -73,7 +80,7 @@ export const useAndroidAutoTelemetry = ({
     );
 
     return () => {
-      remove();
+      remove?.();
     };
   }, [isConnected, permissionsGranted]);
 
