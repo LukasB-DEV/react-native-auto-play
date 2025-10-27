@@ -40,11 +40,11 @@ abstract class HybridHybridAndroidAutoTelemetrySpec: HybridObject() {
   
 
   // Methods
-  abstract fun registerTelemetryListener(callback: (tlm: Telemetry?) -> Unit): () -> Unit
+  abstract fun registerTelemetryListener(callback: (tlm: Telemetry?, error: String?) -> Unit): () -> Unit
   
   @DoNotStrip
   @Keep
-  private fun registerTelemetryListener_cxx(callback: Func_void_std__optional_Telemetry_): Func_void {
+  private fun registerTelemetryListener_cxx(callback: Func_void_std__optional_Telemetry__std__optional_std__string_): Func_void {
     val __result = registerTelemetryListener(callback)
     return Func_void_java(__result)
   }

@@ -68,18 +68,12 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroRow; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroSectionType; }
 // Forward declaration of `NitroSection` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroSection; }
-// Forward declaration of `NumericTelemetryItem` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NumericTelemetryItem; }
 // Forward declaration of `Point` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
 // Forward declaration of `RouteChoice` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SafeAreaInsets; }
-// Forward declaration of `StringTelemetryItem` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetryItem; }
-// Forward declaration of `Telemetry` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Telemetry; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
 // Forward declaration of `TripConfig` to properly resolve imports.
@@ -90,8 +84,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPreviewTextConfiguration; }
 // Forward declaration of `TripsConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripsConfig; }
-// Forward declaration of `VehicleTelemetryItem` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct VehicleTelemetryItem; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
@@ -128,18 +120,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "NitroRow.hpp"
 #include "NitroSection.hpp"
 #include "NitroSectionType.hpp"
-#include "NumericTelemetryItem.hpp"
 #include "Point.hpp"
 #include "RouteChoice.hpp"
 #include "SafeAreaInsets.hpp"
-#include "StringTelemetryItem.hpp"
-#include "Telemetry.hpp"
 #include "TravelEstimates.hpp"
 #include "TripConfig.hpp"
 #include "TripPoint.hpp"
 #include "TripPreviewTextConfiguration.hpp"
 #include "TripsConfig.hpp"
-#include "VehicleTelemetryItem.hpp"
 #include "VisibilityState.hpp"
 #include "VisibleTravelEstimate.hpp"
 #include <NitroModules/Promise.hpp>

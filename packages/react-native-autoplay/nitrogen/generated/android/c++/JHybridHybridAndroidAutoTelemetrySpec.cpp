@@ -20,7 +20,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetry
 #include "JFunc_void.hpp"
 #include "Telemetry.hpp"
 #include <optional>
-#include "JFunc_void_std__optional_Telemetry_.hpp"
+#include <string>
+#include "JFunc_void_std__optional_Telemetry__std__optional_std__string_.hpp"
 #include "JTelemetry.hpp"
 #include "NumericTelemetryItem.hpp"
 #include "JNumericTelemetryItem.hpp"
@@ -28,7 +29,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct StringTelemetry
 #include "JVehicleTelemetryItem.hpp"
 #include "StringTelemetryItem.hpp"
 #include "JStringTelemetryItem.hpp"
-#include <string>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -56,9 +56,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   
 
   // Methods
-  std::function<void()> JHybridHybridAndroidAutoTelemetrySpec::registerTelemetryListener(const std::function<void(const std::optional<Telemetry>& /* tlm */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_std__optional_Telemetry_::javaobject> /* callback */)>("registerTelemetryListener_cxx");
-    auto __result = method(_javaPart, JFunc_void_std__optional_Telemetry__cxx::fromCpp(callback));
+  std::function<void()> JHybridHybridAndroidAutoTelemetrySpec::registerTelemetryListener(const std::function<void(const std::optional<Telemetry>& /* tlm */, const std::optional<std::string>& /* error */)>& callback) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void_std__optional_Telemetry__std__optional_std__string_::javaobject> /* callback */)>("registerTelemetryListener_cxx");
+    auto __result = method(_javaPart, JFunc_void_std__optional_Telemetry__std__optional_std__string__cxx::fromCpp(callback));
     return [&]() -> std::function<void()> {
       if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
         auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);

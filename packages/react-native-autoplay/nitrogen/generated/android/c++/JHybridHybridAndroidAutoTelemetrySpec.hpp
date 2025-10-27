@@ -53,7 +53,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   public:
     // Methods
-    std::function<void()> registerTelemetryListener(const std::function<void(const std::optional<Telemetry>& /* tlm */)>& callback) override;
+    std::function<void()> registerTelemetryListener(const std::function<void(const std::optional<Telemetry>& /* tlm */, const std::optional<std::string>& /* error */)>& callback) override;
 
   private:
     friend HybridBase;
