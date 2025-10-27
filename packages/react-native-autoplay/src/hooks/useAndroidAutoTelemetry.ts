@@ -21,7 +21,7 @@ interface Props {
  *
  * @namespace Android
  * @param requestTelemetryPermissions If true, the telemetry permissions will be requested from the user. Can be set to false initially, in case other permissions need to be requested first, so the permission request dialogs do not overlap.
- * @returns true if the telemetry permissions are granted, false otherwise.
+ * @param requiredPermissions The permissions to check.
  */
 export const useAndroidAutoTelemetry = ({
   requestTelemetryPermissions = true,
@@ -29,6 +29,7 @@ export const useAndroidAutoTelemetry = ({
 }: Props) => {
   const [permissionsGranted, setPermissionsGranted] = useState(false);
   const [telemetry, setTelemetry] = useState<Telemetry | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
@@ -64,9 +65,12 @@ export const useAndroidAutoTelemetry = ({
       return;
     }
 
-    const remove = HybridAndroidAutoTelemetry.registerTelemetryListener((tlm: Telemetry | null) => {
-      setTelemetry(tlm);
-    });
+    const remove = HybridAndroidAutoTelemetry.registerTelemetryListener(
+      (tlm: Telemetry | null, errorMessage: string | null) => {
+        setError(errorMessage);
+        setTelemetry(tlm);
+      }
+    );
 
     return () => {
       remove();
@@ -92,5 +96,18 @@ export const useAndroidAutoTelemetry = ({
     return;
   }, [requestTelemetryPermissions, requiredPermissions]);
 
-  return { permissionsGranted, telemetry };
+  return {
+    /**
+     * True if the telemetry permissions are granted, false otherwise.
+     */
+    permissionsGranted,
+    /**
+     * The telemetry data.
+     */
+    telemetry,
+    /**
+     * The error message if the telemetry listener failed to start.
+     */
+    error,
+  };
 };

@@ -12,13 +12,14 @@ const ANDROID_AUTO_PERMISSIONS: Array<AndroidAutoPermissions> = [
 ];
 
 export function TelemetryView() {
-  const { permissionsGranted, telemetry } = useAndroidAutoTelemetry({
+  const { permissionsGranted, telemetry, error } = useAndroidAutoTelemetry({
     requiredPermissions: ANDROID_AUTO_PERMISSIONS,
   });
 
   return (
     <>
       <Text>telemetry permissions granted: {String(permissionsGranted)}</Text>
+      {error ? <Text>error: {error}</Text> : null}
       {telemetry ? <Text>---- last incoming tlm ----</Text> : null}
       {telemetry?.batteryLevel ? (
         <Text>
