@@ -6,6 +6,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NumericTelemetryItem
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.StringTelemetryItem
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Telemetry
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VehicleTelemetryItem
+import kotlin.math.abs
 
 class AndroidAutoTelemetryHolder {
     private var isDirty = false
@@ -46,19 +47,33 @@ class AndroidAutoTelemetryHolder {
         isDirty = true
     }
 
-    fun updateBatteryLevel(value: Float?) = synchronized(lock) {
+    fun updateBatteryLevel(value: Float) = synchronized(lock) {
+        if (abs(batteryLevel ?: -1.0f) === abs(value)) {
+            // only update soc, if it actually changes
+            return;
+        }
+
         batteryLevel = value
         batteryLevelTimestamp = (System.currentTimeMillis() / 1000L).toInt()
         isDirty = true
     }
 
-    fun updateFuelLevel(value: Float?) = synchronized(lock) {
+    fun updateFuelLevel(value: Float) = synchronized(lock) {
+        if (abs(fuelLevel ?: -1.0f) === abs(value)) {
+            // only update soc, if it actually changes
+            return;
+        }
+
         fuelLevel = value
         fuelLevelTimestamp = (System.currentTimeMillis() / 1000L).toInt()
         isDirty = true
     }
 
-    fun updateRange(value: Float?) = synchronized(lock) {
+    fun updateRange(value: Float) = synchronized(lock) {
+        if (abs(range ?: -1.0f) === abs(value)) {
+            return;
+        }
+
         range = value
         rangeTimestamp = (System.currentTimeMillis() / 1000L).toInt()
         isDirty = true

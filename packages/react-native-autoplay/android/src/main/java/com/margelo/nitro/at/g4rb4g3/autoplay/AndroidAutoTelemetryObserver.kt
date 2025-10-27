@@ -40,15 +40,21 @@ object AndroidAutoTelemetryObserver {
 
     private val mEnergyLevelListener = OnCarDataAvailableListener<EnergyLevel> { carEnergyLevel ->
         if (carEnergyLevel.batteryPercent.status == CarValue.STATUS_SUCCESS) {
-            telemetryHolder.updateBatteryLevel(carEnergyLevel.batteryPercent.value)
+            carEnergyLevel.batteryPercent.value?.let {
+                telemetryHolder.updateBatteryLevel(it)
+            }
         }
 
         if (carEnergyLevel.fuelPercent.status == CarValue.STATUS_SUCCESS) {
-            telemetryHolder.updateFuelLevel(carEnergyLevel.fuelPercent.value)
+            carEnergyLevel.fuelPercent.value?.let {
+                telemetryHolder.updateFuelLevel(it)
+            }
         }
 
         if (carEnergyLevel.rangeRemainingMeters.status == CarValue.STATUS_SUCCESS) {
-            telemetryHolder.updateRange(carEnergyLevel.rangeRemainingMeters.value?.div(1000f)) //m->km
+            carEnergyLevel.rangeRemainingMeters.value?.let {
+                telemetryHolder.updateRange(it.div(1000f)) //m->km
+            }
         }
     }
 
