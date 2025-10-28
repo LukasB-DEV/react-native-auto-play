@@ -13,7 +13,9 @@ import type { ColorScheme, RootComponentInitialProps } from '../types/RootCompon
 import { NitroImageUtil } from '../utils/NitroImage';
 
 const HybridCarPlayDashboard =
-  NitroModules.createHybridObject<NitroHybridCarPlayDashboard>('HybridCarPlayDashboard');
+  Platform.OS === 'ios'
+    ? NitroModules.createHybridObject<NitroHybridCarPlayDashboard>('HybridCarPlayDashboard')
+    : null;
 
 export interface CarPlayDashboardButton extends BaseCarPlayDashboardButton {
   image: AutoImage;
@@ -27,7 +29,7 @@ class Dashboard {
   public readonly id = 'CarPlayDashboard';
 
   constructor() {
-    if (Platform.OS !== 'ios') {
+    if (HybridCarPlayDashboard == null) {
       return;
     }
     HybridCarPlayDashboard.addListener('didConnect', () => this.setIsConnected(true));
@@ -40,6 +42,10 @@ class Dashboard {
   }
 
   private registerComponent() {
+    if (HybridCarPlayDashboard == null) {
+      return;
+    }
+
     const { component, isConnected } = this;
     if (!isConnected || component == null) {
       return;
@@ -75,7 +81,7 @@ class Dashboard {
    * @namespace iOS
    */
   public setButtons(buttons: Array<CarPlayDashboardButton>) {
-    if (Platform.OS !== 'ios') {
+    if (HybridCarPlayDashboard == null) {
       console.warn(`CarPlayDashboard.setButtons is not supported on ${Platform.OS}`);
       return;
     }
@@ -91,20 +97,23 @@ class Dashboard {
    * @returns callback to remove the listener
    */
   public addListener(event: EventName, callback: () => void) {
-    if (Platform.OS !== 'ios') {
+    if (HybridCarPlayDashboard == null) {
       throw new Error(`CarPlayDashboard.addListener is not supported on ${Platform.OS}`);
     }
     return HybridCarPlayDashboard.addListener(event, callback);
   }
 
   public addListenerRenderState(callback: (payload: VisibilityState) => void) {
-    if (Platform.OS !== 'ios') {
+    if (HybridCarPlayDashboard == null) {
       throw new Error(`CarPlayDashboard.addListener is not supported on ${Platform.OS}`);
     }
     return HybridAutoPlay.addListenerRenderState(this.id, callback);
   }
 
   public addListenerColorScheme(callback: (payload: ColorScheme) => void) {
+    if (HybridCarPlayDashboard == null) {
+      throw new Error(`CarPlayDashboard.addListener is not supported on ${Platform.OS}`);
+    }
     return HybridCarPlayDashboard.addListenerColorScheme(callback);
   }
 }

@@ -15,8 +15,10 @@
 #include <fbjni/fbjni.h>
 #include <NitroModules/HybridObjectRegistry.hpp>
 
-#include "JHybridHybridAutoPlaySpec.hpp"
+#include "JHybridHybridAndroidAutoTelemetrySpec.hpp"
 #include "JFunc_void.hpp"
+#include "JFunc_void_std__optional_Telemetry__std__optional_std__string_.hpp"
+#include "JHybridHybridAutoPlaySpec.hpp"
 #include "JFunc_void_VisibilityState.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
 #include "JHybridHybridClusterSpec.hpp"
@@ -46,8 +48,10 @@ int initialize(JavaVM* vm) {
 
   return facebook::jni::initialize(vm, [] {
     // Register native JNI methods
-    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridAutoPlaySpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridAndroidAutoTelemetrySpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__optional_Telemetry__std__optional_std__string__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridAutoPlaySpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_VisibilityState_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_SafeAreaInsets_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridClusterSpec::registerNatives();
@@ -72,6 +76,14 @@ int initialize(JavaVM* vm) {
       "HybridAutoPlay",
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridHybridAutoPlaySpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridAutoPlay");
+        auto instance = object.create();
+        return instance->cthis()->shared();
+      }
+    );
+    HybridObjectRegistry::registerHybridObjectConstructor(
+      "HybridAndroidAutoTelemetry",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridHybridAndroidAutoTelemetrySpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridAndroidAutoTelemetry");
         auto instance = object.create();
         return instance->cthis()->shared();
       }

@@ -91,6 +91,10 @@ abstract class HybridHybridAutoPlaySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun setTemplateHeaderActions(templateId: String, headerActions: Array<NitroAction>?): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun isConnected(): Boolean
 
   private external fun initHybrid(): HybridData
 

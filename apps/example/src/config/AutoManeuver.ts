@@ -59,7 +59,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     id: uuid.v4(),
     attributedInstructionVariants: [{ text: 'Left' }],
     travelEstimates: {
-      distanceRemaining: { unit: 'meters', value: 2000 },
+      distanceRemaining: { unit: 'kilometers', value: 2 },
       timeRemaining: { seconds: 20, timezone: 'Europe/Berlin' },
     },
     symbolImage: {
@@ -89,7 +89,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     id: uuid.v4(),
     attributedInstructionVariants: [{ text: 'Right' }],
     travelEstimates: {
-      distanceRemaining: { unit: 'meters', value: 2000 },
+      distanceRemaining: { unit: 'kilometers', value: 2 },
       timeRemaining: { seconds: 20, timezone: 'Europe/Berlin' },
     },
     symbolImage: {
@@ -106,7 +106,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     id: uuid.v4(),
     attributedInstructionVariants: [{ text: 'Arrived' }],
     travelEstimates: {
-      distanceRemaining: { unit: 'meters', value: 2000 },
+      distanceRemaining: { unit: 'kilometers', value: 2 },
       timeRemaining: { seconds: 20, timezone: 'Europe/Berlin' },
     },
     symbolImage: {
@@ -132,7 +132,17 @@ const playManeuvers = (template: MapTemplate) => {
       maneuvers = maneuvers.slice(1);
     } else {
       maneuvers[0].travelEstimates.timeRemaining.seconds -= 1;
-      maneuvers[0].travelEstimates.distanceRemaining.value -= 100;
+      const { unit, value } = maneuvers[0].travelEstimates.distanceRemaining;
+      if (unit === 'kilometers') {
+        if (value > 1.0) {
+          maneuvers[0].travelEstimates.distanceRemaining.value = (value * 10 - 1) / 10;
+        } else {
+          maneuvers[0].travelEstimates.distanceRemaining.unit = 'meters';
+          maneuvers[0].travelEstimates.distanceRemaining.value = value * 1000 - 100;
+        }
+      } else {
+        maneuvers[0].travelEstimates.distanceRemaining.value -= 100;
+      }
     }
 
     const [current, next] = maneuvers;
