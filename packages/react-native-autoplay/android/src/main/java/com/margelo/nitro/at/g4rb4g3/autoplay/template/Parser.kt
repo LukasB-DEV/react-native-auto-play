@@ -422,8 +422,10 @@ object Parser {
                 val lanes = laneGuidance.lanes.mapNotNull { it.asFirstOrNull() }
                 lanes.forEach { lane ->
                     addLane(Lane.Builder().apply {
-                        LaneDirection.create(
-                            parseAngle(lane.highlightedAngle.toInt()), lane.isPreferred
+                        addDirection(
+                            LaneDirection.create(
+                                parseAngle(lane.highlightedAngle.toInt()), lane.isPreferred
+                            )
                         )
                     }.build())
                 }
