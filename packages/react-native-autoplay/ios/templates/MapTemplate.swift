@@ -386,8 +386,11 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         guard let template = template as? CPMapTemplate else { return }
         guard let navigationSession = navigationSession else { return }
 
-        template.guidanceBackgroundColor =
-            RCTConvert.uiColor(maneuvers.first?.cardBackgroundColor) ?? .black
+        if #unavailable(iOS 15.4) {
+            template.guidanceBackgroundColor = Parser.parseColor(
+                color: maneuvers.first?.cardBackgroundColor
+            )
+        }
 
         var upcomingManeuvers: [CPManeuver] = []
 
@@ -440,7 +443,8 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                             isSecondary: true
                         )
                         secondaryManeuver.symbolImage = secondarySymbolImage
-                        secondaryManeuver.cardBackgroundColor = maneuver.cardBackgroundColor
+                        secondaryManeuver.cardBackgroundColor =
+                            maneuver.cardBackgroundColor
                         return [maneuver, secondaryManeuver]
                     } else {
                         return [maneuver]

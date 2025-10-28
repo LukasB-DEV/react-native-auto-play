@@ -202,7 +202,7 @@ export type AutoManeuver = Maneuver & {
     instructionVariants: Array<string>;
     lanes: Array<(PreferredLane & GlyphLane) | (Lane & GlyphLane)>;
   };
-  cardBackgroundColor: string;
+  cardBackgroundColor: ThemedColor;
 };
 
 export type AutoManeuvers = [AutoManeuver, AutoManeuver | undefined];

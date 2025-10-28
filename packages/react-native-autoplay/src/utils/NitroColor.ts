@@ -8,7 +8,8 @@ function convert(color?: string): number | undefined {
   // since we accept only string it can return a number only
   return processColor(color) as number | undefined;
 }
-
+function convertThemed(color: ThemedColor): NitroColor;
+function convertThemed(color?: ThemedColor): NitroColor | undefined;
 function convertThemed(color?: ThemedColor): NitroColor | undefined {
   if (color == null) {
     return undefined;

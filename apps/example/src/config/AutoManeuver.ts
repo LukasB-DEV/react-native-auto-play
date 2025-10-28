@@ -5,10 +5,14 @@ import {
   TrafficSide,
   TurnType,
 } from '@g4rb4g3/react-native-autoplay';
+import type { ThemedColor } from '@g4rb4g3/react-native-autoplay/lib/utils/NitroColor';
 import uuid from 'react-native-uuid';
 import { updateTripEstimates } from '../templates/AutoTemplate';
 
-const cardBackgroundColor = 'rgba(0, 61, 114, 1)';
+const cardBackgroundColor: ThemedColor = {
+  darkColor: 'rgba(0, 0, 159, 1)',
+  lightColor: 'rgba(173, 232, 255, 1)',
+};
 
 const getManeuvers = (): Array<AutoManeuver> => [
   {

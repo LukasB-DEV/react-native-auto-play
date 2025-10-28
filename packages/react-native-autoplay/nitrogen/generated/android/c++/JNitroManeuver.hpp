@@ -27,6 +27,7 @@
 #include "JManeuverType.hpp"
 #include "JNitroAttributedString.hpp"
 #include "JNitroAttributedStringImage.hpp"
+#include "JNitroColor.hpp"
 #include "JNitroImage.hpp"
 #include "JOffRampType.hpp"
 #include "JOnRampType.hpp"
@@ -40,6 +41,7 @@
 #include "ManeuverType.hpp"
 #include "NitroAttributedString.hpp"
 #include "NitroAttributedStringImage.hpp"
+#include "NitroColor.hpp"
 #include "NitroImage.hpp"
 #include "OffRampType.hpp"
 #include "OnRampType.hpp"
@@ -95,8 +97,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JKeepType> keepType = this->getFieldValue(fieldKeepType);
       static const auto fieldLinkedLaneGuidance = clazz->getField<JLaneGuidance>("linkedLaneGuidance");
       jni::local_ref<JLaneGuidance> linkedLaneGuidance = this->getFieldValue(fieldLinkedLaneGuidance);
-      static const auto fieldCardBackgroundColor = clazz->getField<double>("cardBackgroundColor");
-      double cardBackgroundColor = this->getFieldValue(fieldCardBackgroundColor);
+      static const auto fieldCardBackgroundColor = clazz->getField<JNitroColor>("cardBackgroundColor");
+      jni::local_ref<JNitroColor> cardBackgroundColor = this->getFieldValue(fieldCardBackgroundColor);
       static const auto fieldId = clazz->getField<jni::JString>("id");
       jni::local_ref<jni::JString> id = this->getFieldValue(fieldId);
       static const auto fieldTravelEstimates = clazz->getField<JTravelEstimates>("travelEstimates");
@@ -136,7 +138,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         forkType != nullptr ? std::make_optional(forkType->toCpp()) : std::nullopt,
         keepType != nullptr ? std::make_optional(keepType->toCpp()) : std::nullopt,
         linkedLaneGuidance != nullptr ? std::make_optional(linkedLaneGuidance->toCpp()) : std::nullopt,
-        cardBackgroundColor,
+        cardBackgroundColor->toCpp(),
         id->toStdString(),
         travelEstimates->toCpp(),
         trafficSide->toCpp(),
@@ -161,7 +163,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JNitroManeuver::javaobject> fromCpp(const NitroManeuver& value) {
-      using JSignature = JNitroManeuver(jni::alias_ref<jni::JArrayClass<JNitroAttributedString>>, jni::alias_ref<JNitroImage>, jni::alias_ref<JNitroImage>, jni::alias_ref<JTurnType>, jni::alias_ref<jni::JDouble>, jni::alias_ref<jni::JArrayDouble>, jni::alias_ref<jni::JDouble>, jni::alias_ref<JOffRampType>, jni::alias_ref<JOnRampType>, jni::alias_ref<JForkType>, jni::alias_ref<JKeepType>, jni::alias_ref<JLaneGuidance>, double, jni::alias_ref<jni::JString>, jni::alias_ref<JTravelEstimates>, jni::alias_ref<JTrafficSide>, jni::alias_ref<JManeuverType>, jni::alias_ref<jni::JArrayClass<jni::JString>>, jni::alias_ref<jni::JString>);
+      using JSignature = JNitroManeuver(jni::alias_ref<jni::JArrayClass<JNitroAttributedString>>, jni::alias_ref<JNitroImage>, jni::alias_ref<JNitroImage>, jni::alias_ref<JTurnType>, jni::alias_ref<jni::JDouble>, jni::alias_ref<jni::JArrayDouble>, jni::alias_ref<jni::JDouble>, jni::alias_ref<JOffRampType>, jni::alias_ref<JOnRampType>, jni::alias_ref<JForkType>, jni::alias_ref<JKeepType>, jni::alias_ref<JLaneGuidance>, jni::alias_ref<JNitroColor>, jni::alias_ref<jni::JString>, jni::alias_ref<JTravelEstimates>, jni::alias_ref<JTrafficSide>, jni::alias_ref<JManeuverType>, jni::alias_ref<jni::JArrayClass<jni::JString>>, jni::alias_ref<jni::JString>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -191,7 +193,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         value.forkType.has_value() ? JForkType::fromCpp(value.forkType.value()) : nullptr,
         value.keepType.has_value() ? JKeepType::fromCpp(value.keepType.value()) : nullptr,
         value.linkedLaneGuidance.has_value() ? JLaneGuidance::fromCpp(value.linkedLaneGuidance.value()) : nullptr,
-        value.cardBackgroundColor,
+        JNitroColor::fromCpp(value.cardBackgroundColor),
         jni::make_jstring(value.id),
         JTravelEstimates::fromCpp(value.travelEstimates),
         JTrafficSide::fromCpp(value.trafficSide),

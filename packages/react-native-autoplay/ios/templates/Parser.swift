@@ -402,8 +402,8 @@ class Parser {
         )
 
         if #available(iOS 15.4, *) {
-            maneuver.cardBackgroundColor = RCTConvert.uiColor(
-                nitroManeuver.cardBackgroundColor
+            maneuver.cardBackgroundColor = parseColor(
+                color: nitroManeuver.cardBackgroundColor
             )
         }
 
@@ -575,6 +575,25 @@ class Parser {
             instructionVariants: instructionVariants,
             lanes: lanes
         )
+    }
+
+    static func parseColor(color: NitroColor?) -> UIColor {
+        let darkColor = RCTConvert.uiColor(color?.darkColor) ?? .white
+        let lightColor = RCTConvert.uiColor(color?.lightColor) ?? .black
+
+        return UIColor { traitCollection in
+            print("userInterfaceStyle: \(traitCollection.userInterfaceStyle)")
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return darkColor
+            case .light:
+                return lightColor
+            case .unspecified:
+                return darkColor
+            @unknown default:
+                return darkColor
+            }
+        }
     }
 
     static func doubleToAngle(values: [Double]) -> [Measurement<UnitAngle>] {

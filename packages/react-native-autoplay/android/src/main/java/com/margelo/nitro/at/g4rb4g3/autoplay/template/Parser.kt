@@ -37,6 +37,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ManeuverType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAttributedString
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroManeuver
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.OffRampType
@@ -306,6 +307,20 @@ object Parser {
     fun parseColor(color: Double): CarColor {
         return CarColor.createCustom(
             color.toInt(), color.toInt()
+        )
+    }
+
+    fun parseColor(color: NitroColor): CarColor {
+        return CarColor.createCustom(
+            color.lightColor.toInt(),
+            color.darkColor.toInt()
+        )
+    }
+
+    fun parseColor(color: Double, colorDark: Double): CarColor {
+        return CarColor.createCustom(
+            color.toInt(),
+            colorDark.toInt()
         )
     }
 

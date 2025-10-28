@@ -347,7 +347,9 @@ class MapTemplate(
                 return
             }
 
-            cardBackgroundColor = Parser.parseColor(current.cardBackgroundColor)
+            val backgroundColor =
+                if (context.isDarkMode) current.cardBackgroundColor.darkColor else current.cardBackgroundColor.lightColor
+            cardBackgroundColor = Parser.parseColor(backgroundColor)
 
             val currentStep = Parser.parseStep(context, current)
             val nextStep = next?.let { Parser.parseStep(context, it) }

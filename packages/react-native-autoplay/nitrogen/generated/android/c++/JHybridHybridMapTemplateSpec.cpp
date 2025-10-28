@@ -75,6 +75,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneGuidance; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct PreferredImageLane; }
 // Forward declaration of `ImageLane` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct ImageLane; }
+// Forward declaration of `NitroColor` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `TrafficSide` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TrafficSide; }
 // Forward declaration of `ManeuverType` to properly resolve imports.
@@ -164,6 +166,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "JVariant_PreferredImageLane_ImageLane.hpp"
 #include "JPreferredImageLane.hpp"
 #include "JImageLane.hpp"
+#include "NitroColor.hpp"
+#include "JNitroColor.hpp"
 #include "TrafficSide.hpp"
 #include "JTrafficSide.hpp"
 #include "ManeuverType.hpp"

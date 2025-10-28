@@ -18,7 +18,7 @@ public extension NitroManeuver {
   /**
    * Create a new instance of `NitroManeuver`.
    */
-  init(attributedInstructionVariants: [NitroAttributedString], symbolImage: NitroImage, junctionImage: NitroImage?, turnType: TurnType?, angle: Double?, elementAngles: [Double]?, exitNumber: Double?, offRampType: OffRampType?, onRampType: OnRampType?, forkType: ForkType?, keepType: KeepType?, linkedLaneGuidance: LaneGuidance?, cardBackgroundColor: Double, id: String, travelEstimates: TravelEstimates, trafficSide: TrafficSide, maneuverType: ManeuverType, roadName: [String]?, highwayExitLabel: String?) {
+  init(attributedInstructionVariants: [NitroAttributedString], symbolImage: NitroImage, junctionImage: NitroImage?, turnType: TurnType?, angle: Double?, elementAngles: [Double]?, exitNumber: Double?, offRampType: OffRampType?, onRampType: OnRampType?, forkType: ForkType?, keepType: KeepType?, linkedLaneGuidance: LaneGuidance?, cardBackgroundColor: NitroColor, id: String, travelEstimates: TravelEstimates, trafficSide: TrafficSide, maneuverType: ManeuverType, roadName: [String]?, highwayExitLabel: String?) {
     self.init({ () -> bridge.std__vector_NitroAttributedString_ in
       var __vector = bridge.create_std__vector_NitroAttributedString_(attributedInstructionVariants.count)
       for __item in attributedInstructionVariants {
@@ -323,7 +323,7 @@ public extension NitroManeuver {
     }
   }
   
-  var cardBackgroundColor: Double {
+  var cardBackgroundColor: NitroColor {
     @inline(__always)
     get {
       return self.__cardBackgroundColor

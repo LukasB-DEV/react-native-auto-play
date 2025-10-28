@@ -12,7 +12,7 @@ import {
   type TurnType,
 } from '../types/Maneuver';
 import type { NitroAttributedString } from './NitroAttributedString';
-import { NitroColorUtil } from './NitroColor';
+import { type NitroColor, NitroColorUtil } from './NitroColor';
 import { type NitroImage, NitroImageUtil } from './NitroImage';
 
 interface PreferredImageLane extends PreferredLane {
@@ -41,7 +41,7 @@ export interface NitroManeuver extends BaseManeuver {
   forkType?: ForkType;
   keepType?: KeepType;
   linkedLaneGuidance?: LaneGuidance;
-  cardBackgroundColor: number;
+  cardBackgroundColor: NitroColor;
 }
 
 function convertManeuverImage(image: ManeuverImage): NitroImage;
@@ -125,7 +125,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     onRampType,
     forkType,
     keepType,
-    cardBackgroundColor: NitroColorUtil.convert(cardBackgroundColor),
+    cardBackgroundColor: NitroColorUtil.convertThemed(cardBackgroundColor),
   };
 }
 
