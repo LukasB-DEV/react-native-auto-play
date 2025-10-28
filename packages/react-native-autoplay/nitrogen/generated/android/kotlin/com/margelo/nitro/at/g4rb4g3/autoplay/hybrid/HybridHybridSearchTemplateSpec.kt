@@ -44,14 +44,9 @@ abstract class HybridHybridSearchTemplateSpec: HybridObject() {
   @Keep
   abstract fun createSearchTemplate(config: SearchTemplateConfig): Unit
   
-  abstract fun updateSearchResults(templateId: String, results: Array<NitroRow>): Unit
-  
   @DoNotStrip
   @Keep
-  private fun updateSearchResults_cxx(templateId: String, results: Array<NitroRow>): Unit {
-    val __result = updateSearchResults(templateId, results)
-    return __result
-  }
+  abstract fun updateSearchResults(templateId: String, results: NitroSection?): Unit
 
   private external fun initHybrid(): HybridData
 

@@ -919,6 +919,58 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   using std__weak_ptr_HybridHybridMessageTemplateSpec_ = std::weak_ptr<HybridHybridMessageTemplateSpec>;
   inline std__weak_ptr_HybridHybridMessageTemplateSpec_ weakify_std__shared_ptr_HybridHybridMessageTemplateSpec_(const std::shared_ptr<HybridHybridMessageTemplateSpec>& strong) noexcept { return strong; }
   
+  // pragma MARK: std::optional<NitroSection>
+  /**
+   * Specialized version of `std::optional<NitroSection>`.
+   */
+  using std__optional_NitroSection_ = std::optional<NitroSection>;
+  inline std::optional<NitroSection> create_std__optional_NitroSection_(const NitroSection& value) noexcept {
+    return std::optional<NitroSection>(value);
+  }
+  inline bool has_value_std__optional_NitroSection_(const std::optional<NitroSection>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline NitroSection get_std__optional_NitroSection_(const std::optional<NitroSection>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* searchText */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&)>`.
+   */
+  using Func_void_std__string = std::function<void(const std::string& /* searchText */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * searchText * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_Wrapper final {
+  public:
+    explicit Func_void_std__string_Wrapper(std::function<void(const std::string& /* searchText */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* searchText */)>>(std::move(func))) {}
+    inline void call(std::string searchText) const noexcept {
+      _function->operator()(searchText);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* searchText */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
+    return Func_void_std__string_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(const std::string& /* searchText */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const std::string& / * searchText * /)>>`.
+   */
+  using std__optional_std__function_void_const_std__string_____searchText______ = std::optional<std::function<void(const std::string& /* searchText */)>>;
+  inline std::optional<std::function<void(const std::string& /* searchText */)>> create_std__optional_std__function_void_const_std__string_____searchText______(const std::function<void(const std::string& /* searchText */)>& value) noexcept {
+    return std::optional<std::function<void(const std::string& /* searchText */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_std__string_____searchText______(const std::optional<std::function<void(const std::string& /* searchText */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const std::string& /* searchText */)> get_std__optional_std__function_void_const_std__string_____searchText______(const std::optional<std::function<void(const std::string& /* searchText */)>>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::shared_ptr<HybridHybridSearchTemplateSpec>
   /**
    * Specialized version of `std::shared_ptr<HybridHybridSearchTemplateSpec>`.

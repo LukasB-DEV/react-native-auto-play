@@ -47,11 +47,23 @@ data class SearchTemplateConfig
     val title: AutoText,
     @DoNotStrip
     @Keep
-    val results: NitroSection
+    val results: NitroSection?,
+    @DoNotStrip
+    @Keep
+    val initialSearchText: String?,
+    @DoNotStrip
+    @Keep
+    val searchHint: String?,
+    @DoNotStrip
+    @Keep
+    val onSearchTextChanged: Func_void_std__string?,
+    @DoNotStrip
+    @Keep
+    val onSearchTextSubmitted: Func_void_std__string?
   ) {
   /**
    * Initialize a new instance of `SearchTemplateConfig` from Kotlin.
    */
-  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection)
-       : this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions?.let { it }, title, results)
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection?, initialSearchText: String?, searchHint: String?, onSearchTextChanged: ((searchText: String) -> Unit)?, onSearchTextSubmitted: ((searchText: String) -> Unit)?)
+       : this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions?.let { it }, title, results, initialSearchText, searchHint, onSearchTextChanged?.let { Func_void_std__string_java(it) }, onSearchTextSubmitted?.let { Func_void_std__string_java(it) })
 }

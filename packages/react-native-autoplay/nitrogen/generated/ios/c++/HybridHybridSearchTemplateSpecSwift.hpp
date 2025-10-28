@@ -101,7 +101,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         std::rethrow_exception(__result.error());
       }
     }
-    inline void updateSearchResults(const std::string& templateId, const std::vector<NitroRow>& results) override {
+    inline void updateSearchResults(const std::string& templateId, const std::optional<NitroSection>& results) override {
       auto __result = _swiftPart.updateSearchResults(templateId, results);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

@@ -186,6 +186,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return swiftPart.toUnsafe();
   }
   
+  // pragma MARK: std::function<void(const std::string& /* searchText */)>
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__string::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& searchText) mutable -> void {
+      swiftClosure.call(searchText);
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<HybridHybridSearchTemplateSpec>
   std::shared_ptr<HybridHybridSearchTemplateSpec> create_std__shared_ptr_HybridHybridSearchTemplateSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     NitroAutoplay::HybridHybridSearchTemplateSpec_cxx swiftPart = NitroAutoplay::HybridHybridSearchTemplateSpec_cxx::fromUnsafe(swiftUnsafePointer);

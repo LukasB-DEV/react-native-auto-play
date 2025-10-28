@@ -121,9 +121,9 @@ open class HybridHybridSearchTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func updateSearchResults(templateId: std.string, results: bridge.std__vector_NitroRow_) -> bridge.Result_void_ {
+  public final func updateSearchResults(templateId: std.string, results: bridge.std__optional_NitroSection_) -> bridge.Result_void_ {
     do {
-      try self.__implementation.updateSearchResults(templateId: String(templateId), results: results.map({ __item in __item }))
+      try self.__implementation.updateSearchResults(templateId: String(templateId), results: results.value)
       return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()

@@ -62,6 +62,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroSectio
 #include "JNitroRow.hpp"
 #include "NitroSectionType.hpp"
 #include "JNitroSectionType.hpp"
+#include "JFunc_void_std__string.hpp"
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -93,17 +94,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JSearchTemplateConfig> /* config */)>("createSearchTemplate");
     method(_javaPart, JSearchTemplateConfig::fromCpp(config));
   }
-  void JHybridHybridSearchTemplateSpec::updateSearchResults(const std::string& templateId, const std::vector<NitroRow>& results) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JNitroRow>> /* results */)>("updateSearchResults_cxx");
-    method(_javaPart, jni::make_jstring(templateId), [&]() {
-      size_t __size = results.size();
-      jni::local_ref<jni::JArrayClass<JNitroRow>> __array = jni::JArrayClass<JNitroRow>::newArray(__size);
-      for (size_t __i = 0; __i < __size; __i++) {
-        const auto& __element = results[__i];
-        __array->setElement(__i, *JNitroRow::fromCpp(__element));
-      }
-      return __array;
-    }());
+  void JHybridHybridSearchTemplateSpec::updateSearchResults(const std::string& templateId, const std::optional<NitroSection>& results) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroSection> /* results */)>("updateSearchResults");
+    method(_javaPart, jni::make_jstring(templateId), results.has_value() ? JNitroSection::fromCpp(results.value()) : nullptr);
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
