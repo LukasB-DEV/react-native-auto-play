@@ -9,7 +9,6 @@ package com.margelo.nitro.at.g4rb4g3.autoplay.hybrid
 
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.*
 
 
 /**
@@ -17,53 +16,57 @@ import com.margelo.nitro.core.*
  */
 @DoNotStrip
 @Keep
-data class SearchTemplateConfig
+data class SearchTemplateConfig(
   @DoNotStrip
   @Keep
-  constructor(
+  val id: String,
+  @DoNotStrip
+  @Keep
+  val onWillAppear: ((animated: Boolean?) -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val onWillDisappear: ((animated: Boolean?) -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val onDidAppear: ((animated: Boolean?) -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val onDidDisappear: ((animated: Boolean?) -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val onPopped: (() -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val headerActions: Array<NitroAction>?,
+  @DoNotStrip
+  @Keep
+  val title: AutoText,
+  @DoNotStrip
+  @Keep
+  val results: NitroSection?,
+  @DoNotStrip
+  @Keep
+  val initialSearchText: String?,
+  @DoNotStrip
+  @Keep
+  val searchHint: String?,
+  @DoNotStrip
+  @Keep
+  val onSearchTextChanged: ((searchText: String) -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val onSearchTextSubmitted: ((searchText: String) -> Unit)?
+) {
+  private companion object {
+    /**
+     * Constructor called from C++
+     */
     @DoNotStrip
     @Keep
-    val id: String,
-    @DoNotStrip
-    @Keep
-    val onWillAppear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onWillDisappear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onDidAppear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onDidDisappear: Func_void_std__optional_bool_?,
-    @DoNotStrip
-    @Keep
-    val onPopped: Func_void?,
-    @DoNotStrip
-    @Keep
-    val headerActions: Array<NitroAction>?,
-    @DoNotStrip
-    @Keep
-    val title: AutoText,
-    @DoNotStrip
-    @Keep
-    val results: NitroSection?,
-    @DoNotStrip
-    @Keep
-    val initialSearchText: String?,
-    @DoNotStrip
-    @Keep
-    val searchHint: String?,
-    @DoNotStrip
-    @Keep
-    val onSearchTextChanged: Func_void_std__string?,
-    @DoNotStrip
-    @Keep
-    val onSearchTextSubmitted: Func_void_std__string?
-  ) {
-  /**
-   * Initialize a new instance of `SearchTemplateConfig` from Kotlin.
-   */
-  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection?, initialSearchText: String?, searchHint: String?, onSearchTextChanged: ((searchText: String) -> Unit)?, onSearchTextSubmitted: ((searchText: String) -> Unit)?)
-       : this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions?.let { it }, title, results, initialSearchText, searchHint, onSearchTextChanged?.let { Func_void_std__string_java(it) }, onSearchTextSubmitted?.let { Func_void_std__string_java(it) })
+    @Suppress("unused")
+    @JvmStatic
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection?, initialSearchText: String?, searchHint: String?, onSearchTextChanged: Func_void_std__string?, onSearchTextSubmitted: Func_void_std__string?): SearchTemplateConfig {
+      return SearchTemplateConfig(id, onWillAppear?.let { it }, onWillDisappear?.let { it }, onDidAppear?.let { it }, onDidDisappear?.let { it }, onPopped?.let { it }, headerActions, title, results, initialSearchText, searchHint, onSearchTextChanged?.let { it }, onSearchTextSubmitted?.let { it })
+    }
+  }
 }
