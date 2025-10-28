@@ -111,15 +111,36 @@ class Cluster {
     return HybridCluster.addListenerColorScheme(callback);
   }
 
+  /**
+   * add listener for cluster zoom buttons
+   * @namespace iOS
+   */
   public addListenerZoom(callback: (clusterId: string, payload: ZoomEvent) => void) {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
     return HybridCluster.addListenerZoom(callback);
   }
 
+  /**
+   * add listener for compass enable/disable
+   * @namespace iOS
+   */
   public addListenerCompass(callback: (clusterId: string, payload: boolean) => void) {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
     return HybridCluster.addListenerCompass(callback);
   }
 
+  /**
+   * add listener for speed limit enable/disable
+   * @namespace iOS
+   */
   public addListenerSpeedLimit(callback: (clusterId: string, payload: boolean) => void) {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
     return HybridCluster.addListenerSpeedLimit(callback);
   }
 }

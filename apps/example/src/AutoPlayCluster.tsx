@@ -13,7 +13,7 @@ export const Cluster = (props: AutoPlayClusterInitialProps) => {
   const [speedLImit, setSpeedLimit] = useState(props.speedLimit);
 
   useEffect(() => {
-    const listeners: Array<CleanupCallback> = [];
+    const listeners: Array<CleanupCallback | undefined> = [];
 
     listeners.push(
       AutoPlayCluster.addListenerColorScheme((clusterId, payload) => {
@@ -42,7 +42,7 @@ export const Cluster = (props: AutoPlayClusterInitialProps) => {
       })
     );
 
-    return () => listeners.forEach((remove) => remove());
+    return () => listeners.forEach((remove) => remove?.());
   }, [props.id]);
 
   const textStyle = { color: colorScheme === 'dark' ? 'white' : 'black' };

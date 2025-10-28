@@ -17,9 +17,11 @@ import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.ReactApplication
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactContext
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ClusterEventName
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ColorScheme
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.EventName
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridCluster
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VisibilityState
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
@@ -34,8 +36,8 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
     Session() {
 
     private val isCluster = sessionInfo.displayType == SessionInfo.DISPLAY_TYPE_CLUSTER
-    private val clusterTemplateId = if (isCluster) UUID.randomUUID().toString() else null
-    private val moduleName = clusterTemplateId ?: ROOT_SESSION
+    private val clusterId = if (isCluster) UUID.randomUUID().toString() else null
+    private val moduleName = clusterId ?: ROOT_SESSION
 
     private fun getInitialTemplate(): Template {
         if (isCluster) {
@@ -62,7 +64,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
             )
         )
 
-        clusterTemplateId?.let {
+        clusterId?.let {
             clusterSessions.add(it)
         }
 
@@ -86,7 +88,8 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
             appRegistry.runApplication(jsAppModuleName, appParams)
             */
 
-            if (isCluster) {
+            if (clusterId != null) {
+                HybridCluster.emit(ClusterEventName.DIDCONNECTWITHWINDOW, clusterId)
                 return@launch
             }
 
@@ -97,11 +100,17 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
     }
 
     override fun onCarConfigurationChanged(configuration: Configuration) {
+        val colorScheme = if (carContext.isDarkMode) ColorScheme.DARK else ColorScheme.LIGHT
+
+        if (clusterId != null) {
+            HybridCluster.emitColorScheme(clusterId, colorScheme)
+            return
+        }
+
         val marker = AndroidAutoScreen.getScreen(ROOT_SESSION)?.marker ?: return
         val config = AndroidAutoTemplate.getConfig(marker) as MapTemplateConfig? ?: return
 
         if (config.onAppearanceDidChange != null) {
-            val colorScheme = if (carContext.isDarkMode) ColorScheme.DARK else ColorScheme.LIGHT
             config.onAppearanceDidChange(colorScheme)
         }
 
@@ -132,7 +141,8 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         override fun onDestroy(owner: LifecycleOwner) {
             sessions.remove(moduleName)
             VirtualRenderer.removeRenderer(moduleName)
-            clusterTemplateId?.let {
+            clusterId?.let {
+                HybridCluster.emit(ClusterEventName.DIDDISCONNECT, clusterId)
                 clusterSessions.remove(it)
                 return
             }
