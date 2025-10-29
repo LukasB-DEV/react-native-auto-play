@@ -10,11 +10,11 @@ import CarPlay
 class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
     var config: SearchTemplateConfig
 
-    var searchText: String = ""
-
     var completionHandler: (([CPListItem]) -> Void)?
 
     var pushedListTemplate: ListTemplate?
+    
+    var searchText = ""
 
     init(config: SearchTemplateConfig) {
         self.config = config
@@ -24,8 +24,6 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
             template: template,
             header: config.headerActions
         )
-
-        template.delegate = self
     }
 
     func updateSearchResults(results: NitroSection?) {
@@ -41,7 +39,6 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
             } else {
                 listTemplate.updateSections(sections: [])
             }
-            return
         }
 
         // Otherwise, update the search results completion handler
@@ -65,18 +62,25 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
     }
 
     override func onWillAppear(animted: Bool) {
+        self.pushedListTemplate = nil
         config.onWillAppear?(animted)
     }
 
     override func onDidAppear(animted: Bool) {
-        self.pushedListTemplate = nil
-        self.invalidate()
-
         config.onDidAppear?(animted)
+        
+        guard let template = self.template as? CPSearchTemplate else {
+            return
+        }
+        template.delegate = self
     }
 
     override func onWillDisappear(animted: Bool) {
         config.onWillDisappear?(animted)
+        guard let template = self.template as? CPSearchTemplate else {
+            return
+        }
+        template.delegate = nil
     }
 
     override func onDidDisappear(animted: Bool) {
@@ -94,6 +98,10 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         updatedSearchText searchText: String,
         completionHandler: @escaping ([CPListItem]) -> Void
     ) {
+        if (pushedListTemplate != nil) {
+            return;
+        }
+        
         self.searchText = searchText
         config.onSearchTextChanged?(searchText)
         self.completionHandler = completionHandler
@@ -110,9 +118,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
     func searchTemplateSearchButtonPressed(
         _ searchTemplate: CPSearchTemplate
     ) {
-        // Call the onSearchTextSubmitted callback when search button is pressed
-        config.onSearchTextSubmitted?(self.searchText)
-
+        
         // Create a new ListTemplate with the search results
         let listConfig = ListTemplateConfig(
             id: "\(config.id)-results",
@@ -128,6 +134,9 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
 
         let listTemplate = ListTemplate(config: listConfig)
         self.pushedListTemplate = listTemplate
+        
+        // execute callback after creating the template to avoid race condition in updateSearchResults
+        config.onSearchTextSubmitted?(searchText)
 
         // Push the template
         Task { @MainActor in

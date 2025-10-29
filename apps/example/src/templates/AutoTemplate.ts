@@ -337,37 +337,43 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
     },
     onPress: () => {
+      let timeout: number;
       const template = AutoSearchTemplate.getTemplate({
         initialSearchText: 'initial search text',
         searchHint: 'search hint',
         onSearchTextChanged: (searchText) => {
-          template.updateSearchResults(
-            searchText
-              ? {
-                  items: [
-                    {
-                      title: { text: searchText },
-                      detailedText: { text: 'onSearchTextChanged' },
-                      type: 'default',
-                      onPress: () => {
-                        console.log('*** onPress', searchText);
-                        HybridAutoPlay.popToRootTemplate(true).catch((error) => {
-                          console.error('*** error', error);
-                        });
+          // simple debouncing to not send too many requests to backend
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            template.updateSearchResults(
+              searchText
+                ? {
+                    items: [
+                      {
+                        title: { text: searchText },
+                        detailedText: { text: 'onSearchTextChanged' },
+                        type: 'default',
+                        onPress: () => {
+                          console.log('*** onPress', searchText);
+                          HybridAutoPlay.popToRootTemplate(true).catch((error) => {
+                            console.error('*** error', error);
+                          });
+                        },
+                        image: {
+                          name: 'ev_charger',
+                          lightColor: 'red',
+                          darkColor: 'orange',
+                        },
                       },
-                      image: {
-                        name: 'ev_charger',
-                        lightColor: 'red',
-                        darkColor: 'orange',
-                      },
-                    },
-                  ],
-                  type: 'default',
-                }
-              : undefined
-          );
+                    ],
+                    type: 'default',
+                  }
+                : undefined
+            );
+          }, 1000);
         },
         onSearchTextSubmitted: (searchText) => {
+          clearTimeout(timeout);
           template.updateSearchResults(
             searchText
               ? {
@@ -378,6 +384,11 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
                       type: 'default',
                       onPress: () => {
                         console.log('*** onPress', searchText);
+                      },
+                      image: {
+                        name: 'ev_charger',
+                        lightColor: 'blue',
+                        darkColor: 'green',
                       },
                     },
                   ],
