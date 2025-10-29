@@ -82,9 +82,9 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
     }
 
     override func traitCollectionDidChange() {
-        let traitColleciton = SceneStore.getRootTraitCollection()
+        let traitCollection = SceneStore.getRootTraitCollection()
         self.config.onAppearanceDidChange?(
-            traitColleciton.userInterfaceStyle == .dark ? .dark : .light
+            traitCollection.userInterfaceStyle == .dark ? .dark : .light
         )
         self.invalidate()
     }
