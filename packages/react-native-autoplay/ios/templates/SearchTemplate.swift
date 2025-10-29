@@ -50,14 +50,14 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         }
 
         var listItems = [] as [CPListItem]
-        if (config.results != nil) {
+        if config.results != nil {
             listItems = Parser.parseSearchResults(
                 section: config.results,
                 traitCollection: traitCollection
             )
         }
 
-        if (listItems.isEmpty) {
+        if listItems.isEmpty {
             completionHandler([])
         } else {
             completionHandler(listItems)
@@ -71,7 +71,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
     override func onDidAppear(animted: Bool) {
         self.pushedListTemplate = nil
         self.invalidate()
-        
+
         config.onDidAppear?(animted)
     }
 

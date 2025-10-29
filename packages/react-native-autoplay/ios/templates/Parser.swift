@@ -193,7 +193,7 @@ class Parser {
                     traitCollection: traitCollection
                 ),
             )
-            
+
             listItem.handler = { listItem, completionHandler in
                 item.onPress(nil)
                 completionHandler()
