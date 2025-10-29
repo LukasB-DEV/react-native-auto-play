@@ -1,10 +1,12 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
 import androidx.car.app.CarContext
+import androidx.car.app.model.ActionStrip
 import androidx.car.app.model.SearchTemplate
 import androidx.car.app.model.SearchTemplate.SearchCallback
 import androidx.car.app.model.Template
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroSection
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.SearchTemplateConfig
 
@@ -37,6 +39,28 @@ class SearchTemplate(context: CarContext, config: SearchTemplateConfig) :
             }
             config.searchHint?.let {
                 setSearchHint(it)
+            }
+
+            config.headerActions?.let { headerActions ->
+                headerActions.find {
+                    it.alignment == NitroAlignment.LEADING
+                }?.let { it ->
+                    setHeaderAction(Parser.parseAction(context, it))
+                }
+
+
+                var trailingActions = headerActions.filter { it ->
+                    it.alignment == NitroAlignment.TRAILING
+                }
+
+                if (trailingActions.isNotEmpty()) {
+                    var actionStripBuilder = ActionStrip.Builder()
+                    trailingActions.forEach { trailingAction ->
+                        actionStripBuilder.addAction(Parser.parseAction(context, trailingAction))
+                    }
+                    setActionStrip(actionStripBuilder.build())
+                }
+
             }
         }.build()
     }

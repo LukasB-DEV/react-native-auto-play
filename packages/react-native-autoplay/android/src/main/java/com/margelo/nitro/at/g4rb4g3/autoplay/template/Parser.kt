@@ -31,12 +31,12 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DurationWithTimeZone
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ForkType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.KeepType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ManeuverType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ManeuverType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroManeuver
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.OffRampType
@@ -165,11 +165,6 @@ object Parser {
         rows: Array<NitroRow>,
     ): ItemList {
         return ItemList.Builder().apply {
-            setOnSelectedListener {
-                // REVISIT: use global on click listener instead, that only returns the string to search for?
-                rows[it].onPress(null)
-            }
-
             rows.forEachIndexed { index, row ->
                 addItem(Row.Builder().apply {
                     setTitle(parseText(row.title))
@@ -178,6 +173,11 @@ object Parser {
                     }
                     row.image?.let { image ->
                         setImage(CarIcon.Builder(parseImage(context, image)).build())
+                    }
+                    row.onPress?.let {
+                        setOnClickListener {
+                            row.onPress(null)
+                        }
                     }
                 }.build())
             }

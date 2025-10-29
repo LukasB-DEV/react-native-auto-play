@@ -20,10 +20,12 @@ export interface NitroSearchTemplateConfig extends TemplateConfig {
   results?: NitroSection;
   /**
    * Text that is put into the searchbar as initial value
+   * @namespace Android
    */
   initialSearchText?: string;
   /**
    * Placeholder value in the search bar until text is entered
+   * @namespace Android
    */
   searchHint?: string;
   /**
