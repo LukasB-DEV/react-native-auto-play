@@ -351,6 +351,9 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
                       type: 'default',
                       onPress: () => {
                         console.log('*** onPress', searchText);
+                        HybridAutoPlay.popToRootTemplate(true).catch((error) => {
+                          console.error('*** error', error);
+                        });
                       },
                       image: {
                         name: 'ev_charger',

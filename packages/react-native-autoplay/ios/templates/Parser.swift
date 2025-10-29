@@ -196,6 +196,7 @@ class Parser {
             
             listItem.handler = { listItem, completionHandler in
                 item.onPress(nil)
+                completionHandler()
             }
 
             return listItem
