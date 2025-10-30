@@ -34,4 +34,8 @@ class TemplateStore {
         
         store = store.filter { !templateIds.contains($0.key) }
     }
+    
+    func purge(except: String) {
+        store = store.filter { $0.key == except }
+    }
 }
