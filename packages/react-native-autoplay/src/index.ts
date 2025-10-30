@@ -30,6 +30,7 @@ export * from './templates/GridTemplate';
 export * from './templates/ListTemplate';
 export * from './templates/MapTemplate';
 export * from './templates/MessageTemplate';
+export * from './templates/SearchTemplate';
 export * from './templates/Template';
 export * from './types/Button';
 export * from './types/Event';

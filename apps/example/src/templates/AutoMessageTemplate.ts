@@ -1,5 +1,4 @@
-import { type AutoText, HybridAutoPlay } from '@g4rb4g3/react-native-autoplay';
-import { MessageTemplate } from '@g4rb4g3/react-native-autoplay/lib/templates/MessageTemplate';
+import { type AutoText, HybridAutoPlay, MessageTemplate } from '@g4rb4g3/react-native-autoplay';
 import { AutoTemplate } from './AutoTemplate';
 
 const getTemplate = (message: AutoText): MessageTemplate => {

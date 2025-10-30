@@ -1,4 +1,4 @@
-import { SearchTemplate } from '@g4rb4g3/react-native-autoplay/lib/templates/SearchTemplate';
+import { SearchTemplate } from '@g4rb4g3/react-native-autoplay';
 import { AutoTemplate } from './AutoTemplate';
 
 const getTemplate = ({
