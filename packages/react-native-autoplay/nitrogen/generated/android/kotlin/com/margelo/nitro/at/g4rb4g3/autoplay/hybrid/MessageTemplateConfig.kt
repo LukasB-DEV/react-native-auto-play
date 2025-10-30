@@ -52,7 +52,7 @@ data class MessageTemplateConfig(
   val image: NitroImage?,
   @DoNotStrip
   @Keep
-  val mapConfig: MapWithContentTemplateConfig?
+  val mapConfig: NitroBaseMapTemplateConfig?
 ) {
   private companion object {
     /**
@@ -62,7 +62,7 @@ data class MessageTemplateConfig(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText?, message: AutoText, actions: Array<NitroAction>?, image: NitroImage?, mapConfig: MapWithContentTemplateConfig?): MessageTemplateConfig {
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText?, message: AutoText, actions: Array<NitroAction>?, image: NitroImage?, mapConfig: NitroBaseMapTemplateConfig?): MessageTemplateConfig {
       return MessageTemplateConfig(id, onWillAppear?.let { it }, onWillDisappear?.let { it }, onDidAppear?.let { it }, onDidDisappear?.let { it }, onPopped?.let { it }, headerActions, title, message, actions, image, mapConfig)
     }
   }

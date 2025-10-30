@@ -25,8 +25,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
-// Forward declaration of `MapWithContentTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MapWithContentTemplateConfig; }
+// Forward declaration of `NitroBaseMapTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroBaseMapTemplateConfig; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroMapButton; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
@@ -56,8 +56,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroMapBut
 #include "JDistance.hpp"
 #include "DistanceUnits.hpp"
 #include "JDistanceUnits.hpp"
-#include "MapWithContentTemplateConfig.hpp"
-#include "JMapWithContentTemplateConfig.hpp"
+#include "NitroBaseMapTemplateConfig.hpp"
+#include "JNitroBaseMapTemplateConfig.hpp"
 #include "NitroMapButton.hpp"
 #include "JNitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"

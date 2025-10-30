@@ -48,8 +48,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class KeepType; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneGuidance; }
 // Forward declaration of `ManeuverType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ManeuverType; }
-// Forward declaration of `MapWithContentTemplateConfig` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MapWithContentTemplateConfig; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
@@ -62,6 +60,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignm
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedStringImage; }
 // Forward declaration of `NitroAttributedString` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedString; }
+// Forward declaration of `NitroBaseMapTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroBaseMapTemplateConfig; }
 // Forward declaration of `NitroCarPlayDashboardButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroCarPlayDashboardButton; }
 // Forward declaration of `NitroColor` to properly resolve imports.
@@ -150,13 +150,13 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 #include "KeepType.hpp"
 #include "LaneGuidance.hpp"
 #include "ManeuverType.hpp"
-#include "MapWithContentTemplateConfig.hpp"
 #include "NavigationAlertAction.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroAttributedString.hpp"
 #include "NitroAttributedStringImage.hpp"
+#include "NitroBaseMapTemplateConfig.hpp"
 #include "NitroCarPlayDashboardButton.hpp"
 #include "NitroColor.hpp"
 #include "NitroGridButton.hpp"
@@ -1292,18 +1292,18 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   using std__weak_ptr_HybridHybridMapTemplateSpec_ = std::weak_ptr<HybridHybridMapTemplateSpec>;
   inline std__weak_ptr_HybridHybridMapTemplateSpec_ weakify_std__shared_ptr_HybridHybridMapTemplateSpec_(const std::shared_ptr<HybridHybridMapTemplateSpec>& strong) noexcept { return strong; }
   
-  // pragma MARK: std::optional<MapWithContentTemplateConfig>
+  // pragma MARK: std::optional<NitroBaseMapTemplateConfig>
   /**
-   * Specialized version of `std::optional<MapWithContentTemplateConfig>`.
+   * Specialized version of `std::optional<NitroBaseMapTemplateConfig>`.
    */
-  using std__optional_MapWithContentTemplateConfig_ = std::optional<MapWithContentTemplateConfig>;
-  inline std::optional<MapWithContentTemplateConfig> create_std__optional_MapWithContentTemplateConfig_(const MapWithContentTemplateConfig& value) noexcept {
-    return std::optional<MapWithContentTemplateConfig>(value);
+  using std__optional_NitroBaseMapTemplateConfig_ = std::optional<NitroBaseMapTemplateConfig>;
+  inline std::optional<NitroBaseMapTemplateConfig> create_std__optional_NitroBaseMapTemplateConfig_(const NitroBaseMapTemplateConfig& value) noexcept {
+    return std::optional<NitroBaseMapTemplateConfig>(value);
   }
-  inline bool has_value_std__optional_MapWithContentTemplateConfig_(const std::optional<MapWithContentTemplateConfig>& optional) noexcept {
+  inline bool has_value_std__optional_NitroBaseMapTemplateConfig_(const std::optional<NitroBaseMapTemplateConfig>& optional) noexcept {
     return optional.has_value();
   }
-  inline MapWithContentTemplateConfig get_std__optional_MapWithContentTemplateConfig_(const std::optional<MapWithContentTemplateConfig>& optional) noexcept {
+  inline NitroBaseMapTemplateConfig get_std__optional_NitroBaseMapTemplateConfig_(const std::optional<NitroBaseMapTemplateConfig>& optional) noexcept {
     return *optional;
   }
   
