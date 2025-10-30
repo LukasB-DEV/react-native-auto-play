@@ -176,7 +176,7 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
         let templateId = aTemplate.id
 
         templateStore.getTemplate(templateId: templateId)?.onWillAppear(
-            animted: animated
+            animated: animated
         )
     }
 
@@ -192,7 +192,7 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
         }
 
         templateStore.getTemplate(templateId: templateId)?.onDidAppear(
-            animted: animated
+            animated: animated
         )
     }
 
@@ -203,7 +203,7 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
         let templateId = aTemplate.id
 
         templateStore.getTemplate(templateId: templateId)?.onWillDisappear(
-            animted: animated
+            animated: animated
         )
     }
 
@@ -214,7 +214,7 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
         let templateId = aTemplate.id
 
         templateStore.getTemplate(templateId: templateId)?.onDidDisappear(
-            animted: animated
+            animated: animated
         )
     }
 }

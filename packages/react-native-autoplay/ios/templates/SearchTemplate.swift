@@ -53,13 +53,13 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         self.completionHandler = nil
     }
 
-    override func onWillAppear(animted: Bool) {
+    override func onWillAppear(animated: Bool) {
         self.pushedListTemplate = nil
-        config.onWillAppear?(animted)
+        config.onWillAppear?(animated)
     }
 
-    override func onDidAppear(animted: Bool) {
-        config.onDidAppear?(animted)
+    override func onDidAppear(animated: Bool) {
+        config.onDidAppear?(animated)
 
         guard let template = self.template as? CPSearchTemplate else {
             return
@@ -67,8 +67,8 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         template.delegate = self
     }
 
-    override func onWillDisappear(animted: Bool) {
-        config.onWillDisappear?(animted)
+    override func onWillDisappear(animated: Bool) {
+        config.onWillDisappear?(animated)
 
         guard let template = self.template as? CPSearchTemplate else {
             return
@@ -76,8 +76,8 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         template.delegate = nil
     }
 
-    override func onDidDisappear(animted: Bool) {
-        config.onDidDisappear?(animted)
+    override func onDidDisappear(animated: Bool) {
+        config.onDidDisappear?(animated)
     }
 
     override func onPopped() {

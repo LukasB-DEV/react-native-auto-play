@@ -40,19 +40,19 @@ class AutoPlayTemplate: NSObject {
         print("\(type(of: self)) lacks invalidate implementation")
     }
 
-    open func onWillAppear(animted: Bool) {
+    open func onWillAppear(animated: Bool) {
         print("\(type(of: self)) lacks onWillAppear implementation")
     }
 
-    open func onDidAppear(animted: Bool) {
+    open func onDidAppear(animated: Bool) {
         print("\(type(of: self)) lacks onDidAppear implementation")
     }
 
-    open func onWillDisappear(animted: Bool) {
+    open func onWillDisappear(animated: Bool) {
         print("\(type(of: self)) lacks onWillDisappear implementation")
     }
 
-    open func onDidDisappear(animted: Bool) {
+    open func onDidDisappear(animated: Bool) {
         print("\(type(of: self)) lacks onDidDisappear implementation")
     }
 
