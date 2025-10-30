@@ -19,7 +19,7 @@ class GridTemplate(context: CarContext, config: GridTemplateConfig) :
         get() = config.id
 
     override fun parse(): Template {
-        var template = GridTemplate.Builder().apply {
+        val template = GridTemplate.Builder().apply {
             setHeader(Parser.parseHeader(context, config.title, config.headerActions))
 
             if (config.buttons.isEmpty()) {
@@ -38,7 +38,7 @@ class GridTemplate(context: CarContext, config: GridTemplateConfig) :
                     }.build())
                 }
             }.build())
-        }.build();
+        }.build()
 
         return this.config.mapConfig?.let {
             MapWithContentTemplate.Builder().apply {

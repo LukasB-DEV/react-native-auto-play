@@ -18,7 +18,7 @@ class ListTemplate(context: CarContext, config: ListTemplateConfig) :
         get() = config.id
 
     override fun parse(): Template {
-        var template = ListTemplate.Builder().apply {
+        val template = ListTemplate.Builder().apply {
             setHeader(Parser.parseHeader(context, config.title, config.headerActions))
 
             config.sections?.let { sections ->
