@@ -25,7 +25,6 @@ import androidx.car.app.navigation.model.Step
 import androidx.car.app.navigation.model.TravelEstimate
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertActionStyle
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AttributedInstructionVariant
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DurationWithTimeZone
@@ -37,6 +36,8 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAlignment
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAttributedString
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroColor
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroManeuver
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroRow
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.OffRampType
@@ -273,7 +274,7 @@ object Parser {
         }.build()
     }
 
-    fun parseText(context: CarContext, variant: AttributedInstructionVariant): SpannableString {
+    fun parseText(context: CarContext, variant: NitroAttributedString): SpannableString {
         val images =
             variant.images?.sortedBy { it.position } ?: return SpannableString(variant.text)
 
@@ -296,7 +297,7 @@ object Parser {
         return text
     }
 
-    fun parseText(context: CarContext, variants: Array<AttributedInstructionVariant>): CarText {
+    fun parseText(context: CarContext, variants: Array<NitroAttributedString>): CarText {
         val text = parseText(context, variants.first())
 
         return CarText.Builder(text).apply {
@@ -330,6 +331,20 @@ object Parser {
     fun parseColor(color: Double): CarColor {
         return CarColor.createCustom(
             color.toInt(), color.toInt()
+        )
+    }
+
+    fun parseColor(color: NitroColor): CarColor {
+        return CarColor.createCustom(
+            color.lightColor.toInt(),
+            color.darkColor.toInt()
+        )
+    }
+
+    fun parseColor(color: Double, colorDark: Double): CarColor {
+        return CarColor.createCustom(
+            color.toInt(),
+            colorDark.toInt()
         )
     }
 

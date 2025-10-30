@@ -123,6 +123,35 @@ class Parser {
         return result
     }
 
+    static func parseAttributedStrings(
+        attributedStrings: [NitroAttributedString],
+        traitCollection: UITraitCollection
+    ) -> [NSAttributedString] {
+        return attributedStrings.map { variant in
+            let attributedString = NSMutableAttributedString(
+                string: variant.text
+            )
+            if let nitroImages = variant.images {
+                nitroImages.forEach { image in
+                    let attachment = NSTextAttachment(
+                        image: SymbolFont.imageFromNitroImage(
+                            image: image.image,
+                            traitCollection: traitCollection
+                        )!
+                    )
+                    let container = NSAttributedString(
+                        attachment: attachment
+                    )
+                    attributedString.insert(
+                        container,
+                        at: Int(image.position)
+                    )
+                }
+            }
+            return attributedString
+        }
+    }
+
     static func formatDistance(distance: Distance) -> String {
         let formatter = MeasurementFormatter()
         formatter.unitOptions = .providedUnit
@@ -390,30 +419,11 @@ class Parser {
     ) -> CPManeuver {
         let maneuver = CPManeuver(id: nitroManeuver.id)
 
-        maneuver.attributedInstructionVariants = nitroManeuver
-            .attributedInstructionVariants.map { variant in
-                let attributedString = NSMutableAttributedString(
-                    string: variant.text
-                )
-                if let nitroImages = variant.images {
-                    nitroImages.forEach { image in
-                        let attachment = NSTextAttachment(
-                            image: SymbolFont.imageFromNitroImage(
-                                image: image.image,
-                                traitCollection: traitCollection
-                            )!
-                        )
-                        let container = NSAttributedString(
-                            attachment: attachment
-                        )
-                        attributedString.insert(
-                            container,
-                            at: Int(image.position)
-                        )
-                    }
-                }
-                return attributedString
-            }
+        maneuver.attributedInstructionVariants = parseAttributedStrings(
+            attributedStrings: nitroManeuver
+                .attributedInstructionVariants,
+            traitCollection: traitCollection
+        )
 
         maneuver.initialTravelEstimates = Parser.parseTravelEstiamtes(
             travelEstimates: nitroManeuver.travelEstimates
@@ -426,6 +436,12 @@ class Parser {
             image: nitroManeuver.junctionImage,
             traitCollection: traitCollection
         )
+
+        if #available(iOS 15.4, *) {
+            maneuver.cardBackgroundColor = parseColor(
+                color: nitroManeuver.cardBackgroundColor
+            )
+        }
 
         if #available(iOS 17.4, *) {
             maneuver.maneuverType = getManeuverType(maneuver: nitroManeuver)
@@ -595,6 +611,25 @@ class Parser {
             instructionVariants: instructionVariants,
             lanes: lanes
         )
+    }
+
+    static func parseColor(color: NitroColor?) -> UIColor {
+        let darkColor = RCTConvert.uiColor(color?.darkColor) ?? .white
+        let lightColor = RCTConvert.uiColor(color?.lightColor) ?? .black
+
+        return UIColor { traitCollection in
+            print("userInterfaceStyle: \(traitCollection.userInterfaceStyle)")
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return darkColor
+            case .light:
+                return lightColor
+            case .unspecified:
+                return darkColor
+            @unknown default:
+                return darkColor
+            }
+        }
     }
 
     static func doubleToAngle(values: [Double]) -> [Measurement<UnitAngle>] {

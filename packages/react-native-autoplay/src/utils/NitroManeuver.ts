@@ -11,18 +11,9 @@ import {
   type PreferredLane,
   type TurnType,
 } from '../types/Maneuver';
-import { NitroColorUtil } from './NitroColor';
+import type { NitroAttributedString } from './NitroAttributedString';
+import { type NitroColor, NitroColorUtil } from './NitroColor';
 import { type NitroImage, NitroImageUtil } from './NitroImage';
-
-type AttributedInstructionVariantImage = {
-  image: NitroImage;
-  position: number;
-};
-
-type AttributedInstructionVariant = {
-  text: string;
-  images?: Array<AttributedInstructionVariantImage>;
-};
 
 interface PreferredImageLane extends PreferredLane {
   image: NitroImage;
@@ -38,7 +29,7 @@ export interface LaneGuidance {
 }
 
 export interface NitroManeuver extends BaseManeuver {
-  attributedInstructionVariants: Array<AttributedInstructionVariant>;
+  attributedInstructionVariants: Array<NitroAttributedString>;
   symbolImage: NitroImage;
   junctionImage?: NitroImage;
   turnType?: TurnType;
@@ -50,7 +41,7 @@ export interface NitroManeuver extends BaseManeuver {
   forkType?: ForkType;
   keepType?: KeepType;
   linkedLaneGuidance?: LaneGuidance;
-  cardBackgroundColor: number;
+  cardBackgroundColor: NitroColor;
 }
 
 function convertManeuverImage(image: ManeuverImage): NitroImage;
@@ -59,10 +50,15 @@ function convertManeuverImage(image?: ManeuverImage): NitroImage | undefined {
   if (image == null) {
     return undefined;
   }
+
+  const color =
+    typeof image.color === 'string'
+      ? { darkColor: image.color, lightColor: image.color }
+      : (image.color ?? { darkColor: 'white', lightColor: 'black' });
+
   return NitroImageUtil.convert({
     name: image.name,
-    darkColor: image.color ?? 'white',
-    lightColor: image.color ?? 'white',
+    ...color,
   });
 }
 
@@ -129,7 +125,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     onRampType,
     forkType,
     keepType,
-    cardBackgroundColor: NitroColorUtil.convert(cardBackgroundColor),
+    cardBackgroundColor: NitroColorUtil.convertThemed(cardBackgroundColor),
   };
 }
 

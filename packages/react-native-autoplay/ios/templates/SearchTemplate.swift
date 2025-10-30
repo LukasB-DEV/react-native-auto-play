@@ -46,7 +46,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
 
         let listItems = Parser.parseSearchResults(
             section: config.results,
-            traitCollection: traitCollection
+            traitCollection: SceneStore.getRootTraitCollection()
         )
         completionHandler(listItems)
 

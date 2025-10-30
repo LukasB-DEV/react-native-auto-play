@@ -23,9 +23,6 @@ import {
   type TemplateConfig,
 } from './Template';
 
-export type AutoPlayCluster = string & { __brand: 'uuid' };
-export type MapTemplateId = 'AutoPlayRoot' | 'AutoPlayDashboard' | AutoPlayCluster;
-
 type Point = { x: number; y: number };
 export type VisibleTravelEstimate = 'first' | 'last';
 
@@ -82,18 +79,11 @@ export interface NitroMapTemplateConfig extends TemplateConfig {
 
 export type MapButtons<T> = Array<MapButton<T> | MapPanButton<T>>;
 
-export type MapTemplateConfig = Omit<
-  NitroMapTemplateConfig,
-  'id' | 'mapButtons' | 'headerActions'
-> & {
-  /**
-   * since we need to find the proper Android screen/iOS scene only certain ids can be used on this template
-   */
-  id: MapTemplateId;
+export type MapTemplateConfig = Omit<NitroMapTemplateConfig, 'mapButtons' | 'headerActions'> & {
   /**
    * react component that is rendered
    */
-  component: React.ComponentType<RootComponentInitialProps & { template: MapTemplate }>;
+  component: React.ComponentType<RootComponentInitialProps>;
 
   /**
    * buttons that represent actions on the map template, usually on the bottom right corner
@@ -119,6 +109,7 @@ const convertActions = (
 };
 
 export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['headerActions']> {
+  id = 'AutoPlayRoot';
   private template = this;
 
   constructor(config: MapTemplateConfig) {
@@ -133,7 +124,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
           mapTemplate: this.template,
           // biome-ignore lint/correctness/noChildrenProp: there is no other way in a ts file
           children: React.createElement(SafeAreaInsetsProvider, {
-            moduleName: config.id,
+            moduleName: this.id,
             // biome-ignore lint/correctness/noChildrenProp: there is no other way in a ts file
             children: React.createElement(component, props),
           }),

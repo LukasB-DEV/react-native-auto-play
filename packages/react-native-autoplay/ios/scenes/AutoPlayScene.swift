@@ -16,6 +16,7 @@ class AutoPlayScene: UIResponder {
     var isConnected = false
     var interfaceController: AutoPlayInterfaceController?
     var templateStore = TemplateStore()
+    var traitCollection = UIScreen.main.traitCollection
 
     override init() {}
 
@@ -86,5 +87,10 @@ class AutoPlayScene: UIResponder {
             )
             window.makeKeyAndVisible()
         }
+    }
+    
+    open func traitCollectionDidChange(traitCollection: UITraitCollection) {
+        self.traitCollection = traitCollection
+        self.templateStore.traitCollectionDidChange()
     }
 }

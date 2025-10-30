@@ -46,7 +46,7 @@ class GridTemplate: AutoPlayTemplate {
                 image: SymbolFont.imageFromNitroImage(
                     image: button.image,
                     size: gridButtonHeight,
-                    traitCollection: traitCollection
+                    traitCollection: SceneStore.getRootTraitCollection()
                 )!
             ) { _ in
                 button.onPress()

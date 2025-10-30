@@ -12,12 +12,10 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
 // Forward declaration of `AlertDismissalReason` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
-// Forward declaration of `AttributedInstructionVariantImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariantImage; }
-// Forward declaration of `AttributedInstructionVariant` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariant; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
+// Forward declaration of `ClusterEventName` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ClusterEventName; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
@@ -34,6 +32,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ForkType; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct GridTemplateConfig; }
 // Forward declaration of `HybridHybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridAutoPlaySpec; }
+// Forward declaration of `HybridHybridCarPlayDashboardSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridCarPlayDashboardSpec; }
+// Forward declaration of `HybridHybridClusterSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridClusterSpec; }
 // Forward declaration of `HybridHybridGridTemplateSpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridGridTemplateSpec; }
 // Forward declaration of `HybridHybridListTemplateSpec` to properly resolve imports.
@@ -66,6 +68,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
+// Forward declaration of `NitroAttributedStringImage` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedStringImage; }
+// Forward declaration of `NitroAttributedString` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedString; }
+// Forward declaration of `NitroCarPlayDashboardButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroCarPlayDashboardButton; }
+// Forward declaration of `NitroColor` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroGridButton; }
 // Forward declaration of `NitroImage` to properly resolve imports.
@@ -116,13 +126,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TurnType; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
+// Forward declaration of `ZoomEvent` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ZoomEvent; }
 
 // Include C++ defined types
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
-#include "AttributedInstructionVariant.hpp"
-#include "AttributedInstructionVariantImage.hpp"
 #include "AutoText.hpp"
+#include "ClusterEventName.hpp"
 #include "ColorScheme.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
@@ -131,6 +142,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "ForkType.hpp"
 #include "GridTemplateConfig.hpp"
 #include "HybridHybridAutoPlaySpec.hpp"
+#include "HybridHybridCarPlayDashboardSpec.hpp"
+#include "HybridHybridClusterSpec.hpp"
 #include "HybridHybridGridTemplateSpec.hpp"
 #include "HybridHybridListTemplateSpec.hpp"
 #include "HybridHybridMapTemplateSpec.hpp"
@@ -147,6 +160,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
+#include "NitroAttributedString.hpp"
+#include "NitroAttributedStringImage.hpp"
+#include "NitroCarPlayDashboardButton.hpp"
+#include "NitroColor.hpp"
 #include "NitroGridButton.hpp"
 #include "NitroImage.hpp"
 #include "NitroManeuver.hpp"
@@ -172,6 +189,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 #include "TurnType.hpp"
 #include "VisibilityState.hpp"
 #include "VisibleTravelEstimate.hpp"
+#include "ZoomEvent.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
@@ -194,6 +212,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTrav
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridHybridAutoPlaySpec_cxx` to properly resolve imports.
 namespace NitroAutoplay { class HybridHybridAutoPlaySpec_cxx; }
+// Forward declaration of `HybridHybridCarPlayDashboardSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridCarPlayDashboardSpec_cxx; }
+// Forward declaration of `HybridHybridClusterSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridClusterSpec_cxx; }
 // Forward declaration of `HybridHybridGridTemplateSpec_cxx` to properly resolve imports.
 namespace NitroAutoplay { class HybridHybridGridTemplateSpec_cxx; }
 // Forward declaration of `HybridHybridListTemplateSpec_cxx` to properly resolve imports.

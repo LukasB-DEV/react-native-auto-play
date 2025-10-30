@@ -5,8 +5,14 @@ import {
   TrafficSide,
   TurnType,
 } from '@g4rb4g3/react-native-autoplay';
+import type { ThemedColor } from '@g4rb4g3/react-native-autoplay/lib/utils/NitroColor';
 import uuid from 'react-native-uuid';
 import { updateTripEstimates } from '../templates/AutoTemplate';
+
+const cardBackgroundColor: ThemedColor = {
+  darkColor: 'rgba(0, 0, 159, 1)',
+  lightColor: 'rgba(173, 232, 255, 1)',
+};
 
 const getManeuvers = (): Array<AutoManeuver> => [
   {
@@ -39,7 +45,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
           highlightedAngle: 0,
           angles: [],
           isPreferred: true,
-          image: { name: 'straight', color: 'white' },
+          image: { name: 'straight' },
         },
         {
           highlightedAngle: 0,
@@ -51,7 +57,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
         { angles: [90], image: { name: 'turn_right', color: 'gray' } },
       ],
     },
-    cardBackgroundColor: 'black',
+    cardBackgroundColor,
   },
   {
     id: uuid.v4(),
@@ -75,13 +81,13 @@ const getManeuvers = (): Array<AutoManeuver> => [
           highlightedAngle: -90,
           angles: [],
           isPreferred: true,
-          image: { name: 'turn_left', color: 'white' },
+          image: { name: 'turn_left' },
         },
         { angles: [0], image: { name: 'straight', color: 'gray' } },
         { angles: [90], image: { name: 'fork_right', color: 'gray' } },
       ],
     },
-    cardBackgroundColor: 'black',
+    cardBackgroundColor,
   },
   {
     id: uuid.v4(),
@@ -98,7 +104,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     trafficSide: TrafficSide.Left,
     turnType: TurnType.NormalRight,
     angle: 90,
-    cardBackgroundColor: 'black',
+    cardBackgroundColor,
   },
   {
     id: uuid.v4(),
@@ -113,7 +119,7 @@ const getManeuvers = (): Array<AutoManeuver> => [
     maneuverType: ManeuverType.Arrive,
     trafficSide: TrafficSide.Left,
     roadName: ['Destination St.'],
-    cardBackgroundColor: 'black',
+    cardBackgroundColor,
   },
 ];
 

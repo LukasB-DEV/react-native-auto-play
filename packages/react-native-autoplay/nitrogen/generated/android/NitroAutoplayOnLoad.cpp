@@ -21,6 +21,11 @@
 #include "JHybridHybridAutoPlaySpec.hpp"
 #include "JFunc_void_VisibilityState.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
+#include "JHybridHybridClusterSpec.hpp"
+#include "JFunc_void_std__string.hpp"
+#include "JFunc_void_std__string_ColorScheme.hpp"
+#include "JFunc_void_std__string_ZoomEvent.hpp"
+#include "JFunc_void_std__string_bool.hpp"
 #include "JHybridHybridGridTemplateSpec.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
 #include "JHybridHybridListTemplateSpec.hpp"
@@ -33,7 +38,6 @@
 #include "JFunc_void_std__string_std__string.hpp"
 #include "JHybridHybridMessageTemplateSpec.hpp"
 #include "JHybridHybridSearchTemplateSpec.hpp"
-#include "JFunc_void_std__string.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
@@ -51,6 +55,11 @@ int initialize(JavaVM* vm) {
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridAutoPlaySpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_VisibilityState_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_SafeAreaInsets_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridClusterSpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_ColorScheme_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_ZoomEvent_cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_bool_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridGridTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__optional_bool__cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridListTemplateSpec::registerNatives();
@@ -63,7 +72,6 @@ int initialize(JavaVM* vm) {
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_std__string_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridMessageTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridSearchTemplateSpec::registerNatives();
-    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_cxx::registerNatives();
 
     // Register Nitro Hybrid Objects
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -118,6 +126,14 @@ int initialize(JavaVM* vm) {
       "HybridSearchTemplate",
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridHybridSearchTemplateSpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridSearchTemplate");
+        auto instance = object.create();
+        return instance->cthis()->shared();
+      }
+    );
+    HybridObjectRegistry::registerHybridObjectConstructor(
+      "HybridCluster",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridHybridClusterSpec::javaobject> object("com/margelo/nitro/at/g4rb4g3/autoplay/hybrid/HybridCluster");
         auto instance = object.create();
         return instance->cthis()->shared();
       }

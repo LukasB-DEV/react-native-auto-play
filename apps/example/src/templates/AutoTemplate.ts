@@ -1,6 +1,7 @@
 import {
   type Alert,
   type BackButton,
+  CarPlayDashboard,
   type HeaderActions,
   HybridAutoPlay,
   type ImageButton,
@@ -13,7 +14,12 @@ import {
 import { Platform } from 'react-native';
 import { AutoManeuverUtil } from '../config/AutoManeuver';
 import { AutoTrip, TextConfig } from '../config/AutoTrip';
-import { setIsNavigating, setSelectedTrip } from '../state/navigationSlice';
+import {
+  actionStartNavigation,
+  actionStopNavigation,
+  setIsNavigating,
+  setSelectedTrip,
+} from '../state/navigationSlice';
 import { dispatch } from '../state/store';
 import { AutoGridTemplate } from './AutoGridTemplate';
 import { AutoListTemplate } from './AutoListTemplate';
@@ -82,6 +88,24 @@ export const onTripFinished = (template: MapTemplate) => {
   template.setHeaderActions(mapHeaderActions);
 
   AutoManeuverUtil.stopManeuvers();
+
+  if (Platform.OS === 'ios') {
+    CarPlayDashboard.setButtons([
+      {
+        image: { name: 'play_circle' },
+        titleVariants: ['Start navigation'],
+        subtitleVariants: [],
+        onPress: () => {
+          dispatch(
+            actionStartNavigation({
+              tripId: AutoTrip[0].id,
+              routeId: AutoTrip[0].routeChoices[0].id,
+            })
+          );
+        },
+      },
+    ]);
+  }
 
   dispatch(setIsNavigating(false));
 };
@@ -163,6 +187,17 @@ export const onTripStarted = (tripId: string, routeId: string, template: MapTemp
 
   if (Platform.OS === 'ios') {
     template.setMapButtons(mapButtons);
+
+    CarPlayDashboard.setButtons([
+      {
+        image: { name: 'stop_circle' },
+        titleVariants: ['Stop navigation'],
+        subtitleVariants: [],
+        onPress: () => {
+          dispatch(actionStopNavigation());
+        },
+      },
+    ]);
   }
 
   console.log(`started trip ${tripId} using route ${routeId}`);

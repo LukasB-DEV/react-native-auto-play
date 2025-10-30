@@ -1,5 +1,3 @@
-import type { MapTemplateId } from '../templates/MapTemplate';
-
 export type WindowInformation = {
   width: number;
   height: number;
@@ -14,7 +12,7 @@ export type RootComponentInitialProps = {
    * AutoPlayDashboard for the CarPlay dashboard (iOS only)
    * or a random uuid for cluster displays
    */
-  id: MapTemplateId;
+  id: string;
   /**
    * react-native rootTag
    */
@@ -24,4 +22,17 @@ export type RootComponentInitialProps = {
    */
   colorScheme: ColorScheme;
   window: WindowInformation;
+};
+
+export type AutoPlayClusterInitialProps = RootComponentInitialProps & {
+  /**
+   * lets you know if the compass is enabled/disabled
+   * @namespace iOS
+   */
+  compass?: boolean;
+  /**
+   * lets you know if the speed limit is enabled/disabled
+   * @namespace iOS
+   */
+  speedLimit?: boolean;
 };

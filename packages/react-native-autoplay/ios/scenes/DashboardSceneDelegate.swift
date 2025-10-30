@@ -11,8 +11,11 @@ import UIKit
 class DashboardSceneDelegate: AutoPlayScene,
     CPTemplateApplicationDashboardSceneDelegate
 {
+    var dashboardController: CPDashboardController?
+    var templateApplicationDashboardScene: CPTemplateApplicationDashboardScene?
+
     override init() {
-        super.init(moduleName: "AutoPlayDashboard")
+        super.init(moduleName: SceneStore.dashboardModuleName)
     }
 
     func templateApplicationDashboardScene(
@@ -22,19 +25,26 @@ class DashboardSceneDelegate: AutoPlayScene,
         to window: UIWindow
     ) {
         self.window = window
+        self.dashboardController = dashboardController
+        self.templateApplicationDashboardScene =
+            templateApplicationDashboardScene
+        self.traitCollection =
+            templateApplicationDashboardScene.dashboardWindow
+            .traitCollection
 
         let props: [String: Any] = [
-            "colorScheme": window.screen.traitCollection
+            "colorScheme": traitCollection
                 .userInterfaceStyle == .dark ? "dark" : "light",
             "window": [
+                // TODO: height & with reported from main screen it seems...
                 "height": window.screen.bounds.size.height,
                 "width": window.screen.bounds.size.width,
-                "scale": window.screen.scale,
+                "scale": traitCollection.displayScale,
             ],
         ]
 
         connect(props: props)
-        // RNCarPlay.connect(withDashboardController: dashboardController, window: window)
+        HybridCarPlayDashboard.emit(event: .didconnect)
     }
 
     func templateApplicationDashboardScene(
@@ -45,7 +55,9 @@ class DashboardSceneDelegate: AutoPlayScene,
         from window: UIWindow
     ) {
         disconnect()
-        // RNCarPlay.disconnectFromDashboardController()
+        HybridCarPlayDashboard.emit(event: .diddisconnect)
+
+        self.dashboardController = nil
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -62,5 +74,34 @@ class DashboardSceneDelegate: AutoPlayScene,
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         setState(state: .didappear)
+    }
+
+    @MainActor
+    func setButtons(buttons: [NitroCarPlayDashboardButton]) {
+        guard
+            let traitCollection = templateApplicationDashboardScene?
+                .dashboardWindow.traitCollection
+        else { return }
+
+        dashboardController?.shortcutButtons = buttons.map { button in
+            CPDashboardButton(
+                titleVariants: button.titleVariants,
+                subtitleVariants: button.subtitleVariants,
+                image: SymbolFont.imageFromNitroImage(
+                    image: button.image,
+                    traitCollection: traitCollection
+                )!
+            ) { _ in
+                button.onPress()
+            }
+        }
+    }
+
+    override func traitCollectionDidChange(traitCollection: UITraitCollection) {
+        super.traitCollectionDidChange(traitCollection: traitCollection)
+        HybridCarPlayDashboard.emitColorScheme(
+            colorScheme: traitCollection.userInterfaceStyle == .dark
+                ? .dark : .light
+        )
     }
 }

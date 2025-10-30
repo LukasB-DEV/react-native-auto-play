@@ -39,7 +39,7 @@ class ListTemplate: AutoPlayTemplate {
             Parser.parseSections(
                 sections: config.sections,
                 updateSection: self.updateSection(section:sectionIndex:),
-                traitCollection: traitCollection
+                traitCollection: SceneStore.getRootTraitCollection()
             )
         )
     }

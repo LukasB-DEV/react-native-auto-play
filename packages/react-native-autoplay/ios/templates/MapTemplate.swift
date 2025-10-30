@@ -48,7 +48,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                         image: image,
                         size: CPButtonMaximumImageSize.height,
                         fontScale: 0.65,
-                        traitCollection: traitCollection
+                        traitCollection: SceneStore.getRootTraitCollection()
                     )!
                     return CPMapButton(image: icon) { _ in
                         button.onPress()
@@ -79,6 +79,20 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
     override func onPopped() {
         config.onPopped?()
+    }
+
+    override func traitCollectionDidChange() {
+        let traitCollection = SceneStore.getRootTraitCollection()
+        let isDark = traitCollection.userInterfaceStyle == .dark
+
+        self.config.onAppearanceDidChange?(
+            isDark ? .dark : .light
+        )
+        self.invalidate()
+
+        guard let template = self.template as? CPMapTemplate else { return }
+
+        template.tripEstimateStyle = isDark ? .dark : .light
     }
 
     // MARK: gestures
@@ -214,7 +228,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
         let image = SymbolFont.imageFromNitroImage(
             image: alertConfig.image,
-            traitCollection: traitCollection
+            traitCollection: SceneStore.getRootTraitCollection()
         )
 
         let style = Parser.parseActionAlertStyle(
@@ -378,8 +392,14 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         guard let template = template as? CPMapTemplate else { return }
         guard let navigationSession = navigationSession else { return }
 
-        template.guidanceBackgroundColor =
-            RCTConvert.uiColor(maneuvers.first?.cardBackgroundColor) ?? .black
+        if #unavailable(iOS 26.0) {
+            // iOS 26 has some bug/weird behavior that it does not update the images inside the maneuver
+            // this might lead to dark icons on dark background or light icons on light background
+            // so we skip this and wait for new maneuvers to update both, the cardBackgroundColor and icon colors
+            template.guidanceBackgroundColor = Parser.parseColor(
+                color: maneuvers.first?.cardBackgroundColor
+            )
+        }
 
         var upcomingManeuvers: [CPManeuver] = []
 
@@ -411,7 +431,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
             let maneuver = Parser.parseManeuver(
                 nitroManeuver: nitroManeuver,
-                traitCollection: traitCollection
+                traitCollection: SceneStore.getRootTraitCollection()
             )
             upcomingManeuvers.append(maneuver)
         }
@@ -424,7 +444,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                         let secondarySymbolImage = SymbolFont.imageFromLanes(
                             laneImages: laneImages.prefix(Int(120 / 18)),
                             size: 18,
-                            traitCollection: traitCollection
+                            traitCollection: SceneStore.getRootTraitCollection()
                         )
 
                         let secondaryManeuver = CPManeuver(
@@ -432,6 +452,8 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                             isSecondary: true
                         )
                         secondaryManeuver.symbolImage = secondarySymbolImage
+                        secondaryManeuver.cardBackgroundColor =
+                            maneuver.cardBackgroundColor
                         return [maneuver, secondaryManeuver]
                     } else {
                         return [maneuver]

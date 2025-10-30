@@ -9,6 +9,8 @@
 
 // Include C++ implementation defined types
 #include "HybridHybridAutoPlaySpecSwift.hpp"
+#include "HybridHybridCarPlayDashboardSpecSwift.hpp"
+#include "HybridHybridClusterSpecSwift.hpp"
 #include "HybridHybridGridTemplateSpecSwift.hpp"
 #include "HybridHybridListTemplateSpecSwift.hpp"
 #include "HybridHybridMapTemplateSpecSwift.hpp"
@@ -63,6 +65,78 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     }
     #endif
     NitroAutoplay::HybridHybridAutoPlaySpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    return swiftPart.toUnsafe();
+  }
+  
+  // pragma MARK: std::function<void(ColorScheme /* payload */)>
+  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_ColorScheme::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](ColorScheme payload) mutable -> void {
+      swiftClosure.call(static_cast<int>(payload));
+    };
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridCarPlayDashboardSpec>
+  std::shared_ptr<HybridHybridCarPlayDashboardSpec> create_std__shared_ptr_HybridHybridCarPlayDashboardSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroAutoplay::HybridHybridCarPlayDashboardSpec_cxx swiftPart = NitroAutoplay::HybridHybridCarPlayDashboardSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridCarPlayDashboardSpecSwift>(swiftPart);
+  }
+  void* NON_NULL get_std__shared_ptr_HybridHybridCarPlayDashboardSpec_(std__shared_ptr_HybridHybridCarPlayDashboardSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridCarPlayDashboardSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridCarPlayDashboardSpecSwift>(cppType);
+    #ifdef NITRO_DEBUG
+    if (swiftWrapper == nullptr) [[unlikely]] {
+      throw std::runtime_error("Class \"HybridHybridCarPlayDashboardSpec\" is not implemented in Swift!");
+    }
+    #endif
+    NitroAutoplay::HybridHybridCarPlayDashboardSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    return swiftPart.toUnsafe();
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */)>
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__string::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& clusterId) mutable -> void {
+      swiftClosure.call(clusterId);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>
+  Func_void_std__string_ColorScheme create_Func_void_std__string_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__string_ColorScheme::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& clusterId, ColorScheme payload) mutable -> void {
+      swiftClosure.call(clusterId, static_cast<int>(payload));
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, ZoomEvent /* payload */)>
+  Func_void_std__string_ZoomEvent create_Func_void_std__string_ZoomEvent(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__string_ZoomEvent::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& clusterId, ZoomEvent payload) mutable -> void {
+      swiftClosure.call(clusterId, static_cast<int>(payload));
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, bool /* payload */)>
+  Func_void_std__string_bool create_Func_void_std__string_bool(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroAutoplay::Func_void_std__string_bool::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& clusterId, bool payload) mutable -> void {
+      swiftClosure.call(clusterId, payload);
+    };
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridClusterSpec>
+  std::shared_ptr<HybridHybridClusterSpec> create_std__shared_ptr_HybridHybridClusterSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
+    NitroAutoplay::HybridHybridClusterSpec_cxx swiftPart = NitroAutoplay::HybridHybridClusterSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridClusterSpecSwift>(swiftPart);
+  }
+  void* NON_NULL get_std__shared_ptr_HybridHybridClusterSpec_(std__shared_ptr_HybridHybridClusterSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridClusterSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::at::g4rb4g3::autoplay::hybrid::HybridHybridClusterSpecSwift>(cppType);
+    #ifdef NITRO_DEBUG
+    if (swiftWrapper == nullptr) [[unlikely]] {
+      throw std::runtime_error("Class \"HybridHybridClusterSpec\" is not implemented in Swift!");
+    }
+    #endif
+    NitroAutoplay::HybridHybridClusterSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
   
@@ -130,14 +204,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     };
   }
   
-  // pragma MARK: std::function<void(ColorScheme /* colorScheme */)>
-  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_ColorScheme::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](ColorScheme colorScheme) mutable -> void {
-      swiftClosure.call(static_cast<int>(colorScheme));
-    };
-  }
-  
   // pragma MARK: std::function<void(AlertDismissalReason /* reason */)>
   Func_void_AlertDismissalReason create_Func_void_AlertDismissalReason(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = NitroAutoplay::Func_void_AlertDismissalReason::fromUnsafe(swiftClosureWrapper);
@@ -184,14 +250,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     #endif
     NitroAutoplay::HybridHybridMessageTemplateSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
-  }
-  
-  // pragma MARK: std::function<void(const std::string& /* searchText */)>
-  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroAutoplay::Func_void_std__string::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const std::string& searchText) mutable -> void {
-      swiftClosure.call(searchText);
-    };
   }
   
   // pragma MARK: std::shared_ptr<HybridHybridSearchTemplateSpec>

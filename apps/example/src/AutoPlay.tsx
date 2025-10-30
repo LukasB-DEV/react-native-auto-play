@@ -1,4 +1,6 @@
 import {
+  AutoPlayCluster,
+  CarPlayDashboard,
   HybridAutoPlay,
   MapTemplate,
   type RootComponentInitialProps,
@@ -7,7 +9,10 @@ import {
 } from '@g4rb4g3/react-native-autoplay';
 import type { UnsubscribeListener } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
-import { Platform, Text } from 'react-native';
+import { Platform, Text, View } from 'react-native';
+import { Cluster } from './AutoPlayCluster';
+import { AutoPlayDashboard } from './AutoPlayDashboard';
+import { AutoManeuverUtil } from './config/AutoManeuver';
 import { AutoTrip } from './config/AutoTrip';
 import {
   actionStartNavigation,
@@ -97,15 +102,17 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: 'green',
+        backgroundColor: 'red',
       }}
     >
-      <Text>
-        Hello Nitro {Platform.OS} {i}
-      </Text>
-      <Text>{JSON.stringify(props.window)}</Text>
-      <Text>Running as {props.id}</Text>
-      {Platform.OS === 'android' ? <TelemetryView /> : null}
+      <View style={{ flex: 1, backgroundColor: 'green' }}>
+        <Text>
+          Hello Nitro {Platform.OS} {i}
+        </Text>
+        <Text>{JSON.stringify(props.window)}</Text>
+        <Text>Running as {props.id}</Text>
+        {Platform.OS === 'android' ? <TelemetryView /> : null}
+      </View>
     </SafeAreaView>
   );
 };
@@ -114,7 +121,6 @@ const registerRunnable = () => {
   const onConnect = () => {
     const rootTemplate = new MapTemplate({
       component: AutoPlayRoot,
-      id: 'AutoPlayRoot',
       visibleTravelEstimate: 'first',
       onWillAppear: () => console.log('AutoPlayRoot onWillAppear'),
       onDidAppear: () => console.log('AutoPlayRoot onDidAppear'),
@@ -136,8 +142,16 @@ const registerRunnable = () => {
   };
 
   const onDisconnect = () => {
-    // template.destroy();
+    AutoManeuverUtil.stopManeuvers();
   };
+
+  if (Platform.OS === 'ios') {
+    CarPlayDashboard.setComponent(AutoPlayDashboard);
+  }
+  AutoPlayCluster.setComponent(Cluster);
+  AutoPlayCluster.setAttributedInactiveDescriptionVariants([
+    { text: 'Example', images: [{ image: { name: 'bolt' }, position: 0 }] },
+  ]);
 
   HybridAutoPlay.addListener('didConnect', onConnect);
   HybridAutoPlay.addListener('didDisconnect', onDisconnect);

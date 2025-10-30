@@ -46,6 +46,9 @@ class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate {
     ) {
         HybridAutoPlay.emit(event: .diddisconnect)
         disconnect()
+        
+        let mapTemplate = templateStore.getTemplate(templateId: SceneStore.rootModuleName) as? MapTemplate
+        mapTemplate?.stopNavigation()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

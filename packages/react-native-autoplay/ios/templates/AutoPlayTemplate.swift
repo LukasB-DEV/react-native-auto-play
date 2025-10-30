@@ -10,7 +10,6 @@ import CarPlay
 class AutoPlayTemplate: NSObject {
     let template: CPTemplate
     var barButtons: [NitroAction]?
-    var traitCollection = UIScreen.main.traitCollection
 
     init(template: CPTemplate, header: [NitroAction]?) {
         self.template = template
@@ -25,7 +24,7 @@ class AutoPlayTemplate: NSObject {
         if let headerActions = barButtons {
             let parsedActions = Parser.parseHeaderActions(
                 headerActions: headerActions,
-                traitCollection: traitCollection
+                traitCollection: SceneStore.getRootTraitCollection()
             )
 
             template.backButton = parsedActions.backButton
@@ -60,7 +59,5 @@ class AutoPlayTemplate: NSObject {
         print("\(type(of: self)) lacks onPopped implementation")
     }
 
-    open func traitCollectionDidChange(traitColleciton: UITraitCollection) {
-        self.traitCollection = traitColleciton
-    }
+    open func traitCollectionDidChange() {}
 }

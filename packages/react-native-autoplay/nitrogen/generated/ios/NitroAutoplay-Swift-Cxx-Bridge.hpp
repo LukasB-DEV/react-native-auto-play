@@ -12,10 +12,6 @@
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
 // Forward declaration of `AlertDismissalReason` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertDismissalReason; }
-// Forward declaration of `AttributedInstructionVariantImage` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariantImage; }
-// Forward declaration of `AttributedInstructionVariant` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AttributedInstructionVariant; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `ColorScheme` to properly resolve imports.
@@ -30,6 +26,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct DurationWithTim
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ForkType; }
 // Forward declaration of `HybridHybridAutoPlaySpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridAutoPlaySpec; }
+// Forward declaration of `HybridHybridCarPlayDashboardSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridCarPlayDashboardSpec; }
+// Forward declaration of `HybridHybridClusterSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridClusterSpec; }
 // Forward declaration of `HybridHybridGridTemplateSpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridGridTemplateSpec; }
 // Forward declaration of `HybridHybridListTemplateSpec` to properly resolve imports.
@@ -56,6 +56,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAction; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
+// Forward declaration of `NitroAttributedStringImage` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedStringImage; }
+// Forward declaration of `NitroAttributedString` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedString; }
+// Forward declaration of `NitroCarPlayDashboardButton` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroCarPlayDashboardButton; }
+// Forward declaration of `NitroColor` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroGridButton; }
 // Forward declaration of `NitroImage` to properly resolve imports.
@@ -98,10 +106,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TurnType; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibilityState; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
+// Forward declaration of `ZoomEvent` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ZoomEvent; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridHybridAutoPlaySpec_cxx` to properly resolve imports.
 namespace NitroAutoplay { class HybridHybridAutoPlaySpec_cxx; }
+// Forward declaration of `HybridHybridCarPlayDashboardSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridCarPlayDashboardSpec_cxx; }
+// Forward declaration of `HybridHybridClusterSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridClusterSpec_cxx; }
 // Forward declaration of `HybridHybridGridTemplateSpec_cxx` to properly resolve imports.
 namespace NitroAutoplay { class HybridHybridGridTemplateSpec_cxx; }
 // Forward declaration of `HybridHybridListTemplateSpec_cxx` to properly resolve imports.
@@ -116,8 +130,6 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 // Include C++ defined types
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
-#include "AttributedInstructionVariant.hpp"
-#include "AttributedInstructionVariantImage.hpp"
 #include "AutoText.hpp"
 #include "ColorScheme.hpp"
 #include "Distance.hpp"
@@ -125,6 +137,8 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 #include "DurationWithTimeZone.hpp"
 #include "ForkType.hpp"
 #include "HybridHybridAutoPlaySpec.hpp"
+#include "HybridHybridCarPlayDashboardSpec.hpp"
+#include "HybridHybridClusterSpec.hpp"
 #include "HybridHybridGridTemplateSpec.hpp"
 #include "HybridHybridListTemplateSpec.hpp"
 #include "HybridHybridMapTemplateSpec.hpp"
@@ -138,6 +152,10 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
+#include "NitroAttributedString.hpp"
+#include "NitroAttributedStringImage.hpp"
+#include "NitroCarPlayDashboardButton.hpp"
+#include "NitroColor.hpp"
 #include "NitroGridButton.hpp"
 #include "NitroImage.hpp"
 #include "NitroManeuver.hpp"
@@ -159,6 +177,7 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 #include "TurnType.hpp"
 #include "VisibilityState.hpp"
 #include "VisibleTravelEstimate.hpp"
+#include "ZoomEvent.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
 #include <NitroModules/Result.hpp>
@@ -439,6 +458,199 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   inline Result_bool_ create_Result_bool_(const std::exception_ptr& error) noexcept {
     return Result<bool>::withError(error);
   }
+  
+  // pragma MARK: std::vector<std::string>
+  /**
+   * Specialized version of `std::vector<std::string>`.
+   */
+  using std__vector_std__string_ = std::vector<std::string>;
+  inline std::vector<std::string> create_std__vector_std__string_(size_t size) noexcept {
+    std::vector<std::string> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::vector<NitroCarPlayDashboardButton>
+  /**
+   * Specialized version of `std::vector<NitroCarPlayDashboardButton>`.
+   */
+  using std__vector_NitroCarPlayDashboardButton_ = std::vector<NitroCarPlayDashboardButton>;
+  inline std::vector<NitroCarPlayDashboardButton> create_std__vector_NitroCarPlayDashboardButton_(size_t size) noexcept {
+    std::vector<NitroCarPlayDashboardButton> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::function<void(ColorScheme /* payload */)>
+  /**
+   * Specialized version of `std::function<void(ColorScheme)>`.
+   */
+  using Func_void_ColorScheme = std::function<void(ColorScheme /* payload */)>;
+  /**
+   * Wrapper class for a `std::function<void(ColorScheme / * payload * /)>`, this can be used from Swift.
+   */
+  class Func_void_ColorScheme_Wrapper final {
+  public:
+    explicit Func_void_ColorScheme_Wrapper(std::function<void(ColorScheme /* payload */)>&& func): _function(std::make_unique<std::function<void(ColorScheme /* payload */)>>(std::move(func))) {}
+    inline void call(int payload) const noexcept {
+      _function->operator()(static_cast<ColorScheme>(payload));
+    }
+  private:
+    std::unique_ptr<std::function<void(ColorScheme /* payload */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_ColorScheme_Wrapper wrap_Func_void_ColorScheme(Func_void_ColorScheme value) noexcept {
+    return Func_void_ColorScheme_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridCarPlayDashboardSpec>
+  /**
+   * Specialized version of `std::shared_ptr<HybridHybridCarPlayDashboardSpec>`.
+   */
+  using std__shared_ptr_HybridHybridCarPlayDashboardSpec_ = std::shared_ptr<HybridHybridCarPlayDashboardSpec>;
+  std::shared_ptr<HybridHybridCarPlayDashboardSpec> create_std__shared_ptr_HybridHybridCarPlayDashboardSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridHybridCarPlayDashboardSpec_(std__shared_ptr_HybridHybridCarPlayDashboardSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<HybridHybridCarPlayDashboardSpec>
+  using std__weak_ptr_HybridHybridCarPlayDashboardSpec_ = std::weak_ptr<HybridHybridCarPlayDashboardSpec>;
+  inline std__weak_ptr_HybridHybridCarPlayDashboardSpec_ weakify_std__shared_ptr_HybridHybridCarPlayDashboardSpec_(const std::shared_ptr<HybridHybridCarPlayDashboardSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&)>`.
+   */
+  using Func_void_std__string = std::function<void(const std::string& /* clusterId */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * clusterId * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_Wrapper final {
+  public:
+    explicit Func_void_std__string_Wrapper(std::function<void(const std::string& /* clusterId */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* clusterId */)>>(std::move(func))) {}
+    inline void call(std::string clusterId) const noexcept {
+      _function->operator()(clusterId);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* clusterId */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
+    return Func_void_std__string_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::vector<NitroAttributedStringImage>
+  /**
+   * Specialized version of `std::vector<NitroAttributedStringImage>`.
+   */
+  using std__vector_NitroAttributedStringImage_ = std::vector<NitroAttributedStringImage>;
+  inline std::vector<NitroAttributedStringImage> create_std__vector_NitroAttributedStringImage_(size_t size) noexcept {
+    std::vector<NitroAttributedStringImage> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<NitroAttributedStringImage>>
+  /**
+   * Specialized version of `std::optional<std::vector<NitroAttributedStringImage>>`.
+   */
+  using std__optional_std__vector_NitroAttributedStringImage__ = std::optional<std::vector<NitroAttributedStringImage>>;
+  inline std::optional<std::vector<NitroAttributedStringImage>> create_std__optional_std__vector_NitroAttributedStringImage__(const std::vector<NitroAttributedStringImage>& value) noexcept {
+    return std::optional<std::vector<NitroAttributedStringImage>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_NitroAttributedStringImage__(const std::optional<std::vector<NitroAttributedStringImage>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<NitroAttributedStringImage> get_std__optional_std__vector_NitroAttributedStringImage__(const std::optional<std::vector<NitroAttributedStringImage>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::vector<NitroAttributedString>
+  /**
+   * Specialized version of `std::vector<NitroAttributedString>`.
+   */
+  using std__vector_NitroAttributedString_ = std::vector<NitroAttributedString>;
+  inline std::vector<NitroAttributedString> create_std__vector_NitroAttributedString_(size_t size) noexcept {
+    std::vector<NitroAttributedString> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&, ColorScheme)>`.
+   */
+  using Func_void_std__string_ColorScheme = std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * clusterId * /, ColorScheme / * payload * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_ColorScheme_Wrapper final {
+  public:
+    explicit Func_void_std__string_ColorScheme_Wrapper(std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>>(std::move(func))) {}
+    inline void call(std::string clusterId, int payload) const noexcept {
+      _function->operator()(clusterId, static_cast<ColorScheme>(payload));
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* clusterId */, ColorScheme /* payload */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string_ColorScheme create_Func_void_std__string_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_ColorScheme_Wrapper wrap_Func_void_std__string_ColorScheme(Func_void_std__string_ColorScheme value) noexcept {
+    return Func_void_std__string_ColorScheme_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, ZoomEvent /* payload */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&, ZoomEvent)>`.
+   */
+  using Func_void_std__string_ZoomEvent = std::function<void(const std::string& /* clusterId */, ZoomEvent /* payload */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * clusterId * /, ZoomEvent / * payload * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_ZoomEvent_Wrapper final {
+  public:
+    explicit Func_void_std__string_ZoomEvent_Wrapper(std::function<void(const std::string& /* clusterId */, ZoomEvent /* payload */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* clusterId */, ZoomEvent /* payload */)>>(std::move(func))) {}
+    inline void call(std::string clusterId, int payload) const noexcept {
+      _function->operator()(clusterId, static_cast<ZoomEvent>(payload));
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* clusterId */, ZoomEvent /* payload */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string_ZoomEvent create_Func_void_std__string_ZoomEvent(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_ZoomEvent_Wrapper wrap_Func_void_std__string_ZoomEvent(Func_void_std__string_ZoomEvent value) noexcept {
+    return Func_void_std__string_ZoomEvent_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* clusterId */, bool /* payload */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&, bool)>`.
+   */
+  using Func_void_std__string_bool = std::function<void(const std::string& /* clusterId */, bool /* payload */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * clusterId * /, bool / * payload * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_bool_Wrapper final {
+  public:
+    explicit Func_void_std__string_bool_Wrapper(std::function<void(const std::string& /* clusterId */, bool /* payload */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* clusterId */, bool /* payload */)>>(std::move(func))) {}
+    inline void call(std::string clusterId, bool payload) const noexcept {
+      _function->operator()(clusterId, payload);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* clusterId */, bool /* payload */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string_bool create_Func_void_std__string_bool(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_bool_Wrapper wrap_Func_void_std__string_bool(Func_void_std__string_bool value) noexcept {
+    return Func_void_std__string_bool_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::shared_ptr<HybridHybridClusterSpec>
+  /**
+   * Specialized version of `std::shared_ptr<HybridHybridClusterSpec>`.
+   */
+  using std__shared_ptr_HybridHybridClusterSpec_ = std::shared_ptr<HybridHybridClusterSpec>;
+  std::shared_ptr<HybridHybridClusterSpec> create_std__shared_ptr_HybridHybridClusterSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridHybridClusterSpec_(std__shared_ptr_HybridHybridClusterSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<HybridHybridClusterSpec>
+  using std__weak_ptr_HybridHybridClusterSpec_ = std::weak_ptr<HybridHybridClusterSpec>;
+  inline std__weak_ptr_HybridHybridClusterSpec_ weakify_std__shared_ptr_HybridHybridClusterSpec_(const std::shared_ptr<HybridHybridClusterSpec>& strong) noexcept { return strong; }
   
   // pragma MARK: std::function<void(std::optional<bool> /* animated */)>
   /**
@@ -761,28 +973,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::function<void(ColorScheme /* colorScheme */)>
-  /**
-   * Specialized version of `std::function<void(ColorScheme)>`.
-   */
-  using Func_void_ColorScheme = std::function<void(ColorScheme /* colorScheme */)>;
-  /**
-   * Wrapper class for a `std::function<void(ColorScheme / * colorScheme * /)>`, this can be used from Swift.
-   */
-  class Func_void_ColorScheme_Wrapper final {
-  public:
-    explicit Func_void_ColorScheme_Wrapper(std::function<void(ColorScheme /* colorScheme */)>&& func): _function(std::make_unique<std::function<void(ColorScheme /* colorScheme */)>>(std::move(func))) {}
-    inline void call(int colorScheme) const noexcept {
-      _function->operator()(static_cast<ColorScheme>(colorScheme));
-    }
-  private:
-    std::unique_ptr<std::function<void(ColorScheme /* colorScheme */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_ColorScheme create_Func_void_ColorScheme(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_ColorScheme_Wrapper wrap_Func_void_ColorScheme(Func_void_ColorScheme value) noexcept {
-    return Func_void_ColorScheme_Wrapper(std::move(value));
-  }
-  
   // pragma MARK: std::optional<std::function<void(ColorScheme /* colorScheme */)>>
   /**
    * Specialized version of `std::optional<std::function<void(ColorScheme / * colorScheme * /)>>`.
@@ -850,17 +1040,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return *optional;
   }
   
-  // pragma MARK: std::vector<std::string>
-  /**
-   * Specialized version of `std::vector<std::string>`.
-   */
-  using std__vector_std__string_ = std::vector<std::string>;
-  inline std::vector<std::string> create_std__vector_std__string_(size_t size) noexcept {
-    std::vector<std::string> vector;
-    vector.reserve(size);
-    return vector;
-  }
-  
   // pragma MARK: std::vector<TripPoint>
   /**
    * Specialized version of `std::vector<TripPoint>`.
@@ -914,43 +1093,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   Func_void_std__string_std__string create_Func_void_std__string_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__string_std__string_Wrapper wrap_Func_void_std__string_std__string(Func_void_std__string_std__string value) noexcept {
     return Func_void_std__string_std__string_Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::vector<AttributedInstructionVariantImage>
-  /**
-   * Specialized version of `std::vector<AttributedInstructionVariantImage>`.
-   */
-  using std__vector_AttributedInstructionVariantImage_ = std::vector<AttributedInstructionVariantImage>;
-  inline std::vector<AttributedInstructionVariantImage> create_std__vector_AttributedInstructionVariantImage_(size_t size) noexcept {
-    std::vector<AttributedInstructionVariantImage> vector;
-    vector.reserve(size);
-    return vector;
-  }
-  
-  // pragma MARK: std::optional<std::vector<AttributedInstructionVariantImage>>
-  /**
-   * Specialized version of `std::optional<std::vector<AttributedInstructionVariantImage>>`.
-   */
-  using std__optional_std__vector_AttributedInstructionVariantImage__ = std::optional<std::vector<AttributedInstructionVariantImage>>;
-  inline std::optional<std::vector<AttributedInstructionVariantImage>> create_std__optional_std__vector_AttributedInstructionVariantImage__(const std::vector<AttributedInstructionVariantImage>& value) noexcept {
-    return std::optional<std::vector<AttributedInstructionVariantImage>>(value);
-  }
-  inline bool has_value_std__optional_std__vector_AttributedInstructionVariantImage__(const std::optional<std::vector<AttributedInstructionVariantImage>>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline std::vector<AttributedInstructionVariantImage> get_std__optional_std__vector_AttributedInstructionVariantImage__(const std::optional<std::vector<AttributedInstructionVariantImage>>& optional) noexcept {
-    return *optional;
-  }
-  
-  // pragma MARK: std::vector<AttributedInstructionVariant>
-  /**
-   * Specialized version of `std::vector<AttributedInstructionVariant>`.
-   */
-  using std__vector_AttributedInstructionVariant_ = std::vector<AttributedInstructionVariant>;
-  inline std::vector<AttributedInstructionVariant> create_std__vector_AttributedInstructionVariant_(size_t size) noexcept {
-    std::vector<AttributedInstructionVariant> vector;
-    vector.reserve(size);
-    return vector;
   }
   
   // pragma MARK: std::optional<TurnType>
@@ -1158,28 +1300,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   // pragma MARK: std::weak_ptr<HybridHybridMessageTemplateSpec>
   using std__weak_ptr_HybridHybridMessageTemplateSpec_ = std::weak_ptr<HybridHybridMessageTemplateSpec>;
   inline std__weak_ptr_HybridHybridMessageTemplateSpec_ weakify_std__shared_ptr_HybridHybridMessageTemplateSpec_(const std::shared_ptr<HybridHybridMessageTemplateSpec>& strong) noexcept { return strong; }
-  
-  // pragma MARK: std::function<void(const std::string& /* searchText */)>
-  /**
-   * Specialized version of `std::function<void(const std::string&)>`.
-   */
-  using Func_void_std__string = std::function<void(const std::string& /* searchText */)>;
-  /**
-   * Wrapper class for a `std::function<void(const std::string& / * searchText * /)>`, this can be used from Swift.
-   */
-  class Func_void_std__string_Wrapper final {
-  public:
-    explicit Func_void_std__string_Wrapper(std::function<void(const std::string& /* searchText */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* searchText */)>>(std::move(func))) {}
-    inline void call(std::string searchText) const noexcept {
-      _function->operator()(searchText);
-    }
-  private:
-    std::unique_ptr<std::function<void(const std::string& /* searchText */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
-    return Func_void_std__string_Wrapper(std::move(value));
-  }
   
   // pragma MARK: std::optional<std::function<void(const std::string& /* searchText */)>>
   /**
