@@ -1,4 +1,5 @@
-import { HybridListTemplate } from '..';
+import { NitroModules } from 'react-native-nitro-modules';
+import type { HybridListTemplate as NitroHybridListTemplate } from '../specs/HybridListTemplate.nitro';
 import type { AutoImage } from '../types/Image';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
@@ -9,6 +10,9 @@ import {
   Template,
   type TemplateConfig,
 } from './Template';
+
+const HybridListTemplate =
+  NitroModules.createHybridObject<NitroHybridListTemplate>('HybridListTemplate');
 
 type BaseRow = {
   title: AutoText;

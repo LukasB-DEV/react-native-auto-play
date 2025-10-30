@@ -1,4 +1,5 @@
-import { HybridGridTemplate } from '..';
+import { NitroModules } from 'react-native-nitro-modules';
+import type { HybridGridTemplate as NitroHybridGridTemplate } from '../specs/HybridGridTemplate.nitro';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type GridButton, type NitroGridButton, NitroGridUtil } from '../utils/NitroGrid';
@@ -8,6 +9,9 @@ import {
   Template,
   type TemplateConfig,
 } from './Template';
+
+const HybridGridTemplate =
+  NitroModules.createHybridObject<NitroHybridGridTemplate>('HybridGridTemplate');
 
 export interface NitroGridTemplateConfig extends TemplateConfig {
   headerActions?: Array<NitroAction>;

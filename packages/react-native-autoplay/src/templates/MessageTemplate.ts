@@ -1,4 +1,6 @@
-import { type AutoImage, HybridMessageTemplate } from '..';
+import { NitroModules } from 'react-native-nitro-modules';
+import type { AutoImage } from '..';
+import type { HybridMessageTemplate as NitroHybridMessageTemplate } from '../specs/HybridMessageTemplate.nitro';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { type NitroImage, NitroImageUtil } from '../utils/NitroImage';
@@ -8,6 +10,9 @@ import {
   Template,
   type TemplateConfig,
 } from './Template';
+
+const HybridMessageTemplate =
+  NitroModules.createHybridObject<NitroHybridMessageTemplate>('HybridMessageTemplate');
 
 export interface NitroMessageTemplateConfig extends TemplateConfig {
   headerActions?: Array<NitroAction>;
