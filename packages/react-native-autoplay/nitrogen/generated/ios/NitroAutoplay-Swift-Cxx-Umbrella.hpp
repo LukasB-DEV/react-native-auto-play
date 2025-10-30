@@ -44,6 +44,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridList
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridMapTemplateSpec; }
 // Forward declaration of `HybridHybridMessageTemplateSpec` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridMessageTemplateSpec; }
+// Forward declaration of `HybridHybridSearchTemplateSpec` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { class HybridHybridSearchTemplateSpec; }
 // Forward declaration of `ImageLane` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct ImageLane; }
 // Forward declaration of `KeepType` to properly resolve imports.
@@ -104,6 +106,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct PreferredImageL
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct RouteChoice; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SafeAreaInsets; }
+// Forward declaration of `SearchTemplateConfig` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct SearchTemplateConfig; }
 // Forward declaration of `TrafficSide` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TrafficSide; }
 // Forward declaration of `TravelEstimates` to properly resolve imports.
@@ -144,6 +148,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ZoomEvent; 
 #include "HybridHybridListTemplateSpec.hpp"
 #include "HybridHybridMapTemplateSpec.hpp"
 #include "HybridHybridMessageTemplateSpec.hpp"
+#include "HybridHybridSearchTemplateSpec.hpp"
 #include "ImageLane.hpp"
 #include "KeepType.hpp"
 #include "LaneGuidance.hpp"
@@ -174,6 +179,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ZoomEvent; 
 #include "PreferredImageLane.hpp"
 #include "RouteChoice.hpp"
 #include "SafeAreaInsets.hpp"
+#include "SearchTemplateConfig.hpp"
 #include "TrafficSide.hpp"
 #include "TravelEstimates.hpp"
 #include "TripConfig.hpp"
@@ -218,6 +224,8 @@ namespace NitroAutoplay { class HybridHybridListTemplateSpec_cxx; }
 namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
 // Forward declaration of `HybridHybridMessageTemplateSpec_cxx` to properly resolve imports.
 namespace NitroAutoplay { class HybridHybridMessageTemplateSpec_cxx; }
+// Forward declaration of `HybridHybridSearchTemplateSpec_cxx` to properly resolve imports.
+namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroAutoplay-Swift.h")

@@ -10,7 +10,7 @@ import { Platform, Text, View } from 'react-native';
 export const Cluster = (props: AutoPlayClusterInitialProps) => {
   const [colorScheme, setColorScheme] = useState(props.colorScheme);
   const [compass, setCompass] = useState(props.compass);
-  const [speedLImit, setSpeedLimit] = useState(props.speedLimit);
+  const [speedLimit, setSpeedLimit] = useState(props.speedLimit);
 
   useEffect(() => {
     const listeners: Array<CleanupCallback | undefined> = [];
@@ -54,7 +54,7 @@ export const Cluster = (props: AutoPlayClusterInitialProps) => {
         <Text style={textStyle}>{JSON.stringify(props.window)}</Text>
         <Text style={textStyle}>Running as {props.id}</Text>
         <Text style={textStyle}>Compass enabled: {JSON.stringify(compass)}</Text>
-        <Text style={textStyle}>SpeedLimit enabled: {JSON.stringify(speedLImit)}</Text>
+        <Text style={textStyle}>SpeedLimit enabled: {JSON.stringify(speedLimit)}</Text>
       </View>
     </SafeAreaView>
   );

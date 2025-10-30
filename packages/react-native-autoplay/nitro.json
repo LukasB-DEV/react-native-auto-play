@@ -32,6 +32,10 @@
       "kotlin": "HybridMessageTemplate",
       "swift": "HybridMessageTemplate"
     },
+    "HybridSearchTemplate": {
+      "kotlin": "HybridSearchTemplate",
+      "swift": "HybridSearchTemplate"
+    },
     "HybridCarPlayDashboard": {
       "swift": "HybridCarPlayDashboard"
     },

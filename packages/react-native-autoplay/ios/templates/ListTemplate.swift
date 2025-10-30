@@ -44,20 +44,20 @@ class ListTemplate: AutoPlayTemplate {
         )
     }
 
-    override func onWillAppear(animted: Bool) {
-        config.onWillAppear?(animted)
+    override func onWillAppear(animated: Bool) {
+        config.onWillAppear?(animated)
     }
 
-    override func onDidAppear(animted: Bool) {
-        config.onDidAppear?(animted)
+    override func onDidAppear(animated: Bool) {
+        config.onDidAppear?(animated)
     }
 
-    override func onWillDisappear(animted: Bool) {
-        config.onWillDisappear?(animted)
+    override func onWillDisappear(animated: Bool) {
+        config.onWillDisappear?(animated)
     }
 
-    override func onDidDisappear(animted: Bool) {
-        config.onDidDisappear?(animted)
+    override func onDidDisappear(animated: Bool) {
+        config.onDidDisappear?(animated)
     }
 
     override func onPopped() {
