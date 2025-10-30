@@ -809,32 +809,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   using std__weak_ptr_HybridHybridListTemplateSpec_ = std::weak_ptr<HybridHybridListTemplateSpec>;
   inline std__weak_ptr_HybridHybridListTemplateSpec_ weakify_std__shared_ptr_HybridHybridListTemplateSpec_(const std::shared_ptr<HybridHybridListTemplateSpec>& strong) noexcept { return strong; }
   
-  // pragma MARK: std::vector<NitroMapButton>
-  /**
-   * Specialized version of `std::vector<NitroMapButton>`.
-   */
-  using std__vector_NitroMapButton_ = std::vector<NitroMapButton>;
-  inline std::vector<NitroMapButton> create_std__vector_NitroMapButton_(size_t size) noexcept {
-    std::vector<NitroMapButton> vector;
-    vector.reserve(size);
-    return vector;
-  }
-  
-  // pragma MARK: std::optional<std::vector<NitroMapButton>>
-  /**
-   * Specialized version of `std::optional<std::vector<NitroMapButton>>`.
-   */
-  using std__optional_std__vector_NitroMapButton__ = std::optional<std::vector<NitroMapButton>>;
-  inline std::optional<std::vector<NitroMapButton>> create_std__optional_std__vector_NitroMapButton__(const std::vector<NitroMapButton>& value) noexcept {
-    return std::optional<std::vector<NitroMapButton>>(value);
-  }
-  inline bool has_value_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline std::vector<NitroMapButton> get_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
-    return *optional;
-  }
-  
   // pragma MARK: std::optional<VisibleTravelEstimate>
   /**
    * Specialized version of `std::optional<VisibleTravelEstimate>`.
@@ -988,6 +962,32 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return optional.has_value();
   }
   inline std::function<void(ColorScheme /* colorScheme */)> get_std__optional_std__function_void_ColorScheme____colorScheme______(const std::optional<std::function<void(ColorScheme /* colorScheme */)>>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::vector<NitroMapButton>
+  /**
+   * Specialized version of `std::vector<NitroMapButton>`.
+   */
+  using std__vector_NitroMapButton_ = std::vector<NitroMapButton>;
+  inline std::vector<NitroMapButton> create_std__vector_NitroMapButton_(size_t size) noexcept {
+    std::vector<NitroMapButton> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<NitroMapButton>>
+  /**
+   * Specialized version of `std::optional<std::vector<NitroMapButton>>`.
+   */
+  using std__optional_std__vector_NitroMapButton__ = std::optional<std::vector<NitroMapButton>>;
+  inline std::optional<std::vector<NitroMapButton>> create_std__optional_std__vector_NitroMapButton__(const std::vector<NitroMapButton>& value) noexcept {
+    return std::optional<std::vector<NitroMapButton>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<NitroMapButton> get_std__optional_std__vector_NitroMapButton__(const std::optional<std::vector<NitroMapButton>>& optional) noexcept {
     return *optional;
   }
   

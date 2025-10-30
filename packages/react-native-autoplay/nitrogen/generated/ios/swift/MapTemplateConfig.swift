@@ -18,7 +18,7 @@ public extension MapTemplateConfig {
   /**
    * Create a new instance of `MapTemplateConfig`.
    */
-  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, mapButtons: [NitroMapButton]?, headerActions: [NitroAction]?, visibleTravelEstimate: VisibleTravelEstimate?, onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?) {
+  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, visibleTravelEstimate: VisibleTravelEstimate?, onDidUpdatePanGestureWithTranslation: ((_ translation: Point, _ velocity: Point?) -> Void)?, onDidUpdateZoomGestureWithCenter: ((_ center: Point, _ scale: Double, _ velocity: Double?) -> Void)?, onClick: ((_ center: Point) -> Void)?, onDoubleClick: ((_ center: Point) -> Void)?, onAppearanceDidChange: ((_ colorScheme: ColorScheme) -> Void)?, mapButtons: [NitroMapButton]?, headerActions: [NitroAction]?) {
     self.init(std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
@@ -60,30 +60,6 @@ public extension MapTemplateConfig {
         return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
           let __closureWrapper = Func_void(__unwrappedValue)
           return bridge.create_Func_void(__closureWrapper.toUnsafe())
-        }())
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_std__vector_NitroMapButton__ in
-      if let __unwrappedValue = mapButtons {
-        return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
-          var __vector = bridge.create_std__vector_NitroMapButton_(__unwrappedValue.count)
-          for __item in __unwrappedValue {
-            __vector.push_back(__item)
-          }
-          return __vector
-        }())
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_std__vector_NitroAction__ in
-      if let __unwrappedValue = headerActions {
-        return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
-          var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
-          for __item in __unwrappedValue {
-            __vector.push_back(__item)
-          }
-          return __vector
         }())
       } else {
         return .init()
@@ -135,6 +111,30 @@ public extension MapTemplateConfig {
         return bridge.create_std__optional_std__function_void_ColorScheme____colorScheme______({ () -> bridge.Func_void_ColorScheme in
           let __closureWrapper = Func_void_ColorScheme(__unwrappedValue)
           return bridge.create_Func_void_ColorScheme(__closureWrapper.toUnsafe())
+        }())
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_std__vector_NitroMapButton__ in
+      if let __unwrappedValue = mapButtons {
+        return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
+          var __vector = bridge.create_std__vector_NitroMapButton_(__unwrappedValue.count)
+          for __item in __unwrappedValue {
+            __vector.push_back(__item)
+          }
+          return __vector
+        }())
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_std__vector_NitroAction__ in
+      if let __unwrappedValue = headerActions {
+        return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
+          var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
+          for __item in __unwrappedValue {
+            __vector.push_back(__item)
+          }
+          return __vector
         }())
       } else {
         return .init()
@@ -337,66 +337,6 @@ public extension MapTemplateConfig {
     }
   }
   
-  var mapButtons: [NitroMapButton]? {
-    @inline(__always)
-    get {
-      return { () -> [NitroMapButton]? in
-        if bridge.has_value_std__optional_std__vector_NitroMapButton__(self.__mapButtons) {
-          let __unwrapped = bridge.get_std__optional_std__vector_NitroMapButton__(self.__mapButtons)
-          return __unwrapped.map({ __item in __item })
-        } else {
-          return nil
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__mapButtons = { () -> bridge.std__optional_std__vector_NitroMapButton__ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
-            var __vector = bridge.create_std__vector_NitroMapButton_(__unwrappedValue.count)
-            for __item in __unwrappedValue {
-              __vector.push_back(__item)
-            }
-            return __vector
-          }())
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var headerActions: [NitroAction]? {
-    @inline(__always)
-    get {
-      return { () -> [NitroAction]? in
-        if bridge.has_value_std__optional_std__vector_NitroAction__(self.__headerActions) {
-          let __unwrapped = bridge.get_std__optional_std__vector_NitroAction__(self.__headerActions)
-          return __unwrapped.map({ __item in __item })
-        } else {
-          return nil
-        }
-      }()
-    }
-    @inline(__always)
-    set {
-      self.__headerActions = { () -> bridge.std__optional_std__vector_NitroAction__ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
-            var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
-            for __item in __unwrappedValue {
-              __vector.push_back(__item)
-            }
-            return __vector
-          }())
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
   var visibleTravelEstimate: VisibleTravelEstimate? {
     @inline(__always)
     get {
@@ -578,6 +518,66 @@ public extension MapTemplateConfig {
           return bridge.create_std__optional_std__function_void_ColorScheme____colorScheme______({ () -> bridge.Func_void_ColorScheme in
             let __closureWrapper = Func_void_ColorScheme(__unwrappedValue)
             return bridge.create_Func_void_ColorScheme(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
+  var mapButtons: [NitroMapButton]? {
+    @inline(__always)
+    get {
+      return { () -> [NitroMapButton]? in
+        if bridge.has_value_std__optional_std__vector_NitroMapButton__(self.__mapButtons) {
+          let __unwrapped = bridge.get_std__optional_std__vector_NitroMapButton__(self.__mapButtons)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__mapButtons = { () -> bridge.std__optional_std__vector_NitroMapButton__ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
+            var __vector = bridge.create_std__vector_NitroMapButton_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
+  var headerActions: [NitroAction]? {
+    @inline(__always)
+    get {
+      return { () -> [NitroAction]? in
+        if bridge.has_value_std__optional_std__vector_NitroAction__(self.__headerActions) {
+          let __unwrapped = bridge.get_std__optional_std__vector_NitroAction__(self.__headerActions)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__headerActions = { () -> bridge.std__optional_std__vector_NitroAction__ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
+            var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
           }())
         } else {
           return .init()

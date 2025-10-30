@@ -37,12 +37,6 @@ data class MapTemplateConfig(
   val onPopped: (() -> Unit)?,
   @DoNotStrip
   @Keep
-  val mapButtons: Array<NitroMapButton>?,
-  @DoNotStrip
-  @Keep
-  val headerActions: Array<NitroAction>?,
-  @DoNotStrip
-  @Keep
   val visibleTravelEstimate: VisibleTravelEstimate?,
   @DoNotStrip
   @Keep
@@ -58,7 +52,13 @@ data class MapTemplateConfig(
   val onDoubleClick: ((center: Point) -> Unit)?,
   @DoNotStrip
   @Keep
-  val onAppearanceDidChange: ((colorScheme: ColorScheme) -> Unit)?
+  val onAppearanceDidChange: ((colorScheme: ColorScheme) -> Unit)?,
+  @DoNotStrip
+  @Keep
+  val mapButtons: Array<NitroMapButton>?,
+  @DoNotStrip
+  @Keep
+  val headerActions: Array<NitroAction>?
 ) {
   private companion object {
     /**
@@ -68,8 +68,8 @@ data class MapTemplateConfig(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, mapButtons: Array<NitroMapButton>?, headerActions: Array<NitroAction>?, visibleTravelEstimate: VisibleTravelEstimate?, onDidUpdatePanGestureWithTranslation: Func_void_Point_std__optional_Point_?, onDidUpdateZoomGestureWithCenter: Func_void_Point_double_std__optional_double_?, onClick: Func_void_Point?, onDoubleClick: Func_void_Point?, onAppearanceDidChange: Func_void_ColorScheme?): MapTemplateConfig {
-      return MapTemplateConfig(id, onWillAppear?.let { it }, onWillDisappear?.let { it }, onDidAppear?.let { it }, onDidDisappear?.let { it }, onPopped?.let { it }, mapButtons, headerActions, visibleTravelEstimate, onDidUpdatePanGestureWithTranslation?.let { it }, onDidUpdateZoomGestureWithCenter?.let { it }, onClick?.let { it }, onDoubleClick?.let { it }, onAppearanceDidChange?.let { it })
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, visibleTravelEstimate: VisibleTravelEstimate?, onDidUpdatePanGestureWithTranslation: Func_void_Point_std__optional_Point_?, onDidUpdateZoomGestureWithCenter: Func_void_Point_double_std__optional_double_?, onClick: Func_void_Point?, onDoubleClick: Func_void_Point?, onAppearanceDidChange: Func_void_ColorScheme?, mapButtons: Array<NitroMapButton>?, headerActions: Array<NitroAction>?): MapTemplateConfig {
+      return MapTemplateConfig(id, onWillAppear?.let { it }, onWillDisappear?.let { it }, onDidAppear?.let { it }, onDidDisappear?.let { it }, onPopped?.let { it }, visibleTravelEstimate, onDidUpdatePanGestureWithTranslation?.let { it }, onDidUpdateZoomGestureWithCenter?.let { it }, onClick?.let { it }, onDoubleClick?.let { it }, onAppearanceDidChange?.let { it }, mapButtons, headerActions)
     }
   }
 }

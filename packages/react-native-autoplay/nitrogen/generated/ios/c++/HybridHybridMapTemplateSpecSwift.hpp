@@ -14,6 +14,12 @@ namespace NitroAutoplay { class HybridHybridMapTemplateSpec_cxx; }
 
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MapTemplateConfig; }
+// Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
+// Forward declaration of `Point` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
+// Forward declaration of `ColorScheme` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 // Forward declaration of `NitroMapButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroMapButton; }
 // Forward declaration of `NitroMapButtonType` to properly resolve imports.
@@ -28,12 +34,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
-// Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class VisibleTravelEstimate; }
-// Forward declaration of `Point` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Point; }
-// Forward declaration of `ColorScheme` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ColorScheme; }
 // Forward declaration of `NitroNavigationAlert` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroNavigationAlert; }
 // Forward declaration of `AutoText` to properly resolve imports.
@@ -93,6 +93,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include <string>
 #include <optional>
 #include <functional>
+#include "VisibleTravelEstimate.hpp"
+#include "Point.hpp"
+#include "ColorScheme.hpp"
 #include "NitroMapButton.hpp"
 #include <vector>
 #include "NitroMapButtonType.hpp"
@@ -101,9 +104,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "AlertActionStyle.hpp"
-#include "VisibleTravelEstimate.hpp"
-#include "Point.hpp"
-#include "ColorScheme.hpp"
 #include "NitroNavigationAlert.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
