@@ -16,7 +16,7 @@ class MessageTemplate(context: CarContext, config: MessageTemplateConfig) :
         get() = config.id
 
     override fun parse(): Template {
-        var template = MessageTemplate.Builder(Parser.parseText(config.message)).apply {
+        val template = MessageTemplate.Builder(Parser.parseText(config.message)).apply {
             config.title?.let { title ->
                 setHeader(Parser.parseHeader(context, title, config.headerActions))
             }
@@ -35,13 +35,13 @@ class MessageTemplate(context: CarContext, config: MessageTemplateConfig) :
         return this.config.mapConfig?.let {
             MapWithContentTemplate.Builder().apply {
                 setContentTemplate(template)
-                config.mapConfig?.mapButtons?.let { mapButtons ->
+                it.mapButtons?.let { mapButtons ->
                     setMapController(
                         MapController.Builder()
                             .setMapActionStrip(Parser.parseMapActions(context, mapButtons)).build()
                     )
                 }
-                config.mapConfig?.headerActions?.let { headerActions ->
+                it.headerActions?.let { headerActions ->
                     setActionStrip(Parser.parseMapHeaderActions(context, headerActions))
                 }
             }.build()
