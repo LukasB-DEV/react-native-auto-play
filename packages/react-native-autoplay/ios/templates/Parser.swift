@@ -203,17 +203,6 @@ class Parser {
         guard let section else { return [] }
 
         return section.items.enumerated().map { (itemIndex, item) in
-            let isSelected =
-                section.type == .radio
-                && Int(section.selectedIndex ?? -1) == itemIndex
-
-            let toggleImage = item.checked.map { checked in
-                UIImage.makeToggleImage(
-                    enabled: checked,
-                    maximumImageSize: CPListItem.maximumImageSize
-                )
-            }
-
             let listItem = CPListItem(
                 text: parseText(text: item.title),
                 detailText: parseText(text: item.detailedText),
