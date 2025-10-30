@@ -12,7 +12,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
-          AZURE_API_ENDPOINT: https://riv-openai-mobile-engineering-dev-swedencentral.openai.azure.com/
+          AZURE_API_ENDPOINT: https://riv-openai-mobile-engineering-dev-swedencentral.openai.azure.com
           AZURE_OPENAI_DEPLOYMENT_NAME: mobile-eng-gpt-o3-mini-dev-sdc
           AZURE_OPENAI_API_VERSION: 2024-12-01-preview
           # Optional 
