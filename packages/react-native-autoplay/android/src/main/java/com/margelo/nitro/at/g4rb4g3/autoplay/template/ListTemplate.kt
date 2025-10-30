@@ -7,6 +7,7 @@ import androidx.car.app.model.Template
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroSection
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroSectionType
 
 class ListTemplate(context: CarContext, config: ListTemplateConfig) :
     AndroidAutoTemplate<ListTemplateConfig>(context, config) {
@@ -26,7 +27,7 @@ class ListTemplate(context: CarContext, config: ListTemplateConfig) :
                     val section = sections[0]
                     setSingleList(
                         Parser.parseRows(
-                            context, section.items, 0, section.selectedIndex, config.id
+                            context, section.items, 0, config.id, section.type
                         )
                     )
                 } else {
@@ -34,7 +35,7 @@ class ListTemplate(context: CarContext, config: ListTemplateConfig) :
                         addSectionedList(
                             SectionedItemList.create(
                                 Parser.parseRows(
-                                    context, section.items, index, section.selectedIndex, config.id
+                                    context, section.items, index, config.id, section.type
                                 ), section.title!!
                             )
                         )

@@ -1,6 +1,6 @@
 import type { AutoImage } from './Image';
 
-export type MapButton<T> = {
+export type MapButton<T = unknown> = {
   type: 'custom';
   image: AutoImage;
   onPress: (template: T) => void;
@@ -10,26 +10,26 @@ export type MapButton<T> = {
  * this is a special button only visible on devices that have no touch support
  * @namespace Android
  */
-export type MapPanButton<T> = {
+export type MapPanButton<T = unknown> = {
   type: 'pan';
   onPress: (template: T) => void;
 };
 
-export type TextButton<T> = {
+export type TextButton<T = unknown> = {
   type: 'text';
   title: string;
   enabled?: boolean;
   onPress: (template: T) => void;
 };
 
-export type ImageButton<T> = {
+export type ImageButton<T = unknown> = {
   type: 'image';
   image: AutoImage;
   enabled?: boolean;
   onPress: (template: T) => void;
 };
 
-export type TextAndImageButton<T> = {
+export type TextAndImageButton<T = unknown> = {
   type: 'textImage';
   image: AutoImage;
   title: string;
@@ -40,9 +40,9 @@ export type TextAndImageButton<T> = {
 /**
  * @namespace iOS
  */
-export type ActionButtonIos<T> = TextButton<T> | ImageButton<T>;
+export type ActionButtonIos<T = unknown> = TextButton<T> | ImageButton<T>;
 
-export type BackButton<T> = {
+export type BackButton<T = unknown> = {
   type: 'back';
   onPress: (template: T) => void;
 };
@@ -72,7 +72,7 @@ export type Flags = Flag | (number & { __brand: 'Flags' });
 /**
  * @namespace Android
  */
-export type ActionButtonAndroid<T> =
+export type ActionButtonAndroid<T = unknown> =
   | ((TextButton<T> | ImageButton<T> | TextAndImageButton<T>) & {
       /**
        * flags can be bitwise combined

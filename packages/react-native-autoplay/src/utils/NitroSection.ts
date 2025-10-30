@@ -12,13 +12,23 @@ export type NitroRow = {
   image?: NitroImage;
   checked?: boolean;
   onPress: (checked?: boolean) => void;
+  selected?: boolean;
 };
 
 export type NitroSection = {
   title?: string;
   items: Array<NitroRow>;
   type: NitroSectionType;
-  selectedIndex?: number;
+};
+
+const validateRadioItems = (type: NitroSectionType, items: Array<NitroRow>) => {
+  if (
+    __DEV__ &&
+    type === 'radio' &&
+    (items.filter((item) => item.selected).length > 1 || items.every((item) => !item.selected))
+  ) {
+    throw new Error('radio lists must have one selected item');
+  }
 };
 
 const convert = <T>(template: T, sections?: Section<T>): Array<NitroSection> | undefined => {
@@ -31,20 +41,24 @@ const convert = <T>(template: T, sections?: Section<T>): Array<NitroSection> | u
       const { title, type } = section;
       const items = section.items.map<NitroRow>((item) => convertRow(template, item));
 
+      validateRadioItems(type, items);
+
       return {
         items,
         type,
         title,
-        selectedIndex: type === 'radio' ? section.selectedIndex : undefined,
       };
     });
   }
 
+  const items = sections.items.map((item) => convertRow(template, item));
+
+  validateRadioItems(sections.type, items);
+
   return [
     {
-      items: sections.items.map((item) => convertRow(template, item)),
+      items,
       type: sections.type,
-      selectedIndex: sections.type === 'radio' ? sections.selectedIndex : undefined,
     },
   ];
 };
@@ -53,6 +67,7 @@ const convertRow = <T>(template: T, item: DefaultRow<T> | RadioRow<T> | ToggleRo
   const { title, type, enabled = true, image, onPress } = item;
 
   const detailedText = type === 'default' ? item.detailedText : undefined;
+  const selected = type === 'radio' ? (item.selected ?? false) : undefined;
 
   return {
     browsable: type === 'default' ? item.browsable : undefined,
@@ -63,6 +78,7 @@ const convertRow = <T>(template: T, item: DefaultRow<T> | RadioRow<T> | ToggleRo
     checked: type === 'toggle' ? item.checked : undefined,
     onPress: (checked) =>
       type === 'toggle' ? onPress(template, checked ?? false) : onPress(template),
+    selected,
   };
 };
 

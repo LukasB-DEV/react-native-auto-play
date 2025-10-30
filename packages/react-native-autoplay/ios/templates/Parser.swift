@@ -203,17 +203,6 @@ class Parser {
         guard let section else { return [] }
 
         return section.items.enumerated().map { (itemIndex, item) in
-            let isSelected =
-                section.type == .radio
-                && Int(section.selectedIndex ?? -1) == itemIndex
-
-            let toggleImage = item.checked.map { checked in
-                UIImage.makeToggleImage(
-                    enabled: checked,
-                    maximumImageSize: CPListItem.maximumImageSize
-                )
-            }
-
             let listItem = CPListItem(
                 text: parseText(text: item.title),
                 detailText: parseText(text: item.detailedText),
@@ -240,10 +229,13 @@ class Parser {
         guard let sections else { return [] }
 
         return sections.enumerated().map { (sectionIndex, section) in
+            let selectedIndex = section.items.firstIndex { item in
+                item.selected == true
+            }
             let items = section.items.enumerated().map { (itemIndex, item) in
                 let isSelected =
                     section.type == .radio
-                    && Int(section.selectedIndex ?? -1) == itemIndex
+                    && Int(selectedIndex ?? -1) == itemIndex
 
                 let toggleImage = item.checked.map { checked in
                     UIImage.makeToggleImage(
@@ -275,7 +267,12 @@ class Parser {
                     }
 
                     if updatedSection.type == .radio {
-                        updatedSection.selectedIndex = Double(itemIndex)
+                        updatedSection.items = updatedSection.items.enumerated()
+                            .map { (index, item) in
+                                var updatedItem = item
+                                updatedItem.selected = index == itemIndex
+                                return updatedItem
+                            }
                     }
 
                     updateSection(updatedSection, sectionIndex)

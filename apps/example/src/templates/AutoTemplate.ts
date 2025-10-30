@@ -26,14 +26,12 @@ import { AutoListTemplate } from './AutoListTemplate';
 import { AutoMessageTemplate } from './AutoMessageTemplate';
 import { AutoSearchTemplate } from './AutoSearchTemplate';
 
-// biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
-const backButton: BackButton<any> = {
+const backButton: BackButton = {
   type: 'back',
   onPress: () => HybridAutoPlay.popTemplate(),
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
-const headerActions: HeaderActions<any> = {
+const headerActions: HeaderActions<unknown> = {
   android: {
     startHeaderAction: backButton,
     endHeaderActions: [

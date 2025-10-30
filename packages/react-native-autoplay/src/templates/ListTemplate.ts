@@ -35,6 +35,7 @@ export type ToggleRow<T> = BaseRow & {
 export type RadioRow<T> = BaseRow & {
   type: 'radio';
   onPress: (template: T) => void;
+  selected?: boolean;
 };
 
 export type MultiSection<T> =
@@ -47,7 +48,6 @@ export type MultiSection<T> =
       type: 'radio';
       title: string;
       items: Array<RadioRow<T>>;
-      selectedIndex: number;
     };
 
 export type SingleSection<T> = {
@@ -70,6 +70,9 @@ export type ListTemplateConfig = Omit<NitroListTemplateConfig, 'headerActions' |
 
   /**
    * a container that groups your list items into sections.
+   * must have a single selected item in case it is a radio list.
+   * in case it does not the first item will be selected.
+   * in case it has multiple only the first selected one will be shown as selected.
    */
   sections?: Section<ListTemplate>;
 };
