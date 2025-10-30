@@ -24,6 +24,7 @@ import { dispatch } from '../state/store';
 import { AutoGridTemplate } from './AutoGridTemplate';
 import { AutoListTemplate } from './AutoListTemplate';
 import { AutoMessageTemplate } from './AutoMessageTemplate';
+import { AutoSearchTemplate } from './AutoSearchTemplate';
 
 // biome-ignore lint/suspicious/noExplicitAny: this is used across different typed templates
 const backButton: BackButton<any> = {
@@ -360,6 +361,80 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
     },
     onPress: () => {
       AutoMessageTemplate.getTemplate({ text: 'message' }).push();
+    },
+  },
+  {
+    type: 'custom',
+    image: {
+      name: 'search',
+      darkColor: 'rgba(255, 0, 0, 1)',
+      lightColor: 'rgba(0, 255, 0, 1)',
+      backgroundColor: 'rgba(66, 66, 66, 0.5)',
+    },
+    onPress: () => {
+      let timeout: number;
+      const template = AutoSearchTemplate.getTemplate({
+        searchHint: 'search hint',
+        onSearchTextChanged: (searchText) => {
+          // simple debouncing to not send too many requests to backend
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            template.updateSearchResults(
+              searchText
+                ? {
+                    items: [
+                      {
+                        title: { text: searchText },
+                        detailedText: { text: 'onSearchTextChanged' },
+                        type: 'default',
+                        onPress: () => {
+                          console.log('*** onPress', searchText);
+                          HybridAutoPlay.popToRootTemplate(true).catch((error) => {
+                            console.error('*** error', error);
+                          });
+                        },
+                        image: {
+                          name: 'ev_charger',
+                          lightColor: 'red',
+                          darkColor: 'orange',
+                        },
+                      },
+                    ],
+                    type: 'default',
+                  }
+                : undefined
+            );
+          }, 1000);
+        },
+        onSearchTextSubmitted: (searchText) => {
+          clearTimeout(timeout);
+          template.updateSearchResults(
+            searchText
+              ? {
+                  items: [
+                    {
+                      title: { text: searchText },
+                      detailedText: { text: 'onSearchTextSubmitted' },
+                      type: 'default',
+                      onPress: () => {
+                        console.log('*** onPress', searchText);
+                        HybridAutoPlay.popToRootTemplate(true);
+                      },
+                      image: {
+                        name: 'ev_charger',
+                        lightColor: 'blue',
+                        darkColor: 'green',
+                      },
+                    },
+                  ],
+                  type: 'default',
+                }
+              : undefined
+          );
+        },
+      });
+
+      template.push();
     },
   },
 ];

@@ -9,21 +9,21 @@ import NitroModules
 
 
 /**
- * Wraps a Swift `(_ clusterId: String) -> Void` as a class.
+ * Wraps a Swift `(_ searchText: String) -> Void` as a class.
  * This class can be used from C++, e.g. to wrap the Swift closure as a `std::function`.
  */
 public final class Func_void_std__string {
   public typealias bridge = margelo.nitro.at.g4rb4g3.autoplay.hybrid.bridge.swift
 
-  private let closure: (_ clusterId: String) -> Void
+  private let closure: (_ searchText: String) -> Void
 
-  public init(_ closure: @escaping (_ clusterId: String) -> Void) {
+  public init(_ closure: @escaping (_ searchText: String) -> Void) {
     self.closure = closure
   }
 
   @inline(__always)
-  public func call(clusterId: std.string) -> Void {
-    self.closure(String(clusterId))
+  public func call(searchText: std.string) -> Void {
+    self.closure(String(searchText))
   }
 
   /**

@@ -18,7 +18,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   using namespace facebook;
 
   /**
-   * Represents the Java/Kotlin callback `(clusterId: String) -> Unit`.
+   * Represents the Java/Kotlin callback `(searchText: String) -> Unit`.
    * This can be passed around between C++ and Java/Kotlin.
    */
   struct JFunc_void_std__string: public jni::JavaClass<JFunc_void_std__string> {
@@ -29,9 +29,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     /**
      * Invokes the function this `JFunc_void_std__string` instance holds through JNI.
      */
-    void invoke(const std::string& clusterId) const {
-      static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* clusterId */)>("invoke");
-      method(self(), jni::make_jstring(clusterId));
+    void invoke(const std::string& searchText) const {
+      static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* searchText */)>("invoke");
+      method(self(), jni::make_jstring(searchText));
     }
   };
 
@@ -40,7 +40,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
    */
   struct JFunc_void_std__string_cxx final: public jni::HybridClass<JFunc_void_std__string_cxx, JFunc_void_std__string> {
   public:
-    static jni::local_ref<JFunc_void_std__string::javaobject> fromCpp(const std::function<void(const std::string& /* clusterId */)>& func) {
+    static jni::local_ref<JFunc_void_std__string::javaobject> fromCpp(const std::function<void(const std::string& /* searchText */)>& func) {
       return JFunc_void_std__string_cxx::newObjectCxxArgs(func);
     }
 
@@ -48,13 +48,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     /**
      * Invokes the C++ `std::function<...>` this `JFunc_void_std__string_cxx` instance holds.
      */
-    void invoke_cxx(jni::alias_ref<jni::JString> clusterId) {
-      _func(clusterId->toStdString());
+    void invoke_cxx(jni::alias_ref<jni::JString> searchText) {
+      _func(searchText->toStdString());
     }
 
   public:
     [[nodiscard]]
-    inline const std::function<void(const std::string& /* clusterId */)>& getFunction() const {
+    inline const std::function<void(const std::string& /* searchText */)>& getFunction() const {
       return _func;
     }
 
@@ -65,11 +65,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     }
 
   private:
-    explicit JFunc_void_std__string_cxx(const std::function<void(const std::string& /* clusterId */)>& func): _func(func) { }
+    explicit JFunc_void_std__string_cxx(const std::function<void(const std::string& /* searchText */)>& func): _func(func) { }
 
   private:
     friend HybridBase;
-    std::function<void(const std::string& /* clusterId */)> _func;
+    std::function<void(const std::string& /* searchText */)> _func;
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

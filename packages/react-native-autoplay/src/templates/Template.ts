@@ -47,6 +47,8 @@ export interface TemplateConfig {
    * Fired when the template was removed from the stack
    * on all other states the template is still on the stack and might appear again
    * this callback lets you know the template is gone forever
+   * @namespace Android - works fine on all templates
+   * @namespace iOS - does not work on all templates like SearchTemplate
    */
   onPopped?(): void;
 }
