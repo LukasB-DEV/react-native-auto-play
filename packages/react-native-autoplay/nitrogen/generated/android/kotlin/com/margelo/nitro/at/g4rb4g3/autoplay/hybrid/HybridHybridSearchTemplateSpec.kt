@@ -46,7 +46,7 @@ abstract class HybridHybridSearchTemplateSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun updateSearchResults(templateId: String, results: NitroSection?): Unit
+  abstract fun updateSearchResults(templateId: String, results: NitroSection): Unit
 
   private external fun initHybrid(): HybridData
 

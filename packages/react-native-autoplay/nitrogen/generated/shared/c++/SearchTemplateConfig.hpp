@@ -53,15 +53,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     std::optional<std::function<void()>> onPopped     SWIFT_PRIVATE;
     std::optional<std::vector<NitroAction>> headerActions     SWIFT_PRIVATE;
     AutoText title     SWIFT_PRIVATE;
-    std::optional<NitroSection> results     SWIFT_PRIVATE;
-    std::optional<std::string> initialSearchText     SWIFT_PRIVATE;
+    NitroSection results     SWIFT_PRIVATE;
     std::optional<std::string> searchHint     SWIFT_PRIVATE;
-    std::optional<std::function<void(const std::string& /* searchText */)>> onSearchTextChanged     SWIFT_PRIVATE;
+    std::function<void(const std::string& /* searchText */)> onSearchTextChanged     SWIFT_PRIVATE;
     std::optional<std::function<void(const std::string& /* searchText */)>> onSearchTextSubmitted     SWIFT_PRIVATE;
 
   public:
     SearchTemplateConfig() = default;
-    explicit SearchTemplateConfig(std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void()>> onPopped, std::optional<std::vector<NitroAction>> headerActions, AutoText title, std::optional<NitroSection> results, std::optional<std::string> initialSearchText, std::optional<std::string> searchHint, std::optional<std::function<void(const std::string& /* searchText */)>> onSearchTextChanged, std::optional<std::function<void(const std::string& /* searchText */)>> onSearchTextSubmitted): id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPopped(onPopped), headerActions(headerActions), title(title), results(results), initialSearchText(initialSearchText), searchHint(searchHint), onSearchTextChanged(onSearchTextChanged), onSearchTextSubmitted(onSearchTextSubmitted) {}
+    explicit SearchTemplateConfig(std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void()>> onPopped, std::optional<std::vector<NitroAction>> headerActions, AutoText title, NitroSection results, std::optional<std::string> searchHint, std::function<void(const std::string& /* searchText */)> onSearchTextChanged, std::optional<std::function<void(const std::string& /* searchText */)>> onSearchTextSubmitted): id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPopped(onPopped), headerActions(headerActions), title(title), results(results), searchHint(searchHint), onSearchTextChanged(onSearchTextChanged), onSearchTextSubmitted(onSearchTextSubmitted) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -82,10 +81,9 @@ namespace margelo::nitro {
         JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onPopped")),
         JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroAction>>>::fromJSI(runtime, obj.getProperty(runtime, "headerActions")),
         JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::fromJSI(runtime, obj.getProperty(runtime, "title")),
-        JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroSection>>::fromJSI(runtime, obj.getProperty(runtime, "results")),
-        JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "initialSearchText")),
+        JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroSection>::fromJSI(runtime, obj.getProperty(runtime, "results")),
         JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "searchHint")),
-        JSIConverter<std::optional<std::function<void(const std::string&)>>>::fromJSI(runtime, obj.getProperty(runtime, "onSearchTextChanged")),
+        JSIConverter<std::function<void(const std::string&)>>::fromJSI(runtime, obj.getProperty(runtime, "onSearchTextChanged")),
         JSIConverter<std::optional<std::function<void(const std::string&)>>>::fromJSI(runtime, obj.getProperty(runtime, "onSearchTextSubmitted"))
       );
     }
@@ -99,10 +97,9 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "onPopped", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onPopped));
       obj.setProperty(runtime, "headerActions", JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroAction>>>::toJSI(runtime, arg.headerActions));
       obj.setProperty(runtime, "title", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::toJSI(runtime, arg.title));
-      obj.setProperty(runtime, "results", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroSection>>::toJSI(runtime, arg.results));
-      obj.setProperty(runtime, "initialSearchText", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.initialSearchText));
+      obj.setProperty(runtime, "results", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroSection>::toJSI(runtime, arg.results));
       obj.setProperty(runtime, "searchHint", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.searchHint));
-      obj.setProperty(runtime, "onSearchTextChanged", JSIConverter<std::optional<std::function<void(const std::string&)>>>::toJSI(runtime, arg.onSearchTextChanged));
+      obj.setProperty(runtime, "onSearchTextChanged", JSIConverter<std::function<void(const std::string&)>>::toJSI(runtime, arg.onSearchTextChanged));
       obj.setProperty(runtime, "onSearchTextSubmitted", JSIConverter<std::optional<std::function<void(const std::string&)>>>::toJSI(runtime, arg.onSearchTextSubmitted));
       return obj;
     }
@@ -122,10 +119,9 @@ namespace margelo::nitro {
       if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onPopped"))) return false;
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroAction>>>::canConvert(runtime, obj.getProperty(runtime, "headerActions"))) return false;
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
-      if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroSection>>::canConvert(runtime, obj.getProperty(runtime, "results"))) return false;
-      if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "initialSearchText"))) return false;
+      if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroSection>::canConvert(runtime, obj.getProperty(runtime, "results"))) return false;
       if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "searchHint"))) return false;
-      if (!JSIConverter<std::optional<std::function<void(const std::string&)>>>::canConvert(runtime, obj.getProperty(runtime, "onSearchTextChanged"))) return false;
+      if (!JSIConverter<std::function<void(const std::string&)>>::canConvert(runtime, obj.getProperty(runtime, "onSearchTextChanged"))) return false;
       if (!JSIConverter<std::optional<std::function<void(const std::string&)>>>::canConvert(runtime, obj.getProperty(runtime, "onSearchTextSubmitted"))) return false;
       return true;
     }

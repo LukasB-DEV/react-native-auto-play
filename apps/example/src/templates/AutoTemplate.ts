@@ -339,7 +339,6 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
     onPress: () => {
       let timeout: number;
       const template = AutoSearchTemplate.getTemplate({
-        initialSearchText: 'initial search text',
         searchHint: 'search hint',
         onSearchTextChanged: (searchText) => {
           // simple debouncing to not send too many requests to backend

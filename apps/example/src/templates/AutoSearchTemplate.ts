@@ -1,21 +1,18 @@
-import { SearchTemplate } from '@g4rb4g3/react-native-autoplay';
+import { HybridAutoPlay, SearchTemplate } from '@g4rb4g3/react-native-autoplay';
 import { AutoTemplate } from './AutoTemplate';
 
 const getTemplate = ({
-  initialSearchText,
   searchHint,
   onSearchTextChanged,
   onSearchTextSubmitted,
 }: {
-  initialSearchText?: string;
   searchHint?: string;
-  onSearchTextChanged?: (searchText: string) => void;
+  onSearchTextChanged: (searchText: string) => void;
   onSearchTextSubmitted?: (searchText: string) => void;
 }): SearchTemplate => {
   return new SearchTemplate({
     title: { text: 'Search' },
     headerActions: AutoTemplate.headerActions,
-    initialSearchText,
     searchHint,
     onSearchTextChanged,
     onSearchTextSubmitted,
@@ -24,6 +21,19 @@ const getTemplate = ({
     onWillDisappear: () => console.log('SearchTemplate onWillDisappear'),
     onDidDisappear: () => console.log('SearchTemplate onDidDisappear'),
     onPopped: () => console.log('SearchTemplate onPopped'),
+    results: {
+      type: 'default',
+      items: [
+        {
+          title: { text: 'initial #1' },
+          type: 'default',
+          onPress: () => {
+            console.log('*** initial #1');
+            HybridAutoPlay.popTemplate();
+          },
+        },
+      ],
+    },
   });
 };
 

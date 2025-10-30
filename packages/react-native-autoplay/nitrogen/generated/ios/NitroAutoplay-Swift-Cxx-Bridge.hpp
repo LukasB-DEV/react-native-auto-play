@@ -1159,21 +1159,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   using std__weak_ptr_HybridHybridMessageTemplateSpec_ = std::weak_ptr<HybridHybridMessageTemplateSpec>;
   inline std__weak_ptr_HybridHybridMessageTemplateSpec_ weakify_std__shared_ptr_HybridHybridMessageTemplateSpec_(const std::shared_ptr<HybridHybridMessageTemplateSpec>& strong) noexcept { return strong; }
   
-  // pragma MARK: std::optional<NitroSection>
-  /**
-   * Specialized version of `std::optional<NitroSection>`.
-   */
-  using std__optional_NitroSection_ = std::optional<NitroSection>;
-  inline std::optional<NitroSection> create_std__optional_NitroSection_(const NitroSection& value) noexcept {
-    return std::optional<NitroSection>(value);
-  }
-  inline bool has_value_std__optional_NitroSection_(const std::optional<NitroSection>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline NitroSection get_std__optional_NitroSection_(const std::optional<NitroSection>& optional) noexcept {
-    return *optional;
-  }
-  
   // pragma MARK: std::function<void(const std::string& /* searchText */)>
   /**
    * Specialized version of `std::function<void(const std::string&)>`.

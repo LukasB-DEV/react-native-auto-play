@@ -94,9 +94,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JSearchTemplateConfig> /* config */)>("createSearchTemplate");
     method(_javaPart, JSearchTemplateConfig::fromCpp(config));
   }
-  void JHybridHybridSearchTemplateSpec::updateSearchResults(const std::string& templateId, const std::optional<NitroSection>& results) {
+  void JHybridHybridSearchTemplateSpec::updateSearchResults(const std::string& templateId, const NitroSection& results) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroSection> /* results */)>("updateSearchResults");
-    method(_javaPart, jni::make_jstring(templateId), results.has_value() ? JNitroSection::fromCpp(results.value()) : nullptr);
+    method(_javaPart, jni::make_jstring(templateId), JNitroSection::fromCpp(results));
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

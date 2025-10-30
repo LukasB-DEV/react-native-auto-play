@@ -17,12 +17,7 @@ export type SearchSection<T> = {
 export interface NitroSearchTemplateConfig extends TemplateConfig {
   headerActions?: Array<NitroAction>;
   title: AutoText;
-  results?: NitroSection;
-  /**
-   * Text that is put into the searchbar as initial value
-   * @namespace Android
-   */
-  initialSearchText?: string;
+  results: NitroSection;
   /**
    * Placeholder value in the search bar until text is entered
    * @namespace Android
@@ -32,7 +27,7 @@ export interface NitroSearchTemplateConfig extends TemplateConfig {
    * Called when the user types on the keyboard. Should be debounced to avoid excessive calls to backend.
    * @param searchText the text that the user has entered into the search bar
    */
-  onSearchTextChanged?: (searchText: string) => void;
+  onSearchTextChanged: (searchText: string) => void;
   /**
    * Called when the user presses enter or search button to confirm search explicitly.
    * Can be used to trigger a backend call immediately, but might never be called if the user selects a search result item from autocomplete results instead.
@@ -41,7 +36,10 @@ export interface NitroSearchTemplateConfig extends TemplateConfig {
   onSearchTextSubmitted?: (searchText: string) => void;
 }
 
-export type SearchTemplateConfig = Omit<NitroSearchTemplateConfig, 'headerActions' | 'results'> & {
+export type SearchTemplateConfig = Omit<
+  NitroSearchTemplateConfig,
+  'headerActions' | 'results' | 'onPopped'
+> & {
   /**
    * action buttons, usually at the the top right on Android and a top bar on iOS
    * @namespace Android
@@ -51,6 +49,11 @@ export type SearchTemplateConfig = Omit<NitroSearchTemplateConfig, 'headerAction
    * List of search results to show in the search results screen
    */
   results?: SearchSection<SearchTemplate>;
+
+  /**
+   * @namespace Android
+   */
+  onPopped?: TemplateConfig['onPopped'];
 };
 
 export class SearchTemplate extends Template<SearchTemplateConfig, HeaderActions<SearchTemplate>> {
@@ -65,7 +68,10 @@ export class SearchTemplate extends Template<SearchTemplateConfig, HeaderActions
       ...rest,
       id: this.id,
       headerActions: NitroActionUtil.convert(this.template, headerActions),
-      results: NitroSectionUtil.convert(this.template, results)?.at(0),
+      results: NitroSectionUtil.convert(this.template, results)?.at(0) ?? {
+        items: [],
+        type: 'default',
+      },
     };
 
     HybridSearchTemplate.createSearchTemplate(nitroConfig);
@@ -74,7 +80,10 @@ export class SearchTemplate extends Template<SearchTemplateConfig, HeaderActions
   public updateSearchResults(results?: SingleSection<SearchTemplate>) {
     HybridSearchTemplate.updateSearchResults(
       this.id,
-      NitroSectionUtil.convert(this.template, results)?.at(0)
+      NitroSectionUtil.convert(this.template, results)?.at(0) ?? {
+        items: [],
+        type: 'default',
+      }
     );
   }
 }

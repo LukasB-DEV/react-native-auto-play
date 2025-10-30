@@ -54,7 +54,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   public:
     // Methods
     void createSearchTemplate(const SearchTemplateConfig& config) override;
-    void updateSearchResults(const std::string& templateId, const std::optional<NitroSection>& results) override;
+    void updateSearchResults(const std::string& templateId, const NitroSection& results) override;
 
   private:
     friend HybridBase;

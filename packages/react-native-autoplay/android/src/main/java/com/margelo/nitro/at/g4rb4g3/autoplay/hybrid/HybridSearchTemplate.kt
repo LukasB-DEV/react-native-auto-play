@@ -14,7 +14,7 @@ class HybridSearchTemplate : HybridHybridSearchTemplateSpec() {
         AndroidAutoTemplate.Companion.setTemplate(config.id, template)
     }
 
-    override fun updateSearchResults(templateId: String, results: NitroSection?) {
+    override fun updateSearchResults(templateId: String, results: NitroSection) {
         val template = AndroidAutoTemplate.Companion.getTemplate<SearchTemplate>(templateId)
         template.updateSearchResults(results)
     }

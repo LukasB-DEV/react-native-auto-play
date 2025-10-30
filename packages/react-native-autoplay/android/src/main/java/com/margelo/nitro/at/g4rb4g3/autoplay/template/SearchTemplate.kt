@@ -31,12 +31,7 @@ class SearchTemplate(context: CarContext, config: SearchTemplateConfig) :
                 }
             }
         }).apply {
-            config.results?.items?.let { items ->
-                setItemList(Parser.parseSearchResult(context, items))
-            }
-            config.initialSearchText?.let {
-                setInitialSearchText(it)
-            }
+            setItemList(Parser.parseSearchResult(context, config.results.items))
             config.searchHint?.let {
                 setSearchHint(it)
             }
@@ -48,24 +43,22 @@ class SearchTemplate(context: CarContext, config: SearchTemplateConfig) :
                     setHeaderAction(Parser.parseAction(context, it))
                 }
 
-
-                var trailingActions = headerActions.filter { it ->
+                val trailingActions = headerActions.filter { it ->
                     it.alignment == NitroAlignment.TRAILING
                 }
 
                 if (trailingActions.isNotEmpty()) {
-                    var actionStripBuilder = ActionStrip.Builder()
+                    val actionStripBuilder = ActionStrip.Builder()
                     trailingActions.forEach { trailingAction ->
                         actionStripBuilder.addAction(Parser.parseAction(context, trailingAction))
                     }
                     setActionStrip(actionStripBuilder.build())
                 }
-
             }
         }.build()
     }
 
-    fun updateSearchResults(results: NitroSection?) {
+    fun updateSearchResults(results: NitroSection) {
         config = config.copy(results = results)
         super.applyConfigUpdate()
     }

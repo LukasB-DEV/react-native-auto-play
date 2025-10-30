@@ -7,7 +7,7 @@
 //
 
 class HybridSearchTemplate: HybridHybridSearchTemplateSpec {
-    func updateSearchResults(templateId: String, results: NitroSection?) throws {
+    func updateSearchResults(templateId: String, results: NitroSection) throws {
         try RootModule.withScene { scene in
             if let template = scene.templateStore.getTemplate(
                 templateId: templateId

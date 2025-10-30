@@ -13,8 +13,10 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
     var completionHandler: (([CPListItem]) -> Void)?
 
     var pushedListTemplate: ListTemplate?
-    
+
     var searchText = ""
+
+    var isInitialized = false
 
     init(config: SearchTemplateConfig) {
         self.config = config
@@ -26,39 +28,29 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         )
     }
 
-    func updateSearchResults(results: NitroSection?) {
+    func updateSearchResults(results: NitroSection) {
         config.results = results
         invalidate()
     }
 
     override func invalidate() {
-        // If we have a pushed list template, update it instead
+        // if we have pushed a list template update it
         if let listTemplate = pushedListTemplate {
-            if let results = config.results {
-                listTemplate.updateSections(sections: [results])
-            } else {
-                listTemplate.updateSections(sections: [])
-            }
+            listTemplate.updateSections(sections: [config.results])
         }
 
-        // Otherwise, update the search results completion handler
+        // otherwise update the search results on the search template
         guard let completionHandler = self.completionHandler else {
             return
         }
 
-        var listItems = [] as [CPListItem]
-        if config.results != nil {
-            listItems = Parser.parseSearchResults(
-                section: config.results,
-                traitCollection: traitCollection
-            )
-        }
+        let listItems = Parser.parseSearchResults(
+            section: config.results,
+            traitCollection: traitCollection
+        )
+        completionHandler(listItems)
 
-        if listItems.isEmpty {
-            completionHandler([])
-        } else {
-            completionHandler(listItems)
-        }
+        self.completionHandler = nil
     }
 
     override func onWillAppear(animted: Bool) {
@@ -68,7 +60,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
 
     override func onDidAppear(animted: Bool) {
         config.onDidAppear?(animted)
-        
+
         guard let template = self.template as? CPSearchTemplate else {
             return
         }
@@ -77,6 +69,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
 
     override func onWillDisappear(animted: Bool) {
         config.onWillDisappear?(animted)
+
         guard let template = self.template as? CPSearchTemplate else {
             return
         }
@@ -98,13 +91,26 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         updatedSearchText searchText: String,
         completionHandler: @escaping ([CPListItem]) -> Void
     ) {
-        if (pushedListTemplate != nil) {
-            return;
-        }
-        
-        self.searchText = searchText
-        config.onSearchTextChanged?(searchText)
         self.completionHandler = completionHandler
+
+        if !isInitialized {
+            // this makes sure we show the initial items when opening up the template
+            invalidate()
+            isInitialized = true
+            return
+        }
+
+        if searchText == self.searchText {
+            return
+        }
+
+        self.searchText = searchText
+
+        if pushedListTemplate != nil {
+            return
+        }
+
+        config.onSearchTextChanged(searchText)
     }
 
     func searchTemplate(
@@ -118,7 +124,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
     func searchTemplateSearchButtonPressed(
         _ searchTemplate: CPSearchTemplate
     ) {
-        
+
         // Create a new ListTemplate with the search results
         let listConfig = ListTemplateConfig(
             id: "\(config.id)-results",
@@ -129,12 +135,12 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
             onPopped: nil,
             headerActions: config.headerActions,
             title: config.title,
-            sections: config.results != nil ? [config.results!] : nil
+            sections: [config.results]
         )
 
         let listTemplate = ListTemplate(config: listConfig)
         self.pushedListTemplate = listTemplate
-        
+
         // execute callback after creating the template to avoid race condition in updateSearchResults
         config.onSearchTextSubmitted?(searchText)
 

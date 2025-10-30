@@ -175,13 +175,9 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
     ) {
         let templateId = aTemplate.id
 
-        do {
-            try RootModule.withTemplate(templateId: templateId) { template in
-                template.onWillAppear(animted: animated)
-            }
-        } catch let error {
-            print("failed to call onWillAppear for \(templateId): \(error)")
-        }
+        templateStore.getTemplate(templateId: templateId)?.onWillAppear(
+            animted: animated
+        )
     }
 
     func templateDidAppear(
@@ -190,13 +186,14 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
     ) {
         let templateId = aTemplate.id
 
-        do {
-            try RootModule.withTemplate(templateId: templateId) { template in
-                template.onDidAppear(animted: animated)
-            }
-        } catch let error {
-            print("failed to call onDidAppear for \(templateId): \(error)")
+        if rootTemplateId == templateId {
+            // this makes sure we purge outdated CPSearchTemplate since that one can be popped on with a CarPlay native button we can not intercept
+            templateStore.purge(except: templateId)
         }
+
+        templateStore.getTemplate(templateId: templateId)?.onDidAppear(
+            animted: animated
+        )
     }
 
     func templateWillDisappear(
@@ -205,13 +202,9 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
     ) {
         let templateId = aTemplate.id
 
-        do {
-            try RootModule.withTemplate(templateId: templateId) { template in
-                template.onWillDisappear(animted: animated)
-            }
-        } catch let error {
-            print("failed to call onWillDisappear for \(templateId): \(error)")
-        }
+        templateStore.getTemplate(templateId: templateId)?.onWillDisappear(
+            animted: animated
+        )
     }
 
     func templateDidDisappear(
@@ -220,12 +213,8 @@ class AutoPlayInterfaceController: NSObject, CPInterfaceControllerDelegate {
     ) {
         let templateId = aTemplate.id
 
-        do {
-            try RootModule.withTemplate(templateId: templateId) { template in
-                template.onDidDisappear(animted: animated)
-            }
-        } catch let error {
-            print("failed to call onDidDisappear for \(templateId): \(error)")
-        }
+        templateStore.getTemplate(templateId: templateId)?.onDidDisappear(
+            animted: animated
+        )
     }
 }
