@@ -50,13 +50,13 @@ class ListTemplate(context: CarContext, config: ListTemplateConfig) :
         return this.config.mapConfig?.let {
             MapWithContentTemplate.Builder().apply {
                 setContentTemplate(template)
-                config.mapConfig?.mapButtons?.let { mapButtons ->
+                it.mapButtons?.let { mapButtons ->
                     setMapController(
                         MapController.Builder()
                             .setMapActionStrip(Parser.parseMapActions(context, mapButtons)).build()
                     )
                 }
-                config.mapConfig?.headerActions?.let { headerActions ->
+                it.headerActions?.let { headerActions ->
                     setActionStrip(Parser.parseMapHeaderActions(context, headerActions))
                 }
             }.build()
