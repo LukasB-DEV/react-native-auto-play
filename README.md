@@ -112,16 +112,29 @@ Paste this into your Info.plist and adjust it to your needs. Check [Apple docs](
 
 # MapTemplate setup
 if you want to make use of the MapTemplate and render react components you need to add this to your AppDelegate.swift
+This should cover old and new architecture, adjust to your needs!
 
 ````
-  @objc func getRootViewForAutoplay(
+@objc func getRootViewForAutoplay(
     moduleName: String,
     initialProperties: [String: Any]?
   ) -> UIView? {
-    return reactNativeFactory?.rootViewFactory.view(
-      withModuleName: moduleName,
-      initialProperties: initialProperties
-    )
+    if RCTIsNewArchEnabled() {
+      return reactNativeFactory?.rootViewFactory.view(
+        withModuleName: moduleName,
+        initialProperties: initialProperties
+      )
+    }
+
+    if let rootView = window?.rootViewController?.view as? RCTRootView {
+      return RCTRootView(
+        bridge: rootView.bridge,
+        moduleName: moduleName,
+        initialProperties: initialProperties
+      )
+    }
+
+    return nil
   }
 ````
 

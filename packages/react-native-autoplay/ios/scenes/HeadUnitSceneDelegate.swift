@@ -6,7 +6,6 @@
 
 import CarPlay
 import Foundation
-import React
 
 @objc(HeadUnitSceneDelegate)
 class HeadUnitSceneDelegate: AutoPlayScene, CPTemplateApplicationSceneDelegate {

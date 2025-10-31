@@ -7,6 +7,15 @@ AutoPlayHeadlessJsTask.registerHeadlessTask();
 export const HybridAutoPlay =
   NitroModules.createHybridObject<NitroHybridAutoPlay>('HybridAutoPlay');
 
+/**
+ * these are the static module names for the main screen and the CarPlay dashboard
+ * clusters generate uuids on native side that are passed in the RootComponentInitialProps
+ */
+export enum AutoPlayModules {
+  AutoPlayRoot = 'AutoPlayRoot',
+  CarPlayDashboard = 'CarPlayDashboard',
+}
+
 export * from './components/SafeAreaView';
 export * from './hooks/useAndroidAutoTelemetry';
 export * from './hooks/useMapTemplate';

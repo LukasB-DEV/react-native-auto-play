@@ -6,7 +6,6 @@
 //
 
 import CarPlay
-import React
 import UIKit
 
 struct HeaderActions {
@@ -610,9 +609,9 @@ class Parser {
         )
     }
 
-    static func parseColor(color: NitroColor?) -> UIColor {
-        let darkColor = RCTConvert.uiColor(color?.darkColor) ?? .white
-        let lightColor = RCTConvert.uiColor(color?.lightColor) ?? .black
+    static func parseColor(color: NitroColor) -> UIColor {
+        let darkColor = doubleToColor(value: color.darkColor)
+        let lightColor = doubleToColor(value: color.lightColor)
 
         return UIColor { traitCollection in
             print("userInterfaceStyle: \(traitCollection.userInterfaceStyle)")
@@ -637,5 +636,18 @@ class Parser {
 
     static func doubleToAngle(value: Double) -> Measurement<UnitAngle> {
         return Measurement(value: value, unit: UnitAngle.degrees)
+    }
+
+    // this is required because of some React import issues with old architecture
+    // should be replaced with RCTConvert.uiColor later on....
+    static func doubleToColor(value: Double) -> UIColor {
+        let argb = Int(value)
+
+        let a = CGFloat((argb >> 24) & 0xFF) / 255.0
+        let r = CGFloat((argb >> 16) & 0xFF) / 255.0
+        let g = CGFloat((argb >> 8) & 0xFF) / 255.0
+        let b = CGFloat(argb & 0xFF) / 255.0
+
+        return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }

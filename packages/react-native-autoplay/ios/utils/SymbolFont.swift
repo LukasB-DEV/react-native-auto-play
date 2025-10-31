@@ -6,7 +6,6 @@
 //
 
 import CoreText
-import React
 import UIKit
 
 class SymbolFont {
@@ -161,11 +160,20 @@ class SymbolFont {
     ) -> UIImage? {
         guard let image else { return nil }
 
-        let lightColor = RCTConvert.uiColor(image.lightColor) ?? .black
-        let darkColor = RCTConvert.uiColor(image.darkColor) ?? .black
-        let backgroundColor =
-            RCTConvert.uiColor(image.backgroundColor)
-            ?? .white
+        var lightColor: UIColor = .black
+        if let color = image.lightColor {
+            lightColor = Parser.doubleToColor(value: color)
+        }
+
+        var darkColor: UIColor = .black
+        if let color = image.darkColor {
+            darkColor = Parser.doubleToColor(value: color)
+        }
+
+        var backgroundColor: UIColor = .white
+        if let color = image.backgroundColor {
+            backgroundColor = Parser.doubleToColor(value: color)
+        }
 
         if noImageAsset {
             return imageFromGlyph(
@@ -207,11 +215,11 @@ class SymbolFont {
             defer { UIGraphicsEndImageContext() }
             var xOffset = 0
             for laneImage in laneImages {
-                let foregroundColor =
-                    RCTConvert.uiColor(
-                        isDark ? laneImage.darkColor : laneImage.lightColor
-                    ) ?? (isDark ? .white : .black)
-
+                var foregroundColor: UIColor = (isDark ? .white : .black)
+                if let color = isDark ? laneImage.darkColor : laneImage.lightColor {
+                    foregroundColor = Parser.doubleToColor(value: color)
+                }
+                
                 let image = imageFromGlyph(
                     glyph: laneImage.glyph,
                     foregroundColor: foregroundColor,

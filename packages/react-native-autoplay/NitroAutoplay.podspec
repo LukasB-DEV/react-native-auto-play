@@ -27,6 +27,11 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     "NitroAutoplay" => ['ios/Assets/**/*.ttf']
   }
+  
+  s.pod_target_xcconfig = {
+    # C++ compiler flags, mainly for folly.
+    "GCC_PREPROCESSOR_DEFINITIONS" => "$(inherited) FOLLY_NO_CONFIG FOLLY_CFG_NO_COROUTINES"
+  }
 
   load 'nitrogen/generated/ios/NitroAutoplay+autolinking.rb'
   add_nitrogen_files(s)
