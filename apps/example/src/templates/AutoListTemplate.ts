@@ -1,6 +1,7 @@
 import {
   type DefaultRow,
   ListTemplate,
+  type ListTemplateConfig,
   type Section,
   TextPlaceholders,
   type ToggleRow,
@@ -95,13 +96,18 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
   ];
 };
 
-const getTemplate = (): ListTemplate => {
+const getTemplate = ({
+  mapConfig,
+}: {
+  mapConfig?: ListTemplateConfig['mapConfig'];
+}): ListTemplate => {
   return new ListTemplate({
     title: {
       text: `${TextPlaceholders.Distance} - ${TextPlaceholders.Duration}`,
       distance: { unit: 'meters', value: 1234 },
       duration: 4711,
     },
+    mapConfig,
     headerActions: AutoTemplate.headerActions,
     sections: getMainSection(true),
     onPopped: () => console.log('ListTemplate onPopped'),

@@ -43,13 +43,16 @@ data class ListTemplateConfig(
   val title: AutoText,
   @DoNotStrip
   @Keep
-  val sections: Array<NitroSection>?
+  val sections: Array<NitroSection>?,
+  @DoNotStrip
+  @Keep
+  val mapConfig: NitroBaseMapTemplateConfig?
 ) {
   /**
    * Create a new instance of ListTemplateConfig from Kotlin
    */
-  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, sections: Array<NitroSection>?):
-         this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions, title, sections)
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, sections: Array<NitroSection>?, mapConfig: NitroBaseMapTemplateConfig?):
+         this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions, title, sections, mapConfig)
 
   private companion object {
     /**
@@ -59,8 +62,8 @@ data class ListTemplateConfig(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText, sections: Array<NitroSection>?): ListTemplateConfig {
-      return ListTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, headerActions, title, sections)
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText, sections: Array<NitroSection>?, mapConfig: NitroBaseMapTemplateConfig?): ListTemplateConfig {
+      return ListTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, headerActions, title, sections, mapConfig)
     }
   }
 }
