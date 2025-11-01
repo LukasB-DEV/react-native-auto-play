@@ -21,7 +21,7 @@ function convert(image?: AutoImage): NitroImage | undefined {
 
   const {
     name,
-    color = { darkColor: 'black', lightColor: 'white' },
+    color = { darkColor: 'white', lightColor: 'black' },
     backgroundColor = 'transparent',
     ...rest
   } = image;

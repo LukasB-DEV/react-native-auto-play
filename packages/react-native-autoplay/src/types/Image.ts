@@ -6,7 +6,7 @@ export type AutoImage = {
 
   /**
    * Sets the icon dark and light mode color or a single color for both.
-   * Defaults to white for light mode and black for dark mode if not specified.
+   * Defaults to white for dark mode and black for light mode if not specified.
    * Might not get applied everywhere like MapTemplate buttons on Android.
    */
   color?: ThemedColor | string;
