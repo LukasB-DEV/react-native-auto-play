@@ -67,7 +67,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         static_cast<bool>(enabled),
         image != nullptr ? std::make_optional(image->toCpp()) : std::nullopt,
         checked != nullptr ? std::make_optional(static_cast<bool>(checked->value())) : std::nullopt,
-        [&]() -> std::function<void(std::optional<bool> /* checked */)> {
+        onPress != nullptr ? std::make_optional([&]() -> std::function<void(std::optional<bool> /* checked */)> {
           if (onPress->isInstanceOf(JFunc_void_std__optional_bool__cxx::javaClassStatic())) [[likely]] {
             auto downcast = jni::static_ref_cast<JFunc_void_std__optional_bool__cxx::javaobject>(onPress);
             return downcast->cthis()->getFunction();
@@ -77,7 +77,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
               return onPressRef->invoke(checked);
             };
           }
-        }(),
+        }()) : std::nullopt,
         selected != nullptr ? std::make_optional(static_cast<bool>(selected->value())) : std::nullopt
       );
     }
@@ -99,7 +99,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         value.enabled,
         value.image.has_value() ? JNitroImage::fromCpp(value.image.value()) : nullptr,
         value.checked.has_value() ? jni::JBoolean::valueOf(value.checked.value()) : nullptr,
-        JFunc_void_std__optional_bool__cxx::fromCpp(value.onPress),
+        value.onPress.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onPress.value()) : nullptr,
         value.selected.has_value() ? jni::JBoolean::valueOf(value.selected.value()) : nullptr
       );
     }

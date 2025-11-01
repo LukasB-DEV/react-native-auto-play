@@ -45,11 +45,16 @@ export type RadioRow<T> = BaseRow & {
   selected?: boolean;
 };
 
+export type TextRow = BaseRow & {
+  type: 'text';
+  detailedText?: AutoText;
+};
+
 export type MultiSection<T> =
   | {
       type: 'default';
       title: string;
-      items: Array<DefaultRow<T> | ToggleRow<T>>;
+      items: Array<DefaultRow<T> | ToggleRow<T> | TextRow>;
     }
   | {
       type: 'radio';

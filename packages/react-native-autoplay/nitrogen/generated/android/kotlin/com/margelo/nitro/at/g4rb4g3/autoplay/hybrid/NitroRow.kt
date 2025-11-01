@@ -37,7 +37,7 @@ data class NitroRow(
   val checked: Boolean?,
   @DoNotStrip
   @Keep
-  val onPress: Func_void_std__optional_bool_,
+  val onPress: Func_void_std__optional_bool_?,
   @DoNotStrip
   @Keep
   val selected: Boolean?
@@ -45,8 +45,8 @@ data class NitroRow(
   /**
    * Create a new instance of NitroRow from Kotlin
    */
-  constructor(title: AutoText, detailedText: AutoText?, browsable: Boolean?, enabled: Boolean, image: NitroImage?, checked: Boolean?, onPress: (checked: Boolean?) -> Unit, selected: Boolean?):
-         this(title, detailedText, browsable, enabled, image, checked, Func_void_std__optional_bool__java(onPress), selected)
+  constructor(title: AutoText, detailedText: AutoText?, browsable: Boolean?, enabled: Boolean, image: NitroImage?, checked: Boolean?, onPress: ((checked: Boolean?) -> Unit)?, selected: Boolean?):
+         this(title, detailedText, browsable, enabled, image, checked, onPress?.let { Func_void_std__optional_bool__java(it) }, selected)
 
   private companion object {
     /**
@@ -56,7 +56,7 @@ data class NitroRow(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(title: AutoText, detailedText: AutoText?, browsable: Boolean?, enabled: Boolean, image: NitroImage?, checked: Boolean?, onPress: Func_void_std__optional_bool_, selected: Boolean?): NitroRow {
+    private fun fromCpp(title: AutoText, detailedText: AutoText?, browsable: Boolean?, enabled: Boolean, image: NitroImage?, checked: Boolean?, onPress: Func_void_std__optional_bool_?, selected: Boolean?): NitroRow {
       return NitroRow(title, detailedText, browsable, enabled, image, checked, onPress, selected)
     }
   }

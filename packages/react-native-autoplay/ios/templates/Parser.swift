@@ -212,7 +212,7 @@ class Parser {
             )
 
             listItem.handler = { listItem, completionHandler in
-                item.onPress(nil)
+                item.onPress?(nil)
                 completionHandler()
             }
 
@@ -276,7 +276,7 @@ class Parser {
 
                     updateSection(updatedSection, sectionIndex)
 
-                    item.onPress(item.checked.map { checked in !checked })
+                    item.onPress?(item.checked.map { checked in !checked })
                     completion()
                 }
 

@@ -1,4 +1,4 @@
-import type { DefaultRow, RadioRow, Section, ToggleRow } from '../templates/ListTemplate';
+import type { DefaultRow, RadioRow, Section, TextRow, ToggleRow } from '../templates/ListTemplate';
 import type { AutoText } from '../types/Text';
 import { type NitroImage, NitroImageUtil } from './NitroImage';
 
@@ -11,7 +11,7 @@ export type NitroRow = {
   enabled: boolean;
   image?: NitroImage;
   checked?: boolean;
-  onPress: (checked?: boolean) => void;
+  onPress?: (checked?: boolean) => void;
   selected?: boolean;
 };
 
@@ -63,11 +63,30 @@ const convert = <T>(template: T, sections?: Section<T>): Array<NitroSection> | u
   ];
 };
 
-const convertRow = <T>(template: T, item: DefaultRow<T> | RadioRow<T> | ToggleRow<T>): NitroRow => {
-  const { title, type, enabled = true, image, onPress } = item;
+const convertRow = <T>(
+  template: T,
+  item: DefaultRow<T> | RadioRow<T> | ToggleRow<T> | TextRow
+): NitroRow => {
+  const { title, type, enabled = true, image } = item;
 
-  const detailedText = type === 'default' ? item.detailedText : undefined;
+  const detailedText = 'detailedText' in item ? item.detailedText : undefined;
   const selected = type === 'radio' ? (item.selected ?? false) : undefined;
+
+  const onTogglePress = item.type === 'toggle' ? item.onPress : undefined;
+  const onRowPress = item.type !== 'text' && item.type !== 'toggle' ? item.onPress : undefined;
+
+  const onPress =
+    item.type === 'text'
+      ? undefined
+      : (checked?: boolean) => {
+          if (onTogglePress != null && checked != null) {
+            onTogglePress(template, checked);
+            return;
+          }
+          if (onRowPress != null) {
+            onRowPress(template);
+          }
+        };
 
   return {
     browsable: type === 'default' ? item.browsable : undefined,
@@ -76,8 +95,7 @@ const convertRow = <T>(template: T, item: DefaultRow<T> | RadioRow<T> | ToggleRo
     image: NitroImageUtil.convert(image),
     title,
     checked: type === 'toggle' ? item.checked : undefined,
-    onPress: (checked) =>
-      type === 'toggle' ? onPress(template, checked ?? false) : onPress(template),
+    onPress,
     selected,
   };
 };

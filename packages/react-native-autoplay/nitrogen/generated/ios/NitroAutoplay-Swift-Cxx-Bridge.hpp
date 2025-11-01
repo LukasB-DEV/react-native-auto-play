@@ -801,6 +801,21 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return *optional;
   }
   
+  // pragma MARK: std::optional<std::function<void(std::optional<bool> /* checked */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(std::optional<bool> / * checked * /)>>`.
+   */
+  using std__optional_std__function_void_std__optional_bool_____checked______ = std::optional<std::function<void(std::optional<bool> /* checked */)>>;
+  inline std::optional<std::function<void(std::optional<bool> /* checked */)>> create_std__optional_std__function_void_std__optional_bool_____checked______(const std::function<void(std::optional<bool> /* checked */)>& value) noexcept {
+    return std::optional<std::function<void(std::optional<bool> /* checked */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_std__optional_bool_____checked______(const std::optional<std::function<void(std::optional<bool> /* checked */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(std::optional<bool> /* checked */)> get_std__optional_std__function_void_std__optional_bool_____checked______(const std::optional<std::function<void(std::optional<bool> /* checked */)>>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::vector<NitroRow>
   /**
    * Specialized version of `std::vector<NitroRow>`.

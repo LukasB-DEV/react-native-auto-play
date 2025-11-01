@@ -18,7 +18,7 @@ public extension NitroRow {
   /**
    * Create a new instance of `NitroRow`.
    */
-  init(title: AutoText, detailedText: AutoText?, browsable: Bool?, enabled: Bool, image: NitroImage?, checked: Bool?, onPress: @escaping (_ checked: Bool?) -> Void, selected: Bool?) {
+  init(title: AutoText, detailedText: AutoText?, browsable: Bool?, enabled: Bool, image: NitroImage?, checked: Bool?, onPress: ((_ checked: Bool?) -> Void)?, selected: Bool?) {
     self.init(title, { () -> bridge.std__optional_AutoText_ in
       if let __unwrappedValue = detailedText {
         return bridge.create_std__optional_AutoText_(__unwrappedValue)
@@ -43,9 +43,15 @@ public extension NitroRow {
       } else {
         return .init()
       }
-    }(), { () -> bridge.Func_void_std__optional_bool_ in
-      let __closureWrapper = Func_void_std__optional_bool_(onPress)
-      return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
+    }(), { () -> bridge.std__optional_std__function_void_std__optional_bool_____checked______ in
+      if let __unwrappedValue = onPress {
+        return bridge.create_std__optional_std__function_void_std__optional_bool_____checked______({ () -> bridge.Func_void_std__optional_bool_ in
+          let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
+          return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
+        }())
+      } else {
+        return .init()
+      }
     }(), { () -> bridge.std__optional_bool_ in
       if let __unwrappedValue = selected {
         return bridge.create_std__optional_bool_(__unwrappedValue)
@@ -159,27 +165,40 @@ public extension NitroRow {
     }
   }
   
-  var onPress: (_ checked: Bool?) -> Void {
+  var onPress: ((_ checked: Bool?) -> Void)? {
     @inline(__always)
     get {
-      return { () -> (Bool?) -> Void in
-        let __wrappedFunction = bridge.wrap_Func_void_std__optional_bool_(self.__onPress)
-        return { (__checked: Bool?) -> Void in
-          __wrappedFunction.call({ () -> bridge.std__optional_bool_ in
-            if let __unwrappedValue = __checked {
-              return bridge.create_std__optional_bool_(__unwrappedValue)
-            } else {
-              return .init()
+      return { () -> ((_ checked: Bool?) -> Void)? in
+        if bridge.has_value_std__optional_std__function_void_std__optional_bool_____checked______(self.__onPress) {
+          let __unwrapped = bridge.get_std__optional_std__function_void_std__optional_bool_____checked______(self.__onPress)
+          return { () -> (Bool?) -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void_std__optional_bool_(__unwrapped)
+            return { (__checked: Bool?) -> Void in
+              __wrappedFunction.call({ () -> bridge.std__optional_bool_ in
+                if let __unwrappedValue = __checked {
+                  return bridge.create_std__optional_bool_(__unwrappedValue)
+                } else {
+                  return .init()
+                }
+              }())
             }
-          }())
+          }()
+        } else {
+          return nil
         }
       }()
     }
     @inline(__always)
     set {
-      self.__onPress = { () -> bridge.Func_void_std__optional_bool_ in
-        let __closureWrapper = Func_void_std__optional_bool_(newValue)
-        return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
+      self.__onPress = { () -> bridge.std__optional_std__function_void_std__optional_bool_____checked______ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__function_void_std__optional_bool_____checked______({ () -> bridge.Func_void_std__optional_bool_ in
+            let __closureWrapper = Func_void_std__optional_bool_(__unwrappedValue)
+            return bridge.create_Func_void_std__optional_bool_(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
       }()
     }
   }

@@ -4,6 +4,7 @@ import {
   type ListTemplateConfig,
   type Section,
   TextPlaceholders,
+  type TextRow,
   type ToggleRow,
 } from '@g4rb4g3/react-native-autoplay';
 import { AutoTemplate } from './AutoTemplate';
@@ -44,7 +45,7 @@ const getRadioTemplate = (): ListTemplate => {
 };
 
 const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
-  const items: Array<DefaultRow<ListTemplate> | ToggleRow<ListTemplate>> = [
+  const items: Array<DefaultRow<ListTemplate> | ToggleRow<ListTemplate> | TextRow> = [
     {
       type: 'toggle',
       title: { text: 'row #1' },
@@ -67,6 +68,12 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
       onPress: (_template, checked) => {
         console.log('*** toggle', checked);
       },
+    },
+    {
+      type: 'text',
+      title: { text: 'text' },
+      detailedText: { text: 'text only row' },
+      image: { name: 'text_ad' },
     },
   ];
 
