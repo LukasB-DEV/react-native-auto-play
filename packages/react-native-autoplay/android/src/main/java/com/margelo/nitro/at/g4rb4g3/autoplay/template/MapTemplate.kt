@@ -250,6 +250,10 @@ class MapTemplate(
         }
 
         fun stopNavigation() {
+            if (!this::navigationManager.isInitialized) {
+                return
+            }
+            
             UiThreadUtil.runOnUiThread {
                 navigationManager.navigationEnded()
             }
