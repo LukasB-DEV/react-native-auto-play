@@ -394,6 +394,8 @@ class VirtualRenderer(
                 renderer?.reactSurfaceId?.let {
                     renderer.uiManager.stopSurface(it)
                 }
+            } else {
+                renderer?.reactRootView?.unmountReactApplication()
             }
 
             virtualRenderer.remove(moduleId)
