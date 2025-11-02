@@ -62,7 +62,7 @@ class AutoPlayScene: UIResponder {
         }
 
         HybridAutoPlay.emitRenderState(
-            mapTemplateId: moduleName,
+            moduleName: moduleName,
             state: state
         )
     }

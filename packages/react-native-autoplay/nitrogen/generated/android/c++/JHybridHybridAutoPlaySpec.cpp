@@ -101,9 +101,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       }
     }();
   }
-  std::function<void()> JHybridHybridAutoPlaySpec::addListenerRenderState(const std::string& mapTemplateId, const std::function<void(VisibilityState /* payload */)>& callback) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<jni::JString> /* mapTemplateId */, jni::alias_ref<JFunc_void_VisibilityState::javaobject> /* callback */)>("addListenerRenderState_cxx");
-    auto __result = method(_javaPart, jni::make_jstring(mapTemplateId), JFunc_void_VisibilityState_cxx::fromCpp(callback));
+  std::function<void()> JHybridHybridAutoPlaySpec::addListenerRenderState(const std::string& moduleName, const std::function<void(VisibilityState /* payload */)>& callback) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<jni::JString> /* moduleName */, jni::alias_ref<JFunc_void_VisibilityState::javaobject> /* callback */)>("addListenerRenderState_cxx");
+    auto __result = method(_javaPart, jni::make_jstring(moduleName), JFunc_void_VisibilityState_cxx::fromCpp(callback));
     return [&]() -> std::function<void()> {
       if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
         auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);

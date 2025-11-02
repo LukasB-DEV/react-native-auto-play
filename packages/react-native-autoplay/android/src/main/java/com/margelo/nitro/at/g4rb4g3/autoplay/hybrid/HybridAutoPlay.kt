@@ -1,5 +1,6 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.hybrid
 
+import com.margelo.nitro.at.g4rb4g3.autoplay.ActivityRenderStateProvider
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
 import com.margelo.nitro.at.g4rb4g3.autoplay.VirtualRenderer
@@ -28,22 +29,26 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
     }
 
     override fun addListenerRenderState(
-        mapTemplateId: String, callback: (VisibilityState) -> Unit
+        moduleName: String, callback: (VisibilityState) -> Unit
     ): () -> Unit {
-        val callbacks = renderStateListeners.getOrPut(mapTemplateId) {
+        val callbacks = renderStateListeners.getOrPut(moduleName) {
             mutableListOf()
         }
         callbacks.add(callback)
 
-        AndroidAutoSession.Companion.getState(mapTemplateId)?.let {
-            callback(it)
+        if (moduleName == "main") {
+            callback(ActivityRenderStateProvider.currentState)
+        } else {
+            AndroidAutoSession.Companion.getState(moduleName)?.let {
+                callback(it)
+            }
         }
 
         return {
-            renderStateListeners[mapTemplateId]?.let {
+            renderStateListeners[moduleName]?.let {
                 it.remove(callback)
                 if (it.isEmpty()) {
-                    renderStateListeners.remove(mapTemplateId)
+                    renderStateListeners.remove(moduleName)
                 }
             }
         }
@@ -219,9 +224,8 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
             listeners[event]?.forEach { it() }
         }
 
-
-        fun emitRenderState(mapTemplateId: String, state: VisibilityState) {
-            renderStateListeners[mapTemplateId]?.forEach {
+        fun emitRenderState(moduleName: String, state: VisibilityState) {
+            renderStateListeners[moduleName]?.forEach {
                 it(state)
             }
         }

@@ -8,10 +8,11 @@ export const HybridAutoPlay =
   NitroModules.createHybridObject<NitroHybridAutoPlay>('HybridAutoPlay');
 
 /**
- * these are the static module names for the main screen and the CarPlay dashboard
- * clusters generate uuids on native side that are passed in the RootComponentInitialProps
+ * These are the static module names for the app running on the mobile device, head unit screen and the CarPlay dashboard.
+ * Clusters generate uuids on native side that are passed in the RootComponentInitialProps
  */
 export enum AutoPlayModules {
+  App = 'main',
   AutoPlayRoot = 'AutoPlayRoot',
   CarPlayDashboard = 'CarPlayDashboard',
 }

@@ -139,9 +139,9 @@ open class HybridHybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
-  public final func addListenerRenderState(mapTemplateId: std.string, callback: bridge.Func_void_VisibilityState) -> bridge.Result_std__function_void____ {
+  public final func addListenerRenderState(moduleName: std.string, callback: bridge.Func_void_VisibilityState) -> bridge.Result_std__function_void____ {
     do {
-      let __result = try self.__implementation.addListenerRenderState(mapTemplateId: String(mapTemplateId), callback: { () -> (VisibilityState) -> Void in
+      let __result = try self.__implementation.addListenerRenderState(moduleName: String(moduleName), callback: { () -> (VisibilityState) -> Void in
         let __wrappedFunction = bridge.wrap_Func_void_VisibilityState(callback)
         return { (__payload: VisibilityState) -> Void in
           __wrappedFunction.call(__payload.rawValue)

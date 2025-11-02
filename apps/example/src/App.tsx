@@ -1,4 +1,8 @@
-import { type CleanupCallback, HybridAutoPlay } from '@g4rb4g3/react-native-autoplay';
+import {
+  AutoPlayModules,
+  type CleanupCallback,
+  HybridAutoPlay,
+} from '@g4rb4g3/react-native-autoplay';
 import { useEffect, useState } from 'react';
 import { Button, Platform, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +13,14 @@ import { TelemetryView } from './TelemetryView';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+
+  useEffect(() => {
+    const remove = HybridAutoPlay.addListenerRenderState(AutoPlayModules.App, (state) => {
+      console.log('*** AppState', state);
+    });
+
+    return () => remove();
+  }, []);
 
   return (
     <SafeAreaProvider>

@@ -55,12 +55,12 @@ abstract class HybridHybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
-  abstract fun addListenerRenderState(mapTemplateId: String, callback: (payload: VisibilityState) -> Unit): () -> Unit
+  abstract fun addListenerRenderState(moduleName: String, callback: (payload: VisibilityState) -> Unit): () -> Unit
   
   @DoNotStrip
   @Keep
-  private fun addListenerRenderState_cxx(mapTemplateId: String, callback: Func_void_VisibilityState): Func_void {
-    val __result = addListenerRenderState(mapTemplateId, callback)
+  private fun addListenerRenderState_cxx(moduleName: String, callback: Func_void_VisibilityState): Func_void {
+    val __result = addListenerRenderState(moduleName, callback)
     return Func_void_java(__result)
   }
   

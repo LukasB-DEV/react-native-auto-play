@@ -1,4 +1,3 @@
-
 # iOS Development Team Setup
 
 This project uses a local `Development.xcconfig` file for code signing for the example app. This file **should not be committed** to Git.
@@ -140,3 +139,7 @@ This should cover old and new architecture, adjust to your needs!
 
 # Localization
 The library allows you to pass distances and durations and formats them according to the system defaults. Make sure to provide all supported app languages in Info.plist CFBundleLocalizations for this to work properly, missing languages will use CFBundleDevelopmentRegion as fallback which is en most of the time and mix it up with the region which might result in en_AT or similar.
+
+# AppState
+AppState provided by react-native is not working properly on iOS since it does only check for the application state and lacks support for UISceneDelegate. Therefore this library provides a custom state listener working for both Android and iOS.
+Use `HybridAutoPlay.addListenerRenderState` and provide any of the `AutoPlayModules` enum modules names or one of the cluster uuids you received to monitor the scene/session/activity state.

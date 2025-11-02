@@ -9,7 +9,7 @@ export interface NitroTemplateConfig extends TemplateConfig {
 
 export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   /**
-   * attach a listener for generic notifications like didConnect, didDisconnect, ...
+   * attach a listener for didConnect and didDisconnect
    * @namespace all
    * @param eventType generic events
    * @returns callback to remove the listener
@@ -20,10 +20,10 @@ export interface HybridAutoPlay extends HybridObject<{ android: 'kotlin'; ios: '
    * adds a listener for the session/scene state
    * fires willAppear & didAppear when the scene/session is visible
    * fires willDisappear & didDisappear when the scene/session is not visible
-   * @param mapTemplateId actually type of MapTemplateId but we can not use that one on nitro
+   * @param moduleName on of @AutoPlayModules, a cluster scene uuid or your main for the WindowApplicationSceneDelegate
    */
   addListenerRenderState(
-    mapTemplateId: string,
+    moduleName: string,
     callback: (payload: VisibilityState) => void
   ): CleanupCallback;
 

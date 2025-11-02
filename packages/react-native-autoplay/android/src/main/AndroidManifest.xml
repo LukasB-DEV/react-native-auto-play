@@ -14,19 +14,19 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- Android Automotive specific permissions -->
-    <uses-permission android:name="android.car.permission.CAR_ENERGY"/>
-    <uses-permission android:name="android.car.permission.CAR_ENERGY_PORTS"/>
-    <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT"/>
-    <uses-permission android:name="android.car.permission.CAR_IDENTIFICATION"/>
-    <uses-permission android:name="android.car.permission.CAR_INFO"/>
-    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN"/>
-    <uses-permission android:name="android.car.permission.CAR_SPEED"/>
+    <uses-permission android:name="android.car.permission.CAR_ENERGY" />
+    <uses-permission android:name="android.car.permission.CAR_ENERGY_PORTS" />
+    <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT" />
+    <uses-permission android:name="android.car.permission.CAR_IDENTIFICATION" />
+    <uses-permission android:name="android.car.permission.CAR_INFO" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
 
 
     <!-- Android Auto specific permissions -->
-    <uses-permission android:name="com.google.android.gms.permission.CAR_FUEL"/>
-    <uses-permission android:name="com.google.android.gms.permission.CAR_MILEAGE"/>
-    <uses-permission android:name="com.google.android.gms.permission.CAR_SPEED"/>
+    <uses-permission android:name="com.google.android.gms.permission.CAR_FUEL" />
+    <uses-permission android:name="com.google.android.gms.permission.CAR_MILEAGE" />
+    <uses-permission android:name="com.google.android.gms.permission.CAR_SPEED" />
 
     <application>
         <service
@@ -55,5 +55,10 @@
             android:value="1" />
 
         <service android:name="com.margelo.nitro.at.g4rb4g3.autoplay.HeadlessTaskService" />
+
+        <provider
+            android:name="com.margelo.nitro.at.g4rb4g3.autoplay.ActivityRenderStateProvider"
+            android:authorities="${applicationId}.ActivityRenderStateProvider"
+            android:exported="false" />
     </application>
 </manifest>

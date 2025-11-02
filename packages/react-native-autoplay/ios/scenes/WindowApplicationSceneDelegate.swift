@@ -10,7 +10,7 @@ import UIKit
 
 @objc(WindowApplicationSceneDelegate)
 class WindowApplicationSceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
+
     var window: UIWindow?
 
     func scene(
@@ -20,12 +20,34 @@ class WindowApplicationSceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard session.role == .windowApplication else { return }
         guard let windowScene = scene as? UIWindowScene else { return }
-        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else { return }
-        
+        guard
+            let rootViewController = UIApplication.shared.delegate?.window??
+                .rootViewController
+        else { return }
+
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
-        
+
         self.window = window
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        HybridAutoPlay.emitRenderState(moduleName: "main", state: .didappear)
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        HybridAutoPlay.emitRenderState(
+            moduleName: "main",
+            state: .willdisappear
+        )
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        HybridAutoPlay.emitRenderState(moduleName: "main", state: .willappear)
+    }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        HybridAutoPlay.emitRenderState(moduleName: "main", state: .diddisappear)
     }
 }
