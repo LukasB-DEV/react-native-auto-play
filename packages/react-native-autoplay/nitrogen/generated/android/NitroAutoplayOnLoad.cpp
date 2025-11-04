@@ -28,6 +28,7 @@
 #include "JFunc_void_std__string_bool.hpp"
 #include "JHybridHybridGridTemplateSpec.hpp"
 #include "JFunc_void_std__optional_bool_.hpp"
+#include "JHybridHybridInformationTemplateSpec.hpp"
 #include "JHybridHybridListTemplateSpec.hpp"
 #include "JHybridHybridMapTemplateSpec.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
@@ -62,6 +63,7 @@ int initialize(JavaVM* vm) {
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__string_bool_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridGridTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_std__optional_bool__cxx::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridInformationTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridListTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridMapTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_std__optional_Point__cxx::registerNatives();
