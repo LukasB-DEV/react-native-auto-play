@@ -17,12 +17,15 @@ Pod::Spec.new do |s|
     # Implementation (Swift)
     "ios/**/*.{swift}",
     # Autolinking/Registration (Objective-C++)
-    "ios/**/*.{m,mm}",
+    "ios/**/*.{h,m,mm}",
     # Implementation (C++ objects)
     "cpp/**/*.{hpp,cpp}",
     # symbol font
     "ios/**/*.ttf",
   ]
+
+  # react helpers like RCTConvert
+  s.public_header_files = Array(s.attributes_hash['public_header_files']) + ["ios/ReactHelpers/*.h"]
 
   s.resource_bundles = {
     "NitroAutoplay" => ['ios/Assets/**/*.ttf']
