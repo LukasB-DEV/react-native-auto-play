@@ -313,6 +313,7 @@ const AutoAlert = (remaining: number): Alert => ({
   image: {
     name: 'alarm',
     type: 'glyph',
+    color: Platform.OS === 'android' ? 'white' : { darkColor: 'white', lightColor: 'white' },
   },
   primaryAction: {
     title: 'keep calm',
