@@ -27,7 +27,7 @@ function convert(image?: AutoImage): NitroImage | undefined {
     return undefined;
   }
 
-  if ('name' in image) {
+  if (image.type === 'glyph') {
     const { color = { darkColor: 'white', lightColor: 'black' } } = image;
     const backgroundColor = image.backgroundColor ?? 'transparent';
 
@@ -47,24 +47,19 @@ function convert(image?: AutoImage): NitroImage | undefined {
     };
   }
 
-  if ('image' in image) {
-    const { color } = image;
-    const resolvedAsset = Image.resolveAssetSource(image.image);
+  const resolvedAsset = Image.resolveAssetSource(image.image);
 
-    const assetImage: AssetImage = {
-      ...resolvedAsset,
-      packager_asset:
-        '__packager_asset' in resolvedAsset ? Boolean(resolvedAsset.__packager_asset) : false,
-      color:
-        typeof color === 'string'
-          ? NitroColorUtil.convertThemed({ darkColor: color, lightColor: color })
-          : NitroColorUtil.convertThemed(color),
-    };
+  const assetImage: AssetImage = {
+    ...resolvedAsset,
+    packager_asset:
+      '__packager_asset' in resolvedAsset ? Boolean(resolvedAsset.__packager_asset) : false,
+    color:
+      typeof image.color === 'string'
+        ? NitroColorUtil.convertThemed({ darkColor: image.color, lightColor: image.color })
+        : NitroColorUtil.convertThemed(image.color),
+  };
 
-    return assetImage;
-  }
-
-  return undefined;
+  return assetImage;
 }
 
 export const NitroImageUtil = { convert };
