@@ -38,7 +38,6 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridHybridCarPlayDashboardSpec.cpp
   ../nitrogen/generated/shared/c++/HybridHybridClusterSpec.cpp
   ../nitrogen/generated/shared/c++/HybridHybridGridTemplateSpec.cpp
-  ../nitrogen/generated/shared/c++/HybridHybridInformationTemplateSpec.cpp
   ../nitrogen/generated/shared/c++/HybridHybridListTemplateSpec.cpp
   ../nitrogen/generated/shared/c++/HybridHybridMapTemplateSpec.cpp
   ../nitrogen/generated/shared/c++/HybridHybridMessageTemplateSpec.cpp
@@ -48,7 +47,6 @@ target_sources(
   ../nitrogen/generated/android/c++/JHybridHybridAutoPlaySpec.cpp
   ../nitrogen/generated/android/c++/JHybridHybridClusterSpec.cpp
   ../nitrogen/generated/android/c++/JHybridHybridGridTemplateSpec.cpp
-  ../nitrogen/generated/android/c++/JHybridHybridInformationTemplateSpec.cpp
   ../nitrogen/generated/android/c++/JHybridHybridListTemplateSpec.cpp
   ../nitrogen/generated/android/c++/JHybridHybridMapTemplateSpec.cpp
   ../nitrogen/generated/android/c++/JVariant_PreferredImageLane_ImageLane.cpp

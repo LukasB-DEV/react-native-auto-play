@@ -22,6 +22,7 @@ export interface NitroInformationTemplateConfig extends TemplateConfig {
   headerActions?: Array<NitroAction>;
   title: AutoText;
   section?: NitroSection;
+  actions?: [NitroAction, NitroAction] | [NitroAction];
   mapConfig?: NitroBaseMapTemplateConfig;
 }
 
