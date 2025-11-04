@@ -53,6 +53,7 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
       image: {
         name: 'alarm',
         color: { lightColor: 'red', darkColor: 'orange' },
+        type: 'glyph',
       },
       onPress: (template, checked) => {
         template.updateSections(getMainSection(checked));
@@ -64,6 +65,7 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
       checked: false,
       image: {
         name: 'bomb',
+        type: 'glyph',
       },
       onPress: (_template, checked) => {
         console.log('*** toggle', checked);
@@ -73,7 +75,7 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
       type: 'text',
       title: { text: 'text' },
       detailedText: { text: 'text only row' },
-      image: { name: 'text_ad' },
+      image: { name: 'text_ad', type: 'glyph' },
     },
   ];
 
@@ -84,6 +86,7 @@ const getMainSection = (showRadios: boolean): Section<ListTemplate> => {
       browsable: true,
       image: {
         name: 'rotate_auto',
+        type: 'glyph',
       },
       onPress: () => {
         getRadioTemplate()

@@ -168,6 +168,7 @@ export type ManeuverImage =
        * defaults to white/black for dark/light mode
        */
       color?: ThemedColor | string;
+      type: 'glyph';
     }
   | {
       image: ImageSourcePropType;
@@ -175,6 +176,7 @@ export type ManeuverImage =
        * if specified the image gets tinted, if not it will just use the original image
        */
       color?: ThemedColor | string;
+      type: 'image';
     };
 
 export interface ImageLane {

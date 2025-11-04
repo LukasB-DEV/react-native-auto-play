@@ -16,6 +16,7 @@ const getButtons = (
       name: 'star',
       color: { darkColor, lightColor },
       backgroundColor: selectedIdx === 0 ? 'rgba(0, 255, 255, 1)' : undefined,
+      type: 'glyph',
     },
     onPress: (template) => {
       template.updateGrid(getButtons('red', 'green', 0));
@@ -27,6 +28,7 @@ const getButtons = (
       name: 'star',
       color: { darkColor, lightColor },
       backgroundColor: selectedIdx === 1 ? 'rgba(0, 255, 255, 1)' : undefined,
+      type: 'glyph',
     },
     onPress: (template) => {
       template.updateGrid(getButtons('yellow', 'blue', 1));
@@ -38,6 +40,7 @@ const getButtons = (
       name: 'star',
       color: { darkColor, lightColor },
       backgroundColor: selectedIdx === 2 ? 'rgba(0, 255, 255, 1)' : undefined,
+      type: 'glyph',
     },
     onPress: (template) => {
       template.updateGrid(getButtons('pink', 'orange', 2));
@@ -49,6 +52,7 @@ const getButtons = (
       name: 'star',
       color: { darkColor, lightColor },
       backgroundColor: selectedIdx === 3 ? 'rgba(0, 255, 255, 1)' : undefined,
+      type: 'glyph',
     },
     onPress: (template) => {
       template.updateGrid(getButtons('violet', 'purple', 3));
@@ -60,6 +64,7 @@ const getButtons = (
       name: 'star',
       color: { darkColor, lightColor },
       backgroundColor: selectedIdx === 4 ? 'rgba(0, 255, 255, 1)' : undefined,
+      type: 'glyph',
     },
     onPress: (template) => {
       template.updateGrid(getButtons('green', 'red', 4));
@@ -71,6 +76,7 @@ const getButtons = (
       name: 'star',
       color: { darkColor, lightColor },
       backgroundColor: selectedIdx === 5 ? 'rgba(0, 255, 255, 1)' : undefined,
+      type: 'glyph',
     },
     onPress: (template) => {
       template.updateGrid(getButtons('blue', 'yellow', 5));

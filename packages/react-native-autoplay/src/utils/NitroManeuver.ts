@@ -51,17 +51,18 @@ function convertManeuverImage(image?: ManeuverImage): NitroImage | undefined {
     return undefined;
   }
 
-  const color =
-    'image' in image
-      ? image.color
-      : typeof image.color === 'string'
+  if (image.type === 'glyph') {
+    const color =
+      typeof image.color === 'string'
         ? image.color
         : (image.color ?? { darkColor: 'white', lightColor: 'black' });
+    return NitroImageUtil.convert({
+      ...image,
+      color: color,
+    });
+  }
 
-  return NitroImageUtil.convert({
-    ...image,
-    color: color,
-  });
+  return NitroImageUtil.convert(image);
 }
 
 function convert(autoManeuver: AutoManeuver): NitroManeuver {

@@ -150,7 +150,7 @@ const registerRunnable = () => {
   }
   AutoPlayCluster.setComponent(Cluster);
   AutoPlayCluster.setAttributedInactiveDescriptionVariants([
-    { text: 'Example', images: [{ image: { name: 'bolt' }, position: 0 }] },
+    { text: 'Example', images: [{ image: { name: 'bolt', type: 'glyph' }, position: 0 }] },
   ]);
 
   HybridAutoPlay.addListener('didConnect', onConnect);

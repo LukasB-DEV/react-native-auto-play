@@ -27,17 +27,25 @@ const convert = <T>(template: T, mapButtons?: MapButtons<T>): Array<NitroMapButt
       );
     }
 
-    const backgroundColor =
-      Platform.OS === 'android'
-        ? 'transparent'
-        : 'backgroundColor' in button.image
-          ? button.image.backgroundColor
-          : 'transparent';
+    if (button.image.type === 'glyph') {
+      const backgroundColor =
+        Platform.OS === 'android'
+          ? 'transparent'
+          : 'backgroundColor' in button.image
+            ? button.image.backgroundColor
+            : 'transparent';
+
+      return {
+        type,
+        onPress: () => onPress(template),
+        image: NitroImageUtil.convert({ ...button.image, backgroundColor }),
+      };
+    }
 
     return {
       type,
       onPress: () => onPress(template),
-      image: NitroImageUtil.convert({ ...button.image, backgroundColor: backgroundColor }),
+      image: NitroImageUtil.convert(button.image),
     };
   });
 };

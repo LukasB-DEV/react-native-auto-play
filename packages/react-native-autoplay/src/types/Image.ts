@@ -18,6 +18,7 @@ export type AutoImage =
        * Defaults to transparent if not specified.
        */
       backgroundColor?: ThemedColor | string;
+      type: 'glyph';
     }
   | {
       image: ImageSourcePropType;
@@ -26,4 +27,5 @@ export type AutoImage =
        * Might not get applied everywhere like MapTemplate buttons on Android.
        */
       color?: ThemedColor | string;
+      type: 'image';
     };
