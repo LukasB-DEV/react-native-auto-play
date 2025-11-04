@@ -1,5 +1,11 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
@@ -24,12 +30,22 @@ import androidx.car.app.navigation.model.LaneDirection
 import androidx.car.app.navigation.model.Maneuver
 import androidx.car.app.navigation.model.Step
 import androidx.car.app.navigation.model.TravelEstimate
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.drawable.IconCompat
+import com.facebook.common.references.CloseableReference
+import com.facebook.datasource.DataSources
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.image.CloseableBitmap
+import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.facebook.react.views.imagehelper.ImageSource
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertActionStyle
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AssetImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DistanceUnits
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.DurationWithTimeZone
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ForkType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.GlyphImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.KeepType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ManeuverType
@@ -49,6 +65,7 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.OnRampType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TrafficSide
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TravelEstimates
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TurnType
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Variant_GlyphImage_AssetImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.SymbolFont
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -75,7 +92,7 @@ object Parser {
                     }
 
                     else -> {
-                        throw IllegalArgumentException("missing alignment in action ${action.type} ${action.title ?: action.image?.glyph}")
+                        throw IllegalArgumentException("missing alignment in action ${action.type} ${action.title}")
                     }
                 }
             }
@@ -99,7 +116,7 @@ object Parser {
                     }
                     action.image?.let { image ->
                         val icon = CarIcon.Builder(
-                            SymbolFont.iconFromNitroImage(
+                            parseImage(
                                 context, image
                             )
                         ).build()
@@ -129,7 +146,7 @@ object Parser {
                         setOnClickListener(button.onPress)
                         setIcon(
                             CarIcon.Builder(
-                                SymbolFont.iconFromNitroImage(
+                                parseImage(
                                     context, image
                                 )
                             ).build()
@@ -168,12 +185,38 @@ object Parser {
         }.build()
     }
 
+    fun parseImage(context: CarContext, image: Variant_GlyphImage_AssetImage): CarIcon {
+        return parseImage(context, image.asFirstOrNull(), image.asSecondOrNull())
+    }
+
     fun parseImage(context: CarContext, image: NitroImage): CarIcon {
-        return CarIcon.Builder(
-            SymbolFont.iconFromNitroImage(
-                context, image
+        return parseImage(context, image.asFirstOrNull(), image.asSecondOrNull())
+    }
+
+    fun parseImage(context: CarContext, glyphImage: GlyphImage?, assetImage: AssetImage?): CarIcon {
+        val bitmap = parseImageToBitmap(context, glyphImage, assetImage)
+
+        bitmap?.let {
+            return CarIcon.Builder(IconCompat.createWithBitmap(it)).build()
+        }
+
+        // this should not be possible, we just wanna satisfy kotlin
+        return CarIcon.APP_ICON
+    }
+
+    fun parseImageToBitmap(
+        context: CarContext, glyphImage: GlyphImage?, assetImage: AssetImage?
+    ): Bitmap? {
+        glyphImage?.let {
+            return SymbolFont.imageFromNitroImage(
+                context, it
             )
-        ).build()
+        }
+        assetImage?.let {
+            return parseAssetImage(context, it)
+        }
+
+        return null
     }
 
     fun parseImages(context: CarContext, images: List<NitroImage>): CarIcon {
@@ -415,6 +458,33 @@ object Parser {
         return CarColor.createCustom(
             color.toInt(), colorDark.toInt()
         )
+    }
+
+    fun parseAssetImage(context: CarContext, image: AssetImage): Bitmap {
+        val source = ImageSource(context, image.uri)
+        val imageRequest = ImageRequestBuilder.newBuilderWithSource(source.uri).build()
+        val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
+        val result =
+            DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
+        val bitmap = result.get().underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
+
+        CloseableReference.closeSafely(result)
+        dataSource.close()
+
+        image.color?.let {
+            val tintColor =
+                if (context.isDarkMode) image.color.darkColor else image.color.lightColor
+            val result = createBitmap(bitmap.width, bitmap.height)
+            val canvas = Canvas(result)
+            val paint = Paint()
+
+            paint.colorFilter = PorterDuffColorFilter(tintColor.toInt(), PorterDuff.Mode.SRC_IN)
+            canvas.drawBitmap(bitmap, 0f, 0f, paint)
+
+            return result
+        }
+
+        return bitmap
     }
 
     fun parseManeuver(context: CarContext, nitroManeuver: NitroManeuver): Maneuver {

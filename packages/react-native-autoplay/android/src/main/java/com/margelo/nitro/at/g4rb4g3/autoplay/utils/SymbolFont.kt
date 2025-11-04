@@ -11,7 +11,9 @@ import androidx.car.app.CarContext
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.GlyphImage
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroImage
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.Parser
 import com.margelo.nitro.autoplay.BuildConfig
 import com.margelo.nitro.autoplay.R
 
@@ -84,7 +86,7 @@ object SymbolFont {
         return bitmap
     }
 
-    fun imageFromNitroImage(context: CarContext, image: NitroImage): Bitmap {
+    fun imageFromNitroImage(context: CarContext, image: GlyphImage): Bitmap {
         val color =
             if (context.isDarkMode) image.color.darkColor else image.color.lightColor
         val backgroundColor =
@@ -98,16 +100,16 @@ object SymbolFont {
         )!!
     }
 
-    fun iconFromNitroImage(context: CarContext, image: NitroImage): IconCompat {
-        val bitmap = imageFromNitroImage(context, image)
-
-        return IconCompat.createWithBitmap(bitmap)
-    }
-
     fun imageFromNitroImages(
         context: CarContext, images: List<NitroImage>
     ): IconCompat {
-        val bitmaps = images.map { imageFromNitroImage(context, it) }
+        val bitmaps = images.map {
+            Parser.parseImageToBitmap(
+                context,
+                it.asFirstOrNull(),
+                it.asSecondOrNull()
+            )!!
+        }
 
         val height = bitmaps.maxOf { it.height }
         val width = bitmaps.maxOf { it.width }
