@@ -1,50 +1,50 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
 import androidx.car.app.CarContext
-import androidx.car.app.model.ListTemplate
-import androidx.car.app.model.SectionedItemList
+import androidx.car.app.model.Pane
+import androidx.car.app.model.PaneTemplate
+import androidx.car.app.model.Row
 import androidx.car.app.model.Template
 import androidx.car.app.navigation.model.MapController
 import androidx.car.app.navigation.model.MapWithContentTemplate
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ListTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.InformationTemplateConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroSection
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.Parser.parseText
 
-class ListTemplate(context: CarContext, config: ListTemplateConfig) :
-    AndroidAutoTemplate<ListTemplateConfig>(context, config) {
+class InformationTemplate(context: CarContext, config: InformationTemplateConfig) :
+    AndroidAutoTemplate<InformationTemplateConfig>(context, config) {
 
     override val isRenderTemplate = false
     override val templateId: String
         get() = config.id
 
-    override fun parse(): Template {
-        val template = ListTemplate.Builder().apply {
-            setHeader(Parser.parseHeader(context, config.title, config.headerActions))
 
-            config.sections?.let { sections ->
-                if (sections.isEmpty()) {
-                    setLoading(true)
-                } else if (sections.size == 1 && sections.first().title == null) {
-                    val section = sections[0]
-                    setSingleList(
-                        Parser.parseRows(
-                            context, section.items, 0, config.id, section.type
-                        )
-                    )
-                } else {
-                    sections.forEachIndexed { index, section ->
-                        addSectionedList(
-                            SectionedItemList.create(
-                                Parser.parseRows(
-                                    context, section.items, index, config.id, section.type
-                                ), section.title!!
-                            )
-                        )
-                    }
+    override fun parse(): Template {
+        val pane = Pane.Builder().apply {
+            config.section?.let {
+                it.items.forEach { item ->
+                    addRow(Row.Builder().apply {
+                        setTitle(parseText(item.title))
+                        item.detailedText?.let { detailedText ->
+                            addText(parseText(detailedText))
+                        }
+                        item.image?.let {
+                            setImage(Parser.parseImage(context, item.image))
+                        }
+                    }.build())
                 }
-            } ?: run {
-                setLoading(true)
             }
+
+            config.actions?.let {
+                it.forEach { action ->
+                    addAction(Parser.parseAction(context, action))
+                }
+            }
+        }
+
+        val template = PaneTemplate.Builder(pane.build()).apply {
+            setHeader(Parser.parseHeader(context, config.title, config.headerActions))
         }.build()
 
         return this.config.mapConfig?.let {
@@ -89,12 +89,8 @@ class ListTemplate(context: CarContext, config: ListTemplateConfig) :
         templates.remove(templateId)
     }
 
-    fun updateSections(sections: Array<NitroSection>?) {
-        config = config.copy(sections = sections)
+    fun updateSection(section: NitroSection?) {
+        config = config.copy(section = section)
         super.applyConfigUpdate()
-    }
-
-    companion object {
-
     }
 }

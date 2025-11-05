@@ -1,6 +1,11 @@
 import { Platform } from 'react-native';
-import type { HeaderActionsAndroidMap } from '../templates/MapTemplate';
-import type { HeaderActions, HeaderActionsAndroid, HeaderActionsIos } from '../templates/Template';
+import type { MapHeaderActions } from '../templates/MapTemplate';
+import type {
+  ActionButton,
+  HeaderActions,
+  HeaderActionsAndroid,
+  HeaderActionsIos,
+} from '../templates/Template';
 import type {
   ActionButtonAndroid,
   ActionButtonIos,
@@ -65,7 +70,7 @@ const convertToNitro = <T>(
     return { type, onPress: () => onPress(template), alignment };
   }
 
-  const { enabled, flags } = action;
+  const { enabled, flags, style } = action;
 
   const title = 'title' in action ? action.title : undefined;
   const image = 'image' in action ? NitroImageUtil.convert(action.image) : undefined;
@@ -78,12 +83,13 @@ const convertToNitro = <T>(
     image,
     title,
     alignment,
+    style,
   };
 };
 
-const convertAndroidMap = <T>(
+const convertActionButtons = <T>(
   template: T,
-  actions?: HeaderActionsAndroidMap<T>
+  actions?: Array<ActionButton<T>>
 ): Array<NitroAction> | undefined => {
   return actions?.map<NitroAction>((action) => convertToNitro(template, action, undefined));
 };
@@ -179,12 +185,29 @@ function convertAndroid<T>(
   return nitroActions;
 }
 
-function convert<T>(template: T, actions: HeaderActions<T>): Array<NitroAction>;
-function convert<T>(template: T, actions?: HeaderActions<T>): Array<NitroAction> | undefined;
-function convert<T>(template: T, actions?: HeaderActions<T>): Array<NitroAction> | undefined {
+function convert<T>(
+  template: T,
+  actions: HeaderActions<T> | Array<ActionButton<T>> | MapHeaderActions<T>
+): Array<NitroAction>;
+function convert<T>(
+  template: T,
+  actions?: HeaderActions<T> | Array<ActionButton<T>> | MapHeaderActions<T>
+): Array<NitroAction> | undefined;
+function convert<T>(
+  template: T,
+  actions?: HeaderActions<T> | Array<ActionButton<T>> | MapHeaderActions<T>
+): Array<NitroAction> | undefined {
+  if (Array.isArray(actions)) {
+    return convertActionButtons(template, actions);
+  }
+
+  if (actions?.android != null && Array.isArray(actions.android)) {
+    return convertActionButtons(template, actions.android);
+  }
+
   return Platform.OS === 'android'
     ? convertAndroid(template, actions?.android)
     : convertIos(template, actions?.ios);
 }
 
-export const NitroActionUtil = { convert, convertAndroidMap, convertIos };
+export const NitroActionUtil = { convert };

@@ -22,6 +22,7 @@ import {
 } from '../state/navigationSlice';
 import { dispatch } from '../state/store';
 import { AutoGridTemplate } from './AutoGridTemplate';
+import { AutoInformationTemplate } from './AutoInformationTemplate';
 import { AutoListTemplate } from './AutoListTemplate';
 import { AutoMessageTemplate } from './AutoMessageTemplate';
 import { AutoSearchTemplate } from './AutoSearchTemplate';
@@ -263,6 +264,13 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
       },
       onPress: mapButtonHandler,
     },
+    {
+      type: 'image',
+      image: {
+        name: 'list_alt',
+      },
+      onPress: () => AutoInformationTemplate.getTemplate().push(),
+    },
   ],
   ios: {
     leadingNavigationBarButtons: [
@@ -286,6 +294,13 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
           name: 'flag_check',
         },
         onPress: mapButtonHandler,
+      },
+      {
+        type: 'image',
+        image: {
+          name: 'list_alt',
+        },
+        onPress: () => AutoInformationTemplate.getTemplate().push(),
       },
     ],
   },
@@ -368,17 +383,23 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
               type: 'custom',
               image: { name: 'list' },
               onPress: () => {
-                AutoListTemplate.getTemplate().push();
+                AutoListTemplate.getTemplate({ mapConfig: {} }).push();
               },
             },
             {
               type: 'custom',
               image: { name: 'grid_3x3' },
               onPress: () => {
-                AutoGridTemplate.getTemplate().push();
+                AutoGridTemplate.getTemplate({ mapConfig: {} }).push();
               },
             },
-            { type: 'custom', image: { name: 'inbox' }, onPress: () => {} },
+            {
+              type: 'custom',
+              image: { name: 'list_alt' },
+              onPress: () => {
+                AutoInformationTemplate.getTemplate({ mapConfig: {} }).push();
+              },
+            },
             { type: 'custom', image: { name: 'assignment_late' }, onPress: () => {} },
           ],
           headerActions: {

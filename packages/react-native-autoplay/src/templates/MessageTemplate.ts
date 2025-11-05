@@ -1,5 +1,5 @@
 import { NitroModules } from 'react-native-nitro-modules';
-import { type AutoImage, type BaseMapTemplateConfig, convertMapActions } from '..';
+import type { AutoImage, BaseMapTemplateConfig } from '..';
 import type { HybridMessageTemplate as NitroHybridMessageTemplate } from '../specs/HybridMessageTemplate.nitro';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
@@ -72,7 +72,7 @@ export class MessageTemplate extends Template<
       mapConfig: mapConfig
         ? {
             mapButtons: NitroMapButton.convert(this.template, mapConfig.mapButtons),
-            headerActions: convertMapActions(this.template, mapConfig.headerActions),
+            headerActions: NitroActionUtil.convert(this.template, mapConfig.headerActions),
           }
         : undefined,
     };

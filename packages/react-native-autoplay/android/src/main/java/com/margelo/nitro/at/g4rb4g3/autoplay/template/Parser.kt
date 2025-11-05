@@ -164,6 +164,9 @@ object Parser {
                 if (style == AlertActionStyle.DESTRUCTIVE) {
                     setBackgroundColor(CarColor.RED)
                 }
+                if (style == AlertActionStyle.DEFAULT) {
+                    setBackgroundColor(CarColor.BLUE)
+                }
             }
         }.build()
     }

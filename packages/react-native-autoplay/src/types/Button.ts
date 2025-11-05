@@ -1,3 +1,4 @@
+import type { AlertActionStyle } from '../utils/NitroAlert';
 import type { AutoImage } from './Image';
 
 export type MapButton<T = unknown> = {
@@ -15,26 +16,26 @@ export type MapPanButton<T = unknown> = {
   onPress: (template: T) => void;
 };
 
-export type TextButton<T = unknown> = {
+type BaseButton<T = unknown> = {
+  style?: AlertActionStyle;
+  enabled?: boolean;
+  onPress: (template: T) => void;
+};
+
+export type TextButton<T = unknown> = BaseButton<T> & {
   type: 'text';
   title: string;
-  enabled?: boolean;
-  onPress: (template: T) => void;
 };
 
-export type ImageButton<T = unknown> = {
+export type ImageButton<T = unknown> = BaseButton<T> & {
   type: 'image';
   image: AutoImage;
-  enabled?: boolean;
-  onPress: (template: T) => void;
 };
 
-export type TextAndImageButton<T = unknown> = {
+export type TextAndImageButton<T = unknown> = BaseButton<T> & {
   type: 'textImage';
   image: AutoImage;
   title: string;
-  enabled?: boolean;
-  onPress: (template: T) => void;
 };
 
 /**
