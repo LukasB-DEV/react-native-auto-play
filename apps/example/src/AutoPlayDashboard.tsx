@@ -17,7 +17,7 @@ export const AutoPlayDashboard = (props: RootComponentInitialProps) => {
       {
         titleVariants: ['Start navigation'],
         subtitleVariants: [],
-        image: { name: 'play_circle' },
+        image: { name: 'play_circle', type: 'glyph' },
         onPress: () => {
           dispatch(
             actionStartNavigation({

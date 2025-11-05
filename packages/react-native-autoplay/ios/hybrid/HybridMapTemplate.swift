@@ -82,7 +82,8 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
 
     func updateManeuvers(templateId: String, maneuvers: [NitroManeuver]) throws
     {
-        try RootModule.withMapTemplate(templateId: templateId) { template in
+        try RootModule.withMapTemplate(templateId: templateId) {
+            template in
             template.updateManeuvers(maneuvers: maneuvers)
         }
     }

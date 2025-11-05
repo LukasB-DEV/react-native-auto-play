@@ -37,7 +37,7 @@ const headerActions: HeaderActions<unknown> = {
     endHeaderActions: [
       {
         type: 'textImage',
-        image: { name: 'help' },
+        image: { name: 'help', type: 'glyph' },
         title: 'help',
         onPress: () => {
           console.log('*** help \\o/');
@@ -51,7 +51,7 @@ const headerActions: HeaderActions<unknown> = {
       },
       {
         type: 'image',
-        image: { name: 'close' },
+        image: { name: 'close', type: 'glyph' },
         onPress: () => {
           HybridAutoPlay.popToRootTemplate();
         },
@@ -76,7 +76,7 @@ const headerActions: HeaderActions<unknown> = {
       },
       {
         type: 'image',
-        image: { name: 'close' },
+        image: { name: 'close', type: 'glyph' },
         onPress: () => {
           HybridAutoPlay.popToRootTemplate();
         },
@@ -94,7 +94,7 @@ export const onTripFinished = (template: MapTemplate) => {
   if (Platform.OS === 'ios') {
     CarPlayDashboard.setButtons([
       {
-        image: { name: 'play_circle' },
+        image: { name: 'play_circle', type: 'glyph' },
         titleVariants: ['Start navigation'],
         subtitleVariants: [],
         onPress: () => {
@@ -115,6 +115,7 @@ export const onTripFinished = (template: MapTemplate) => {
 const stopNavigation: ImageButton<MapTemplate> = {
   image: {
     name: 'close',
+    type: 'glyph',
   },
   onPress: onTripFinished,
   type: 'image',
@@ -123,6 +124,7 @@ const stopNavigation: ImageButton<MapTemplate> = {
 const plusOne: ImageButton<MapTemplate> = {
   image: {
     name: 'add',
+    type: 'glyph',
   },
   onPress: (template) => {
     updateTripEstimates(template, 'add');
@@ -133,6 +135,7 @@ const plusOne: ImageButton<MapTemplate> = {
 const minusOne: ImageButton<MapTemplate> = {
   image: {
     name: 'remove',
+    type: 'glyph',
   },
   onPress: (template) => {
     updateTripEstimates(template, 'remove');
@@ -145,6 +148,7 @@ let visibleTravelEstimate: VisibleTravelEstimate = 'first';
 const toggleEta: ImageButton<MapTemplate> = {
   image: {
     name: 'refresh',
+    type: 'glyph',
   },
   onPress: (template) => {
     visibleTravelEstimate = visibleTravelEstimate === 'first' ? 'last' : 'first';
@@ -192,7 +196,7 @@ export const onTripStarted = (tripId: string, routeId: string, template: MapTemp
 
     CarPlayDashboard.setButtons([
       {
-        image: { name: 'stop_circle' },
+        image: { name: 'stop_circle', type: 'glyph' },
         titleVariants: ['Stop navigation'],
         subtitleVariants: [],
         onPress: () => {
@@ -243,7 +247,7 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
   android: [
     {
       type: 'image',
-      image: { name: 'grid_3x3' },
+      image: { name: 'grid_3x3', type: 'glyph' },
       onPress: (t) => {
         console.log('***', t.id);
         AutoGridTemplate.getTemplate().push();
@@ -253,6 +257,7 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
       type: 'image',
       image: {
         name: 'list',
+        type: 'glyph',
       },
       onPress: () => AutoListTemplate.getTemplate().push(),
     },
@@ -260,6 +265,7 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
       type: 'image',
       image: {
         name: 'flag_check',
+        type: 'glyph',
       },
       onPress: mapButtonHandler,
     },
@@ -270,12 +276,13 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
         type: 'image',
         image: {
           name: 'list',
+          type: 'glyph',
         },
         onPress: () => AutoListTemplate.getTemplate().push(),
       },
       {
         type: 'image',
-        image: { name: 'grid_3x3' },
+        image: { name: 'grid_3x3', type: 'glyph' },
         onPress: () => AutoGridTemplate.getTemplate().push(),
       },
     ],
@@ -284,6 +291,7 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
         type: 'image',
         image: {
           name: 'flag_check',
+          type: 'glyph',
         },
         onPress: mapButtonHandler,
       },
@@ -304,6 +312,8 @@ const AutoAlert = (remaining: number): Alert => ({
   },
   image: {
     name: 'alarm',
+    type: 'glyph',
+    color: Platform.OS === 'android' ? 'white' : { darkColor: 'white', lightColor: 'white' },
   },
   primaryAction: {
     title: 'keep calm',
@@ -336,6 +346,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
       name: 'ev_station',
       color: { darkColor: 'rgba(255, 0, 0, 1)', lightColor: 'rgba(0, 255, 0, 1)' },
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
+      type: 'glyph',
     },
     onPress: (template) => {
       var remaining = 10000;
@@ -358,6 +369,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
       name: 'map',
       color: { darkColor: 'rgba(255, 0, 0, 1)', lightColor: 'rgba(0, 255, 0, 1)' },
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
+      type: 'glyph',
     },
     onPress: () => {
       AutoMessageTemplate.getTemplate({
@@ -366,28 +378,48 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
           mapButtons: [
             {
               type: 'custom',
-              image: { name: 'list' },
+              image: { name: 'list', type: 'glyph' },
               onPress: () => {
                 AutoListTemplate.getTemplate().push();
               },
             },
             {
               type: 'custom',
-              image: { name: 'grid_3x3' },
+              image: { name: 'grid_3x3', type: 'glyph' },
               onPress: () => {
                 AutoGridTemplate.getTemplate().push();
               },
             },
-            { type: 'custom', image: { name: 'inbox' }, onPress: () => {} },
-            { type: 'custom', image: { name: 'assignment_late' }, onPress: () => {} },
+            { type: 'custom', image: { name: 'inbox', type: 'glyph' }, onPress: () => {} },
+            {
+              type: 'custom',
+              image: { name: 'assignment_late', type: 'glyph' },
+              onPress: () => {},
+            },
           ],
           headerActions: {
             // ios does not support map with template, so no need to specify headers for ios here
             android: [
-              { type: 'image', image: { name: 'battery_vert_050' }, onPress: () => {} },
-              { type: 'image', image: { name: 'barcode_reader' }, onPress: () => {} },
-              { type: 'image', image: { name: 'article_shortcut' }, onPress: () => {} },
-              { type: 'image', image: { name: 'directions_run' }, onPress: () => {} },
+              {
+                type: 'image',
+                image: { name: 'battery_vert_050', type: 'glyph' },
+                onPress: () => {},
+              },
+              {
+                type: 'image',
+                image: { name: 'barcode_reader', type: 'glyph' },
+                onPress: () => {},
+              },
+              {
+                type: 'image',
+                image: { name: 'article_shortcut', type: 'glyph' },
+                onPress: () => {},
+              },
+              {
+                type: 'image',
+                image: { name: 'directions_run', type: 'glyph' },
+                onPress: () => {},
+              },
             ],
           },
         },
@@ -400,6 +432,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
       name: 'search',
       color: { darkColor: 'rgba(255, 0, 0, 1)', lightColor: 'rgba(0, 255, 0, 1)' },
       backgroundColor: 'rgba(66, 66, 66, 0.5)',
+      type: 'glyph',
     },
     onPress: () => {
       let timeout: number;
@@ -426,6 +459,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
                         image: {
                           name: 'ev_charger',
                           color: { lightColor: 'red', darkColor: 'orange' },
+                          type: 'glyph',
                         },
                       },
                     ],
@@ -452,6 +486,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
                       image: {
                         name: 'ev_charger',
                         color: { lightColor: 'blue', darkColor: 'green' },
+                        type: 'glyph',
                       },
                     },
                   ],
