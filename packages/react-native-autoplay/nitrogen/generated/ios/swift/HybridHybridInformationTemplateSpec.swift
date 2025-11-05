@@ -15,7 +15,7 @@ public protocol HybridHybridInformationTemplateSpec_protocol: HybridObject {
 
   // Methods
   func createInformationTemplate(config: InformationTemplateConfig) throws -> Void
-  func updateInformationTemplateSections(templateId: String, section: NitroSection?) throws -> Void
+  func updateInformationTemplateSections(templateId: String, section: NitroSection) throws -> Void
 }
 
 public extension HybridHybridInformationTemplateSpec_protocol {

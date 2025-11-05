@@ -21,8 +21,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroColor; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroActionType; }
 // Forward declaration of `NitroAlignment` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
-// Forward declaration of `AlertActionStyle` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class AlertActionStyle; }
+// Forward declaration of `NitroButtonStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroButtonStyle; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
@@ -64,8 +64,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroMapBut
 #include "JNitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "JNitroAlignment.hpp"
-#include "AlertActionStyle.hpp"
-#include "JAlertActionStyle.hpp"
+#include "NitroButtonStyle.hpp"
+#include "JNitroButtonStyle.hpp"
 #include "AutoText.hpp"
 #include "JAutoText.hpp"
 #include "Distance.hpp"
@@ -121,9 +121,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JInformationTemplateConfig> /* config */)>("createInformationTemplate");
     method(_javaPart, JInformationTemplateConfig::fromCpp(config));
   }
-  void JHybridHybridInformationTemplateSpec::updateInformationTemplateSections(const std::string& templateId, const std::optional<NitroSection>& section) {
+  void JHybridHybridInformationTemplateSpec::updateInformationTemplateSections(const std::string& templateId, const NitroSection& section) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroSection> /* section */)>("updateInformationTemplateSections");
-    method(_javaPart, jni::make_jstring(templateId), section.has_value() ? JNitroSection::fromCpp(section.value()) : nullptr);
+    method(_javaPart, jni::make_jstring(templateId), JNitroSection::fromCpp(section));
   }
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid

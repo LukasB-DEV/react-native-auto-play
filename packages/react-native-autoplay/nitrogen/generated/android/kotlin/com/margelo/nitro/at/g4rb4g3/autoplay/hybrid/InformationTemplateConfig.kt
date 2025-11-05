@@ -43,7 +43,7 @@ data class InformationTemplateConfig(
   val title: AutoText,
   @DoNotStrip
   @Keep
-  val section: NitroSection?,
+  val section: NitroSection,
   @DoNotStrip
   @Keep
   val actions: Array<NitroAction>?,
@@ -54,7 +54,7 @@ data class InformationTemplateConfig(
   /**
    * Create a new instance of InformationTemplateConfig from Kotlin
    */
-  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, section: NitroSection?, actions: Array<NitroAction>?, mapConfig: NitroBaseMapTemplateConfig?):
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, section: NitroSection, actions: Array<NitroAction>?, mapConfig: NitroBaseMapTemplateConfig?):
          this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions, title, section, actions, mapConfig)
 
   private companion object {
@@ -65,7 +65,7 @@ data class InformationTemplateConfig(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText, section: NitroSection?, actions: Array<NitroAction>?, mapConfig: NitroBaseMapTemplateConfig?): InformationTemplateConfig {
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText, section: NitroSection, actions: Array<NitroAction>?, mapConfig: NitroBaseMapTemplateConfig?): InformationTemplateConfig {
       return InformationTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, headerActions, title, section, actions, mapConfig)
     }
   }

@@ -18,7 +18,7 @@ public extension InformationTemplateConfig {
   /**
    * Create a new instance of `InformationTemplateConfig`.
    */
-  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, headerActions: [NitroAction]?, title: AutoText, section: NitroSection?, actions: [NitroAction]?, mapConfig: NitroBaseMapTemplateConfig?) {
+  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, headerActions: [NitroAction]?, title: AutoText, section: NitroSection, actions: [NitroAction]?, mapConfig: NitroBaseMapTemplateConfig?) {
     self.init(std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
@@ -76,13 +76,7 @@ public extension InformationTemplateConfig {
       } else {
         return .init()
       }
-    }(), title, { () -> bridge.std__optional_NitroSection_ in
-      if let __unwrappedValue = section {
-        return bridge.create_std__optional_NitroSection_(__unwrappedValue)
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_std__vector_NitroAction__ in
+    }(), title, section, { () -> bridge.std__optional_std__vector_NitroAction__ in
       if let __unwrappedValue = actions {
         return bridge.create_std__optional_std__vector_NitroAction__({ () -> bridge.std__vector_NitroAction_ in
           var __vector = bridge.create_std__vector_NitroAction_(__unwrappedValue.count)
@@ -339,20 +333,14 @@ public extension InformationTemplateConfig {
     }
   }
   
-  var section: NitroSection? {
+  var section: NitroSection {
     @inline(__always)
     get {
-      return self.__section.value
+      return self.__section
     }
     @inline(__always)
     set {
-      self.__section = { () -> bridge.std__optional_NitroSection_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_NitroSection_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
+      self.__section = newValue
     }
   }
   

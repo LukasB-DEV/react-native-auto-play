@@ -51,7 +51,7 @@ abstract class HybridHybridInformationTemplateSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun updateInformationTemplateSections(templateId: String, section: NitroSection?): Unit
+  abstract fun updateInformationTemplateSections(templateId: String, section: NitroSection): Unit
 
   private external fun initHybrid(): HybridData
 

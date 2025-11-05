@@ -82,6 +82,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributed
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroAttributedString; }
 // Forward declaration of `NitroBaseMapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroBaseMapTemplateConfig; }
+// Forward declaration of `NitroButtonStyle` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroButtonStyle; }
 // Forward declaration of `NitroCarPlayDashboardButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroCarPlayDashboardButton; }
 // Forward declaration of `NitroColor` to properly resolve imports.
@@ -175,6 +177,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ZoomEvent; 
 #include "NitroAttributedString.hpp"
 #include "NitroAttributedStringImage.hpp"
 #include "NitroBaseMapTemplateConfig.hpp"
+#include "NitroButtonStyle.hpp"
 #include "NitroCarPlayDashboardButton.hpp"
 #include "NitroColor.hpp"
 #include "NitroGridButton.hpp"

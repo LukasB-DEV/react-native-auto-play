@@ -21,7 +21,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroSection; }
 #include "InformationTemplateConfig.hpp"
 #include <string>
 #include "NitroSection.hpp"
-#include <optional>
 
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
@@ -55,7 +54,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     public:
       // Methods
       virtual void createInformationTemplate(const InformationTemplateConfig& config) = 0;
-      virtual void updateInformationTemplateSections(const std::string& templateId, const std::optional<NitroSection>& section) = 0;
+      virtual void updateInformationTemplateSections(const std::string& templateId, const NitroSection& section) = 0;
 
     protected:
       // Hybrid Setup

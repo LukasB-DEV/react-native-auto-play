@@ -55,7 +55,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
   public:
     // Methods
     void createInformationTemplate(const InformationTemplateConfig& config) override;
-    void updateInformationTemplateSections(const std::string& templateId, const std::optional<NitroSection>& section) override;
+    void updateInformationTemplateSections(const std::string& templateId, const NitroSection& section) override;
 
   private:
     friend HybridBase;

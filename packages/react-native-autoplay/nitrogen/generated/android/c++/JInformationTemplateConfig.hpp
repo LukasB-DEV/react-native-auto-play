@@ -10,13 +10,11 @@
 #include <fbjni/fbjni.h>
 #include "InformationTemplateConfig.hpp"
 
-#include "AlertActionStyle.hpp"
 #include "AssetImage.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
 #include "GlyphImage.hpp"
-#include "JAlertActionStyle.hpp"
 #include "JAssetImage.hpp"
 #include "JAutoText.hpp"
 #include "JDistance.hpp"
@@ -28,6 +26,7 @@
 #include "JNitroActionType.hpp"
 #include "JNitroAlignment.hpp"
 #include "JNitroBaseMapTemplateConfig.hpp"
+#include "JNitroButtonStyle.hpp"
 #include "JNitroColor.hpp"
 #include "JNitroMapButton.hpp"
 #include "JNitroMapButtonType.hpp"
@@ -39,6 +38,7 @@
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroBaseMapTemplateConfig.hpp"
+#include "NitroButtonStyle.hpp"
 #include "NitroColor.hpp"
 #include "NitroMapButton.hpp"
 #include "NitroMapButtonType.hpp"
@@ -160,7 +160,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
           return __vector;
         }()) : std::nullopt,
         title->toCpp(),
-        section != nullptr ? std::make_optional(section->toCpp()) : std::nullopt,
+        section->toCpp(),
         actions != nullptr ? std::make_optional([&]() {
           size_t __size = actions->size();
           std::vector<NitroAction> __vector;
@@ -202,7 +202,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
           return __array;
         }() : nullptr,
         JAutoText::fromCpp(value.title),
-        value.section.has_value() ? JNitroSection::fromCpp(value.section.value()) : nullptr,
+        JNitroSection::fromCpp(value.section),
         value.actions.has_value() ? [&]() {
           size_t __size = value.actions.value().size();
           jni::local_ref<jni::JArrayClass<JNitroAction>> __array = jni::JArrayClass<JNitroAction>::newArray(__size);

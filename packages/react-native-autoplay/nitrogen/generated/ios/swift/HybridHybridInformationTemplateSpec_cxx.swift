@@ -129,9 +129,9 @@ open class HybridHybridInformationTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func updateInformationTemplateSections(templateId: std.string, section: bridge.std__optional_NitroSection_) -> bridge.Result_void_ {
+  public final func updateInformationTemplateSections(templateId: std.string, section: NitroSection) -> bridge.Result_void_ {
     do {
-      try self.__implementation.updateInformationTemplateSections(templateId: String(templateId), section: section.value)
+      try self.__implementation.updateInformationTemplateSections(templateId: String(templateId), section: section)
       return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
