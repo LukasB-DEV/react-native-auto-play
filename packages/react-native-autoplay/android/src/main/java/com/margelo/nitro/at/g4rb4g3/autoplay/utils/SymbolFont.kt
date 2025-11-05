@@ -97,7 +97,7 @@ object SymbolFont {
             glyph = image.glyph,
             color = color.toInt(),
             backgroundColor = backgroundColor.toInt(),
-            fontScale = image.fontScale.toFloat()
+            fontScale = (image.fontScale ?: 1.0).toFloat()
         )
     }
 

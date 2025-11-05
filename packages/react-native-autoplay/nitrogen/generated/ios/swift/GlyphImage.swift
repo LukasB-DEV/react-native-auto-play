@@ -18,8 +18,14 @@ public extension GlyphImage {
   /**
    * Create a new instance of `GlyphImage`.
    */
-  init(glyph: Double, color: NitroColor, backgroundColor: NitroColor, fontScale: Double) {
-    self.init(glyph, color, backgroundColor, fontScale)
+  init(glyph: Double, color: NitroColor, backgroundColor: NitroColor, fontScale: Double?) {
+    self.init(glyph, color, backgroundColor, { () -> bridge.std__optional_double_ in
+      if let __unwrappedValue = fontScale {
+        return bridge.create_std__optional_double_(__unwrappedValue)
+      } else {
+        return .init()
+      }
+    }())
   }
 
   var glyph: Double {
@@ -55,14 +61,20 @@ public extension GlyphImage {
     }
   }
   
-  var fontScale: Double {
+  var fontScale: Double? {
     @inline(__always)
     get {
-      return self.__fontScale
+      return self.__fontScale.value
     }
     @inline(__always)
     set {
-      self.__fontScale = newValue
+      self.__fontScale = { () -> bridge.std__optional_double_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_double_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
     }
   }
 }
