@@ -165,13 +165,23 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     HybridMapTemplate.showNavigationAlert(this.id, NitroAlertUtil.convert(alert));
   }
 
-  public showTripSelector(
-    trips: Array<TripsConfig>,
-    selectedTripId: string | null,
-    textConfig: TripPreviewTextConfiguration,
-    onTripSelected: (tripId: string, routeId: string) => void,
-    onTripStarted: (tripId: string, routeId: string) => void
-  ) {
+  public showTripSelector({
+    trips,
+    selectedTripId,
+    textConfig,
+    onTripSelected,
+    onTripStarted,
+    onBackPressed,
+    mapButtons,
+  }: {
+    trips: Array<TripsConfig>;
+    selectedTripId: string | null;
+    textConfig: TripPreviewTextConfiguration;
+    onTripSelected: (tripId: string, routeId: string) => void;
+    onTripStarted: (tripId: string, routeId: string) => void;
+    onBackPressed: () => void;
+    mapButtons?: MapTemplateConfig['mapButtons'];
+  }) {
     if (
       trips.length === 0 ||
       trips.some(
@@ -189,9 +199,11 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       new Set(trips.flatMap((t) => t.routeChoices.flatMap((r) => r.steps.at(-1)?.name))).size > 1
     ) {
       console.warn(
-        'found none distinct destination names, while this is possible it might lead to exceeding the step count, check https://developer.android.com/design/ui/cars/guides/ux-requirements/plan-task-flows#steps-refreshes for details'
+        'found non distinct destination names, while this is possible it might lead to exceeding the step count, check https://developer.android.com/design/ui/cars/guides/ux-requirements/plan-task-flows#steps-refreshes for details'
       );
     }
+
+    const buttons = NitroMapButton.convert(this.template, mapButtons);
 
     HybridMapTemplate.showTripSelector(
       this.id,
@@ -199,7 +211,9 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
       selectedTripId,
       textConfig,
       onTripSelected,
-      onTripStarted
+      onTripStarted,
+      onBackPressed,
+      buttons ?? []
     );
   }
 

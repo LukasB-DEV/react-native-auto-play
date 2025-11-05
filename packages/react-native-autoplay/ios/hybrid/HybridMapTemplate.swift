@@ -44,7 +44,9 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
         selectedTripId: String?,
         textConfig: TripPreviewTextConfiguration,
         onTripSelected: @escaping (_ tripId: String, _ routeId: String) -> Void,
-        onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void
+        onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void,
+        onBackPressed: @escaping () -> Void,
+        mapButtons: [NitroMapButton]
     ) throws {
         try RootModule.withMapTemplate(templateId: templateId) { template in
             template.showTripSelector(
@@ -52,7 +54,9 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
                 selectedTripId: selectedTripId,
                 textConfig: textConfig,
                 onTripSelected: onTripSelected,
-                onTripStarted: onTripStarted
+                onTripStarted: onTripStarted,
+                onBackPressed: onBackPressed,
+                mapButtons: mapButtons
             )
         }
     }

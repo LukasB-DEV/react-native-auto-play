@@ -1,5 +1,6 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
+import androidx.activity.OnBackPressedCallback
 import androidx.car.app.CarContext
 import androidx.car.app.OnScreenResultListener
 import androidx.car.app.Screen
@@ -10,10 +11,13 @@ import androidx.car.app.model.Pane
 import androidx.car.app.model.PaneTemplate
 import androidx.car.app.model.Row
 import androidx.car.app.model.Template
+import androidx.car.app.navigation.model.MapController
 import androidx.car.app.navigation.model.MapWithContentTemplate
 import androidx.core.graphics.drawable.IconCompat
+import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripConfig
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripPreviewTextConfiguration
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.TripsConfig
@@ -26,7 +30,8 @@ class TripPreviewTemplate(
     val textConfig: TripPreviewTextConfiguration,
     val onTripSelected: (String, String) -> Unit,
     val onTripStarted: (String, String) -> Unit,
-    val mapTemplateId: String
+    val onBackPressed: () -> Unit,
+    val mapButtons: Array<NitroMapButton>
 ) : Screen(carContext) {
     var selectedTripIndex = selectedTripId?.let {
         trips.indexOfFirst { trip -> trip.id == selectedTripId }
@@ -39,6 +44,16 @@ class TripPreviewTemplate(
         onTripSelected(
             trips[selectedTripIndex].id, trips[selectedTripIndex].routeChoices.first().id
         )
+
+        UiThreadUtil.runOnUiThread {
+            carContext.onBackPressedDispatcher.addCallback(
+                this, object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        finish()
+                        onBackPressed()
+                    }
+                })
+        }
     }
 
 
@@ -164,6 +179,13 @@ class TripPreviewTemplate(
                     }
                 }.build())
             }.build())
+
+            if (mapButtons.isNotEmpty()) {
+                setMapController(
+                    MapController.Builder()
+                        .setMapActionStrip(Parser.parseMapActions(carContext, mapButtons)).build()
+                )
+            }
         }.build()
     }
 
