@@ -12,6 +12,7 @@ interface GlyphImage {
   glyph: number;
   color: NitroColor;
   backgroundColor: NitroColor;
+  fontScale: number;
 }
 
 /**
@@ -28,7 +29,7 @@ function convert(image?: AutoImage): NitroImage | undefined {
   }
 
   if (image.type === 'glyph') {
-    const { color = { darkColor: 'white', lightColor: 'black' } } = image;
+    const { color = { darkColor: 'white', lightColor: 'black' }, fontScale = 1.0 } = image;
     const backgroundColor = image.backgroundColor ?? 'transparent';
 
     return {
@@ -44,6 +45,7 @@ function convert(image?: AutoImage): NitroImage | undefined {
               lightColor: backgroundColor,
             })
           : NitroColorUtil.convertThemed(backgroundColor),
+      fontScale,
     };
   }
 

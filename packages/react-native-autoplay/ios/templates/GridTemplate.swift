@@ -47,6 +47,7 @@ class GridTemplate: AutoPlayTemplate {
                 image = SymbolFont.imageFromNitroImage(
                     image: glyphImage,
                     size: gridButtonHeight,
+                    fontScale: glyphImage.fontScale,
                     traitCollection: SceneStore.getRootTraitCollection()
                 )!
             }

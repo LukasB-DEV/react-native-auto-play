@@ -38,10 +38,13 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JNitroColor> color = this->getFieldValue(fieldColor);
       static const auto fieldBackgroundColor = clazz->getField<JNitroColor>("backgroundColor");
       jni::local_ref<JNitroColor> backgroundColor = this->getFieldValue(fieldBackgroundColor);
+      static const auto fieldFontScale = clazz->getField<double>("fontScale");
+      double fontScale = this->getFieldValue(fieldFontScale);
       return GlyphImage(
         glyph,
         color->toCpp(),
-        backgroundColor->toCpp()
+        backgroundColor->toCpp(),
+        fontScale
       );
     }
 
@@ -51,14 +54,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JGlyphImage::javaobject> fromCpp(const GlyphImage& value) {
-      using JSignature = JGlyphImage(double, jni::alias_ref<JNitroColor>, jni::alias_ref<JNitroColor>);
+      using JSignature = JGlyphImage(double, jni::alias_ref<JNitroColor>, jni::alias_ref<JNitroColor>, double);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
         clazz,
         value.glyph,
         JNitroColor::fromCpp(value.color),
-        JNitroColor::fromCpp(value.backgroundColor)
+        JNitroColor::fromCpp(value.backgroundColor),
+        value.fontScale
       );
     }
   };

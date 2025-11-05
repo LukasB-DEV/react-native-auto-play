@@ -18,8 +18,8 @@ public extension GlyphImage {
   /**
    * Create a new instance of `GlyphImage`.
    */
-  init(glyph: Double, color: NitroColor, backgroundColor: NitroColor) {
-    self.init(glyph, color, backgroundColor)
+  init(glyph: Double, color: NitroColor, backgroundColor: NitroColor, fontScale: Double) {
+    self.init(glyph, color, backgroundColor, fontScale)
   }
 
   var glyph: Double {
@@ -52,6 +52,17 @@ public extension GlyphImage {
     @inline(__always)
     set {
       self.__backgroundColor = newValue
+    }
+  }
+  
+  var fontScale: Double {
+    @inline(__always)
+    get {
+      return self.__fontScale
+    }
+    @inline(__always)
+    set {
+      self.__fontScale = newValue
     }
   }
 }
