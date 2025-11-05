@@ -7,7 +7,6 @@ import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.RoutePreviewTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.TripPreviewTemplate
-import com.margelo.nitro.core.Promise
 
 class HybridMapTemplate : HybridHybridMapTemplateSpec() {
     override fun createMapTemplate(config: MapTemplateConfig) {
@@ -83,10 +82,8 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
     override fun updateManeuvers(
         templateId: String,
         maneuvers: Array<NitroManeuver>
-    ): Promise<Unit> {
-        return Promise.async {
-            MapTemplate.updateManeuvers(maneuvers)
-        }
+    ) {
+        MapTemplate.updateManeuvers(maneuvers)
     }
 
     override fun startNavigation(

@@ -74,14 +74,12 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
 
     override fun setTemplateHeaderActions(
         templateId: String, headerActions: Array<NitroAction>?
-    ): Promise<Unit> {
-        return Promise.async {
-            val template = AndroidAutoTemplate.Companion.getTemplate(templateId)
-                ?: throw IllegalArgumentException(
-                    "setTemplateHeaderActions failed, template $templateId not found"
-                )
-            template.setTemplateHeaderActions(headerActions)
-        }
+    ) {
+        val template =
+            AndroidAutoTemplate.Companion.getTemplate(templateId) ?: throw IllegalArgumentException(
+                "setTemplateHeaderActions failed, template $templateId not found"
+            )
+        template.setTemplateHeaderActions(headerActions)
     }
 
     override fun setRootTemplate(templateId: String): Promise<Unit> {

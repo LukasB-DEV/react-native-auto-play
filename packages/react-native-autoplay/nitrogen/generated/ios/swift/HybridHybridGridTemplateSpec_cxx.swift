@@ -7,7 +7,6 @@
 
 import Foundation
 import NitroModules
-import NitroModules
 
 /**
  * A class implementation that bridges HybridHybridGridTemplateSpec over to C++.
@@ -119,40 +118,24 @@ open class HybridHybridGridTemplateSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func createGridTemplate(config: GridTemplateConfig) -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func createGridTemplate(config: GridTemplateConfig) -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.createGridTemplate(config: config)
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
-        let __promise = bridge.create_std__shared_ptr_Promise_void__()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
-        __result
-          .then({ __result in __promiseHolder.resolve() })
-          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
-        return __promise
-      }()
-      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
+      try self.__implementation.createGridTemplate(config: config)
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func updateGridTemplateButtons(templateId: std.string, buttons: bridge.std__vector_NitroGridButton_) -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func updateGridTemplateButtons(templateId: std.string, buttons: bridge.std__vector_NitroGridButton_) -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.updateGridTemplateButtons(templateId: String(templateId), buttons: buttons.map({ __item in __item }))
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
-        let __promise = bridge.create_std__shared_ptr_Promise_void__()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
-        __result
-          .then({ __result in __promiseHolder.resolve() })
-          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
-        return __promise
-      }()
-      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
+      try self.__implementation.updateGridTemplateButtons(templateId: String(templateId), buttons: buttons.map({ __item in __item }))
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
 }

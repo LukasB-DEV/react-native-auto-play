@@ -10,7 +10,6 @@ import CarPlay
 class ListTemplate: AutoPlayTemplate {
     var config: ListTemplateConfig
 
-    @MainActor
     init(config: ListTemplateConfig) {
         self.config = config
 
@@ -65,13 +64,11 @@ class ListTemplate: AutoPlayTemplate {
         config.onPopped?()
     }
 
-    @MainActor
     private func updateSection(section: NitroSection, sectionIndex: Int) {
         config.sections?[sectionIndex] = section
         invalidate()
     }
 
-    @MainActor
     func updateSections(sections: [NitroSection]?) {
         config.sections = sections
         invalidate()

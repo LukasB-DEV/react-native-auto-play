@@ -460,16 +460,27 @@ object Parser {
         )
     }
 
-    fun parseAssetImage(context: CarContext, image: AssetImage): Bitmap {
+    fun parseAssetImage(context: CarContext, image: AssetImage): Bitmap? {
         val source = ImageSource(context, image.uri)
         val imageRequest = ImageRequestBuilder.newBuilderWithSource(source.uri).build()
         val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
-        val result =
-            DataSources.waitForFinalResult(dataSource) as CloseableReference<CloseableBitmap>
-        val bitmap = result.get().underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
+        val result = DataSources.waitForFinalResult(dataSource)
 
-        CloseableReference.closeSafely(result)
-        dataSource.close()
+        var bitmap: Bitmap? = null
+
+        result?.let {
+            val image = it.get()
+            if (image is CloseableBitmap) {
+                bitmap = image.underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
+            }
+
+            CloseableReference.closeSafely(result)
+            it.close()
+        }
+
+        if (bitmap == null) {
+            return null
+        }
 
         image.color?.let {
             val tintColor =

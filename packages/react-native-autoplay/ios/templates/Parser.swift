@@ -40,7 +40,6 @@ class Parser {
         return actions
     }
 
-    @MainActor
     static func parseHeaderActions(
         headerActions: [NitroAction]?,
         traitCollection: UITraitCollection
@@ -136,7 +135,6 @@ class Parser {
         return result
     }
 
-    @MainActor
     static func parseAttributedStrings(
         attributedStrings: [NitroAttributedString],
         traitCollection: UITraitCollection
@@ -210,7 +208,6 @@ class Parser {
         return Measurement(value: distance.value, unit: unit)
     }
 
-    @MainActor
     static func parseSearchResults(
         section: NitroSection?,
         traitCollection: UITraitCollection
@@ -236,7 +233,6 @@ class Parser {
         }
     }
 
-    @MainActor
     static func parseSections(
         sections: [NitroSection]?,
         updateSection: @escaping (NitroSection, Int) -> Void,
@@ -426,7 +422,6 @@ class Parser {
         )
     }
 
-    @MainActor
     static func parseManeuver(
         nitroManeuver: NitroManeuver,
         traitCollection: UITraitCollection
@@ -659,7 +654,6 @@ class Parser {
         return NitroConvert.uiColor(value)
     }
 
-    @MainActor
     static func parseNitroImage(
         image: ImageProtocol?,
         traitCollection: UITraitCollection
@@ -681,7 +675,6 @@ class Parser {
         return nil
     }
 
-    @MainActor
     static func parseAssetImage(
         assetImage: AssetImage,
         traitCollection: UITraitCollection
@@ -696,33 +689,25 @@ class Parser {
             return uiImage
         }
 
-        func getTintedImage(color: Double) -> UIImage {
-            let templateImage = uiImage.withRenderingMode(.alwaysTemplate)
+        return getTintedImageAsset(
+            color: color,
+            uiImage: uiImage,
+            traitCollection: traitCollection
+        )
+    }
 
-            let imageView = UIImageView(image: templateImage)
-            imageView.tintColor = Parser.doubleToColor(value: color)
-
-            UIGraphicsBeginImageContextWithOptions(
-                imageView.bounds.size,
-                false,
-                0.0
-            )
-            let context = UIGraphicsGetCurrentContext()!
-            imageView.layer.render(in: context)
-
-            let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-
-            return tintedImage!
-        }
-
+    static func getTintedImageAsset(
+        color: NitroColor,
+        uiImage: UIImage,
+        traitCollection: UITraitCollection
+    ) -> UIImage {
         let imageAsset = UIImageAsset()
 
         let lightTraits = UITraitCollection(traitsFrom: [
             UITraitCollection(userInterfaceStyle: .light)
         ])
         imageAsset.register(
-            getTintedImage(color: color.lightColor),
+            getTintedImage(color: color.lightColor, uiImage: uiImage),
             with: lightTraits
         )
 
@@ -730,11 +715,41 @@ class Parser {
             UITraitCollection(userInterfaceStyle: .dark)
         ])
         imageAsset.register(
-            getTintedImage(color: color.darkColor),
+            getTintedImage(color: color.darkColor, uiImage: uiImage),
             with: darkTraits
         )
 
-        // Return an image from the asset that will automatically switch based on the interface style
         return imageAsset.image(with: traitCollection)
+    }
+
+    static func getTintedImage(color: Double, uiImage: UIImage) -> UIImage {
+        guard let cgImage = uiImage.cgImage else { return uiImage }
+
+        let rect = CGRect(origin: .zero, size: uiImage.size)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+
+        guard
+            let context = CGContext(
+                data: nil,
+                width: Int(uiImage.size.width),
+                height: Int(uiImage.size.height),
+                bitsPerComponent: 8,
+                bytesPerRow: 0,
+                space: colorSpace,
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+            )
+        else { return uiImage }
+
+        context.clip(to: rect, mask: cgImage)
+        context.setFillColor(doubleToColor(value: color).cgColor)
+        context.fill(rect)
+
+        guard let tintedCGImage = context.makeImage() else { return uiImage }
+
+        return UIImage(
+            cgImage: tintedCGImage,
+            scale: uiImage.scale,
+            orientation: uiImage.imageOrientation
+        )
     }
 }

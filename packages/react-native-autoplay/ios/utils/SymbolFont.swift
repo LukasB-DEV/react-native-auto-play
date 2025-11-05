@@ -198,7 +198,6 @@ class SymbolFont {
         )!
     }
 
-    @MainActor
     static func imageFromLanes(
         laneImages: Array<NitroImage>.SubSequence,
         size: Int,

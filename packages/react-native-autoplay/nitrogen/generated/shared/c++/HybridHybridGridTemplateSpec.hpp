@@ -18,7 +18,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct GridTemplateCon
 // Forward declaration of `NitroGridButton` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroGridButton; }
 
-#include <NitroModules/Promise.hpp>
 #include "GridTemplateConfig.hpp"
 #include <string>
 #include "NitroGridButton.hpp"
@@ -55,8 +54,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
     public:
       // Methods
-      virtual std::shared_ptr<Promise<void>> createGridTemplate(const GridTemplateConfig& config) = 0;
-      virtual std::shared_ptr<Promise<void>> updateGridTemplateButtons(const std::string& templateId, const std::vector<NitroGridButton>& buttons) = 0;
+      virtual void createGridTemplate(const GridTemplateConfig& config) = 0;
+      virtual void updateGridTemplateButtons(const std::string& templateId, const std::vector<NitroGridButton>& buttons) = 0;
 
     protected:
       // Hybrid Setup

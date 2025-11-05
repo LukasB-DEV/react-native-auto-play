@@ -7,7 +7,6 @@
 
 import Foundation
 import NitroModules
-import NitroModules
 
 /// See ``HybridHybridGridTemplateSpec``
 public protocol HybridHybridGridTemplateSpec_protocol: HybridObject {
@@ -15,8 +14,8 @@ public protocol HybridHybridGridTemplateSpec_protocol: HybridObject {
   
 
   // Methods
-  func createGridTemplate(config: GridTemplateConfig) throws -> Promise<Void>
-  func updateGridTemplateButtons(templateId: String, buttons: [NitroGridButton]) throws -> Promise<Void>
+  func createGridTemplate(config: GridTemplateConfig) throws -> Void
+  func updateGridTemplateButtons(templateId: String, buttons: [NitroGridButton]) throws -> Void
 }
 
 public extension HybridHybridGridTemplateSpec_protocol {

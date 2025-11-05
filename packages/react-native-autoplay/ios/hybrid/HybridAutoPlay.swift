@@ -83,9 +83,13 @@ class HybridAutoPlay: HybridHybridAutoPlaySpec {
         HybridAutoPlay.safeAreaInsetsListeners[moduleName, default: []].append(
             listener
         )
-        
-        if let safeAreaInsets = SceneStore.getScene(moduleName: moduleName)?.safeAreaInsets {
-            let insets = HybridAutoPlay.getSafeAreaInsets(safeAreaInsets: safeAreaInsets)
+
+        if let safeAreaInsets = SceneStore.getScene(moduleName: moduleName)?
+            .safeAreaInsets
+        {
+            let insets = HybridAutoPlay.getSafeAreaInsets(
+                safeAreaInsets: safeAreaInsets
+            )
             callback(insets)
         }
 
@@ -242,15 +246,11 @@ class HybridAutoPlay: HybridHybridAutoPlaySpec {
     func setTemplateHeaderActions(
         templateId: String,
         headerActions: [NitroAction]?
-    ) throws -> Promise<Void> {
-        return Promise.async {
-            try await MainActor.run {
-                try RootModule.withTemplate(templateId: templateId) {
-                    template in
-                    template.barButtons = headerActions
-                    template.setBarButtons()
-                }
-            }
+    ) throws {
+        try RootModule.withTemplate(templateId: templateId) {
+            template in
+            template.barButtons = headerActions
+            template.setBarButtons()
         }
     }
 
@@ -272,7 +272,9 @@ class HybridAutoPlay: HybridHybridAutoPlaySpec {
         moduleName: String,
         safeAreaInsets: UIEdgeInsets
     ) {
-        let insets = HybridAutoPlay.getSafeAreaInsets(safeAreaInsets: safeAreaInsets)
+        let insets = HybridAutoPlay.getSafeAreaInsets(
+            safeAreaInsets: safeAreaInsets
+        )
         HybridAutoPlay.safeAreaInsetsListeners[moduleName]?.forEach {
             listener in listener.callback(insets)
         }
@@ -282,8 +284,10 @@ class HybridAutoPlay: HybridHybridAutoPlaySpec {
         HybridAutoPlay.renderStateListeners.removeValue(forKey: templateId)
         HybridAutoPlay.safeAreaInsetsListeners.removeValue(forKey: templateId)
     }
-    
-    static func getSafeAreaInsets(safeAreaInsets: UIEdgeInsets) -> SafeAreaInsets {
+
+    static func getSafeAreaInsets(safeAreaInsets: UIEdgeInsets)
+        -> SafeAreaInsets
+    {
         return SafeAreaInsets(
             top: safeAreaInsets.top,
             left: safeAreaInsets.left,

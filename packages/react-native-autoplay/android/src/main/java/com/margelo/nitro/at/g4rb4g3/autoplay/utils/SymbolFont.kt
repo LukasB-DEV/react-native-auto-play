@@ -86,9 +86,8 @@ object SymbolFont {
         return bitmap
     }
 
-    fun imageFromNitroImage(context: CarContext, image: GlyphImage): Bitmap {
-        val color =
-            if (context.isDarkMode) image.color.darkColor else image.color.lightColor
+    fun imageFromNitroImage(context: CarContext, image: GlyphImage): Bitmap? {
+        val color = if (context.isDarkMode) image.color.darkColor else image.color.lightColor
         val backgroundColor =
             if (context.isDarkMode) image.backgroundColor.darkColor else image.backgroundColor.lightColor
 
@@ -97,7 +96,7 @@ object SymbolFont {
             glyph = image.glyph,
             color = color.toInt(),
             backgroundColor = backgroundColor.toInt()
-        )!!
+        )
     }
 
     fun imageFromNitroImages(
@@ -105,9 +104,7 @@ object SymbolFont {
     ): IconCompat {
         val bitmaps = images.map {
             Parser.parseImageToBitmap(
-                context,
-                it.asFirstOrNull(),
-                it.asSecondOrNull()
+                context, it.asFirstOrNull(), it.asSecondOrNull()
             )!!
         }
 

@@ -54,8 +54,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   public:
     // Methods
-    std::shared_ptr<Promise<void>> createListTemplate(const ListTemplateConfig& config) override;
-    std::shared_ptr<Promise<void>> updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) override;
+    void createListTemplate(const ListTemplateConfig& config) override;
+    void updateListTemplateSections(const std::string& templateId, const std::optional<std::vector<NitroSection>>& sections) override;
 
   private:
     friend HybridBase;
