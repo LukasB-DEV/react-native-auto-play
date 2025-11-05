@@ -511,11 +511,16 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         {
             template.updateEstimates(travelEstimates, for: trip)
         }
+        
+        if let navigationSession = self.navigationSession {
+            navigationSession.finishTrip()
+        }
 
         self.navigationSession = template.startNavigationSession(for: trip)
     }
 
     func stopNavigation() {
         navigationSession?.finishTrip()
+        navigationSession = nil
     }
 }
