@@ -17,7 +17,7 @@ const getTemplate = ({
     title: { text: 'header title' },
     message,
     mapConfig,
-    image: { name: 'info' },
+    image: { name: 'info', type: 'glyph' },
     actions: [
       {
         type: 'custom',
