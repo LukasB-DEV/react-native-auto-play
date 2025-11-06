@@ -22,8 +22,10 @@ class InformationTemplate(context: CarContext, config: InformationTemplateConfig
 
     override fun parse(): Template {
         val pane = Pane.Builder().apply {
-            config.section?.let {
-                it.items.forEach { item ->
+            if (config.section.items.isEmpty()) {
+                setLoading(true)
+            } else {
+                config.section.items.forEach { item ->
                     addRow(Row.Builder().apply {
                         setTitle(parseText(item.title))
                         item.detailedText?.let { detailedText ->

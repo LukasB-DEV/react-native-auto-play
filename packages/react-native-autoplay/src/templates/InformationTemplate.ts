@@ -28,14 +28,11 @@ export interface NitroInformationTemplateConfig extends TemplateConfig {
   mapConfig?: NitroBaseMapTemplateConfig;
 }
 
-export type InformationSection = {
-  type: 'default';
-  items:
-    | [TextRow]
-    | [TextRow, TextRow]
-    | [TextRow, TextRow, TextRow]
-    | [TextRow, TextRow, TextRow, TextRow];
-};
+export type InformationItems =
+  | [TextRow]
+  | [TextRow, TextRow]
+  | [TextRow, TextRow, TextRow]
+  | [TextRow, TextRow, TextRow, TextRow];
 
 type InformationButton =
   | TextButton<InformationTemplate>
@@ -52,14 +49,11 @@ export type InformationTemplateConfig = Omit<
   headerActions?: HeaderActions<InformationTemplate>;
 
   /**
-   * A container that groups your items into a single section.
-   *
-   * In AndroidAuto this is a PaneTemplate with a list of rows. Each row can have a title with up to 2 rows and a detailedText with up to 4 rows, either as a single string that is automatically wrapped,
-   * or a string with line breaks. However if the text is too long it might be broken into multiple rows and then truncated, if more than 4 rows are required due to wrapping.
-   *
-   * In Carplay this is an InformationTemplate.
+   * @namespace Android this is a PaneTemplate with a list of rows. Each row can have a title with up to 2 rows and a detailedText with up to 4 rows, either as a single string that is automatically wrapped or a string with line breaks. However if the text is too long it might be broken into multiple rows and then truncated, if more than 4 rows are required due to wrapping.
+   * @namespace iOS this is an InformationTemplate.
    */
-  section: InformationSection;
+  items?: InformationItems;
+
   /**
    * If mapConfig is defined, it will use a MapWithContentTemplate with the current template. This results in a PaneTemplate with a map in background. No actions need to be specified, can be empty object.
    * @namespace Android
@@ -67,18 +61,20 @@ export type InformationTemplateConfig = Omit<
   mapConfig?: BaseMapTemplateConfig<InformationTemplate>;
 
   /**
-   * Android allows TextButton, TextAndImageButton and ImageButton. iOS only allows TextButton.
-   * @namespace Android - TextButton, TextAndImageButton and ImageButton, 2 in total
-   * @namespace iOS - TextButton, 3 in total
+   * @namespace Android up to 2 buttons of type TextButton, TextAndImageButton or ImageButton
+   * @namespace iOS - up to 3 buttons of type TextButton
    */
-  actions?:
-    | [InformationButton]
-    | [InformationButton, InformationButton]
-    | [
-        TextButton<InformationTemplate>,
-        TextButton<InformationTemplate>,
-        TextButton<InformationTemplate>,
-      ];
+  actions?: {
+    android?: [InformationButton] | [InformationButton, InformationButton];
+    ios?:
+      | [
+          TextButton<InformationTemplate>,
+          TextButton<InformationTemplate>,
+          TextButton<InformationTemplate>,
+        ]
+      | [TextButton<InformationTemplate>, TextButton<InformationTemplate>]
+      | [TextButton<InformationTemplate>];
+  };
 };
 
 export class InformationTemplate extends Template<
@@ -90,25 +86,20 @@ export class InformationTemplate extends Template<
   constructor(config: InformationTemplateConfig) {
     super(config);
 
-    const { headerActions, mapConfig, section, actions, ...rest } = config;
+    const { headerActions, mapConfig, items, actions, ...rest } = config;
 
-    if (
-      Platform.OS === 'ios' &&
-      actions?.find((action) => action.type === 'image' || action.type === 'textImage')
-    ) {
-      throw new Error(
-        `Action of type 'image/textImage' is not supported on InformationTemplate for CarPlay`
-      );
-    }
-    if (Platform.OS === 'android' && (actions?.length ?? 0) > 2) {
-      throw new Error('Only two actions supported on InformationTemplate for AndroidAuto');
-    }
+    const platformActions =
+      Platform.OS === 'android'
+        ? NitroActionUtil.convert(this.template, actions?.android)
+        : NitroActionUtil.convert(this.template, actions?.ios);
+
+    const section = this.getSection(items);
 
     const nitroConfig: NitroInformationTemplateConfig & NitroTemplateConfig = {
       ...rest,
       id: this.id,
       headerActions: NitroActionUtil.convert(this.template, headerActions),
-      actions: NitroActionUtil.convert(this.template, actions),
+      actions: platformActions,
       section: NitroSectionUtil.convert(this.template, section)?.at(0) ?? {
         items: [],
         type: 'default',
@@ -124,10 +115,18 @@ export class InformationTemplate extends Template<
     HybridInformationTemplate.createInformationTemplate(nitroConfig);
   }
 
-  public updateSections(section?: SingleSection<InformationTemplate>) {
+  public updateItems(items?: InformationItems) {
+    const section = this.getSection(items);
     HybridInformationTemplate.updateInformationTemplateSections(
       this.id,
       NitroSectionUtil.convert(this.template, section)?.at(0) ?? { items: [], type: 'default' }
     );
+  }
+
+  private getSection(items?: InformationItems): SingleSection<InformationTemplate> {
+    return {
+      type: 'default',
+      items: items ?? [],
+    };
   }
 }
