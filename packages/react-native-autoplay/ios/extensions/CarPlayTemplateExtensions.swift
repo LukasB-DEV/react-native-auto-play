@@ -31,7 +31,13 @@ extension CPGridTemplate {
 }
 
 extension CPInformationTemplate {
-    convenience init(title: String, layout: CPInformationTemplateLayout, items: [CPInformationItem], actions: [CPTextButton], id: String) {
+    convenience init(
+        title: String,
+        layout: CPInformationTemplateLayout,
+        items: [CPInformationItem],
+        actions: [CPTextButton],
+        id: String
+    ) {
         self.init(title: title, layout: layout, items: items, actions: actions)
         initTemplate(template: self, id: id)
     }
