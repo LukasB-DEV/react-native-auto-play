@@ -22,7 +22,9 @@ export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios
     selectedTripId: string | null,
     textConfig: TripPreviewTextConfiguration,
     onTripSelected: (tripId: string, routeId: string) => void,
-    onTripStarted: (tripId: string, routeId: string) => void
+    onTripStarted: (tripId: string, routeId: string) => void,
+    onBackPressed: () => void,
+    mapButtons: Array<NitroMapButton>
   ): void;
   hideTripSelector(templateId: string): void;
   setTemplateMapButtons(templateId: string, buttons?: Array<NitroMapButton>): void;

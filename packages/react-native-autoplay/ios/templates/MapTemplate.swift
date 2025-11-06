@@ -35,39 +35,44 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         invalidate()
     }
 
+    func parseMapButtons(mapButtons: [NitroMapButton]) -> [CPMapButton] {
+        return mapButtons.map { button in
+            if let glyphImage = button.image?.glyphImage,
+                let icon = SymbolFont.imageFromNitroImage(
+                    image: glyphImage,
+                    size: CPButtonMaximumImageSize.height,
+                    traitCollection: SceneStore.getRootTraitCollection()
+                )
+            {
+                return CPMapButton(image: icon) { _ in
+                    button.onPress()
+                }
+            }
+            if let assetImage = button.image?.assetImage,
+                let icon = Parser.parseAssetImage(
+                    assetImage: assetImage,
+                    traitCollection: SceneStore.getRootTraitCollection()
+                )
+            {
+                return CPMapButton(image: icon) { _ in
+                    button.onPress()
+                }
+            }
+
+            return CPMapButton { _ in
+                button.onPress()
+            }
+        }
+
+    }
+
     override func invalidate() {
         guard let template = self.template as? CPMapTemplate else { return }
 
         setBarButtons()
 
         if let mapButtons = config.mapButtons {
-            template.mapButtons = mapButtons.map { button in
-                if let glyphImage = button.image?.glyphImage,
-                    let icon = SymbolFont.imageFromNitroImage(
-                        image: glyphImage,
-                        size: CPButtonMaximumImageSize.height,
-                        traitCollection: SceneStore.getRootTraitCollection()
-                    )
-                {
-                    return CPMapButton(image: icon) { _ in
-                        button.onPress()
-                    }
-                }
-                if let assetImage = button.image?.assetImage,
-                    let icon = Parser.parseAssetImage(
-                        assetImage: assetImage,
-                        traitCollection: SceneStore.getRootTraitCollection()
-                    )
-                {
-                    return CPMapButton(image: icon) { _ in
-                        button.onPress()
-                    }
-                }
-
-                return CPMapButton { _ in
-                    button.onPress()
-                }
-            }
+            template.mapButtons = parseMapButtons(mapButtons: mapButtons)
         }
     }
 
@@ -281,7 +286,9 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         selectedTripId: String?,
         textConfig: TripPreviewTextConfiguration,
         onTripSelected: @escaping (_ tripId: String, _ routeId: String) -> Void,
-        onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void
+        onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void,
+        onBackPressed: @escaping () -> Void,
+        mapButtons: [NitroMapButton]
     ) {
         guard let template = self.template as? CPMapTemplate else { return }
 
@@ -296,6 +303,16 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         let selectedTrip = selectedTripId.flatMap { tripId in
             tripPreviews.first(where: { $0.id == tripId })
         }
+
+        template.backButton = CPBarButton(title: "") { _ in
+            template.hideTripPreviews()
+            self.invalidate()
+
+            onBackPressed()
+        }
+        template.leadingNavigationBarButtons = []
+        template.trailingNavigationBarButtons = []
+        template.mapButtons = parseMapButtons(mapButtons: mapButtons)
 
         template.showTripPreviews(
             tripPreviews,
@@ -512,10 +529,15 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             template.updateEstimates(travelEstimates, for: trip)
         }
 
+        if let navigationSession = self.navigationSession {
+            navigationSession.finishTrip()
+        }
+
         self.navigationSession = template.startNavigationSession(for: trip)
     }
 
     func stopNavigation() {
         navigationSession?.finishTrip()
+        navigationSession = nil
     }
 }

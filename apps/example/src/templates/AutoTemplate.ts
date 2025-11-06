@@ -218,30 +218,32 @@ export const onTripStarted = (tripId: string, routeId: string, template: MapTemp
 };
 
 const mapButtonHandler: (template: MapTemplate) => void = (template) => {
-  if (Platform.OS === 'ios') {
-    template.setHeaderActions({
-      ios: {
-        backButton: {
-          type: 'back',
-          onPress: () => {
-            template.setHeaderActions(mapHeaderActions);
-            template.setMapButtons(mapButtons);
-            template.hideTripSelector();
-          },
-        },
-      },
-    });
-    template.setMapButtons([]);
-  }
-
   const onTripSelected = (tripId: string, routeId: string) => {
     console.log(`selected trip ${tripId} using route ${routeId}`);
     dispatch(setSelectedTrip({ routeId, tripId }));
   };
 
-  template.showTripSelector(AutoTrip, null, TextConfig, onTripSelected, (tripId, routeId) =>
-    onTripStarted(tripId, routeId, template)
-  );
+  template.showTripSelector({
+    trips: AutoTrip,
+    selectedTripId: null,
+    textConfig: TextConfig,
+    onTripSelected,
+    onTripStarted: (tripId, routeId) => {
+      onTripStarted(tripId, routeId, template);
+    },
+    onBackPressed: () => {
+      console.log('trip selector back pressed');
+    },
+    mapButtons: [
+      {
+        image: { name: 'car_crash', type: 'glyph' },
+        type: 'custom',
+        onPress: () => {
+          console.log('oh no you just crashed your car...');
+        },
+      },
+    ],
+  });
 };
 
 const mapHeaderActions: MapTemplateConfig['headerActions'] = {

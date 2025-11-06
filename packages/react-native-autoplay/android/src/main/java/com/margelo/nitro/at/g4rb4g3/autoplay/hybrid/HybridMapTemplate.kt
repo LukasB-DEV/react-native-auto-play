@@ -30,7 +30,9 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
         selectedTripId: String?,
         textConfig: TripPreviewTextConfiguration,
         onTripSelected: (String, String) -> Unit,
-        onTripStarted: (String, String) -> Unit
+        onTripStarted: (String, String) -> Unit,
+        onBackPressed: () -> Unit,
+        mapButtons: Array<NitroMapButton>
     ) {
         val context = AndroidAutoSession.Companion.getRootContext()
             ?: throw IllegalArgumentException("showTripSelector failed, carContext not found")
@@ -38,7 +40,14 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
             ?: throw IllegalArgumentException("showTripSelector failed, screenManager not found")
 
         val screen = TripPreviewTemplate(
-            context, trips, selectedTripId, textConfig, onTripSelected, onTripStarted, templateId
+            context,
+            trips,
+            selectedTripId,
+            textConfig,
+            onTripSelected,
+            onTripStarted,
+            onBackPressed,
+            mapButtons
         )
 
         UiThreadUtil.runOnUiThread {

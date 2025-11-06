@@ -195,8 +195,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         std::rethrow_exception(__result.error());
       }
     }
-    inline void showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted) override {
-      auto __result = _swiftPart.showTripSelector(templateId, trips, selectedTripId, std::forward<decltype(textConfig)>(textConfig), onTripSelected, onTripStarted);
+    inline void showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted, const std::function<void()>& onBackPressed, const std::vector<NitroMapButton>& mapButtons) override {
+      auto __result = _swiftPart.showTripSelector(templateId, trips, selectedTripId, std::forward<decltype(textConfig)>(textConfig), onTripSelected, onTripStarted, onBackPressed, mapButtons);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
