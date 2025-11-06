@@ -62,7 +62,7 @@ const getTitle = <T>(
     return undefined;
   }
 
-  return action.title;
+  return undefined;
 };
 
 // appIcon can not be pressed but we wanna have a non-optional onPress on native side
