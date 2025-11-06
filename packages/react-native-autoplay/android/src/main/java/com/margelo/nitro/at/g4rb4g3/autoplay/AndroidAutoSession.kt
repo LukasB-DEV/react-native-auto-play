@@ -6,12 +6,9 @@ import androidx.car.app.CarContext
 import androidx.car.app.Screen
 import androidx.car.app.Session
 import androidx.car.app.SessionInfo
-import androidx.car.app.model.Action
-import androidx.car.app.model.ActionStrip
 import androidx.car.app.model.CarIcon
 import androidx.car.app.model.MessageTemplate
 import androidx.car.app.model.Template
-import androidx.car.app.navigation.model.NavigationTemplate
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.ReactApplication
@@ -20,7 +17,6 @@ import com.facebook.react.bridge.ReactContext
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ClusterEventName
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ColorScheme
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.EventName
-import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Func_void
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridCluster
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig

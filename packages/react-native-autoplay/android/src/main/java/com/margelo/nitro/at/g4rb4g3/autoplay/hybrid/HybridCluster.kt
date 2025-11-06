@@ -15,7 +15,7 @@ class HybridCluster : HybridHybridClusterSpec() {
         eventQueue[eventType]?.forEach {
             callback(it)
         }
-        eventQueue[eventType] = null
+        eventQueue[eventType] = emptyArray<String>()
 
         return {
             listeners[eventType]?.removeAll { it === callback }
@@ -70,12 +70,18 @@ class HybridCluster : HybridHybridClusterSpec() {
 
         private val listeners =
             mutableMapOf<ClusterEventName, MutableList<(clusterId: String) -> Unit>>()
-        private val eventQueue = mutableMapOf<ClusterEventName, Array<String>?>()
+        private val eventQueue = mutableMapOf<ClusterEventName, Array<String>>()
 
         private val colorSchemeListeners =
             mutableListOf<(clusterId: String, colorScheme: ColorScheme) -> Unit>()
 
         fun emit(event: ClusterEventName, clusterId: String) {
+            if (listeners[event].isNullOrEmpty()) {
+                val clusterIds = eventQueue.getOrPut(event) { emptyArray<String>() }
+                eventQueue[event] = clusterIds.plus(clusterId)
+                return
+            }
+
             listeners[event]?.forEach { it(clusterId) }
         }
 
