@@ -140,9 +140,9 @@ open class HybridHybridMapTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func showTripSelector(templateId: std.string, trips: bridge.std__vector_TripsConfig_, selectedTripId: bridge.std__optional_std__string_, textConfig: TripPreviewTextConfiguration, onTripSelected: bridge.Func_void_std__string_std__string, onTripStarted: bridge.Func_void_std__string_std__string, onBackPressed: bridge.Func_void, mapButtons: bridge.std__vector_NitroMapButton_) -> bridge.Result_void_ {
+  public final func showTripSelector(templateId: std.string, trips: bridge.std__vector_TripsConfig_, selectedTripId: bridge.std__optional_std__string_, textConfig: TripPreviewTextConfiguration, onTripSelected: bridge.Func_void_std__string_std__string, onTripStarted: bridge.Func_void_std__string_std__string, onBackPressed: bridge.Func_void, mapButtons: bridge.std__vector_NitroMapButton_) -> bridge.Result_TripSelectorCallback_ {
     do {
-      try self.__implementation.showTripSelector(templateId: String(templateId), trips: trips.map({ __item in __item }), selectedTripId: { () -> String? in
+      let __result = try self.__implementation.showTripSelector(templateId: String(templateId), trips: trips.map({ __item in __item }), selectedTripId: { () -> String? in
         if bridge.has_value_std__optional_std__string_(selectedTripId) {
           let __unwrapped = bridge.get_std__optional_std__string_(selectedTripId)
           return String(__unwrapped)
@@ -165,10 +165,11 @@ open class HybridHybridMapTemplateSpec_cxx {
           __wrappedFunction.call()
         }
       }(), mapButtons: mapButtons.map({ __item in __item }))
-      return bridge.create_Result_void_()
+      let __resultCpp = __result
+      return bridge.create_Result_TripSelectorCallback_(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
+      return bridge.create_Result_TripSelectorCallback_(__exceptionPtr)
     }
   }
   

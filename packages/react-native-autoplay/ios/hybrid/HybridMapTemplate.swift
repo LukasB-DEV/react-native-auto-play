@@ -47,9 +47,11 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
         onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void,
         onBackPressed: @escaping () -> Void,
         mapButtons: [NitroMapButton]
-    ) throws {
+    ) throws -> TripSelectorCallback {
+        var callback: TripSelectorCallback?
+        
         try RootModule.withMapTemplate(templateId: templateId) { template in
-            template.showTripSelector(
+            callback = try template.showTripSelector(
                 trips: trips,
                 selectedTripId: selectedTripId,
                 textConfig: textConfig,
@@ -59,6 +61,12 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
                 mapButtons: mapButtons
             )
         }
+        
+        guard let callback = callback else {
+            throw AutoPlayError.templateNotFound(templateId)
+        }
+        
+        return callback
     }
 
     func hideTripSelector(templateId: String) throws {

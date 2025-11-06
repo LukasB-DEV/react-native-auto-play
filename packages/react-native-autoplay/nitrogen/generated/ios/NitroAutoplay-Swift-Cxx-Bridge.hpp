@@ -106,6 +106,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class TrafficSide
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TravelEstimates; }
 // Forward declaration of `TripPoint` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripPoint; }
+// Forward declaration of `TripSelectorCallback` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripSelectorCallback; }
 // Forward declaration of `TripsConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripsConfig; }
 // Forward declaration of `TurnType` to properly resolve imports.
@@ -187,6 +189,7 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 #include "TrafficSide.hpp"
 #include "TravelEstimates.hpp"
 #include "TripPoint.hpp"
+#include "TripSelectorCallback.hpp"
 #include "TripsConfig.hpp"
 #include "TurnType.hpp"
 #include "VisibilityState.hpp"
@@ -1403,6 +1406,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   // pragma MARK: std::weak_ptr<HybridHybridMapTemplateSpec>
   using std__weak_ptr_HybridHybridMapTemplateSpec_ = std::weak_ptr<HybridHybridMapTemplateSpec>;
   inline std__weak_ptr_HybridHybridMapTemplateSpec_ weakify_std__shared_ptr_HybridHybridMapTemplateSpec_(const std::shared_ptr<HybridHybridMapTemplateSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: Result<TripSelectorCallback>
+  using Result_TripSelectorCallback_ = Result<TripSelectorCallback>;
+  inline Result_TripSelectorCallback_ create_Result_TripSelectorCallback_(const TripSelectorCallback& value) noexcept {
+    return Result<TripSelectorCallback>::withValue(value);
+  }
+  inline Result_TripSelectorCallback_ create_Result_TripSelectorCallback_(const std::exception_ptr& error) noexcept {
+    return Result<TripSelectorCallback>::withError(error);
+  }
   
   // pragma MARK: std::shared_ptr<HybridHybridMessageTemplateSpec>
   /**

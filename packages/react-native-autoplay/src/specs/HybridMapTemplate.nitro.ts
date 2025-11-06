@@ -1,5 +1,9 @@
 import type { HybridObject } from 'react-native-nitro-modules';
-import type { NitroMapTemplateConfig, VisibleTravelEstimate } from '../templates/MapTemplate';
+import type {
+  NitroMapTemplateConfig,
+  TripSelectorCallback,
+  VisibleTravelEstimate,
+} from '../templates/MapTemplate';
 import type {
   TripConfig,
   TripPoint,
@@ -25,7 +29,7 @@ export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios
     onTripStarted: (tripId: string, routeId: string) => void,
     onBackPressed: () => void,
     mapButtons: Array<NitroMapButton>
-  ): void;
+  ): TripSelectorCallback;
   hideTripSelector(templateId: string): void;
   setTemplateMapButtons(templateId: string, buttons?: Array<NitroMapButton>): void;
   updateVisibleTravelEstimate(

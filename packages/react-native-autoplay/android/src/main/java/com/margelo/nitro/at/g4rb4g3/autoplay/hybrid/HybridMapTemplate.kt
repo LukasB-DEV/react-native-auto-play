@@ -33,7 +33,7 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
         onTripStarted: (String, String) -> Unit,
         onBackPressed: () -> Unit,
         mapButtons: Array<NitroMapButton>
-    ) {
+    ): TripSelectorCallback {
         val context = AndroidAutoSession.Companion.getRootContext()
             ?: throw IllegalArgumentException("showTripSelector failed, carContext not found")
         val screenManager = AndroidAutoScreen.Companion.getScreenManager()
@@ -53,6 +53,18 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
         UiThreadUtil.runOnUiThread {
             screenManager.popToRoot()
             screenManager.push(screen)
+        }
+
+        return TripSelectorCallback { id: String ->
+            UiThreadUtil.runOnUiThread {
+                if (screenManager.top.marker == RoutePreviewTemplate.TAG) {
+                    screenManager.popTo(TripPreviewTemplate.TAG)
+                }
+            }
+
+            val selectedTripIndex = trips.indexOfFirst { trip -> trip.id == id }
+            screen.selectedTripIndex = selectedTripIndex
+            screen.invalidate()
         }
     }
 

@@ -7,6 +7,8 @@
 
 #include "JHybridHybridMapTemplateSpec.hpp"
 
+// Forward declaration of `TripSelectorCallback` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripSelectorCallback; }
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct MapTemplateConfig; }
 // Forward declaration of `VisibleTravelEstimate` to properly resolve imports.
@@ -88,11 +90,14 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ManeuverTyp
 // Forward declaration of `TripConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 
+#include "TripSelectorCallback.hpp"
+#include "JTripSelectorCallback.hpp"
+#include <string>
+#include <functional>
+#include "JFunc_void_std__string.hpp"
 #include "MapTemplateConfig.hpp"
 #include "JMapTemplateConfig.hpp"
-#include <string>
 #include <optional>
-#include <functional>
 #include "JFunc_void_std__optional_bool_.hpp"
 #include "JFunc_void.hpp"
 #include "VisibleTravelEstimate.hpp"
@@ -225,9 +230,9 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroNavigationAlert> /* alert */)>("showNavigationAlert");
     method(_javaPart, jni::make_jstring(templateId), JNitroNavigationAlert::fromCpp(alert));
   }
-  void JHybridHybridMapTemplateSpec::showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted, const std::function<void()>& onBackPressed, const std::vector<NitroMapButton>& mapButtons) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JTripsConfig>> /* trips */, jni::alias_ref<jni::JString> /* selectedTripId */, jni::alias_ref<JTripPreviewTextConfiguration> /* textConfig */, jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTripSelected */, jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTripStarted */, jni::alias_ref<JFunc_void::javaobject> /* onBackPressed */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* mapButtons */)>("showTripSelector_cxx");
-    method(_javaPart, jni::make_jstring(templateId), [&]() {
+  TripSelectorCallback JHybridHybridMapTemplateSpec::showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted, const std::function<void()>& onBackPressed, const std::vector<NitroMapButton>& mapButtons) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JTripSelectorCallback>(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JTripsConfig>> /* trips */, jni::alias_ref<jni::JString> /* selectedTripId */, jni::alias_ref<JTripPreviewTextConfiguration> /* textConfig */, jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTripSelected */, jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTripStarted */, jni::alias_ref<JFunc_void::javaobject> /* onBackPressed */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* mapButtons */)>("showTripSelector_cxx");
+    auto __result = method(_javaPart, jni::make_jstring(templateId), [&]() {
       size_t __size = trips.size();
       jni::local_ref<jni::JArrayClass<JTripsConfig>> __array = jni::JArrayClass<JTripsConfig>::newArray(__size);
       for (size_t __i = 0; __i < __size; __i++) {
@@ -244,6 +249,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       }
       return __array;
     }());
+    return __result->toCpp();
   }
   void JHybridHybridMapTemplateSpec::hideTripSelector(const std::string& templateId) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* templateId */)>("hideTripSelector");

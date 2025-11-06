@@ -131,6 +131,10 @@ export type MapTemplateConfig = Omit<
     onAutoDriveEnabled?: (template: MapTemplate) => void;
   };
 
+export interface TripSelectorCallback {
+  setSelectedTrip: (id: string) => void;
+}
+
 export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['headerActions']> {
   id = 'AutoPlayRoot';
   private template = this;
@@ -192,6 +196,11 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     HybridMapTemplate.showNavigationAlert(this.id, NitroAlertUtil.convert(alert));
   }
 
+  /**
+   * @namespace Android brings up a custom trip selector mimicking the CarPlay trip selector as close as possible
+   * @namespace iOS brings up the stock CarPlay trip selector
+   * @returns a callback to update the shown trip
+   */
   public showTripSelector({
     trips,
     selectedTripId,
@@ -208,7 +217,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
     onTripStarted: (tripId: string, routeId: string) => void;
     onBackPressed: () => void;
     mapButtons?: MapTemplateConfig['mapButtons'];
-  }) {
+  }): TripSelectorCallback {
     if (
       trips.length === 0 ||
       trips.some(
@@ -232,7 +241,7 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
 
     const buttons = NitroMapButton.convert(this.template, mapButtons);
 
-    HybridMapTemplate.showTripSelector(
+    return HybridMapTemplate.showTripSelector(
       this.id,
       trips,
       selectedTripId,

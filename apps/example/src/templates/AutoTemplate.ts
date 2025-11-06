@@ -223,7 +223,7 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
     dispatch(setSelectedTrip({ routeId, tripId }));
   };
 
-  template.showTripSelector({
+  const tripSelector = template.showTripSelector({
     trips: AutoTrip,
     selectedTripId: null,
     textConfig: TextConfig,
@@ -240,6 +240,13 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
         type: 'custom',
         onPress: () => {
           console.log('oh no you just crashed your car...');
+        },
+      },
+      {
+        image: { name: 'plus_one', type: 'glyph' },
+        type: 'custom',
+        onPress: () => {
+          tripSelector.setSelectedTrip(AutoTrip[1].id);
         },
       },
     ],

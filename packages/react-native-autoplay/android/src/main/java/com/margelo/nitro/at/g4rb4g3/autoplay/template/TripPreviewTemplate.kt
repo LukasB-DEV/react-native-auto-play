@@ -117,7 +117,8 @@ class TripPreviewTemplate(
                                     selectedTrip.routeChoices,
                                     selectedRouteIndex,
                                     textConfig.additionalRoutesButtonTitle,
-                                    onTripSelected
+                                    onTripSelected,
+                                    mapButtons
                                 ), object : OnScreenResultListener {
                                     override fun onScreenResult(result: Any?) {
                                         if (result is Int) {

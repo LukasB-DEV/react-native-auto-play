@@ -289,8 +289,12 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         onTripStarted: @escaping (_ tripId: String, _ routeId: String) -> Void,
         onBackPressed: @escaping () -> Void,
         mapButtons: [NitroMapButton]
-    ) {
-        guard let template = self.template as? CPMapTemplate else { return }
+    ) throws -> TripSelectorCallback {
+        guard let template = self.template as? CPMapTemplate else {
+            throw AutoPlayError.invalidTemplateError(
+                template.id + " template not of type map template"
+            )
+        }
 
         self.onTripSelected = onTripSelected
         self.onTripStarted = onTripStarted
@@ -328,6 +332,19 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
             template.updateEstimates(travelEstimates, for: trip)
         }
+
+        let callback = TripSelectorCallback { tripId in
+            let selectedTrip = tripPreviews.first { trip in
+                trip.id == tripId
+            }
+            template.showTripPreviews(
+                tripPreviews,
+                selectedTrip: selectedTrip,
+                textConfiguration: textConfiguration
+            )
+        }
+
+        return callback
     }
 
     func hideTripSelector() {

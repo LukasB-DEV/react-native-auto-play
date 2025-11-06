@@ -53,11 +53,11 @@ abstract class HybridHybridMapTemplateSpec: HybridObject() {
   @Keep
   abstract fun showNavigationAlert(templateId: String, alert: NitroNavigationAlert): Unit
   
-  abstract fun showTripSelector(templateId: String, trips: Array<TripsConfig>, selectedTripId: String?, textConfig: TripPreviewTextConfiguration, onTripSelected: (tripId: String, routeId: String) -> Unit, onTripStarted: (tripId: String, routeId: String) -> Unit, onBackPressed: () -> Unit, mapButtons: Array<NitroMapButton>): Unit
+  abstract fun showTripSelector(templateId: String, trips: Array<TripsConfig>, selectedTripId: String?, textConfig: TripPreviewTextConfiguration, onTripSelected: (tripId: String, routeId: String) -> Unit, onTripStarted: (tripId: String, routeId: String) -> Unit, onBackPressed: () -> Unit, mapButtons: Array<NitroMapButton>): TripSelectorCallback
   
   @DoNotStrip
   @Keep
-  private fun showTripSelector_cxx(templateId: String, trips: Array<TripsConfig>, selectedTripId: String?, textConfig: TripPreviewTextConfiguration, onTripSelected: Func_void_std__string_std__string, onTripStarted: Func_void_std__string_std__string, onBackPressed: Func_void, mapButtons: Array<NitroMapButton>): Unit {
+  private fun showTripSelector_cxx(templateId: String, trips: Array<TripsConfig>, selectedTripId: String?, textConfig: TripPreviewTextConfiguration, onTripSelected: Func_void_std__string_std__string, onTripStarted: Func_void_std__string_std__string, onBackPressed: Func_void, mapButtons: Array<NitroMapButton>): TripSelectorCallback {
     val __result = showTripSelector(templateId, trips, selectedTripId, textConfig, onTripSelected, onTripStarted, onBackPressed, mapButtons)
     return __result
   }

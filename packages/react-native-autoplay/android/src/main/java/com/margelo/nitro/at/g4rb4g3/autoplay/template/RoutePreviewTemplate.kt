@@ -8,8 +8,10 @@ import androidx.car.app.model.ItemList
 import androidx.car.app.model.ListTemplate
 import androidx.car.app.model.Row
 import androidx.car.app.model.Template
+import androidx.car.app.navigation.model.MapController
 import androidx.car.app.navigation.model.MapWithContentTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AutoText
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroMapButton
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.RouteChoice
 
 class RoutePreviewTemplate(
@@ -18,7 +20,8 @@ class RoutePreviewTemplate(
     val routes: Array<RouteChoice>,
     var selectedRouteIndex: Int,
     val title: String,
-    val onTripSelected: (String, String) -> Unit
+    val onTripSelected: (String, String) -> Unit,
+    val mapButtons: Array<NitroMapButton>
 ) : Screen(carContext) {
     init {
         marker = TAG
@@ -56,6 +59,13 @@ class RoutePreviewTemplate(
                     }
                 }.build())
             }.build())
+
+            if (mapButtons.isNotEmpty()) {
+                setMapController(
+                    MapController.Builder()
+                        .setMapActionStrip(Parser.parseMapActions(carContext, mapButtons)).build()
+                )
+            }
         }.build()
     }
 
