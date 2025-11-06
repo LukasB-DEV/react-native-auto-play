@@ -20,11 +20,15 @@ import com.facebook.react.bridge.ReactContext
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ClusterEventName
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.ColorScheme
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.EventName
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.Func_void
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridAutoPlay
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.HybridCluster
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.MapTemplateConfig
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroAction
+import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.NitroActionType
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.VisibilityState
 import com.margelo.nitro.at.g4rb4g3.autoplay.template.AndroidAutoTemplate
+import com.margelo.nitro.at.g4rb4g3.autoplay.template.MapTemplate
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.AppInfo
 import com.margelo.nitro.at.g4rb4g3.autoplay.utils.ReactContextResolver
 import kotlinx.coroutines.CoroutineScope
@@ -41,10 +45,35 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
 
     private fun getInitialTemplate(): Template {
         if (isCluster) {
-            return NavigationTemplate.Builder().apply {
-                setActionStrip(ActionStrip.Builder().apply { addAction(Action.APP_ICON) }
-                    .build()).build()
-            }.build()
+
+            // clusters can not display any actions but still need one to not crash...
+            val action =
+                NitroAction(null, null, null, {}, NitroActionType.APPICON, null, null, null)
+
+            // clusters can host NavigationTemplate only which is a MapTemplate on AutoPlay
+            val config = MapTemplateConfig(
+                moduleName,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                {},
+                null,
+                null,
+                arrayOf(action),
+            )
+
+            val template = MapTemplate(context = carContext, config, initNavigationManager = false)
+            AndroidAutoTemplate.setTemplate(moduleName, template)
+
+            return template.parse()
         }
 
         val appName = AppInfo.getApplicationLabel(carContext)
@@ -58,10 +87,8 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         val initialTemplate = getInitialTemplate()
         val screen = AndroidAutoScreen(carContext, moduleName, initialTemplate)
 
-        sessions.put(
-            moduleName, ScreenContext(
-                carContext = carContext, session = this, state = VisibilityState.DIDDISAPPEAR
-            )
+        sessions[moduleName] = ScreenContext(
+            carContext = carContext, session = this, state = VisibilityState.DIDDISAPPEAR
         )
 
         clusterId?.let {

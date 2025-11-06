@@ -75,10 +75,15 @@ class Cluster {
   }
 
   private applyAttributedInactiveDescriptionVariants() {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
+
     const variants = this.attributedInactiveDescriptionVariants.map((v) => ({
       ...v,
       images: v.images?.map((i) => ({ ...i, image: NitroImageUtil.convert(i.image) })),
     }));
+
     for (const clusterId of Object.keys(this.clusters)) {
       HybridCluster.setAttributedInactiveDescriptionVariants(clusterId, variants);
     }

@@ -16,6 +16,7 @@ import androidx.car.app.navigation.model.RoutingInfo
 import androidx.car.app.navigation.model.TravelEstimate
 import androidx.car.app.navigation.model.Trip
 import com.facebook.react.bridge.UiThreadUtil
+import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertActionStyle
 import com.margelo.nitro.at.g4rb4g3.autoplay.hybrid.AlertDismissalReason
@@ -40,19 +41,17 @@ class MapTemplate(
     private var alertId: Double? = null
 
     init {
-        mapTemplate = this
-
         if (initNavigationManager) {
             val navigationManagerCallback = object : NavigationManagerCallback {
                 override fun onAutoDriveEnabled() {
-                    mapTemplate?.config?.onAutoDriveEnabled?.let {
+                    config.onAutoDriveEnabled?.let {
                         it()
                     }
                 }
 
                 override fun onStopNavigation() {
                     navigationEnded()
-                    mapTemplate?.config?.onStopNavigation()
+                    config.onStopNavigation()
                 }
             }
 
@@ -205,7 +204,6 @@ class MapTemplate(
         var navigationInfo: RoutingInfo? = null
         var cardBackgroundColor: CarColor = CarColor.createCustom(Color.BLACK, Color.BLACK)
 
-        private var mapTemplate: MapTemplate? = null
         private var destinationTravelEstimates: Array<TripPoint> = arrayOf()
 
         fun getTripDestinations(): Map<Destination, TravelEstimate> {
@@ -239,7 +237,7 @@ class MapTemplate(
 
             destinationTravelEstimates = steps
 
-            mapTemplate?.applyConfigUpdate()
+            AndroidAutoScreen.invalidateSurfaceScreens()
 
             UiThreadUtil.runOnUiThread {
                 navigationManager.navigationStarted()
@@ -250,14 +248,15 @@ class MapTemplate(
 
         fun updateTravelEstimates(steps: Array<TripPoint>) {
             destinationTravelEstimates = steps
-            mapTemplate?.applyConfigUpdate()
+
+            AndroidAutoScreen.invalidateSurfaceScreens()
         }
 
         fun stopNavigation() {
             if (!this::navigationManager.isInitialized) {
                 return
             }
-            
+
             UiThreadUtil.runOnUiThread {
                 navigationManager.navigationEnded()
             }
@@ -269,7 +268,7 @@ class MapTemplate(
             destinationTravelEstimates = arrayOf()
             navigationInfo = null
 
-            mapTemplate?.applyConfigUpdate()
+            AndroidAutoScreen.invalidateSurfaceScreens()
         }
 
         fun updateManeuvers(maneuvers: Array<NitroManeuver>) {
@@ -280,9 +279,6 @@ class MapTemplate(
             val context = AndroidAutoSession.getRootContext()
                 ?: throw InvalidParameterException("updateManeuvers, could not get root car context")
 
-            val template = mapTemplate
-                ?: throw InvalidParameterException("updateManeuvers, could not get map template")
-
             if (!this::navigationManager.isInitialized) {
                 throw InvalidParameterException("updateManeuvers, navigationManager not initialized, did you call startNavigation?")
             }
@@ -292,7 +288,7 @@ class MapTemplate(
 
             if (current == null) {
                 navigationInfo = null
-                mapTemplate?.applyConfigUpdate()
+                AndroidAutoScreen.invalidateSurfaceScreens()
                 return
             }
 
@@ -310,7 +306,7 @@ class MapTemplate(
                 nextStep?.let { setNextStep(it) }
             }.build()
 
-            template.applyConfigUpdate()
+            AndroidAutoScreen.invalidateSurfaceScreens()
 
             UiThreadUtil.runOnUiThread {
                 navigationManager.updateTrip(Trip.Builder().apply {

@@ -31,7 +31,7 @@ class AndroidAutoScreen(
 
     init {
         marker = moduleName
-        screens.put(moduleName, this)
+        screens[moduleName] = this
 
         lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(
@@ -141,6 +141,16 @@ class AndroidAutoScreen(
         fun invalidateScreens() {
             for (screen in screens) {
                 screen.value.applyConfigUpdate(true)
+            }
+        }
+
+        fun invalidateSurfaceScreens() {
+            val sessions =
+                AndroidAutoSession.getClusterSessions().plus(AndroidAutoSession.ROOT_SESSION)
+            screens.forEach { (key, value) ->
+                if (sessions.contains(key)) {
+                    value.applyConfigUpdate(invalidate = true)
+                }
             }
         }
     }
