@@ -58,7 +58,7 @@ const getImage = <T>(
 const getTitle = <T>(
   action: ActionButtonIos<T> | TextButton<T> | ImageButton<T> | TextAndImageButton<T>
 ): string | undefined => {
-  if (action.type !== 'text') {
+  if (action.type === 'image') {
     return undefined;
   }
 
