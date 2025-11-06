@@ -75,7 +75,7 @@ export type Flags = Flag | (number & { __brand: 'Flags' });
  * @namespace Android
  */
 export type ActionButtonAndroid<T = unknown> =
-  | ((TextButton<T> | ImageButton<T> | TextAndImageButton<T>) & {
+  | (CustomActionButtonAndroid<T> & {
       /**
        * flags can be bitwise combined
        */
@@ -83,3 +83,8 @@ export type ActionButtonAndroid<T = unknown> =
     })
   | BackButton<T>
   | AppButton;
+
+/**
+ * this excludes back and appIcon
+ */
+export type CustomActionButtonAndroid<T> = TextButton<T> | ImageButton<T> | TextAndImageButton<T>;

@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
 import type { HybridInformationTemplate as NitroHybridInformationTemplate } from '../specs/HybridInformationTemplate.nitro';
-import type { ImageButton, TextAndImageButton, TextButton } from '../types/Button';
+import type { CustomActionButtonAndroid, TextButton } from '../types/Button';
 import type { AutoText } from '../types/Text';
 import { type NitroAction, NitroActionUtil } from '../utils/NitroAction';
 import { NitroMapButton } from '../utils/NitroMapButton';
@@ -34,11 +34,6 @@ export type InformationItems =
   | [TextRow, TextRow, TextRow]
   | [TextRow, TextRow, TextRow, TextRow];
 
-type InformationButton =
-  | TextButton<InformationTemplate>
-  | ImageButton<InformationTemplate>
-  | TextAndImageButton<InformationTemplate>;
-
 export type InformationTemplateConfig = Omit<
   NitroInformationTemplateConfig,
   'headerActions' | 'section' | 'mapConfig' | 'actions'
@@ -65,7 +60,12 @@ export type InformationTemplateConfig = Omit<
    * @namespace iOS - up to 3 buttons of type TextButton
    */
   actions?: {
-    android?: [InformationButton] | [InformationButton, InformationButton];
+    android?:
+      | [CustomActionButtonAndroid<InformationTemplate>]
+      | [
+          CustomActionButtonAndroid<InformationTemplate>,
+          CustomActionButtonAndroid<InformationTemplate>,
+        ];
     ios?:
       | [
           TextButton<InformationTemplate>,
