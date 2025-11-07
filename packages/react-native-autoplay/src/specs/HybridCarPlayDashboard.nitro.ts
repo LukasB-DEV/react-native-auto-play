@@ -7,6 +7,7 @@ export interface BaseCarPlayDashboardButton {
   titleVariants: Array<string>;
   subtitleVariants: Array<string>;
   onPress: () => void;
+  launchHeadUnitScene?: boolean;
 }
 
 interface NitroCarPlayDashboardButton extends BaseCarPlayDashboardButton {

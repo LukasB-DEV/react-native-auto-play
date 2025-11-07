@@ -13,8 +13,17 @@ class DashboardSceneDelegate: AutoPlayScene,
 {
     var dashboardController: CPDashboardController?
     var templateApplicationDashboardScene: CPTemplateApplicationDashboardScene?
+    let launchHeadUnitSceneUrl: URL?
 
     override init() {
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            launchHeadUnitSceneUrl = URL(
+                string: "\(bundleIdentifier)://\(UUID())"
+            )
+        } else {
+            launchHeadUnitSceneUrl = nil
+        }
+
         super.init(moduleName: SceneStore.dashboardModuleName)
     }
 
@@ -92,6 +101,14 @@ class DashboardSceneDelegate: AutoPlayScene,
                 )!
             ) { _ in
                 button.onPress()
+                if button.launchHeadUnitScene == true {
+                    guard let url = self.launchHeadUnitSceneUrl
+                    else { return }
+                    self.templateApplicationDashboardScene?.open(
+                        url,
+                        options: .none
+                    )
+                }
             }
         }
     }

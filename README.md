@@ -143,3 +143,19 @@ The library allows you to pass distances and durations and formats them accordin
 # AppState
 AppState provided by react-native is not working properly on iOS since it does only check for the application state and lacks support for UISceneDelegate. Therefore this library provides a custom state listener working for both Android and iOS.
 Use `HybridAutoPlay.addListenerRenderState` and provide any of the `AutoPlayModules` enum modules names or one of the cluster uuids you received to monitor the scene/session/activity state.
+
+# Dashboard buttons
+In case you wanna open up your CarPlay app from one of the CarPlay dashboard buttons set `launchHeadUnitScene` on the button and add this to your Info.plist. Make sure to apply your "Bundle Identifier" instead of the example one.
+```
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>at.g4rb4g3.autoplay.example</string>
+		</array>
+	</dict>
+</array>
+```

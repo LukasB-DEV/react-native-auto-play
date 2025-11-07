@@ -14,12 +14,8 @@ import {
 import { Platform } from 'react-native';
 import { AutoManeuverUtil } from '../config/AutoManeuver';
 import { AutoTrip, TextConfig } from '../config/AutoTrip';
-import {
-  actionStartNavigation,
-  actionStopNavigation,
-  setIsNavigating,
-  setSelectedTrip,
-} from '../state/navigationSlice';
+import { getCarPlayDashboardButtons } from '../config/CarPlayDashboardButtons';
+import { actionStopNavigation, setIsNavigating, setSelectedTrip } from '../state/navigationSlice';
 import { dispatch } from '../state/store';
 import { AutoGridTemplate } from './AutoGridTemplate';
 import { AutoInformationTemplate } from './AutoInformationTemplate';
@@ -93,21 +89,7 @@ export const onTripFinished = (template: MapTemplate) => {
   AutoManeuverUtil.stopManeuvers();
 
   if (Platform.OS === 'ios') {
-    CarPlayDashboard.setButtons([
-      {
-        image: { name: 'play_circle', type: 'glyph' },
-        titleVariants: ['Start navigation'],
-        subtitleVariants: [],
-        onPress: () => {
-          dispatch(
-            actionStartNavigation({
-              tripId: AutoTrip[0].id,
-              routeId: AutoTrip[0].routeChoices[0].id,
-            })
-          );
-        },
-      },
-    ]);
+    CarPlayDashboard.setButtons(getCarPlayDashboardButtons(dispatch));
   }
 
   dispatch(setIsNavigating(false));

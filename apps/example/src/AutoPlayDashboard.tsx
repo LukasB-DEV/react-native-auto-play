@@ -5,29 +5,14 @@ import {
 } from '@g4rb4g3/react-native-autoplay';
 import { useEffect } from 'react';
 import { Platform, Text, View } from 'react-native';
-import { AutoTrip } from './config/AutoTrip';
-import { actionStartNavigation } from './state/navigationSlice';
+import { getCarPlayDashboardButtons } from './config/CarPlayDashboardButtons';
 import { useAppDispatch } from './state/store';
 
 export const AutoPlayDashboard = (props: RootComponentInitialProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    CarPlayDashboard.setButtons([
-      {
-        titleVariants: ['Start navigation'],
-        subtitleVariants: [],
-        image: { name: 'play_circle', type: 'glyph' },
-        onPress: () => {
-          dispatch(
-            actionStartNavigation({
-              tripId: AutoTrip[0].id,
-              routeId: AutoTrip[0].routeChoices[0].id,
-            })
-          );
-        },
-      },
-    ]);
+    CarPlayDashboard.setButtons(getCarPlayDashboardButtons(dispatch));
   }, [dispatch]);
 
   useEffect(() => {

@@ -18,7 +18,7 @@ public extension NitroCarPlayDashboardButton {
   /**
    * Create a new instance of `NitroCarPlayDashboardButton`.
    */
-  init(image: NitroImage, titleVariants: [String], subtitleVariants: [String], onPress: @escaping () -> Void) {
+  init(image: NitroImage, titleVariants: [String], subtitleVariants: [String], onPress: @escaping () -> Void, launchHeadUnitScene: Bool?) {
     self.init({ () -> bridge.std__variant_GlyphImage__AssetImage_ in
       switch image {
         case .first(let __value):
@@ -41,6 +41,12 @@ public extension NitroCarPlayDashboardButton {
     }(), { () -> bridge.Func_void in
       let __closureWrapper = Func_void(onPress)
       return bridge.create_Func_void(__closureWrapper.toUnsafe())
+    }(), { () -> bridge.std__optional_bool_ in
+      if let __unwrappedValue = launchHeadUnitScene {
+        return bridge.create_std__optional_bool_(__unwrappedValue)
+      } else {
+        return .init()
+      }
     }())
   }
 
@@ -123,6 +129,30 @@ public extension NitroCarPlayDashboardButton {
       self.__onPress = { () -> bridge.Func_void in
         let __closureWrapper = Func_void(newValue)
         return bridge.create_Func_void(__closureWrapper.toUnsafe())
+      }()
+    }
+  }
+  
+  var launchHeadUnitScene: Bool? {
+    @inline(__always)
+    get {
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__launchHeadUnitScene) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__launchHeadUnitScene)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__launchHeadUnitScene = { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
       }()
     }
   }
