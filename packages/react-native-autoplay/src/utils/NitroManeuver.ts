@@ -128,7 +128,7 @@ function convert(autoManeuver: AutoManeuver): NitroManeuver {
     onRampType,
     forkType,
     keepType,
-    cardBackgroundColor: NitroColorUtil.convertThemed(cardBackgroundColor),
+    cardBackgroundColor: NitroColorUtil.convert(cardBackgroundColor),
   };
 }
 

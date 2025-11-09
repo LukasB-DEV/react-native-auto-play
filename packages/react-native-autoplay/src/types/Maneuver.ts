@@ -222,7 +222,7 @@ export type AutoManeuver = Maneuver & {
   symbolImage: ManeuverImage;
   junctionImage?: ManeuverImage;
   linkedLaneGuidance?: LinkedLaneGuidance;
-  cardBackgroundColor: ThemedColor;
+  cardBackgroundColor: ThemedColor | string;
 };
 
 export type AutoManeuvers = [AutoManeuver, AutoManeuver | undefined];

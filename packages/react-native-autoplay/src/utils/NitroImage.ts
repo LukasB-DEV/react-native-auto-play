@@ -38,17 +38,8 @@ function convert(image?: AutoImage): NitroImage | undefined {
 
     return {
       glyph: glyphMap[name],
-      color:
-        typeof color === 'string'
-          ? NitroColorUtil.convertThemed({ darkColor: color, lightColor: color })
-          : NitroColorUtil.convertThemed(color),
-      backgroundColor:
-        typeof backgroundColor === 'string'
-          ? NitroColorUtil.convertThemed({
-              darkColor: backgroundColor,
-              lightColor: backgroundColor,
-            })
-          : NitroColorUtil.convertThemed(backgroundColor),
+      color: NitroColorUtil.convert(color),
+      backgroundColor: NitroColorUtil.convert(backgroundColor),
       fontScale,
     };
   }
@@ -65,10 +56,7 @@ function convert(image?: AutoImage): NitroImage | undefined {
     uri,
     width,
     packager_asset: '__packager_asset' in rest ? Boolean(rest.__packager_asset) : false,
-    color:
-      typeof image.color === 'string'
-        ? NitroColorUtil.convertThemed({ darkColor: image.color, lightColor: image.color })
-        : NitroColorUtil.convertThemed(image.color),
+    color: NitroColorUtil.convert(image.color),
   };
 
   return assetImage;
