@@ -20,8 +20,6 @@ Pod::Spec.new do |s|
     "ios/**/*.{h,m,mm}",
     # Implementation (C++ objects)
     "cpp/**/*.{hpp,cpp}",
-    # symbol font
-    "ios/**/*.ttf",
   ]
 
   # react helpers like RCTConvert
