@@ -8,7 +8,7 @@ const getTemplate = ({
 }: {
   searchHint?: string;
   onSearchTextChanged: (searchText: string) => void;
-  onSearchTextSubmitted?: (searchText: string) => void;
+  onSearchTextSubmitted: (searchText: string) => void;
 }): SearchTemplate => {
   return new SearchTemplate({
     title: { text: 'Search' },

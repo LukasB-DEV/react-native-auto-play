@@ -179,7 +179,7 @@ export type ManeuverImage =
       type: 'asset';
     };
 
-export interface ImageLane {
+interface LaneImage {
   /**
    * all images from all lanes will be merged and
    * @namespace Android setLanesImage called on the specified step/maneuver
@@ -199,20 +199,29 @@ export type Maneuver =
   | ForkManeuver
   | KeepManeuver;
 
+export type AttributedInstructionVariantImage = { image: ManeuverImage; position: number };
+
+export type AttributedInstructionVariant = {
+  text: string;
+  images?: Array<AttributedInstructionVariantImage>;
+};
+
+export type PreferredImageLane = PreferredLane & LaneImage;
+export type ImageLane = Lane & LaneImage;
+
+export type LinkedLaneGuidance = {
+  /**
+   * @namespace iOS
+   */
+  instructionVariants: Array<string>;
+  lanes: Array<PreferredImageLane | ImageLane>;
+};
+
 export type AutoManeuver = Maneuver & {
-  attributedInstructionVariants: Array<{
-    text: string;
-    images?: Array<{ image: ManeuverImage; position: number }>;
-  }>;
+  attributedInstructionVariants: Array<AttributedInstructionVariant>;
   symbolImage: ManeuverImage;
   junctionImage?: ManeuverImage;
-  linkedLaneGuidance?: {
-    /**
-     * @namespace iOS
-     */
-    instructionVariants: Array<string>;
-    lanes: Array<(PreferredLane & ImageLane) | (Lane & ImageLane)>;
-  };
+  linkedLaneGuidance?: LinkedLaneGuidance;
   cardBackgroundColor: ThemedColor;
 };
 
