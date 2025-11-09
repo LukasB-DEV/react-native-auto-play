@@ -1428,21 +1428,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   using std__weak_ptr_HybridHybridMessageTemplateSpec_ = std::weak_ptr<HybridHybridMessageTemplateSpec>;
   inline std__weak_ptr_HybridHybridMessageTemplateSpec_ weakify_std__shared_ptr_HybridHybridMessageTemplateSpec_(const std::shared_ptr<HybridHybridMessageTemplateSpec>& strong) noexcept { return strong; }
   
-  // pragma MARK: std::optional<std::function<void(const std::string& /* searchText */)>>
-  /**
-   * Specialized version of `std::optional<std::function<void(const std::string& / * searchText * /)>>`.
-   */
-  using std__optional_std__function_void_const_std__string_____searchText______ = std::optional<std::function<void(const std::string& /* searchText */)>>;
-  inline std::optional<std::function<void(const std::string& /* searchText */)>> create_std__optional_std__function_void_const_std__string_____searchText______(const std::function<void(const std::string& /* searchText */)>& value) noexcept {
-    return std::optional<std::function<void(const std::string& /* searchText */)>>(value);
-  }
-  inline bool has_value_std__optional_std__function_void_const_std__string_____searchText______(const std::optional<std::function<void(const std::string& /* searchText */)>>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline std::function<void(const std::string& /* searchText */)> get_std__optional_std__function_void_const_std__string_____searchText______(const std::optional<std::function<void(const std::string& /* searchText */)>>& optional) noexcept {
-    return *optional;
-  }
-  
   // pragma MARK: std::shared_ptr<HybridHybridSearchTemplateSpec>
   /**
    * Specialized version of `std::shared_ptr<HybridHybridSearchTemplateSpec>`.

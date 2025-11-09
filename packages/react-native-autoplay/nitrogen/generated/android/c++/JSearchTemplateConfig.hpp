@@ -83,6 +83,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JAutoText> title = this->getFieldValue(fieldTitle);
       static const auto fieldResults = clazz->getField<JNitroSection>("results");
       jni::local_ref<JNitroSection> results = this->getFieldValue(fieldResults);
+      static const auto fieldInitialSearchText = clazz->getField<jni::JString>("initialSearchText");
+      jni::local_ref<jni::JString> initialSearchText = this->getFieldValue(fieldInitialSearchText);
       static const auto fieldSearchHint = clazz->getField<jni::JString>("searchHint");
       jni::local_ref<jni::JString> searchHint = this->getFieldValue(fieldSearchHint);
       static const auto fieldOnSearchTextChanged = clazz->getField<JFunc_void_std__string::javaobject>("onSearchTextChanged");
@@ -158,6 +160,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         }()) : std::nullopt,
         title->toCpp(),
         results->toCpp(),
+        initialSearchText != nullptr ? std::make_optional(initialSearchText->toStdString()) : std::nullopt,
         searchHint != nullptr ? std::make_optional(searchHint->toStdString()) : std::nullopt,
         [&]() -> std::function<void(const std::string& /* searchText */)> {
           if (onSearchTextChanged->isInstanceOf(JFunc_void_std__string_cxx::javaClassStatic())) [[likely]] {
@@ -170,7 +173,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
             };
           }
         }(),
-        onSearchTextSubmitted != nullptr ? std::make_optional([&]() -> std::function<void(const std::string& /* searchText */)> {
+        [&]() -> std::function<void(const std::string& /* searchText */)> {
           if (onSearchTextSubmitted->isInstanceOf(JFunc_void_std__string_cxx::javaClassStatic())) [[likely]] {
             auto downcast = jni::static_ref_cast<JFunc_void_std__string_cxx::javaobject>(onSearchTextSubmitted);
             return downcast->cthis()->getFunction();
@@ -180,7 +183,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
               return onSearchTextSubmittedRef->invoke(searchText);
             };
           }
-        }()) : std::nullopt
+        }()
       );
     }
 
@@ -190,7 +193,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JSearchTemplateConfig::javaobject> fromCpp(const SearchTemplateConfig& value) {
-      using JSignature = JSearchTemplateConfig(jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<jni::JArrayClass<JNitroAction>>, jni::alias_ref<JAutoText>, jni::alias_ref<JNitroSection>, jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__string::javaobject>, jni::alias_ref<JFunc_void_std__string::javaobject>);
+      using JSignature = JSearchTemplateConfig(jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<jni::JArrayClass<JNitroAction>>, jni::alias_ref<JAutoText>, jni::alias_ref<JNitroSection>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__string::javaobject>, jni::alias_ref<JFunc_void_std__string::javaobject>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -212,9 +215,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         }() : nullptr,
         JAutoText::fromCpp(value.title),
         JNitroSection::fromCpp(value.results),
+        value.initialSearchText.has_value() ? jni::make_jstring(value.initialSearchText.value()) : nullptr,
         value.searchHint.has_value() ? jni::make_jstring(value.searchHint.value()) : nullptr,
         JFunc_void_std__string_cxx::fromCpp(value.onSearchTextChanged),
-        value.onSearchTextSubmitted.has_value() ? JFunc_void_std__string_cxx::fromCpp(value.onSearchTextSubmitted.value()) : nullptr
+        JFunc_void_std__string_cxx::fromCpp(value.onSearchTextSubmitted)
       );
     }
   };

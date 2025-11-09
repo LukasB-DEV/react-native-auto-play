@@ -24,6 +24,11 @@ export interface NitroSearchTemplateConfig extends TemplateConfig {
   title: AutoText;
   results: NitroSection;
   /**
+   * Text that is put into the searchbar as initial value
+   * @namespace Android
+   */
+  initialSearchText?: string;
+  /**
    * Placeholder value in the search bar until text is entered
    * @namespace Android
    */
@@ -38,7 +43,7 @@ export interface NitroSearchTemplateConfig extends TemplateConfig {
    * Can be used to trigger a backend call immediately, but might never be called if the user selects a search result item from autocomplete results instead.
    * @param searchText the text that the user has entered into the search bar
    */
-  onSearchTextSubmitted?: (searchText: string) => void;
+  onSearchTextSubmitted: (searchText: string) => void;
 }
 
 export type SearchTemplateConfig = Omit<

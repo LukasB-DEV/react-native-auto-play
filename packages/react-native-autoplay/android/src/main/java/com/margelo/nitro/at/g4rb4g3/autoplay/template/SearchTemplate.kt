@@ -20,20 +20,19 @@ class SearchTemplate(context: CarContext, config: SearchTemplateConfig) :
     override fun parse(): Template {
         return SearchTemplate.Builder(object : SearchCallback {
             override fun onSearchTextChanged(searchText: String) {
-                config.onSearchTextChanged?.let {
-                    it(searchText)
-                }
+                config.onSearchTextChanged(searchText)
             }
-
             override fun onSearchSubmitted(searchText: String) {
-                config.onSearchTextSubmitted?.let {
-                    it(searchText)
-                }
+                config.onSearchTextSubmitted(searchText)
             }
         }).apply {
             setItemList(Parser.parseSearchResult(context, config.results.items))
             config.searchHint?.let {
                 setSearchHint(it)
+            }
+
+            config.initialSearchText?.let {
+                setInitialSearchText(it)
             }
 
             config.headerActions?.let { headerActions ->

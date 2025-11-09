@@ -143,7 +143,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
         self.pushedListTemplate = listTemplate
 
         // execute callback after creating the template to avoid race condition in updateSearchResults
-        config.onSearchTextSubmitted?(searchText)
+        config.onSearchTextSubmitted(searchText)
 
         // Push the template
         Task { @MainActor in

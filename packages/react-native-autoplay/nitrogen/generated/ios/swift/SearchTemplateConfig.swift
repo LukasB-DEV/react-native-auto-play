@@ -18,7 +18,7 @@ public extension SearchTemplateConfig {
   /**
    * Create a new instance of `SearchTemplateConfig`.
    */
-  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, headerActions: [NitroAction]?, title: AutoText, results: NitroSection, searchHint: String?, onSearchTextChanged: @escaping (_ searchText: String) -> Void, onSearchTextSubmitted: ((_ searchText: String) -> Void)?) {
+  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, headerActions: [NitroAction]?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: @escaping (_ searchText: String) -> Void, onSearchTextSubmitted: @escaping (_ searchText: String) -> Void) {
     self.init(std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
@@ -77,6 +77,12 @@ public extension SearchTemplateConfig {
         return .init()
       }
     }(), title, results, { () -> bridge.std__optional_std__string_ in
+      if let __unwrappedValue = initialSearchText {
+        return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_std__string_ in
       if let __unwrappedValue = searchHint {
         return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
       } else {
@@ -85,15 +91,9 @@ public extension SearchTemplateConfig {
     }(), { () -> bridge.Func_void_std__string in
       let __closureWrapper = Func_void_std__string(onSearchTextChanged)
       return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
-    }(), { () -> bridge.std__optional_std__function_void_const_std__string_____searchText______ in
-      if let __unwrappedValue = onSearchTextSubmitted {
-        return bridge.create_std__optional_std__function_void_const_std__string_____searchText______({ () -> bridge.Func_void_std__string in
-          let __closureWrapper = Func_void_std__string(__unwrappedValue)
-          return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
-        }())
-      } else {
-        return .init()
-      }
+    }(), { () -> bridge.Func_void_std__string in
+      let __closureWrapper = Func_void_std__string(onSearchTextSubmitted)
+      return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
     }())
   }
 
@@ -344,6 +344,30 @@ public extension SearchTemplateConfig {
     }
   }
   
+  var initialSearchText: String? {
+    @inline(__always)
+    get {
+      return { () -> String? in
+        if bridge.has_value_std__optional_std__string_(self.__initialSearchText) {
+          let __unwrapped = bridge.get_std__optional_std__string_(self.__initialSearchText)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__initialSearchText = { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
   var searchHint: String? {
     @inline(__always)
     get {
@@ -387,34 +411,21 @@ public extension SearchTemplateConfig {
     }
   }
   
-  var onSearchTextSubmitted: ((_ searchText: String) -> Void)? {
+  var onSearchTextSubmitted: (_ searchText: String) -> Void {
     @inline(__always)
     get {
-      return { () -> ((_ searchText: String) -> Void)? in
-        if bridge.has_value_std__optional_std__function_void_const_std__string_____searchText______(self.__onSearchTextSubmitted) {
-          let __unwrapped = bridge.get_std__optional_std__function_void_const_std__string_____searchText______(self.__onSearchTextSubmitted)
-          return { () -> (String) -> Void in
-            let __wrappedFunction = bridge.wrap_Func_void_std__string(__unwrapped)
-            return { (__searchText: String) -> Void in
-              __wrappedFunction.call(std.string(__searchText))
-            }
-          }()
-        } else {
-          return nil
+      return { () -> (String) -> Void in
+        let __wrappedFunction = bridge.wrap_Func_void_std__string(self.__onSearchTextSubmitted)
+        return { (__searchText: String) -> Void in
+          __wrappedFunction.call(std.string(__searchText))
         }
       }()
     }
     @inline(__always)
     set {
-      self.__onSearchTextSubmitted = { () -> bridge.std__optional_std__function_void_const_std__string_____searchText______ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__function_void_const_std__string_____searchText______({ () -> bridge.Func_void_std__string in
-            let __closureWrapper = Func_void_std__string(__unwrappedValue)
-            return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
-          }())
-        } else {
-          return .init()
-        }
+      self.__onSearchTextSubmitted = { () -> bridge.Func_void_std__string in
+        let __closureWrapper = Func_void_std__string(newValue)
+        return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
       }()
     }
   }
