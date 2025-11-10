@@ -12,6 +12,7 @@
 
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
+#include "AlertPriority.hpp"
 #include "AssetImage.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
@@ -19,6 +20,7 @@
 #include "GlyphImage.hpp"
 #include "JAlertActionStyle.hpp"
 #include "JAlertDismissalReason.hpp"
+#include "JAlertPriority.hpp"
 #include "JAssetImage.hpp"
 #include "JAutoText.hpp"
 #include "JDistance.hpp"
@@ -73,6 +75,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JFunc_void::javaobject> onWillShow = this->getFieldValue(fieldOnWillShow);
       static const auto fieldOnDidDismiss = clazz->getField<JFunc_void_AlertDismissalReason::javaobject>("onDidDismiss");
       jni::local_ref<JFunc_void_AlertDismissalReason::javaobject> onDidDismiss = this->getFieldValue(fieldOnDidDismiss);
+      static const auto fieldPriority = clazz->getField<JAlertPriority>("priority");
+      jni::local_ref<JAlertPriority> priority = this->getFieldValue(fieldPriority);
       return NitroNavigationAlert(
         id,
         title->toCpp(),
@@ -102,7 +106,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
               return onDidDismissRef->invoke(reason);
             };
           }
-        }()) : std::nullopt
+        }()) : std::nullopt,
+        priority->toCpp()
       );
     }
 
@@ -112,7 +117,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JNitroNavigationAlert::javaobject> fromCpp(const NitroNavigationAlert& value) {
-      using JSignature = JNitroNavigationAlert(double, jni::alias_ref<JAutoText>, jni::alias_ref<JAutoText>, jni::alias_ref<JVariant_GlyphImage_AssetImage>, jni::alias_ref<JNavigationAlertAction>, jni::alias_ref<JNavigationAlertAction>, double, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<JFunc_void_AlertDismissalReason::javaobject>);
+      using JSignature = JNitroNavigationAlert(double, jni::alias_ref<JAutoText>, jni::alias_ref<JAutoText>, jni::alias_ref<JVariant_GlyphImage_AssetImage>, jni::alias_ref<JNavigationAlertAction>, jni::alias_ref<JNavigationAlertAction>, double, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<JFunc_void_AlertDismissalReason::javaobject>, jni::alias_ref<JAlertPriority>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -125,7 +130,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         value.secondaryAction.has_value() ? JNavigationAlertAction::fromCpp(value.secondaryAction.value()) : nullptr,
         value.durationMs,
         value.onWillShow.has_value() ? JFunc_void_cxx::fromCpp(value.onWillShow.value()) : nullptr,
-        value.onDidDismiss.has_value() ? JFunc_void_AlertDismissalReason_cxx::fromCpp(value.onDidDismiss.value()) : nullptr
+        value.onDidDismiss.has_value() ? JFunc_void_AlertDismissalReason_cxx::fromCpp(value.onDidDismiss.value()) : nullptr,
+        JAlertPriority::fromCpp(value.priority)
       );
     }
   };
