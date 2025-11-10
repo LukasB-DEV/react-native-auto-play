@@ -489,9 +489,8 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
                 upcomingManeuvers = upcomingManeuvers.flatMap { maneuver in
                     if let laneImages = maneuver.laneImages {
                         // CarPlay has a limitation of 120x18 for the symbolImage on secondaryManeuver that shows lanes only
-                        let secondarySymbolImage = SymbolFont.imageFromLanes(
+                        let secondarySymbolImage = Parser.imageFromLanes(
                             laneImages: laneImages.prefix(Int(120 / 18)),
-                            size: 18,
                             traitCollection: SceneStore.getRootTraitCollection()
                         )
 

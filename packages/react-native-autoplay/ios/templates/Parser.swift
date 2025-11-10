@@ -819,4 +819,54 @@ class Parser {
             orientation: uiImage.imageOrientation
         )
     }
+
+    static func imageFromLanes(
+        laneImages: Array<NitroImage>.SubSequence,
+        traitCollection: UITraitCollection
+    ) -> UIImage {
+        let lightTrait = UITraitCollection(userInterfaceStyle: .light)
+        let darkTrait = UITraitCollection(userInterfaceStyle: .dark)
+
+        // Parse all images once
+        let parsedImages = laneImages.compactMap { image in
+            Parser.parseNitroImage(
+                image: image,
+                traitCollection: traitCollection
+            )
+        }
+
+        // Resolve one set (light) just to measure dimensions
+        let sampleResolved = parsedImages.map {
+            $0.imageAsset?.image(with: lightTrait) ?? $0
+        }
+
+        let totalWidth: CGFloat =
+            sampleResolved.reduce(0) { $0 + $1.size.width }
+            + CGFloat(sampleResolved.count - 1)
+        let maxHeight: CGFloat = sampleResolved.map(\.size.height).max() ?? 0
+        let rendererSize = CGSize(width: totalWidth, height: maxHeight)
+
+        func mergedImage(for trait: UITraitCollection) -> UIImage {
+            let resolvedImages = parsedImages.map {
+                $0.imageAsset?.image(with: trait) ?? $0
+            }
+
+            let renderer = UIGraphicsImageRenderer(size: rendererSize)
+            let image = renderer.image { _ in
+                var x: CGFloat = 0
+                for img in resolvedImages {
+                    img.draw(at: CGPoint(x: x, y: 0))
+                    x += img.size.width
+                }
+            }
+
+            return image.withRenderingMode(.alwaysOriginal)
+        }
+
+        let asset = UIImageAsset()
+        asset.register(mergedImage(for: lightTrait), with: lightTrait)
+        asset.register(mergedImage(for: darkTrait), with: darkTrait)
+
+        return asset.image(with: traitCollection)
+    }
 }
