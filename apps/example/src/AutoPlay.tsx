@@ -15,6 +15,7 @@ import { AutoPlayDashboard } from './AutoPlayDashboard';
 import { AutoManeuverUtil } from './config/AutoManeuver';
 import { AutoTrip } from './config/AutoTrip';
 import {
+  actionShowAlert,
   actionStartNavigation,
   actionStopNavigation,
   setSelectedTrip,
@@ -46,6 +47,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
       title: {
         text: 'useMapTemplate rules \\o/',
       },
+      priority: 'medium',
     });
 
     const timer = setInterval(() => setI((p) => p + 1), 1000);
@@ -90,6 +92,29 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
             return;
           }
           onTripFinished(mapTemplate);
+        },
+      })
+    );
+
+    listeners.push(
+      startAppListening({
+        actionCreator: actionShowAlert,
+        effect: (action) => {
+          if (mapTemplate == null) {
+            return;
+          }
+          const prio = action.payload;
+          mapTemplate.showAlert({
+            id: prio === 'low' ? 0 : prio === 'medium' ? 1 : 2,
+            title: { text: 'Alert' },
+            subtitle: { text: `Prio: ${prio}` },
+            primaryAction: { title: 'OK', onPress: () => {} },
+            durationMs: 10000,
+            priority: prio,
+            onDidDismiss: (reason) => {
+              console.log('*** onDidDismiss', prio, reason);
+            },
+          });
         },
       })
     );

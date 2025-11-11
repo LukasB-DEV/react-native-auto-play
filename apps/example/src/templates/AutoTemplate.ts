@@ -345,6 +345,7 @@ const AutoAlert = (remaining: number): Alert => ({
   },
   onWillShow: () => console.log('alarm alert showing....'),
   onDidDismiss: (reason) => console.log('alarm alert dismissed', reason),
+  priority: 'medium',
 });
 
 const mapButtons: MapTemplateConfig['mapButtons'] = [

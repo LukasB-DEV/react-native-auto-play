@@ -1,3 +1,4 @@
+import type { AlertPriority } from '@g4rb4g3/react-native-autoplay/lib/utils/NitroAlert';
 import { createAction, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type NavigationState, SliceName } from './types';
 
@@ -32,5 +33,9 @@ export const actionStartNavigation = createAction(
 );
 
 export const actionStopNavigation = createAction('stopNavigation');
+
+export const actionShowAlert = createAction('showAlert', (payload: AlertPriority) => {
+  return { payload };
+});
 
 export const navigationReducer = navigationSlice.reducer;

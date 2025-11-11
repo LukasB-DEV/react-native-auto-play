@@ -59,10 +59,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     double durationMs     SWIFT_PRIVATE;
     std::optional<std::function<void()>> onWillShow     SWIFT_PRIVATE;
     std::optional<std::function<void(AlertDismissalReason /* reason */)>> onDidDismiss     SWIFT_PRIVATE;
+    double priority     SWIFT_PRIVATE;
 
   public:
     NitroNavigationAlert() = default;
-    explicit NitroNavigationAlert(double id, AutoText title, std::optional<AutoText> subtitle, std::optional<std::variant<GlyphImage, AssetImage>> image, NavigationAlertAction primaryAction, std::optional<NavigationAlertAction> secondaryAction, double durationMs, std::optional<std::function<void()>> onWillShow, std::optional<std::function<void(AlertDismissalReason /* reason */)>> onDidDismiss): id(id), title(title), subtitle(subtitle), image(image), primaryAction(primaryAction), secondaryAction(secondaryAction), durationMs(durationMs), onWillShow(onWillShow), onDidDismiss(onDidDismiss) {}
+    explicit NitroNavigationAlert(double id, AutoText title, std::optional<AutoText> subtitle, std::optional<std::variant<GlyphImage, AssetImage>> image, NavigationAlertAction primaryAction, std::optional<NavigationAlertAction> secondaryAction, double durationMs, std::optional<std::function<void()>> onWillShow, std::optional<std::function<void(AlertDismissalReason /* reason */)>> onDidDismiss, double priority): id(id), title(title), subtitle(subtitle), image(image), primaryAction(primaryAction), secondaryAction(secondaryAction), durationMs(durationMs), onWillShow(onWillShow), onDidDismiss(onDidDismiss), priority(priority) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -83,7 +84,8 @@ namespace margelo::nitro {
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NavigationAlertAction>>::fromJSI(runtime, obj.getProperty(runtime, "secondaryAction")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "durationMs")),
         JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onWillShow")),
-        JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertDismissalReason)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDismiss"))
+        JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertDismissalReason)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDismiss")),
+        JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "priority"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroNavigationAlert& arg) {
@@ -97,6 +99,7 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "durationMs", JSIConverter<double>::toJSI(runtime, arg.durationMs));
       obj.setProperty(runtime, "onWillShow", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onWillShow));
       obj.setProperty(runtime, "onDidDismiss", JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertDismissalReason)>>>::toJSI(runtime, arg.onDidDismiss));
+      obj.setProperty(runtime, "priority", JSIConverter<double>::toJSI(runtime, arg.priority));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -116,6 +119,7 @@ namespace margelo::nitro {
       if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "durationMs"))) return false;
       if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onWillShow"))) return false;
       if (!JSIConverter<std::optional<std::function<void(margelo::nitro::at::g4rb4g3::autoplay::hybrid::AlertDismissalReason)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidDismiss"))) return false;
+      if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "priority"))) return false;
       return true;
     }
   };
