@@ -1,7 +1,6 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.template
 
 import android.graphics.Color
-import android.util.Log
 import androidx.car.app.AppManager
 import androidx.car.app.CarContext
 import androidx.car.app.model.Action
@@ -125,8 +124,6 @@ class MapTemplate(
     }
 
     fun showAlert(alertConfig: NitroNavigationAlert) {
-        var appManager = context.getCarService(AppManager::class.java)
-
         if (alertPriority > alertConfig.priority) {
             // ignore alerts with lower priority than current alert
             return;
@@ -203,7 +200,7 @@ class MapTemplate(
             alertPriority = alertConfig.priority.toInt()
         }
 
-        appManager.showAlert(alert)
+        context.getCarService(AppManager::class.java).showAlert(alert)
     }
 
     fun updateVisibleTravelEstimate(
