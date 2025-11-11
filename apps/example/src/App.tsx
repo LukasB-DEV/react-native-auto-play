@@ -88,25 +88,28 @@ function AppContent() {
           }}
         />
       )}
-      <View style={styles.buttonRow}>
-        <Button
-          title="low prio"
-          onPress={() => {
-            dispatch(actionShowAlert('low'));
-          }}
-        />
-        <Button
-          title="medium prio"
-          onPress={() => {
-            dispatch(actionShowAlert('medium'));
-          }}
-        />
-        <Button
-          title="high prio"
-          onPress={() => {
-            dispatch(actionShowAlert('high'));
-          }}
-        />
+      <View style={{ marginTop: 16 }}>
+        <Text>Navigation alerts</Text>
+        <View style={styles.buttonRow}>
+          <Button
+            title="low prio"
+            onPress={() => {
+              dispatch(actionShowAlert('low'));
+            }}
+          />
+          <Button
+            title="medium prio"
+            onPress={() => {
+              dispatch(actionShowAlert('medium'));
+            }}
+          />
+          <Button
+            title="high prio"
+            onPress={() => {
+              dispatch(actionShowAlert('high'));
+            }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -116,11 +119,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    margin: 8,
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 16,
+    paddingTop: 8,
     gap: 8,
   },
 });
