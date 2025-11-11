@@ -597,8 +597,9 @@ object Parser {
                 nitroManeuver.exitNumber?.let {
                     setRoundaboutExitNumber(it.toInt())
                 }
-                nitroManeuver.angle?.let {
-                    setRoundaboutExitAngle(it.toInt())
+                nitroManeuver.angle?.let { roundaboutExitAngle ->
+                    val angle = (180 + roundaboutExitAngle).toInt().let { if (it == 0) 360 else it }
+                    setRoundaboutExitAngle(angle)
                 }
             }
         }.build()
