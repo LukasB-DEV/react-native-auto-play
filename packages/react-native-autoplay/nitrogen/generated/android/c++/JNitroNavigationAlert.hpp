@@ -73,6 +73,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JFunc_void::javaobject> onWillShow = this->getFieldValue(fieldOnWillShow);
       static const auto fieldOnDidDismiss = clazz->getField<JFunc_void_AlertDismissalReason::javaobject>("onDidDismiss");
       jni::local_ref<JFunc_void_AlertDismissalReason::javaobject> onDidDismiss = this->getFieldValue(fieldOnDidDismiss);
+      static const auto fieldPriority = clazz->getField<double>("priority");
+      double priority = this->getFieldValue(fieldPriority);
       return NitroNavigationAlert(
         id,
         title->toCpp(),
@@ -102,7 +104,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
               return onDidDismissRef->invoke(reason);
             };
           }
-        }()) : std::nullopt
+        }()) : std::nullopt,
+        priority
       );
     }
 
@@ -112,7 +115,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JNitroNavigationAlert::javaobject> fromCpp(const NitroNavigationAlert& value) {
-      using JSignature = JNitroNavigationAlert(double, jni::alias_ref<JAutoText>, jni::alias_ref<JAutoText>, jni::alias_ref<JVariant_GlyphImage_AssetImage>, jni::alias_ref<JNavigationAlertAction>, jni::alias_ref<JNavigationAlertAction>, double, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<JFunc_void_AlertDismissalReason::javaobject>);
+      using JSignature = JNitroNavigationAlert(double, jni::alias_ref<JAutoText>, jni::alias_ref<JAutoText>, jni::alias_ref<JVariant_GlyphImage_AssetImage>, jni::alias_ref<JNavigationAlertAction>, jni::alias_ref<JNavigationAlertAction>, double, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<JFunc_void_AlertDismissalReason::javaobject>, double);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -125,7 +128,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         value.secondaryAction.has_value() ? JNavigationAlertAction::fromCpp(value.secondaryAction.value()) : nullptr,
         value.durationMs,
         value.onWillShow.has_value() ? JFunc_void_cxx::fromCpp(value.onWillShow.value()) : nullptr,
-        value.onDidDismiss.has_value() ? JFunc_void_AlertDismissalReason_cxx::fromCpp(value.onDidDismiss.value()) : nullptr
+        value.onDidDismiss.has_value() ? JFunc_void_AlertDismissalReason_cxx::fromCpp(value.onDidDismiss.value()) : nullptr,
+        value.priority
       );
     }
   };

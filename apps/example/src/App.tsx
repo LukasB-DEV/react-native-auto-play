@@ -4,10 +4,14 @@ import {
   HybridAutoPlay,
 } from '@g4rb4g3/react-native-autoplay';
 import { useEffect, useState } from 'react';
-import { Button, Platform, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
+import { Button, Platform, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AutoTrip } from './config/AutoTrip';
-import { actionStartNavigation, actionStopNavigation } from './state/navigationSlice';
+import {
+  actionShowAlert,
+  actionStartNavigation,
+  actionStopNavigation,
+} from './state/navigationSlice';
 import { useAppDispatch, useAppSelector } from './state/store';
 import { TelemetryView } from './TelemetryView';
 
@@ -84,6 +88,29 @@ function AppContent() {
           }}
         />
       )}
+      <View style={{ marginTop: 16 }}>
+        <Text>Navigation alerts</Text>
+        <View style={styles.buttonRow}>
+          <Button
+            title="low prio"
+            onPress={() => {
+              dispatch(actionShowAlert('low'));
+            }}
+          />
+          <Button
+            title="medium prio"
+            onPress={() => {
+              dispatch(actionShowAlert('medium'));
+            }}
+          />
+          <Button
+            title="high prio"
+            onPress={() => {
+              dispatch(actionShowAlert('high'));
+            }}
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -92,6 +119,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    margin: 8,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 8,
+    gap: 8,
   },
 });
 

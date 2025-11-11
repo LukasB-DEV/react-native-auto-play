@@ -40,7 +40,9 @@ class MapTemplate(
     override val templateId: String
         get() = config.id
 
-    private var alertId: Double? = null
+    private var alertPriority = 0
+    private var alertIds: HashSet<Int> = HashSet()
+
 
     init {
         if (initNavigationManager) {
@@ -124,6 +126,11 @@ class MapTemplate(
     }
 
     fun showAlert(alertConfig: NitroNavigationAlert) {
+        if (alertPriority > alertConfig.priority) {
+            // ignore alerts with lower priority than current alert
+            return
+        }
+
         val title = Parser.parseText(alertConfig.title)
         val durationMillis = alertConfig.durationMs.toLong()
 
@@ -175,7 +182,11 @@ class MapTemplate(
                 }
 
                 override fun onDismiss() {
-                    alertId = null
+                    alertIds.remove(alertConfig.id.toInt())
+                    if (alertIds.isEmpty()) {
+                        alertPriority = 0
+                    }
+
                     if (!isAutoDismissal) {
                         alertConfig.onDidDismiss?.let {
                             it(AlertDismissalReason.USER)
@@ -185,9 +196,10 @@ class MapTemplate(
             })
         }.build()
 
-        if (alertId != alertConfig.id) {
-            alertId = alertConfig.id
+        if (!alertIds.contains(alert.id)) {
             alertConfig.onWillShow?.let { it() }
+            alertIds.add(alert.id)
+            alertPriority = alertConfig.priority.toInt()
         }
 
         context.getCarService(AppManager::class.java).showAlert(alert)

@@ -206,33 +206,63 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
     func mapTemplate(
         _ mapTemplate: CPMapTemplate,
-        didDismiss navigationAlert: CPNavigationAlert,
+        didDismiss navigationAlert: CPNavigationAlert,  // this seems to be currentNavigationAlert when an alert is dismissed due to pushing a new one
         dismissalContext: CPNavigationAlert.DismissalContext
     ) {
-        guard
-            let config = alertStore.values.first(where: {
+        // Helper to get dismissal reason from context
+        let dismissalReason: AlertDismissalReason = {
+            switch dismissalContext {
+            case .userDismissed: return .user
+            case .timeout: return .timeout
+            case .systemDismissed: return .system
+            }
+        }()
+
+        // Helper to dismiss and remove an alert
+        let dismissAndRemove = { (entry: AlertStoreEntry) in
+            entry.config.onDidDismiss?(dismissalReason)
+            self.alertStore.removeValue(forKey: entry.config.id)
+        }
+
+        guard let template = self.template as? CPMapTemplate else {
+            if let entry = alertStore.values.first(where: {
                 $0.alert == navigationAlert
-            })?.config
-        else {
+            }) {
+                dismissAndRemove(entry)
+            }
             return
         }
 
-        switch dismissalContext {
-        case .userDismissed:
-            config.onDidDismiss?(AlertDismissalReason.user)
-        case .timeout:
-            config.onDidDismiss?(AlertDismissalReason.timeout)
-        case .systemDismissed:
-            config.onDidDismiss?(AlertDismissalReason.system)
-        @unknown default:
-            break
+        if alertStore.count > 1 && template.currentNavigationAlert != nil {
+            // if multiple alerts are stored, dismiss and clear all except the currently shown
+            alertStore.values
+                .filter { $0.alert != template.currentNavigationAlert }
+                .forEach(dismissAndRemove)
+            return
         }
 
-        alertStore.removeValue(forKey: config.id)
+        if let entry = alertStore.values.first(where: {
+            $0.alert == navigationAlert
+        }) {
+            dismissAndRemove(entry)
+        }
+
+        if template.currentNavigationAlert == nil && alertStore.count > 0 {
+            // if nothing is shown, clear all if there are still some left
+            alertStore.values.forEach(dismissAndRemove)
+        }
     }
 
     func showAlert(alertConfig: NitroNavigationAlert) {
         guard let template = self.template as? CPMapTemplate else { return }
+
+        let hasHigherPriority =
+            alertStore.values.first(where: {
+                $0.config.priority > alertConfig.priority
+            }) != nil
+        if hasHigherPriority {
+            return
+        }
 
         let title = Parser.parseText(text: alertConfig.title)!
         let subtitle = alertConfig.subtitle.map { subtitle in
@@ -275,7 +305,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             image: image,
             primaryAction: primaryAction,
             secondaryAction: secondaryAction,
-            duration: alertConfig.durationMs / 1000
+            duration: alertConfig.durationMs / 1000,
         )
 
         alertStore[alertConfig.id] = AlertStoreEntry(
