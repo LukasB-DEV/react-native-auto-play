@@ -31,6 +31,7 @@
 #include "JHybridHybridInformationTemplateSpec.hpp"
 #include "JHybridHybridListTemplateSpec.hpp"
 #include "JHybridHybridMapTemplateSpec.hpp"
+#include "JFunc_void_AutoText_std__optional_AutoText_.hpp"
 #include "JFunc_void_Point_std__optional_Point_.hpp"
 #include "JFunc_void_Point_double.hpp"
 #include "JFunc_void_Point.hpp"
@@ -66,6 +67,7 @@ int initialize(JavaVM* vm) {
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridInformationTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridListTemplateSpec::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JHybridHybridMapTemplateSpec::registerNatives();
+    margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_AutoText_std__optional_AutoText__cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_std__optional_Point__cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_double_cxx::registerNatives();
     margelo::nitro::at::g4rb4g3::autoplay::hybrid::JFunc_void_Point_cxx::registerNatives();

@@ -56,6 +56,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct LaneGuidance; }
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ManeuverType; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
+// Forward declaration of `NavigationAlertCallbacks` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertCallbacks; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
@@ -166,6 +168,7 @@ namespace NitroAutoplay { class HybridHybridSearchTemplateSpec_cxx; }
 #include "LaneGuidance.hpp"
 #include "ManeuverType.hpp"
 #include "NavigationAlertAction.hpp"
+#include "NavigationAlertCallbacks.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
@@ -1094,6 +1097,28 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
     return *optional;
   }
   
+  // pragma MARK: std::function<void(const AutoText& /* title */, const std::optional<AutoText>& /* subtitle */)>
+  /**
+   * Specialized version of `std::function<void(const AutoText&, const std::optional<AutoText>&)>`.
+   */
+  using Func_void_AutoText_std__optional_AutoText_ = std::function<void(const AutoText& /* title */, const std::optional<AutoText>& /* subtitle */)>;
+  /**
+   * Wrapper class for a `std::function<void(const AutoText& / * title * /, const std::optional<AutoText>& / * subtitle * /)>`, this can be used from Swift.
+   */
+  class Func_void_AutoText_std__optional_AutoText__Wrapper final {
+  public:
+    explicit Func_void_AutoText_std__optional_AutoText__Wrapper(std::function<void(const AutoText& /* title */, const std::optional<AutoText>& /* subtitle */)>&& func): _function(std::make_unique<std::function<void(const AutoText& /* title */, const std::optional<AutoText>& /* subtitle */)>>(std::move(func))) {}
+    inline void call(AutoText title, std::optional<AutoText> subtitle) const noexcept {
+      _function->operator()(title, subtitle);
+    }
+  private:
+    std::unique_ptr<std::function<void(const AutoText& /* title */, const std::optional<AutoText>& /* subtitle */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_AutoText_std__optional_AutoText_ create_Func_void_AutoText_std__optional_AutoText_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_AutoText_std__optional_AutoText__Wrapper wrap_Func_void_AutoText_std__optional_AutoText_(Func_void_AutoText_std__optional_AutoText_ value) noexcept {
+    return Func_void_AutoText_std__optional_AutoText__Wrapper(std::move(value));
+  }
+  
   // pragma MARK: std::optional<AlertActionStyle>
   /**
    * Specialized version of `std::optional<AlertActionStyle>`.
@@ -1438,6 +1463,15 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid::bridge::swift {
   // pragma MARK: std::weak_ptr<HybridHybridMapTemplateSpec>
   using std__weak_ptr_HybridHybridMapTemplateSpec_ = std::weak_ptr<HybridHybridMapTemplateSpec>;
   inline std__weak_ptr_HybridHybridMapTemplateSpec_ weakify_std__shared_ptr_HybridHybridMapTemplateSpec_(const std::shared_ptr<HybridHybridMapTemplateSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: Result<NavigationAlertCallbacks>
+  using Result_NavigationAlertCallbacks_ = Result<NavigationAlertCallbacks>;
+  inline Result_NavigationAlertCallbacks_ create_Result_NavigationAlertCallbacks_(const NavigationAlertCallbacks& value) noexcept {
+    return Result<NavigationAlertCallbacks>::withValue(value);
+  }
+  inline Result_NavigationAlertCallbacks_ create_Result_NavigationAlertCallbacks_(const std::exception_ptr& error) noexcept {
+    return Result<NavigationAlertCallbacks>::withError(error);
+  }
   
   // pragma MARK: Result<TripSelectorCallback>
   using Result_TripSelectorCallback_ = Result<TripSelectorCallback>;

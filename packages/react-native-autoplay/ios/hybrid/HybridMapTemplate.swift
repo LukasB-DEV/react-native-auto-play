@@ -31,7 +31,7 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
     }
 
     func showNavigationAlert(templateId: String, alert: NitroNavigationAlert)
-        throws -> () -> Void
+        throws -> NavigationAlertCallbacks
     {
         var mapTemplate: MapTemplate?
 
@@ -40,9 +40,18 @@ class HybridMapTemplate: HybridHybridMapTemplateSpec {
             mapTemplate = template
         }
 
-        return {
-            mapTemplate?.dismissNavigationAlert(alertId: alert.id)
-        }
+        return NavigationAlertCallbacks(
+            dismiss: {
+                mapTemplate?.dismissNavigationAlert(alertId: alert.id)
+            },
+            update: { title, subtitle in
+                mapTemplate?.updateNavigationAlert(
+                    alertId: alert.id,
+                    title: title,
+                    subtitle: subtitle
+                )
+            }
+        )
     }
 
     func showTripSelector(

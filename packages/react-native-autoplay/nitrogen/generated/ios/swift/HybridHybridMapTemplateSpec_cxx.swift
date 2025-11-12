@@ -129,17 +129,14 @@ open class HybridHybridMapTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func showNavigationAlert(templateId: std.string, alert: NitroNavigationAlert) -> bridge.Result_std__function_void____ {
+  public final func showNavigationAlert(templateId: std.string, alert: NitroNavigationAlert) -> bridge.Result_NavigationAlertCallbacks_ {
     do {
       let __result = try self.__implementation.showNavigationAlert(templateId: String(templateId), alert: alert)
-      let __resultCpp = { () -> bridge.Func_void in
-        let __closureWrapper = Func_void(__result)
-        return bridge.create_Func_void(__closureWrapper.toUnsafe())
-      }()
-      return bridge.create_Result_std__function_void____(__resultCpp)
+      let __resultCpp = __result
+      return bridge.create_Result_NavigationAlertCallbacks_(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__function_void____(__exceptionPtr)
+      return bridge.create_Result_NavigationAlertCallbacks_(__exceptionPtr)
     }
   }
   

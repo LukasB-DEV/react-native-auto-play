@@ -104,15 +104,24 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
             return;
           }
           const prio = action.payload;
-          mapTemplate.showAlert({
-            id: prio === 'low' ? 0 : prio === 'medium' ? 1 : 2,
-            title: { text: 'Alert' },
+          let timer: number | null = null;
+
+          const { dismiss, update } = mapTemplate.showAlert({
+            id: Date.now(),
+            title: { text: `Alert ${Date.now()}` },
             subtitle: { text: `Prio: ${prio}` },
             primaryAction: { title: 'OK', onPress: () => {} },
             durationMs: 10000,
             priority: prio,
             onDidDismiss: (reason) => {
+              if (timer != null) {
+                clearTimeout(timer);
+                timer = null;
+              }
               console.log('*** onDidDismiss', prio, reason);
+            },
+            onWillShow: () => {
+              timer = setTimeout(() => update({ text: `Alert ${Date.now()}` }, null), 5000);
             },
           });
         },

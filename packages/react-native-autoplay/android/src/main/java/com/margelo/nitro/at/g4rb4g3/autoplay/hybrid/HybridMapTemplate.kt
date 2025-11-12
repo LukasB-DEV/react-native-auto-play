@@ -20,17 +20,26 @@ class HybridMapTemplate : HybridHybridMapTemplateSpec() {
         AndroidAutoTemplate.Companion.setTemplate(config.id, template)
     }
 
-    override fun showNavigationAlert(templateId: String, alert: NitroNavigationAlert): () -> Unit {
+    override fun showNavigationAlert(
+        templateId: String,
+        alert: NitroNavigationAlert
+    ): NavigationAlertCallbacks {
         val template = AndroidAutoTemplate.Companion.getTemplate<MapTemplate>(templateId)
         template.showAlert(alert)
 
-        return {
-            val carContext =
-                AndroidAutoSession.getCarContext(AndroidAutoSession.Companion.ROOT_SESSION)
-                    ?: throw IllegalArgumentException("navigation alert dismiss failed, carContext for ${AndroidAutoSession.Companion.ROOT_SESSION} not found")
+        return NavigationAlertCallbacks(
+            dismiss = {
+                val carContext =
+                    AndroidAutoSession.getCarContext(AndroidAutoSession.Companion.ROOT_SESSION)
+                        ?: throw IllegalArgumentException("navigation alert dismiss failed, carContext for ${AndroidAutoSession.Companion.ROOT_SESSION} not found")
 
-            carContext.getCarService(AppManager::class.java).dismissAlert(alert.id.toInt())
-        }
+                carContext.getCarService(AppManager::class.java).dismissAlert(alert.id.toInt())
+            },
+            update = { title, subtitle ->
+                val config = alert.copy(title = title, subtitle = subtitle)
+                template.showAlert(config)
+            }
+        )
     }
 
     override fun showTripSelector(

@@ -38,14 +38,16 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAction
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignment; }
 // Forward declaration of `NitroButtonStyle` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroButtonStyle; }
-// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroNavigationAlert; }
+// Forward declaration of `NavigationAlertCallbacks` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertCallbacks; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
+// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroNavigationAlert; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
@@ -115,10 +117,11 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroButtonStyle.hpp"
-#include "NitroNavigationAlert.hpp"
+#include "NavigationAlertCallbacks.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
+#include "NitroNavigationAlert.hpp"
 #include "NavigationAlertAction.hpp"
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
@@ -195,7 +198,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         std::rethrow_exception(__result.error());
       }
     }
-    inline std::function<void()> showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) override {
+    inline NavigationAlertCallbacks showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) override {
       auto __result = _swiftPart.showNavigationAlert(templateId, std::forward<decltype(alert)>(alert));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

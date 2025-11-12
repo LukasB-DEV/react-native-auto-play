@@ -7,6 +7,14 @@
 
 #include "JHybridHybridMapTemplateSpec.hpp"
 
+// Forward declaration of `NavigationAlertCallbacks` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertCallbacks; }
+// Forward declaration of `AutoText` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
+// Forward declaration of `Distance` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
+// Forward declaration of `DistanceUnits` to properly resolve imports.
+namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `TripSelectorCallback` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripSelectorCallback; }
 // Forward declaration of `MapTemplateConfig` to properly resolve imports.
@@ -37,12 +45,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroAlignm
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class NitroButtonStyle; }
 // Forward declaration of `NitroNavigationAlert` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NitroNavigationAlert; }
-// Forward declaration of `AutoText` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct AutoText; }
-// Forward declaration of `Distance` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct Distance; }
-// Forward declaration of `DistanceUnits` to properly resolve imports.
-namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class DistanceUnits; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct NavigationAlertAction; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
@@ -92,15 +94,24 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { enum class ManeuverTyp
 // Forward declaration of `TripConfig` to properly resolve imports.
 namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 
+#include "NavigationAlertCallbacks.hpp"
+#include "JNavigationAlertCallbacks.hpp"
 #include <functional>
 #include "JFunc_void.hpp"
+#include "AutoText.hpp"
+#include <optional>
+#include "JFunc_void_AutoText_std__optional_AutoText_.hpp"
+#include "JAutoText.hpp"
+#include <string>
+#include "Distance.hpp"
+#include "JDistance.hpp"
+#include "DistanceUnits.hpp"
+#include "JDistanceUnits.hpp"
 #include "TripSelectorCallback.hpp"
 #include "JTripSelectorCallback.hpp"
-#include <string>
 #include "JFunc_void_std__string.hpp"
 #include "MapTemplateConfig.hpp"
 #include "JMapTemplateConfig.hpp"
-#include <optional>
 #include "JFunc_void_std__optional_bool_.hpp"
 #include "VisibleTravelEstimate.hpp"
 #include "JVisibleTravelEstimate.hpp"
@@ -135,12 +146,6 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid { struct TripConfig; }
 #include "JNitroButtonStyle.hpp"
 #include "NitroNavigationAlert.hpp"
 #include "JNitroNavigationAlert.hpp"
-#include "AutoText.hpp"
-#include "JAutoText.hpp"
-#include "Distance.hpp"
-#include "JDistance.hpp"
-#include "DistanceUnits.hpp"
-#include "JDistanceUnits.hpp"
 #include "NavigationAlertAction.hpp"
 #include "JNavigationAlertAction.hpp"
 #include "AlertActionStyle.hpp"
@@ -231,20 +236,10 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JMapTemplateConfig> /* config */)>("createMapTemplate");
     method(_javaPart, JMapTemplateConfig::fromCpp(config));
   }
-  std::function<void()> JHybridHybridMapTemplateSpec::showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroNavigationAlert> /* alert */)>("showNavigationAlert_cxx");
+  NavigationAlertCallbacks JHybridHybridMapTemplateSpec::showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JNavigationAlertCallbacks>(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<JNitroNavigationAlert> /* alert */)>("showNavigationAlert");
     auto __result = method(_javaPart, jni::make_jstring(templateId), JNitroNavigationAlert::fromCpp(alert));
-    return [&]() -> std::function<void()> {
-      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
-        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
-        return downcast->cthis()->getFunction();
-      } else {
-        auto __resultRef = jni::make_global(__result);
-        return [__resultRef]() -> void {
-          return __resultRef->invoke();
-        };
-      }
-    }();
+    return __result->toCpp();
   }
   TripSelectorCallback JHybridHybridMapTemplateSpec::showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted, const std::function<void()>& onBackPressed, const std::vector<NitroMapButton>& mapButtons) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JTripSelectorCallback>(jni::alias_ref<jni::JString> /* templateId */, jni::alias_ref<jni::JArrayClass<JTripsConfig>> /* trips */, jni::alias_ref<jni::JString> /* selectedTripId */, jni::alias_ref<JTripPreviewTextConfiguration> /* textConfig */, jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTripSelected */, jni::alias_ref<JFunc_void_std__string_std__string::javaobject> /* onTripStarted */, jni::alias_ref<JFunc_void::javaobject> /* onBackPressed */, jni::alias_ref<jni::JArrayClass<JNitroMapButton>> /* mapButtons */)>("showTripSelector_cxx");

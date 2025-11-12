@@ -6,7 +6,7 @@
 //
 import CarPlay
 
-struct AlertStoreEntry {
+struct NavigationAlertWrapper {
     let alert: CPNavigationAlert
     let config: NitroNavigationAlert
 }
@@ -14,11 +14,12 @@ struct AlertStoreEntry {
 class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
     var config: MapTemplateConfig
 
-    var alertStore: [Double: AlertStoreEntry] = [:]
     var onTripSelected: ((_ tripId: String, _ routeId: String) -> Void)?
     var onTripStarted: ((_ tripId: String, _ routeId: String) -> Void)?
 
     var navigationSession: CPNavigationSession?
+
+    var navigationAlert: NavigationAlertWrapper?
 
     var tripSelectorVisible = false {
         didSet {
@@ -209,13 +210,7 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
         _ mapTemplate: CPMapTemplate,
         willShow navigationAlert: CPNavigationAlert
     ) {
-        guard
-            let onWillShow = alertStore.values.first(where: {
-                $0.alert == navigationAlert
-            })?.config.onWillShow
-        else { return }
-
-        onWillShow()
+        self.navigationAlert?.config.onWillShow?()
     }
 
     func mapTemplate(
@@ -232,63 +227,22 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             }
         }()
 
-        // Helper to dismiss and remove an alert
-        let dismissAndRemove = { (entry: AlertStoreEntry) in
-            entry.config.onDidDismiss?(dismissalReason)
-            self.alertStore.removeValue(forKey: entry.config.id)
-        }
-
-        guard let template = self.template as? CPMapTemplate else {
-            if let entry = alertStore.values.first(where: {
-                $0.alert == navigationAlert
-            }) {
-                dismissAndRemove(entry)
-            }
-            return
-        }
-
-        if alertStore.count > 1 && template.currentNavigationAlert != nil {
-            // if multiple alerts are stored, dismiss and clear all except the currently shown
-            alertStore.values
-                .filter { $0.alert != template.currentNavigationAlert }
-                .forEach(dismissAndRemove)
-            return
-        }
-
-        if let entry = alertStore.values.first(where: {
-            $0.alert == navigationAlert
-        }) {
-            dismissAndRemove(entry)
-        }
-
-        if template.currentNavigationAlert == nil && alertStore.count > 0 {
-            // if nothing is shown, clear all if there are still some left
-            alertStore.values.forEach(dismissAndRemove)
-        }
+        self.navigationAlert?.config.onDidDismiss?(dismissalReason)
+        self.navigationAlert = nil
     }
 
     func showAlert(alertConfig: NitroNavigationAlert) {
         guard let template = self.template as? CPMapTemplate else { return }
 
-        let hasHigherPriority =
-            alertStore.values.first(where: {
-                $0.config.priority > alertConfig.priority
-            }) != nil
-        if hasHigherPriority {
+        if let priority = self.navigationAlert?.config.priority,
+            priority > alertConfig.priority
+        {
             return
         }
 
         let title = Parser.parseText(text: alertConfig.title)!
         let subtitle = alertConfig.subtitle.map { subtitle in
             [Parser.parseText(text: subtitle)!]
-        }
-
-        if let alert = alertStore[alertConfig.id] {
-            alert.alert.updateTitleVariants(
-                [title],
-                subtitleVariants: subtitle ?? []
-            )
-            return
         }
 
         let image = Parser.parseNitroImage(
@@ -322,22 +276,44 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
             duration: alertConfig.durationMs / 1000,
         )
 
-        alertStore[alertConfig.id] = AlertStoreEntry(
-            alert: alert,
-            config: alertConfig
-        )
+        func setNavigationAlert() {
+            self.navigationAlert = .init(alert: alert, config: alertConfig)
+            template.present(navigationAlert: alert, animated: true)
+        }
 
-        template.present(navigationAlert: alert, animated: true)
+        if template.currentNavigationAlert != nil {
+            template.dismissNavigationAlert(animated: true) { _ in
+                setNavigationAlert()
+            }
+        } else {
+            setNavigationAlert()
+        }
+    }
+    
+    func updateNavigationAlert(alertId: Double, title: AutoText, subtitle: AutoText?) {
+        guard let alert = self.navigationAlert?.alert else {
+            return
+        }
+        
+        if self.navigationAlert?.config.id != alertId {
+            return
+        }
+        
+        let title = Parser.parseText(text: title)!
+        let subtitle = subtitle.map { subtitle in
+            [Parser.parseText(text: subtitle)!]
+        } ?? []
+        
+        alert.updateTitleVariants([title], subtitleVariants: subtitle)
     }
 
     func dismissNavigationAlert(alertId: Double) {
-        if alertStore[alertId] == nil {
+        if let id = self.navigationAlert?.config.id, id != alertId {
             return
         }
 
         guard let template = self.template as? CPMapTemplate else { return }
-        template.dismissNavigationAlert(animated: true) { _ in
-        }
+        template.dismissNavigationAlert(animated: true) { _ in }
     }
 
     // MARK: trip selection
