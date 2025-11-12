@@ -1,11 +1,18 @@
+import { Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
 import AutoPlayHeadlessJsTask from './AutoPlayHeadlessJsTask';
+import type { HybridAndroidAutoTelemetry as NitroHybridAndroidAutoTelemetry } from './specs/HybridAndroidAutoTelemetry.nitro';
 import type { HybridAutoPlay as NitroHybridAutoPlay } from './specs/HybridAutoPlay.nitro';
 
 AutoPlayHeadlessJsTask.registerHeadlessTask();
 
 export const HybridAutoPlay =
   NitroModules.createHybridObject<NitroHybridAutoPlay>('HybridAutoPlay');
+
+export const HybridAndroidAutoTelemetry =
+  Platform.OS === 'android'
+    ? NitroModules.createHybridObject<NitroHybridAndroidAutoTelemetry>('HybridAndroidAutoTelemetry')
+    : null;
 
 /**
  * These are the static module names for the app running on the mobile device, head unit screen and the CarPlay dashboard.

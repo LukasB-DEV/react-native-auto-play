@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react';
-import { type Permission, PermissionsAndroid, Platform } from 'react-native';
-import { NitroModules } from 'react-native-nitro-modules';
-import { HybridAutoPlay } from '..';
-import type { HybridAndroidAutoTelemetry as NitroHybridAndroidAutoTelemetry } from '../specs/HybridAndroidAutoTelemetry.nitro';
-import type { AndroidAutoPermissions, Telemetry } from '../types/Telemetry';
+import { type Permission, PermissionsAndroid } from 'react-native';
+import { HybridAndroidAutoTelemetry, HybridAutoPlay } from '..';
 
-const HybridAndroidAutoTelemetry =
-  Platform.OS === 'android'
-    ? NitroModules.createHybridObject<NitroHybridAndroidAutoTelemetry>('HybridAndroidAutoTelemetry')
-    : null;
+import type { AndroidAutoPermissions, Telemetry } from '../types/Telemetry';
 
 interface Props {
   /**
