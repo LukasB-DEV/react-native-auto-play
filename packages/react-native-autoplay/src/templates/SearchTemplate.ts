@@ -16,7 +16,7 @@ const HybridSearchTemplate =
 
 export type SearchSection<T> = {
   type: 'default';
-  items: Array<Omit<DefaultRow<T>, 'browsable'>>;
+  items: Array<DefaultRow<T>>;
 };
 
 export interface NitroSearchTemplateConfig extends TemplateConfig {

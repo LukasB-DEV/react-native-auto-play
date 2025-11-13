@@ -250,6 +250,9 @@ class Parser {
                     image: item.image,
                     traitCollection: traitCollection
                 ),
+                accessoryImage: nil,
+                accessoryType: item.browsable == true
+                    ? .disclosureIndicator : .none
             )
 
             listItem.handler = { listItem, completionHandler in
@@ -578,7 +581,9 @@ class Parser {
     }
 
     @available(iOS 17.4, *)
-    static func getManeuverType(maneuver: NitroRoutingManeuver) -> CPManeuverType {
+    static func getManeuverType(maneuver: NitroRoutingManeuver)
+        -> CPManeuverType
+    {
         switch maneuver.maneuverType {
         case .depart:
             return .startRoute

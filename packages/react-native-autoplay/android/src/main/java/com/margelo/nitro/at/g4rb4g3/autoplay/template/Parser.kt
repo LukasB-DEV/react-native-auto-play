@@ -289,6 +289,9 @@ object Parser {
                             row.onPress(null)
                         }
                     }
+                    row.browsable?.let {
+                        setBrowsable(it)
+                    }
                 }.build())
             }
         }.build()
