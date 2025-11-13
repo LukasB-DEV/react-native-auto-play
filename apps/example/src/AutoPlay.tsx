@@ -121,7 +121,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
               console.log('*** onDidDismiss', prio, reason);
             },
             onWillShow: () => {
-              timer = setTimeout(() => update({ text: `Alert ${Date.now()}` }, null), 5000);
+              timer = setTimeout(() => update({ text: `Alert ${Date.now()}` }), 5000);
             },
           });
         },
