@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
-import { HybridAutoPlay } from '..';
+import { type AutoText, type CleanupCallback, HybridAutoPlay } from '..';
 import { MapTemplateProvider } from '../components/MapTemplateContext';
 import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { HybridMapTemplate as NitroHybridMapTemplate } from '../specs/HybridMapTemplate.nitro';
@@ -37,6 +37,11 @@ export type HeaderActionsAndroidMap<T> =
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>, ActionButtonAndroid<T>]
   | [ActionButtonAndroid<T>, ActionButtonAndroid<T>]
   | [ActionButtonAndroid<T>];
+
+export interface NavigationAlertCallbacks {
+  dismiss: CleanupCallback;
+  update: (title: AutoText, subtitle: AutoText | null) => void;
+}
 
 export interface NitroMapTemplateConfig extends TemplateConfig, NitroBaseMapTemplateConfig {
   /**

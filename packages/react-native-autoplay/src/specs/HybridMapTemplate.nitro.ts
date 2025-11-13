@@ -1,11 +1,10 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type {
+  NavigationAlertCallbacks,
   NitroMapTemplateConfig,
   TripSelectorCallback,
   VisibleTravelEstimate,
 } from '../templates/MapTemplate';
-import type { CleanupCallback } from '../types/Event';
-import type { AutoText } from '../types/Text';
 import type {
   TripConfig,
   TripPoint,
@@ -18,11 +17,6 @@ import type { NitroMapButton } from '../utils/NitroMapButton';
 import type { NitroTemplateConfig } from './HybridAutoPlay.nitro';
 
 interface MapTemplateConfig extends NitroTemplateConfig, NitroMapTemplateConfig {}
-
-export interface NavigationAlertCallbacks {
-  dismiss: CleanupCallback;
-  update: (title: AutoText, subtitle: AutoText | null) => void;
-}
 
 export interface HybridMapTemplate extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   createMapTemplate(config: MapTemplateConfig): void;
