@@ -21,7 +21,8 @@ class GridTemplate: AutoPlayTemplate {
 
         super.init(
             template: template,
-            header: config.headerActions
+            header: config.headerActions,
+            autoDismissMs: config.autoDismissMs
         )
 
         setBarButtons()

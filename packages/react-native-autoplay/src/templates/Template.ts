@@ -57,6 +57,13 @@ export interface TemplateConfig {
    * @namespace iOS - does not work on all templates like SearchTemplate
    */
   onPopped?(): void;
+
+  /**
+   * if specified the template will be popped after the specified timeout once it has been pushed
+   * will be ignored if setRootTemplate is called
+   * template will be popped only if it is still visible to the user aka the topmost template
+   */
+  autoDismissMs?: number;
 }
 
 export interface NitroBaseMapTemplateConfig extends TemplateConfig {

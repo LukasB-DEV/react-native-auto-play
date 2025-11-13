@@ -17,6 +17,7 @@ class GridTemplate(context: CarContext, config: GridTemplateConfig) :
     override val isRenderTemplate = false
     override val templateId: String
         get() = config.id
+    override val autoDismissMs = config.autoDismissMs
 
     override fun parse(): Template {
         val template = GridTemplate.Builder().apply {
@@ -49,7 +50,7 @@ class GridTemplate(context: CarContext, config: GridTemplateConfig) :
                             .setMapActionStrip(Parser.parseMapActions(context, mapButtons)).build()
                     )
                 }
-               it.headerActions?.let { headerActions ->
+                it.headerActions?.let { headerActions ->
                     setActionStrip(Parser.parseMapHeaderActions(context, headerActions))
                 }
             }.build()

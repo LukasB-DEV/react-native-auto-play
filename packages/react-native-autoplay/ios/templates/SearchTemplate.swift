@@ -24,7 +24,8 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
 
         super.init(
             template: template,
-            header: config.headerActions
+            header: config.headerActions,
+            autoDismissMs: config.autoDismissMs
         )
     }
 
@@ -133,6 +134,7 @@ class SearchTemplate: AutoPlayTemplate, CPSearchTemplateDelegate {
             onDidAppear: nil,
             onDidDisappear: nil,
             onPopped: nil,
+            autoDismissMs: nil,
             headerActions: config.headerActions,
             title: config.title,
             sections: [config.results],

@@ -39,6 +39,7 @@ class MapTemplate(
     override val isRenderTemplate = true
     override val templateId: String
         get() = config.id
+    override val autoDismissMs = config.autoDismissMs
 
     private var alertPriority = 0
     private var alertIds: HashSet<Int> = HashSet()

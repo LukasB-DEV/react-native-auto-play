@@ -37,6 +37,9 @@ data class MessageTemplateConfig(
   val onPopped: Func_void?,
   @DoNotStrip
   @Keep
+  val autoDismissMs: Double?,
+  @DoNotStrip
+  @Keep
   val headerActions: Array<NitroAction>?,
   @DoNotStrip
   @Keep
@@ -57,8 +60,8 @@ data class MessageTemplateConfig(
   /**
    * Create a new instance of MessageTemplateConfig from Kotlin
    */
-  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText?, message: AutoText, actions: Array<NitroAction>?, image: Variant_GlyphImage_AssetImage?, mapConfig: NitroBaseMapTemplateConfig?):
-         this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions, title, message, actions, image, mapConfig)
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, autoDismissMs: Double?, headerActions: Array<NitroAction>?, title: AutoText?, message: AutoText, actions: Array<NitroAction>?, image: Variant_GlyphImage_AssetImage?, mapConfig: NitroBaseMapTemplateConfig?):
+         this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, autoDismissMs, headerActions, title, message, actions, image, mapConfig)
 
   private companion object {
     /**
@@ -68,8 +71,8 @@ data class MessageTemplateConfig(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText?, message: AutoText, actions: Array<NitroAction>?, image: Variant_GlyphImage_AssetImage?, mapConfig: NitroBaseMapTemplateConfig?): MessageTemplateConfig {
-      return MessageTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, headerActions, title, message, actions, image, mapConfig)
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, autoDismissMs: Double?, headerActions: Array<NitroAction>?, title: AutoText?, message: AutoText, actions: Array<NitroAction>?, image: Variant_GlyphImage_AssetImage?, mapConfig: NitroBaseMapTemplateConfig?): MessageTemplateConfig {
+      return MessageTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, autoDismissMs, headerActions, title, message, actions, image, mapConfig)
     }
   }
 }

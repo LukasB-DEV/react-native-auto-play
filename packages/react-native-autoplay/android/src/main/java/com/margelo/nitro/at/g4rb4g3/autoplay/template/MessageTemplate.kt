@@ -14,6 +14,7 @@ class MessageTemplate(context: CarContext, config: MessageTemplateConfig) :
     override val isRenderTemplate = false
     override val templateId: String
         get() = config.id
+    override val autoDismissMs = config.autoDismissMs
 
     override fun parse(): Template {
         val template = MessageTemplate.Builder(Parser.parseText(config.message)).apply {

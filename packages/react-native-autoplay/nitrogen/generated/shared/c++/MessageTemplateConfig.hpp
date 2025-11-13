@@ -58,6 +58,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
     std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear     SWIFT_PRIVATE;
     std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear     SWIFT_PRIVATE;
     std::optional<std::function<void()>> onPopped     SWIFT_PRIVATE;
+    std::optional<double> autoDismissMs     SWIFT_PRIVATE;
     std::optional<std::vector<NitroAction>> headerActions     SWIFT_PRIVATE;
     std::optional<AutoText> title     SWIFT_PRIVATE;
     AutoText message     SWIFT_PRIVATE;
@@ -67,7 +68,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
 
   public:
     MessageTemplateConfig() = default;
-    explicit MessageTemplateConfig(std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void()>> onPopped, std::optional<std::vector<NitroAction>> headerActions, std::optional<AutoText> title, AutoText message, std::optional<std::vector<NitroAction>> actions, std::optional<std::variant<GlyphImage, AssetImage>> image, std::optional<NitroBaseMapTemplateConfig> mapConfig): id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPopped(onPopped), headerActions(headerActions), title(title), message(message), actions(actions), image(image), mapConfig(mapConfig) {}
+    explicit MessageTemplateConfig(std::string id, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onWillDisappear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidAppear, std::optional<std::function<void(std::optional<bool> /* animated */)>> onDidDisappear, std::optional<std::function<void()>> onPopped, std::optional<double> autoDismissMs, std::optional<std::vector<NitroAction>> headerActions, std::optional<AutoText> title, AutoText message, std::optional<std::vector<NitroAction>> actions, std::optional<std::variant<GlyphImage, AssetImage>> image, std::optional<NitroBaseMapTemplateConfig> mapConfig): id(id), onWillAppear(onWillAppear), onWillDisappear(onWillDisappear), onDidAppear(onDidAppear), onDidDisappear(onDidDisappear), onPopped(onPopped), autoDismissMs(autoDismissMs), headerActions(headerActions), title(title), message(message), actions(actions), image(image), mapConfig(mapConfig) {}
   };
 
 } // namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid
@@ -86,6 +87,7 @@ namespace margelo::nitro {
         JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidAppear")),
         JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::fromJSI(runtime, obj.getProperty(runtime, "onDidDisappear")),
         JSIConverter<std::optional<std::function<void()>>>::fromJSI(runtime, obj.getProperty(runtime, "onPopped")),
+        JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, "autoDismissMs")),
         JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroAction>>>::fromJSI(runtime, obj.getProperty(runtime, "headerActions")),
         JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>>::fromJSI(runtime, obj.getProperty(runtime, "title")),
         JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::fromJSI(runtime, obj.getProperty(runtime, "message")),
@@ -102,6 +104,7 @@ namespace margelo::nitro {
       obj.setProperty(runtime, "onDidAppear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidAppear));
       obj.setProperty(runtime, "onDidDisappear", JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::toJSI(runtime, arg.onDidDisappear));
       obj.setProperty(runtime, "onPopped", JSIConverter<std::optional<std::function<void()>>>::toJSI(runtime, arg.onPopped));
+      obj.setProperty(runtime, "autoDismissMs", JSIConverter<std::optional<double>>::toJSI(runtime, arg.autoDismissMs));
       obj.setProperty(runtime, "headerActions", JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroAction>>>::toJSI(runtime, arg.headerActions));
       obj.setProperty(runtime, "title", JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>>::toJSI(runtime, arg.title));
       obj.setProperty(runtime, "message", JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::toJSI(runtime, arg.message));
@@ -124,6 +127,7 @@ namespace margelo::nitro {
       if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidAppear"))) return false;
       if (!JSIConverter<std::optional<std::function<void(std::optional<bool>)>>>::canConvert(runtime, obj.getProperty(runtime, "onDidDisappear"))) return false;
       if (!JSIConverter<std::optional<std::function<void()>>>::canConvert(runtime, obj.getProperty(runtime, "onPopped"))) return false;
+      if (!JSIConverter<std::optional<double>>::canConvert(runtime, obj.getProperty(runtime, "autoDismissMs"))) return false;
       if (!JSIConverter<std::optional<std::vector<margelo::nitro::at::g4rb4g3::autoplay::hybrid::NitroAction>>>::canConvert(runtime, obj.getProperty(runtime, "headerActions"))) return false;
       if (!JSIConverter<std::optional<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>>::canConvert(runtime, obj.getProperty(runtime, "title"))) return false;
       if (!JSIConverter<margelo::nitro::at::g4rb4g3::autoplay::hybrid::AutoText>::canConvert(runtime, obj.getProperty(runtime, "message"))) return false;

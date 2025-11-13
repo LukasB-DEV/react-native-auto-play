@@ -10,10 +10,12 @@ import CarPlay
 class AutoPlayTemplate: NSObject {
     let template: CPTemplate
     var barButtons: [NitroAction]?
+    let autoDismissMs: Double?
 
-    init(template: CPTemplate, header: [NitroAction]?) {
+    init(template: CPTemplate, header: [NitroAction]?, autoDismissMs: Double?) {
         self.template = template
         self.barButtons = header
+        self.autoDismissMs = autoDismissMs
 
         super.init()
     }

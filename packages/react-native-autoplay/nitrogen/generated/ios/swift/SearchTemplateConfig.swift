@@ -18,7 +18,7 @@ public extension SearchTemplateConfig {
   /**
    * Create a new instance of `SearchTemplateConfig`.
    */
-  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, headerActions: [NitroAction]?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: @escaping (_ searchText: String) -> Void, onSearchTextSubmitted: @escaping (_ searchText: String) -> Void) {
+  init(id: String, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, autoDismissMs: Double?, headerActions: [NitroAction]?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: @escaping (_ searchText: String) -> Void, onSearchTextSubmitted: @escaping (_ searchText: String) -> Void) {
     self.init(std.string(id), { () -> bridge.std__optional_std__function_void_std__optional_bool_____animated______ in
       if let __unwrappedValue = onWillAppear {
         return bridge.create_std__optional_std__function_void_std__optional_bool_____animated______({ () -> bridge.Func_void_std__optional_bool_ in
@@ -61,6 +61,12 @@ public extension SearchTemplateConfig {
           let __closureWrapper = Func_void(__unwrappedValue)
           return bridge.create_Func_void(__closureWrapper.toUnsafe())
         }())
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_double_ in
+      if let __unwrappedValue = autoDismissMs {
+        return bridge.create_std__optional_double_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -285,6 +291,23 @@ public extension SearchTemplateConfig {
             let __closureWrapper = Func_void(__unwrappedValue)
             return bridge.create_Func_void(__closureWrapper.toUnsafe())
           }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
+  var autoDismissMs: Double? {
+    @inline(__always)
+    get {
+      return self.__autoDismissMs.value
+    }
+    @inline(__always)
+    set {
+      self.__autoDismissMs = { () -> bridge.std__optional_double_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_double_(__unwrappedValue)
         } else {
           return .init()
         }

@@ -70,6 +70,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onDidDisappear = this->getFieldValue(fieldOnDidDisappear);
       static const auto fieldOnPopped = clazz->getField<JFunc_void::javaobject>("onPopped");
       jni::local_ref<JFunc_void::javaobject> onPopped = this->getFieldValue(fieldOnPopped);
+      static const auto fieldAutoDismissMs = clazz->getField<jni::JDouble>("autoDismissMs");
+      jni::local_ref<jni::JDouble> autoDismissMs = this->getFieldValue(fieldAutoDismissMs);
       return NitroBaseMapTemplateConfig(
         mapButtons != nullptr ? std::make_optional([&]() {
           size_t __size = mapButtons->size();
@@ -145,7 +147,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
               return onPoppedRef->invoke();
             };
           }
-        }()) : std::nullopt
+        }()) : std::nullopt,
+        autoDismissMs != nullptr ? std::make_optional(autoDismissMs->value()) : std::nullopt
       );
     }
 
@@ -155,7 +158,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JNitroBaseMapTemplateConfig::javaobject> fromCpp(const NitroBaseMapTemplateConfig& value) {
-      using JSignature = JNitroBaseMapTemplateConfig(jni::alias_ref<jni::JArrayClass<JNitroMapButton>>, jni::alias_ref<jni::JArrayClass<JNitroAction>>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void::javaobject>);
+      using JSignature = JNitroBaseMapTemplateConfig(jni::alias_ref<jni::JArrayClass<JNitroMapButton>>, jni::alias_ref<jni::JArrayClass<JNitroAction>>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<jni::JDouble>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -184,7 +187,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         value.onWillDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onWillDisappear.value()) : nullptr,
         value.onDidAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidAppear.value()) : nullptr,
         value.onDidDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidDisappear.value()) : nullptr,
-        value.onPopped.has_value() ? JFunc_void_cxx::fromCpp(value.onPopped.value()) : nullptr
+        value.onPopped.has_value() ? JFunc_void_cxx::fromCpp(value.onPopped.value()) : nullptr,
+        value.autoDismissMs.has_value() ? jni::JDouble::valueOf(value.autoDismissMs.value()) : nullptr
       );
     }
   };

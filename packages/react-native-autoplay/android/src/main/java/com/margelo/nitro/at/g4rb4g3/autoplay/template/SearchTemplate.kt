@@ -16,6 +16,7 @@ class SearchTemplate(context: CarContext, config: SearchTemplateConfig) :
     override val isRenderTemplate = false
     override val templateId: String
         get() = config.id
+    override val autoDismissMs = config.autoDismissMs
 
     override fun parse(): Template {
         return SearchTemplate.Builder(object : SearchCallback {

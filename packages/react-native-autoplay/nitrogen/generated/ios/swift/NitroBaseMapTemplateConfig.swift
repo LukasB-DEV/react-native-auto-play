@@ -18,7 +18,7 @@ public extension NitroBaseMapTemplateConfig {
   /**
    * Create a new instance of `NitroBaseMapTemplateConfig`.
    */
-  init(mapButtons: [NitroMapButton]?, headerActions: [NitroAction]?, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?) {
+  init(mapButtons: [NitroMapButton]?, headerActions: [NitroAction]?, onWillAppear: ((_ animated: Bool?) -> Void)?, onWillDisappear: ((_ animated: Bool?) -> Void)?, onDidAppear: ((_ animated: Bool?) -> Void)?, onDidDisappear: ((_ animated: Bool?) -> Void)?, onPopped: (() -> Void)?, autoDismissMs: Double?) {
     self.init({ () -> bridge.std__optional_std__vector_NitroMapButton__ in
       if let __unwrappedValue = mapButtons {
         return bridge.create_std__optional_std__vector_NitroMapButton__({ () -> bridge.std__vector_NitroMapButton_ in
@@ -85,6 +85,12 @@ public extension NitroBaseMapTemplateConfig {
           let __closureWrapper = Func_void(__unwrappedValue)
           return bridge.create_Func_void(__closureWrapper.toUnsafe())
         }())
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_double_ in
+      if let __unwrappedValue = autoDismissMs {
+        return bridge.create_std__optional_double_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -328,6 +334,23 @@ public extension NitroBaseMapTemplateConfig {
             let __closureWrapper = Func_void(__unwrappedValue)
             return bridge.create_Func_void(__closureWrapper.toUnsafe())
           }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
+  var autoDismissMs: Double? {
+    @inline(__always)
+    get {
+      return self.__autoDismissMs.value
+    }
+    @inline(__always)
+    set {
+      self.__autoDismissMs = { () -> bridge.std__optional_double_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_double_(__unwrappedValue)
         } else {
           return .init()
         }

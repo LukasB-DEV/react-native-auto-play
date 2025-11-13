@@ -77,6 +77,8 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
       jni::local_ref<JFunc_void_std__optional_bool_::javaobject> onDidDisappear = this->getFieldValue(fieldOnDidDisappear);
       static const auto fieldOnPopped = clazz->getField<JFunc_void::javaobject>("onPopped");
       jni::local_ref<JFunc_void::javaobject> onPopped = this->getFieldValue(fieldOnPopped);
+      static const auto fieldAutoDismissMs = clazz->getField<jni::JDouble>("autoDismissMs");
+      jni::local_ref<jni::JDouble> autoDismissMs = this->getFieldValue(fieldAutoDismissMs);
       static const auto fieldHeaderActions = clazz->getField<jni::JArrayClass<JNitroAction>>("headerActions");
       jni::local_ref<jni::JArrayClass<JNitroAction>> headerActions = this->getFieldValue(fieldHeaderActions);
       static const auto fieldTitle = clazz->getField<JAutoText>("title");
@@ -148,6 +150,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
             };
           }
         }()) : std::nullopt,
+        autoDismissMs != nullptr ? std::make_optional(autoDismissMs->value()) : std::nullopt,
         headerActions != nullptr ? std::make_optional([&]() {
           size_t __size = headerActions->size();
           std::vector<NitroAction> __vector;
@@ -193,7 +196,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
      */
     [[maybe_unused]]
     static jni::local_ref<JSearchTemplateConfig::javaobject> fromCpp(const SearchTemplateConfig& value) {
-      using JSignature = JSearchTemplateConfig(jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<jni::JArrayClass<JNitroAction>>, jni::alias_ref<JAutoText>, jni::alias_ref<JNitroSection>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__string::javaobject>, jni::alias_ref<JFunc_void_std__string::javaobject>);
+      using JSignature = JSearchTemplateConfig(jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void_std__optional_bool_::javaobject>, jni::alias_ref<JFunc_void::javaobject>, jni::alias_ref<jni::JDouble>, jni::alias_ref<jni::JArrayClass<JNitroAction>>, jni::alias_ref<JAutoText>, jni::alias_ref<JNitroSection>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JString>, jni::alias_ref<JFunc_void_std__string::javaobject>, jni::alias_ref<JFunc_void_std__string::javaobject>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -204,6 +207,7 @@ namespace margelo::nitro::at::g4rb4g3::autoplay::hybrid {
         value.onDidAppear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidAppear.value()) : nullptr,
         value.onDidDisappear.has_value() ? JFunc_void_std__optional_bool__cxx::fromCpp(value.onDidDisappear.value()) : nullptr,
         value.onPopped.has_value() ? JFunc_void_cxx::fromCpp(value.onPopped.value()) : nullptr,
+        value.autoDismissMs.has_value() ? jni::JDouble::valueOf(value.autoDismissMs.value()) : nullptr,
         value.headerActions.has_value() ? [&]() {
           size_t __size = value.headerActions.value().size();
           jni::local_ref<jni::JArrayClass<JNitroAction>> __array = jni::JArrayClass<JNitroAction>::newArray(__size);

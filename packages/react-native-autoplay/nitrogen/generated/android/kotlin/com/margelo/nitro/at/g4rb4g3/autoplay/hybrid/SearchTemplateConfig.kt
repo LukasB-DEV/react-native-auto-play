@@ -37,6 +37,9 @@ data class SearchTemplateConfig(
   val onPopped: Func_void?,
   @DoNotStrip
   @Keep
+  val autoDismissMs: Double?,
+  @DoNotStrip
+  @Keep
   val headerActions: Array<NitroAction>?,
   @DoNotStrip
   @Keep
@@ -60,8 +63,8 @@ data class SearchTemplateConfig(
   /**
    * Create a new instance of SearchTemplateConfig from Kotlin
    */
-  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: (searchText: String) -> Unit, onSearchTextSubmitted: (searchText: String) -> Unit):
-         this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, headerActions, title, results, initialSearchText, searchHint, Func_void_std__string_java(onSearchTextChanged), Func_void_std__string_java(onSearchTextSubmitted))
+  constructor(id: String, onWillAppear: ((animated: Boolean?) -> Unit)?, onWillDisappear: ((animated: Boolean?) -> Unit)?, onDidAppear: ((animated: Boolean?) -> Unit)?, onDidDisappear: ((animated: Boolean?) -> Unit)?, onPopped: (() -> Unit)?, autoDismissMs: Double?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: (searchText: String) -> Unit, onSearchTextSubmitted: (searchText: String) -> Unit):
+         this(id, onWillAppear?.let { Func_void_std__optional_bool__java(it) }, onWillDisappear?.let { Func_void_std__optional_bool__java(it) }, onDidAppear?.let { Func_void_std__optional_bool__java(it) }, onDidDisappear?.let { Func_void_std__optional_bool__java(it) }, onPopped?.let { Func_void_java(it) }, autoDismissMs, headerActions, title, results, initialSearchText, searchHint, Func_void_std__string_java(onSearchTextChanged), Func_void_std__string_java(onSearchTextSubmitted))
 
   private companion object {
     /**
@@ -71,8 +74,8 @@ data class SearchTemplateConfig(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: Func_void_std__string, onSearchTextSubmitted: Func_void_std__string): SearchTemplateConfig {
-      return SearchTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, headerActions, title, results, initialSearchText, searchHint, onSearchTextChanged, onSearchTextSubmitted)
+    private fun fromCpp(id: String, onWillAppear: Func_void_std__optional_bool_?, onWillDisappear: Func_void_std__optional_bool_?, onDidAppear: Func_void_std__optional_bool_?, onDidDisappear: Func_void_std__optional_bool_?, onPopped: Func_void?, autoDismissMs: Double?, headerActions: Array<NitroAction>?, title: AutoText, results: NitroSection, initialSearchText: String?, searchHint: String?, onSearchTextChanged: Func_void_std__string, onSearchTextSubmitted: Func_void_std__string): SearchTemplateConfig {
+      return SearchTemplateConfig(id, onWillAppear, onWillDisappear, onDidAppear, onDidDisappear, onPopped, autoDismissMs, headerActions, title, results, initialSearchText, searchHint, onSearchTextChanged, onSearchTextSubmitted)
     }
   }
 }

@@ -17,6 +17,7 @@ abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
 
     abstract val isRenderTemplate: Boolean
     abstract val templateId: String
+    abstract val autoDismissMs: Double?
 
     fun applyConfigUpdate() {
         val screen = AndroidAutoScreen.getScreen(templateId)

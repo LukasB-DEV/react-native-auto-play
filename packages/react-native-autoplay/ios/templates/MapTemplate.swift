@@ -35,7 +35,8 @@ class MapTemplate: AutoPlayTemplate, CPMapTemplateDelegate {
 
         super.init(
             template: CPMapTemplate(id: config.id),
-            header: config.headerActions
+            header: config.headerActions,
+            autoDismissMs: config.autoDismissMs
         )
 
         if let template = self.template as? CPMapTemplate {

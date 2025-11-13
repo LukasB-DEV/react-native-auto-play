@@ -18,6 +18,7 @@ class InformationTemplate(context: CarContext, config: InformationTemplateConfig
     override val isRenderTemplate = false
     override val templateId: String
         get() = config.id
+    override val autoDismissMs = config.autoDismissMs
 
 
     override fun parse(): Template {

@@ -60,6 +60,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
                 null,
                 null,
                 null,
+                null,
                 {},
                 null,
                 null,

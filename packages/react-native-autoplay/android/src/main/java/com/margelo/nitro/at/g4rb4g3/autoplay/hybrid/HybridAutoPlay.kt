@@ -1,6 +1,7 @@
 package com.margelo.nitro.at.g4rb4g3.autoplay.hybrid
 
 import androidx.car.app.Screen
+import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.at.g4rb4g3.autoplay.ActivityRenderStateProvider
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoScreen
 import com.margelo.nitro.at.g4rb4g3.autoplay.AndroidAutoSession
@@ -152,6 +153,16 @@ class HybridAutoPlay : HybridHybridAutoPlaySpec() {
                 }
                 val screen = AndroidAutoScreen(context, templateId, template.parse())
                 screenManager.push(screen)
+
+                template.autoDismissMs?.let {
+                    UiThreadUtil.runOnUiThread({
+                        val screen =
+                            if (screenManager.screenStack.isNotEmpty()) screenManager.top else null
+                        if (screen?.marker == templateId) {
+                            screenManager.remove(screen)
+                        }
+                    }, it.toLong())
+                }
 
                 topMessageScreen?.let {
                     if (AndroidAutoTemplate.hasTemplate<MessageTemplate>(templateId)) {

@@ -131,13 +131,14 @@ class HybridAutoPlay: HybridHybridAutoPlaySpec {
         -> NitroModules.Promise<Void>
     {
         return Promise.async {
-            return try await RootModule.withTemplateAndInterfaceController(
+            return try await RootModule.withSceneTemplateAndInterfaceController(
                 templateId: templateId
-            ) { template, interfaceController in
+            ) { template, scene, interfaceController in
                 if template is CPAlertTemplate {
-                    let animated = try await !interfaceController.dismissTemplate(
-                        animated: false
-                    )
+                    let animated = try await
+                        !interfaceController.dismissTemplate(
+                            animated: false
+                        )
 
                     let _ = try await interfaceController.presentTemplate(
                         template,
@@ -148,6 +149,23 @@ class HybridAutoPlay: HybridHybridAutoPlaySpec {
                         template,
                         animated: true
                     )
+                }
+
+                if let autoDismissMs = await scene.templateStore.getTemplate(
+                    templateId: templateId
+                )?.autoDismissMs {
+                    Task { @MainActor in
+                        try await Task.sleep(
+                            nanoseconds: UInt64(autoDismissMs) * 1_000_000
+                        )
+
+                        if interfaceController.topTemplateId == templateId
+                            || interfaceController.interfaceController
+                                .presentedTemplate?.id == templateId
+                        {
+                            try await self.popTemplate(animate: true).await()
+                        }
+                    }
                 }
             }
         }
