@@ -475,19 +475,20 @@ object Parser {
 
         var bitmap: Bitmap? = null
 
-        result?.let {
-            val image = it.get()
-            if (image is CloseableBitmap) {
-                bitmap = image.underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
+        result?.let { closeableRef ->
+            try {
+                val image = closeableRef.get()
+                if (image is CloseableBitmap) {
+                    bitmap = image.underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
+                } else if (image is CloseableXml) {
+                    val drawable = image.buildDrawable()
+                    bitmap = drawable?.toBitmap(
+                        width = image.width, height = image.height, Bitmap.Config.ARGB_8888
+                    )
+                }
+            } finally {
+                CloseableReference.closeSafely(closeableRef)
             }
-
-            if (image is CloseableXml) {
-                val drawable = image.buildDrawable()
-                bitmap = drawable?.toBitmap(width = image.width, height = image.height, Bitmap.Config.ARGB_8888)
-            }
-
-            CloseableReference.closeSafely(result)
-            it.close()
         }
 
         if (bitmap == null) {
