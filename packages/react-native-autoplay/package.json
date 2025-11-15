@@ -52,7 +52,8 @@
   },
   "homepage": "https://github.com/Iternio-Planning-AB/react-native-auto-play#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -67,5 +68,8 @@
   },
   "dependencies": {
     "react-native-uuid": "^2.0.3"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
