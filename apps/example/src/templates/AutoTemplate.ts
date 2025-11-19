@@ -358,10 +358,13 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
     },
     onPress: (template) => {
       var remaining = 10000;
+      const alert = AutoAlert(remaining);
+
       alertTimer = setInterval(() => {
         remaining -= 1000;
         if (remaining > 0) {
-          update(
+          template.updateAlert(
+            alert.id,
             {
               text: `alert ${remaining}ms`,
             },
@@ -373,7 +376,7 @@ const mapButtons: MapTemplateConfig['mapButtons'] = [
           clearInterval(alertTimer);
         }
       }, 1000);
-      const { update } = template.showAlert(AutoAlert(remaining));
+      template.showAlert(alert);
     },
   },
   {

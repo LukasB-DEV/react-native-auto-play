@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
-import { type AutoText, type CleanupCallback, HybridAutoPlay } from '..';
+import { type AutoText, HybridAutoPlay } from '..';
 import { MapTemplateProvider } from '../components/MapTemplateContext';
 import { SafeAreaInsetsProvider } from '../components/SafeAreaInsetsContext';
 import type { MapTemplate as NitroMapTemplate } from '../specs/MapTemplate.nitro';
@@ -32,10 +32,6 @@ export type Point = { x: number; y: number };
 export type VisibleTravelEstimate = 'first' | 'last';
 
 export type HeaderActionsAndroidMap<T> = Array<ActionButtonAndroid<T>> & { length: 1 | 2 | 3 | 4 };
-export interface NavigationAlertCallbacks {
-  dismiss: CleanupCallback;
-  update: (title: AutoText, subtitle?: AutoText) => void;
-}
 
 export interface NitroMapTemplateConfig extends TemplateConfig, NitroBaseMapTemplateConfig {
   /**
@@ -217,6 +213,14 @@ export class MapTemplate extends Template<MapTemplateConfig, MapTemplateConfig['
    */
   public showAlert(alert: NavigationAlert) {
     return HybridMapTemplate.showNavigationAlert(this.id, NitroAlertUtil.convert(alert));
+  }
+
+  public updateAlert(alertId: number, title: AutoText, subtitle?: AutoText) {
+    HybridMapTemplate.updateNavigationAlert(this.id, alertId, title, subtitle);
+  }
+
+  public dismissAlert(alertId: number) {
+    HybridMapTemplate.dismissNavigationAlert(this.id, alertId);
   }
 
   /**

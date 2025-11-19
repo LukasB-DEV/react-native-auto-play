@@ -30,28 +30,37 @@ class HybridMapTemplate: HybridMapTemplateSpec {
     }
 
     func showNavigationAlert(templateId: String, alert: NitroNavigationAlert)
-        throws -> NavigationAlertCallbacks
+        throws
     {
-        var mapTemplate: MapTemplate?
-
         try RootModule.withAutoPlayTemplate(templateId: templateId) {
             (template: MapTemplate) in
             template.showAlert(alertConfig: alert)
-            mapTemplate = template
         }
+    }
 
-        return NavigationAlertCallbacks(
-            dismiss: {
-                mapTemplate?.dismissNavigationAlert(alertId: alert.id)
-            },
-            update: { title, subtitle in
-                mapTemplate?.updateNavigationAlert(
-                    alertId: alert.id,
-                    title: title,
-                    subtitle: subtitle
-                )
-            }
-        )
+    func updateNavigationAlert(
+        templateId: String,
+        navigationAlertId: Double,
+        title: AutoText,
+        subtitle: AutoText?
+    ) throws {
+        try RootModule.withAutoPlayTemplate(templateId: templateId) {
+            (template: MapTemplate) in
+            template.updateNavigationAlert(
+                alertId: navigationAlertId,
+                title: title,
+                subtitle: subtitle
+            )
+        }
+    }
+
+    func dismissNavigationAlert(templateId: String, navigationAlertId: Double)
+        throws
+    {
+        try RootModule.withAutoPlayTemplate(templateId: templateId) {
+            (template: MapTemplate) in
+            template.dismissNavigationAlert(alertId: navigationAlertId)
+        }
     }
 
     func showTripSelector(

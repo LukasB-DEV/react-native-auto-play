@@ -70,8 +70,6 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct MapTemplate
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct MessageTemplateConfig; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NavigationAlertAction; }
-// Forward declaration of `NavigationAlertCallbacks` to properly resolve imports.
-namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NavigationAlertCallbacks; }
 // Forward declaration of `NitroActionType` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class NitroActionType; }
 // Forward declaration of `NitroAction` to properly resolve imports.
@@ -177,7 +175,6 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class ZoomEve
 #include "MapTemplateConfig.hpp"
 #include "MessageTemplateConfig.hpp"
 #include "NavigationAlertAction.hpp"
-#include "NavigationAlertCallbacks.hpp"
 #include "NitroAction.hpp"
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"

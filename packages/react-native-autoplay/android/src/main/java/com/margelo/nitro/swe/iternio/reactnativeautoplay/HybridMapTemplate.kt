@@ -8,36 +8,50 @@ import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.RoutePreviewTe
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.TripPreviewTemplate
 
 class HybridMapTemplate : HybridMapTemplateSpec() {
+    var navigationAlert: NitroNavigationAlert? = null
+
     override fun createMapTemplate(config: MapTemplateConfig) {
-        val context =
-            AndroidAutoSession.getCarContext(config.id) ?: throw IllegalArgumentException(
-                "createMapTemplate failed, carContext found"
-            )
+        val context = AndroidAutoSession.getCarContext(config.id) ?: throw IllegalArgumentException(
+            "createMapTemplate failed, carContext found"
+        )
 
         val template = MapTemplate(context, config, initNavigationManager = true)
         AndroidAutoTemplate.setTemplate(config.id, template)
     }
 
     override fun showNavigationAlert(
-        templateId: String,
-        alert: NitroNavigationAlert
-    ): NavigationAlertCallbacks {
+        templateId: String, alert: NitroNavigationAlert
+    ) {
+        val alertConfig = alert.copy(onDidDismiss = { reason ->
+            navigationAlert = null
+            alert.onDidDismiss?.let { it(reason) }
+        })
         val template = AndroidAutoTemplate.getTemplate<MapTemplate>(templateId)
-        template.showAlert(alert)
+        template.showAlert(alertConfig)
+        navigationAlert = alertConfig
+    }
 
-        return NavigationAlertCallbacks(
-            dismiss = {
-                val carContext =
-                    AndroidAutoSession.getCarContext(AndroidAutoSession.ROOT_SESSION)
-                        ?: throw IllegalArgumentException("navigation alert dismiss failed, carContext for ${AndroidAutoSession.ROOT_SESSION} not found")
-
-                carContext.getCarService(AppManager::class.java).dismissAlert(alert.id.toInt())
-            },
-            update = { title, subtitle ->
-                val config = alert.copy(title = title, subtitle = subtitle)
-                template.showAlert(config)
+    override fun updateNavigationAlert(
+        templateId: String, navigationAlertId: Double, title: AutoText, subtitle: AutoText?
+    ) {
+        navigationAlert?.let {
+            if (it.id != navigationAlertId) {
+                return
             }
-        )
+            val navigationAlert = it.copy(title = title, subtitle = subtitle)
+            val template = AndroidAutoTemplate.getTemplate<MapTemplate>(templateId)
+            template.showAlert(navigationAlert)
+        }
+    }
+
+    override fun dismissNavigationAlert(
+        templateId: String, navigationAlertId: Double
+    ) {
+        val carContext = AndroidAutoSession.getCarContext(AndroidAutoSession.ROOT_SESSION)
+            ?: throw IllegalArgumentException(
+                "dismissNavigationAlert failed, carContext found"
+            )
+        carContext.getCarService(AppManager::class.java).dismissAlert(navigationAlertId.toInt())
     }
 
     override fun showTripSelector(

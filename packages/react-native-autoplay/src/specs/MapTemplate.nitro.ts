@@ -1,10 +1,10 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type {
-  NavigationAlertCallbacks,
   NitroMapTemplateConfig,
   TripSelectorCallback,
   VisibleTravelEstimate,
 } from '../templates/MapTemplate';
+import type { AutoText } from '../types/Text';
 import type {
   TripConfig,
   TripPoint,
@@ -20,7 +20,14 @@ interface MapTemplateConfig extends NitroTemplateConfig, NitroMapTemplateConfig 
 
 export interface MapTemplate extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   createMapTemplate(config: MapTemplateConfig): void;
-  showNavigationAlert(templateId: string, alert: NitroNavigationAlert): NavigationAlertCallbacks;
+  showNavigationAlert(templateId: string, alert: NitroNavigationAlert): void;
+  updateNavigationAlert(
+    templateId: string,
+    navigationAlertId: number,
+    title: AutoText,
+    subtitle?: AutoText
+  ): void;
+  dismissNavigationAlert(templateId: string, navigationAlertId: number): void;
   showTripSelector(
     templateId: string,
     trips: Array<TripsConfig>,

@@ -38,16 +38,14 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class NitroAc
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class NitroAlignment; }
 // Forward declaration of `NitroButtonStyle` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class NitroButtonStyle; }
-// Forward declaration of `NavigationAlertCallbacks` to properly resolve imports.
-namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NavigationAlertCallbacks; }
+// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
+namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroNavigationAlert; }
 // Forward declaration of `AutoText` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct AutoText; }
 // Forward declaration of `Distance` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct Distance; }
 // Forward declaration of `DistanceUnits` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class DistanceUnits; }
-// Forward declaration of `NitroNavigationAlert` to properly resolve imports.
-namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroNavigationAlert; }
 // Forward declaration of `NavigationAlertAction` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NavigationAlertAction; }
 // Forward declaration of `AlertActionStyle` to properly resolve imports.
@@ -117,11 +115,10 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct TripConfig;
 #include "NitroActionType.hpp"
 #include "NitroAlignment.hpp"
 #include "NitroButtonStyle.hpp"
-#include "NavigationAlertCallbacks.hpp"
+#include "NitroNavigationAlert.hpp"
 #include "AutoText.hpp"
 #include "Distance.hpp"
 #include "DistanceUnits.hpp"
-#include "NitroNavigationAlert.hpp"
 #include "NavigationAlertAction.hpp"
 #include "AlertActionStyle.hpp"
 #include "AlertDismissalReason.hpp"
@@ -198,13 +195,23 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
         std::rethrow_exception(__result.error());
       }
     }
-    inline NavigationAlertCallbacks showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) override {
+    inline void showNavigationAlert(const std::string& templateId, const NitroNavigationAlert& alert) override {
       auto __result = _swiftPart.showNavigationAlert(templateId, std::forward<decltype(alert)>(alert));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
-      auto __value = std::move(__result.value());
-      return __value;
+    }
+    inline void updateNavigationAlert(const std::string& templateId, double navigationAlertId, const AutoText& title, const std::optional<AutoText>& subtitle) override {
+      auto __result = _swiftPart.updateNavigationAlert(templateId, std::forward<decltype(navigationAlertId)>(navigationAlertId), std::forward<decltype(title)>(title), subtitle);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void dismissNavigationAlert(const std::string& templateId, double navigationAlertId) override {
+      auto __result = _swiftPart.dismissNavigationAlert(templateId, std::forward<decltype(navigationAlertId)>(navigationAlertId));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
     }
     inline TripSelectorCallback showTripSelector(const std::string& templateId, const std::vector<TripsConfig>& trips, const std::optional<std::string>& selectedTripId, const TripPreviewTextConfiguration& textConfig, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripSelected, const std::function<void(const std::string& /* tripId */, const std::string& /* routeId */)>& onTripStarted, const std::function<void()>& onBackPressed, const std::vector<NitroMapButton>& mapButtons) override {
       auto __result = _swiftPart.showTripSelector(templateId, trips, selectedTripId, std::forward<decltype(textConfig)>(textConfig), onTripSelected, onTripStarted, onBackPressed, mapButtons);

@@ -105,10 +105,11 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
           }
           const prio = action.payload;
           let timer: number | null = null;
+          const id = Date.now();
 
-          const { dismiss, update } = mapTemplate.showAlert({
-            id: Date.now(),
-            title: { text: `Alert ${Date.now()}` },
+          mapTemplate.showAlert({
+            id,
+            title: { text: `Alert ${id}` },
             subtitle: { text: `Prio: ${prio}` },
             primaryAction: { title: 'OK', onPress: () => {} },
             durationMs: 10000,
@@ -122,7 +123,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
             },
             onWillShow: () => {
               timer = setTimeout(() => {
-                update({ text: `Alert ${Date.now()}` }, undefined);
+                mapTemplate.updateAlert(id, { text: `Alert ${Date.now()}` }, undefined);
               }, 5000);
             },
           });

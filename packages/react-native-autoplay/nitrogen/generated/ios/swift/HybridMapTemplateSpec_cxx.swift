@@ -129,14 +129,35 @@ open class HybridMapTemplateSpec_cxx {
   }
   
   @inline(__always)
-  public final func showNavigationAlert(templateId: std.string, alert: NitroNavigationAlert) -> bridge.Result_NavigationAlertCallbacks_ {
+  public final func showNavigationAlert(templateId: std.string, alert: NitroNavigationAlert) -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.showNavigationAlert(templateId: String(templateId), alert: alert)
-      let __resultCpp = __result
-      return bridge.create_Result_NavigationAlertCallbacks_(__resultCpp)
+      try self.__implementation.showNavigationAlert(templateId: String(templateId), alert: alert)
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_NavigationAlertCallbacks_(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func updateNavigationAlert(templateId: std.string, navigationAlertId: Double, title: AutoText, subtitle: bridge.std__optional_AutoText_) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.updateNavigationAlert(templateId: String(templateId), navigationAlertId: navigationAlertId, title: title, subtitle: subtitle.value)
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func dismissNavigationAlert(templateId: std.string, navigationAlertId: Double) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.dismissNavigationAlert(templateId: String(templateId), navigationAlertId: navigationAlertId)
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
   
