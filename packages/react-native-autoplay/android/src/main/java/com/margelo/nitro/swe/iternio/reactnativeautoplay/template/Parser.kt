@@ -35,7 +35,6 @@ import androidx.car.app.navigation.model.TravelEstimate
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
-import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSources
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.image.CloseableBitmap
@@ -71,7 +70,9 @@ import com.margelo.nitro.swe.iternio.reactnativeautoplay.TrafficSide
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.TravelEstimates
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.TurnType
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.Variant_GlyphImage_AssetImage
+import com.margelo.nitro.swe.iternio.reactnativeautoplay.utils.BitmapCache
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.utils.SymbolFont
+import com.margelo.nitro.swe.iternio.reactnativeautoplay.utils.get
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -238,7 +239,30 @@ object Parser {
     }
 
     fun parseImages(context: CarContext, images: List<NitroImage>): CarIcon {
-        return CarIcon.Builder(SymbolFont.imageFromNitroImages(context, images)).build()
+        return CarIcon.Builder(imageFromNitroImages(context, images)).build()
+    }
+
+    fun imageFromNitroImages(
+        context: CarContext, images: List<NitroImage>
+    ): IconCompat {
+        val bitmaps = images.map {
+            parseImageToBitmap(
+                context, it.asFirstOrNull(), it.asSecondOrNull()
+            )!!
+        }
+
+        val height = bitmaps.maxOf { it.height }
+        val width = bitmaps.maxOf { it.width }
+        val totalWidth = width * images.size
+
+        val bitmap = createBitmap(totalWidth, height)
+        val canvas = Canvas(bitmap)
+
+        bitmaps.forEachIndexed { index, it ->
+            canvas.drawBitmap(it, (index * width).toFloat(), 0f, null)
+        }
+
+        return IconCompat.createWithBitmap(bitmap)
     }
 
     const val PLACEHOLDER_DISTANCE = "{distance}"
@@ -481,46 +505,54 @@ object Parser {
         )
     }
 
-    fun parseAssetImage(context: CarContext, image: AssetImage): Bitmap? {
-        val source = ImageSource(context, image.uri)
-        val imageRequest = ImageRequestBuilder.newBuilderWithSource(source.uri).build()
+    fun parseAssetImage(context: CarContext, assetImage: AssetImage): Bitmap? {
+        var bitmap = BitmapCache.get(context, assetImage)
+
+        if (bitmap != null) {
+            return bitmap
+        }
+
+        val source = ImageSource(context, assetImage.uri)
+        val imageRequest = ImageRequestBuilder.newBuilderWithSource(source.uri).disableDiskCache()
+            .disableMemoryCache().build()
+
         val dataSource = Fresco.getImagePipeline().fetchDecodedImage(imageRequest, context)
         val result = DataSources.waitForFinalResult(dataSource)
 
-        var bitmap: Bitmap? = null
-
-        result?.let { closeableRef ->
-            try {
-                val image = closeableRef.get()
-                if (image is CloseableBitmap) {
-                    bitmap = image.underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
-                } else if (image is CloseableXml) {
-                    val drawable = image.buildDrawable()
-                    bitmap = drawable?.toBitmap(
-                        width = image.width, height = image.height, Bitmap.Config.ARGB_8888
-                    )
-                }
-            } finally {
-                CloseableReference.closeSafely(closeableRef)
+        val image = result?.get()
+        try {
+            if (image is CloseableBitmap) {
+                bitmap = image.underlyingBitmap.copy(Bitmap.Config.ARGB_8888, false)
+            } else if (image is CloseableXml) {
+                val drawable = image.buildDrawable()
+                bitmap = drawable?.toBitmap(
+                    width = image.width, height = image.height, Bitmap.Config.ARGB_8888
+                )
             }
+        } finally {
+            image?.close()
+            result?.close()
+            dataSource.close()
         }
 
         if (bitmap == null) {
             return null
         }
 
-        image.color?.let {
-            val tintColor =
-                if (context.isDarkMode) image.color.darkColor else image.color.lightColor
+        assetImage.color?.get(context)?.let { color ->
             val result = createBitmap(bitmap.width, bitmap.height)
             val canvas = Canvas(result)
             val paint = Paint()
 
-            paint.colorFilter = PorterDuffColorFilter(tintColor.toInt(), PorterDuff.Mode.SRC_IN)
+            paint.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
             canvas.drawBitmap(bitmap, 0f, 0f, paint)
+
+            BitmapCache.put(context, assetImage, result)
 
             return result
         }
+
+        BitmapCache.put(context, assetImage, bitmap)
 
         return bitmap
     }
@@ -622,7 +654,8 @@ object Parser {
                     setRoundaboutExitNumber(it.toInt())
                 }
                 nitroManeuver.angle?.let { roundaboutExitAngle ->
-                    val angle = ((180 - roundaboutExitAngle) % 360).toInt().let { if (it == 0) 360 else it }
+                    val angle =
+                        ((180 - roundaboutExitAngle) % 360).toInt().let { if (it == 0) 360 else it }
                     setRoundaboutExitAngle(angle)
                 }
             }

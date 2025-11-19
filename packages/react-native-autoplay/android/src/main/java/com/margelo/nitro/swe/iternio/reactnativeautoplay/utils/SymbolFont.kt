@@ -22,7 +22,7 @@ object SymbolFont {
 
     private var typeface: Typeface? = null
 
-    fun loadFont(context: Context) {
+    private fun loadFont(context: Context) {
         if (typeface != null) {
             return
         }
@@ -30,12 +30,12 @@ object SymbolFont {
         typeface = ResourcesCompat.getFont(context, R.font.materialsymbolsoutlined_regular)
     }
 
-    fun imageFromGlyph(
+    private fun imageFromGlyph(
         context: Context,
         glyph: Double,
-        color: Int = android.graphics.Color.BLACK,
-        backgroundColor: Int = android.graphics.Color.WHITE,
-        cornerRadius: Float = 8f,
+        color: Int,
+        backgroundColor: Int,
+        cornerRadius: Float = 8f, //TODO: make accessible and add it to GlyphImage.cacheKey
         fontScale: Float,
     ): Bitmap? {
         loadFont(context)
@@ -88,39 +88,24 @@ object SymbolFont {
     }
 
     fun imageFromNitroImage(context: CarContext, image: GlyphImage): Bitmap? {
-        val color = if (context.isDarkMode) image.color.darkColor else image.color.lightColor
-        val backgroundColor =
-            if (context.isDarkMode) image.backgroundColor.darkColor else image.backgroundColor.lightColor
+        var bitmap = BitmapCache.get(context, image)
 
-        return imageFromGlyph(
+        if (bitmap != null) {
+            return bitmap
+        }
+
+        bitmap = imageFromGlyph(
             context = context,
             glyph = image.glyph,
-            color = color.toInt(),
-            backgroundColor = backgroundColor.toInt(),
+            color = image.color.get(context),
+            backgroundColor = image.backgroundColor.get(context),
             fontScale = (image.fontScale ?: 1.0).toFloat()
         )
-    }
 
-    fun imageFromNitroImages(
-        context: CarContext, images: List<NitroImage>
-    ): IconCompat {
-        val bitmaps = images.map {
-            Parser.parseImageToBitmap(
-                context, it.asFirstOrNull(), it.asSecondOrNull()
-            )!!
+        bitmap?.let {
+            BitmapCache.put(context, image, it)
         }
 
-        val height = bitmaps.maxOf { it.height }
-        val width = bitmaps.maxOf { it.width }
-        val totalWidth = width * images.size
-
-        val bitmap = createBitmap(totalWidth, height)
-        val canvas = Canvas(bitmap)
-
-        bitmaps.forEachIndexed { index, it ->
-            canvas.drawBitmap(it, (index * width).toFloat(), 0f, null)
-        }
-
-        return IconCompat.createWithBitmap(bitmap)
+        return bitmap
     }
 }
