@@ -67,8 +67,14 @@ class HybridMapTemplate : HybridMapTemplateSpec() {
         )
 
         UiThreadUtil.runOnUiThread {
-            screenManager.popToRoot()
+            val topMessageTemplate = AndroidAutoTemplate.getTopMessageTemplate()
+
             screenManager.push(screen)
+
+            topMessageTemplate?.let {
+                // make sure any visible message template is still on top of the trip selector
+                screenManager.push(topMessageTemplate)
+            }
         }
 
         return TripSelectorCallback { id: String ->

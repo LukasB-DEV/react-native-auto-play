@@ -1,6 +1,7 @@
 package com.margelo.nitro.swe.iternio.reactnativeautoplay.template
 
 import androidx.car.app.CarContext
+import androidx.car.app.Screen
 import androidx.car.app.model.Template
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.AndroidAutoScreen
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.NitroAction
@@ -55,6 +56,26 @@ abstract class AndroidAutoTemplate<T>(val context: CarContext, var config: T) {
                 return config
             }
             return null
+        }
+
+        /**
+         * returns the top screen hosting a MessageTemplate, null in case none is available
+         */
+        fun getTopMessageTemplate(): Screen? {
+            val screenManager = AndroidAutoScreen.getScreenManager()
+                ?: throw IllegalArgumentException("getMessageTemplate failed, screenManager not found")
+
+            var topMessageScreen: Screen? = null
+
+            if (screenManager.screenStack.isNotEmpty()) {
+                screenManager.top.marker?.let {
+                    if (hasTemplate<MessageTemplate>(it)) {
+                        topMessageScreen = screenManager.top
+                    }
+                }
+            }
+
+            return topMessageScreen
         }
     }
 }

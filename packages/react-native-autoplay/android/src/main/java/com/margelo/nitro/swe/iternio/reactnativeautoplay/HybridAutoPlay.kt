@@ -1,6 +1,5 @@
 package com.margelo.nitro.swe.iternio.reactnativeautoplay
 
-import androidx.car.app.Screen
 import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.AndroidAutoTemplate
@@ -138,15 +137,8 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
                 ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
 
             val result = ThreadUtil.postOnUiAndAwait {
-                var topMessageScreen: Screen? = null
+                val topMessageScreen = AndroidAutoTemplate.getTopMessageTemplate()
 
-                if (screenManager.screenStack.isNotEmpty()) {
-                    screenManager.top.marker?.let {
-                        if (AndroidAutoTemplate.hasTemplate<MessageTemplate>(it)) {
-                            topMessageScreen = screenManager.top
-                        }
-                    }
-                }
                 val screen = AndroidAutoScreen(context, templateId, template.parse())
                 screenManager.push(screen)
 
