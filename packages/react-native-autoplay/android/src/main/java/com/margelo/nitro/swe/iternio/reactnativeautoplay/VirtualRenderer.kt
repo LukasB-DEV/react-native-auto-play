@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.hardware.display.DisplayManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
