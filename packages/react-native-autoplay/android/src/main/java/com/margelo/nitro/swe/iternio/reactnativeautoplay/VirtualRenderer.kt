@@ -88,6 +88,11 @@ class VirtualRenderer(
             var visibleArea = Rect(0, 0, 0, 0)
 
             override fun onSurfaceAvailable(surfaceContainer: SurfaceContainer) {
+                if (surfaceContainer.surface == null) {
+                    Log.w(TAG, "surface is null")
+                    return
+                }
+
                 val manager = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
                 val virtualDisplay = manager.createVirtualDisplay(
                     moduleName,
