@@ -57,6 +57,8 @@ jobs:
           REVIEW__MAX_INLINE_COMMENTS: "5" # Max inline comments per file
           REVIEW__MAX_CONTEXT_COMMENTS: "5" # Max context comments per PR
 
+          REVIEW__IGNORE_CHANGES: "*nitrogen/generated*"
+
           # ===============================
           # Prompts (optional overrides)
           # ===============================
