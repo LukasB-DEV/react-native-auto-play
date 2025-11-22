@@ -39,4 +39,5 @@ Provide concise, practical inline review comments focused on correctness, clarit
 
 Follow the standard inline review JSON format defined in the system prompt.  
 Limit to **no more than 10 comments**, each short and actionable, focus on those with highest priority.  
-If no issues are found, return an empty array. If providing code suggestions, make sure the indendation is correct.
+If no issues are found, return an empty array. Providing less comments than the maximum is ok, if there is nothing to report on.
+If providing code suggestions, make sure the indendation is correct.
