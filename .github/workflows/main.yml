@@ -46,6 +46,9 @@ jobs:
           VCS__HTTP_CLIENT__API_URL: "https://api.github.com"
           VCS__HTTP_CLIENT__API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+          # REVIEW__MAX_INLINE_COMMENTS: "20"   # Max inline comments per file (default: unlimited)
+          REVIEW__MAX_CONTEXT_COMMENTS: "10"  # Max context comments per PR (default: unlimited)
+
           # ===============================
           # Prompts (optional overrides)
           # ===============================
