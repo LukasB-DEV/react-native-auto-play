@@ -18,7 +18,7 @@ jobs:
           with: 
             github_token: ${{ secrets.GITHUB_TOKEN }}
             delete_user_name: github-actions[bot]
-            issue_number: ${{ github.event.number }}
+            issue_number: ${{ inputs.pull-request-number }} #${{ github.event.number }}
   ai-review:
     runs-on: ubuntu-latest
     steps:
