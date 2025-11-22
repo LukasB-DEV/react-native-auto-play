@@ -14,9 +14,9 @@ jobs:
   delete-comments:
       runs-on: ubuntu-latest
       steps:
-        - uses: SamuelBrucksch/delete-comment@1.0.3
+        - uses: GetDutchie/github-action-delete-comment@v1.0.0
           with: 
-            github_token: ${{ secrets.GITHUB_TOKEN }}
+            github_token: ${{ secrets.DUTCHIE_BOT_TOKEN }}
             delete_user_name: github-actions[bot]
             issue_number: ${{ github.event.number }}
   ai-review:
