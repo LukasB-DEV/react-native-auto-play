@@ -20,6 +20,7 @@ jobs:
             delete_user_name: github-actions[bot]
             issue_number: ${{ inputs.pull-request-number }} #${{ github.event.number 
   ai-review:
+    needs: delete-comments
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
