@@ -612,11 +612,16 @@ class MapTemplate: NSObject, AutoPlayTemplate, AutoPlayHeaderProviding,
     func updateManeuvers(maneuvers: [NitroRoutingManeuver]) {
         guard let navigationSession = navigationSession else { return }
 
+        if maneuvers.isEmpty {
+            navigationSession.upcomingManeuvers = []
+            return
+        }
+
         if #unavailable(iOS 15.4),
             let color = maneuvers.first?.cardBackgroundColor
         {
             // before iOS 15.4 the color had to be set on the template
-            // later on the maneuer which Parser.parseManeuver does
+            // later on the maneuver which Parser.parseManeuver does
             template.guidanceBackgroundColor = Parser.parseColor(color: color)
         }
 

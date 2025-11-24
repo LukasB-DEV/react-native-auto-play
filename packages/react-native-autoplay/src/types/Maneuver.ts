@@ -237,4 +237,4 @@ export type MessageManeuver = {
   type: 'message';
 };
 
-export type AutoManeuver = (Array<RoutingManeuver> & { length: 1 | 2 }) | MessageManeuver;
+export type AutoManeuver = (Array<RoutingManeuver> & { length: 0 | 1 | 2 }) | MessageManeuver;

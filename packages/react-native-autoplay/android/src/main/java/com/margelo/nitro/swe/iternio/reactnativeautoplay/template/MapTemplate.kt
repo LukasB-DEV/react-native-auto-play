@@ -86,10 +86,6 @@ class MapTemplate(
             if (isNavigating) {
                 navigationInfo?.let {
                     setNavigationInfo(it)
-                } ?: run {
-                    setNavigationInfo(RoutingInfo.Builder().apply {
-                        setLoading(true)
-                    }.build())
                 }
             }
             config.onDidChangePanningInterface?.let {
