@@ -670,6 +670,9 @@ object Parser {
             setManeuver(parseManeuver(context, nitroManeuver))
             nitroManeuver.linkedLaneGuidance?.let { laneGuidance ->
                 val lanes = laneGuidance.lanes.mapNotNull { it.asFirstOrNull() }
+                if (lanes.isEmpty()) {
+                    return@let
+                }
                 lanes.forEach { lane ->
                     addLane(Lane.Builder().apply {
                         addDirection(
