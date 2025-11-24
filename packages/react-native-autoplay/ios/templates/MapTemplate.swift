@@ -182,9 +182,7 @@ class MapTemplate: NSObject, AutoPlayTemplate, AutoPlayHeaderProviding,
 
         template.tripEstimateStyle = isDark ? .dark : .light
 
-        DispatchQueue.main.async {
-            self.invalidate()
-        }
+        invalidate()
     }
 
     // MARK: gestures
@@ -502,9 +500,7 @@ class MapTemplate: NSObject, AutoPlayTemplate, AutoPlayHeaderProviding,
         onTripSelected = nil
         onTripStarted = nil
 
-        DispatchQueue.main.async {
-            self.invalidate()
-        }
+        invalidate()
     }
 
     func mapTemplate(
