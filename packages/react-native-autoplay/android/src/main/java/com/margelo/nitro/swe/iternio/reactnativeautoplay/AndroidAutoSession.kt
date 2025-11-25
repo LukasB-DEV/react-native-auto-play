@@ -2,6 +2,7 @@ package com.margelo.nitro.swe.iternio.reactnativeautoplay
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.util.Log
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
 import androidx.car.app.Session
@@ -135,6 +136,26 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         AndroidAutoScreen.invalidateScreens()
     }
 
+    override fun onNewIntent(intent: Intent) {
+        val action = intent.action ?: return
+
+        if (action == CarContext.ACTION_NAVIGATE) {
+            intent.data?.schemeSpecificPart?.let {
+                val parts = it.split("?q=")
+                if (parts.size > 1) {
+                    val (coordinates, query) = parts
+
+                    val (latString, lonString) = coordinates.split(",")
+                    val location = Location(latString.toDouble(), lonString.toDouble())
+
+                    HybridAutoPlay.emitVoiceInput(location, query.replace("+", " "))
+                } else {
+                    HybridAutoPlay.emitVoiceInput(null, it.replace("+", " "))
+                }
+            }
+        }
+    }
+
     private val sessionLifecycleObserver = object : DefaultLifecycleObserver {
         override fun onCreate(owner: LifecycleOwner) {
             sessions[moduleName]?.state = VisibilityState.WILLAPPEAR
@@ -201,7 +222,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         }
 
         fun getCarContext(marker: String): CarContext? {
-            return sessions.get(marker)?.carContext
+            return sessions[marker]?.carContext
         }
 
         fun getRootContext(): CarContext? {

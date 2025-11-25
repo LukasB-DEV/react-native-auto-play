@@ -7,6 +7,11 @@ export interface NitroTemplateConfig extends TemplateConfig {
   id: string;
 }
 
+interface Location {
+  lat: number;
+  lon: number;
+}
+
 export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
   /**
    * attach a listener for didConnect and didDisconnect
@@ -25,6 +30,15 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
   addListenerRenderState(
     moduleName: string,
     callback: (payload: VisibilityState) => void
+  ): CleanupCallback;
+
+  /**
+   * Adds a listener for voice input events.
+   * @param callback the callback to receive the voice input
+   * @returns callback to remove the listener
+   */
+  addListenerVoiceInput(
+    callback: (coordinates: Location | undefined, query: string | undefined) => void
   ): CleanupCallback;
 
   /**

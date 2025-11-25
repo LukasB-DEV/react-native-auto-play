@@ -1,5 +1,6 @@
 package com.margelo.nitro.swe.iternio.reactnativeautoplay
 
+import android.util.Log
 import com.facebook.react.bridge.UiThreadUtil
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.AndroidAutoTemplate
@@ -223,6 +224,16 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
+
+
+    override fun addListenerVoiceInput(callback: (Location?, String?) -> Unit): () -> Unit {
+        voiceInputListeners.add(callback)
+
+        return {
+            voiceInputListeners.remove(callback)
+        }
+    }
+
     companion object {
         const val TAG = "HybridAutoPlay"
 
@@ -230,6 +241,9 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         private val renderStateListeners =
             mutableMapOf<String, MutableList<(VisibilityState) -> Unit>>()
+
+        private val voiceInputListeners =  mutableListOf<(Location?, String?) -> Unit>()
+
         private val safeAreaInsetsListeners =
             mutableMapOf<String, MutableList<(SafeAreaInsets) -> Unit>>()
 
@@ -246,6 +260,12 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         fun emitRenderState(moduleName: String, state: VisibilityState) {
             renderStateListeners[moduleName]?.forEach {
                 it(state)
+            }
+        }
+
+        fun emitVoiceInput(location: Location?, query: String?) {
+            voiceInputListeners.forEach {
+                it(location, query)
             }
         }
 

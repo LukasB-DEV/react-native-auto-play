@@ -28,6 +28,7 @@ import {
   onTripStarted,
   updateTripEstimates,
 } from './templates/AutoTemplate';
+import { VoiceInputView } from './VoiceInputView';
 
 const AutoPlayRoot = (props: RootComponentInitialProps) => {
   const mapTemplate = useMapTemplate();
@@ -149,6 +150,7 @@ const AutoPlayRoot = (props: RootComponentInitialProps) => {
         <Text>{JSON.stringify(props.window)}</Text>
         <Text>Running as {props.id}</Text>
         {Platform.OS === 'android' ? <TelemetryView /> : null}
+        <VoiceInputView />
       </View>
     </SafeAreaView>
   );

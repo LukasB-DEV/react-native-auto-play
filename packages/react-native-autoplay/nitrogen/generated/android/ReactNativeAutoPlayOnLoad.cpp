@@ -20,6 +20,7 @@
 #include "JFunc_void_std__optional_Telemetry__std__optional_std__string_.hpp"
 #include "JHybridAutoPlaySpec.hpp"
 #include "JFunc_void_VisibilityState.hpp"
+#include "JFunc_void_std__optional_Location__std__optional_std__string_.hpp"
 #include "JFunc_void_SafeAreaInsets.hpp"
 #include "JHybridClusterSpec.hpp"
 #include "JFunc_void_std__string.hpp"
@@ -56,6 +57,7 @@ int initialize(JavaVM* vm) {
     margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_std__optional_Telemetry__std__optional_std__string__cxx::registerNatives();
     margelo::nitro::swe::iternio::reactnativeautoplay::JHybridAutoPlaySpec::registerNatives();
     margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_VisibilityState_cxx::registerNatives();
+    margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_std__optional_Location__std__optional_std__string__cxx::registerNatives();
     margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_SafeAreaInsets_cxx::registerNatives();
     margelo::nitro::swe::iternio::reactnativeautoplay::JHybridClusterSpec::registerNatives();
     margelo::nitro::swe::iternio::reactnativeautoplay::JFunc_void_std__string_cxx::registerNatives();
