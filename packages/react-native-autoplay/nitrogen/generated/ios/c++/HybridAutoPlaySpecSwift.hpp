@@ -16,6 +16,8 @@ namespace ReactNativeAutoPlay { class HybridAutoPlaySpec_cxx; }
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class EventName; }
 // Forward declaration of `VisibilityState` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class VisibilityState; }
+// Forward declaration of `Location` to properly resolve imports.
+namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct Location; }
 // Forward declaration of `SafeAreaInsets` to properly resolve imports.
 namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct SafeAreaInsets; }
 // Forward declaration of `NitroAction` to properly resolve imports.
@@ -37,8 +39,9 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { enum class NitroBu
 #include "EventName.hpp"
 #include <string>
 #include "VisibilityState.hpp"
-#include <NitroModules/Promise.hpp>
+#include "Location.hpp"
 #include <optional>
+#include <NitroModules/Promise.hpp>
 #include "SafeAreaInsets.hpp"
 #include "NitroAction.hpp"
 #include <vector>
@@ -104,6 +107,14 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
     }
     inline std::function<void()> addListenerRenderState(const std::string& moduleName, const std::function<void(VisibilityState /* payload */)>& callback) override {
       auto __result = _swiftPart.addListenerRenderState(moduleName, callback);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::function<void()> addListenerVoiceInput(const std::function<void(const std::optional<Location>& /* coordinates */, const std::optional<std::string>& /* query */)>& callback) override {
+      auto __result = _swiftPart.addListenerVoiceInput(callback);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

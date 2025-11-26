@@ -12,3 +12,7 @@ export type SafeAreaInsets = {
    */
   isLegacyLayout?: boolean;
 };
+export interface Location {
+  lat: number;
+  lon: number;
+}

@@ -2,6 +2,7 @@ package com.margelo.nitro.swe.iternio.reactnativeautoplay
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.util.Log
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
 import androidx.car.app.Session
@@ -135,6 +136,63 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         AndroidAutoScreen.invalidateScreens()
     }
 
+    override fun onNewIntent(intent: Intent) {
+        val action = intent.action ?: return
+
+        if (action == CarContext.ACTION_NAVIGATE) {
+            intent.data?.schemeSpecificPart?.let { schemeSpecificPart ->
+                try {
+                    // Parse the geo URI format: lat,lon?q=query&mode=x&intent=y
+                    val queryIndex = schemeSpecificPart.indexOf("?q=")
+
+                    val location = if (queryIndex > 0) {
+                        val coordinatesPart = schemeSpecificPart.substring(0, queryIndex)
+                        parseCoordinates(coordinatesPart)
+                    } else {
+                        null
+                    }
+
+                    val query = if (queryIndex >= 0) {
+                        val queryPart = schemeSpecificPart.substring(queryIndex + 3) // Skip "?q="
+                        val additionalParamsIndex = queryPart.indexOf('&')
+
+                        if (additionalParamsIndex >= 0) {
+                            val rawQuery = queryPart.substring(0, additionalParamsIndex)
+                            java.net.URLDecoder.decode(rawQuery, "UTF-8")
+                        } else {
+                            java.net.URLDecoder.decode(queryPart, "UTF-8")
+                        }
+                    } else {
+                        java.net.URLDecoder.decode(schemeSpecificPart, "UTF-8")
+                    }
+
+                    HybridAutoPlay.emitVoiceInput(location, query)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to parse navigation intent: ${e.message}")
+                }
+            }
+        }
+    }
+
+    /**
+     * Parses coordinates from a string in format "lat,lon".
+     * Returns null for invalid formats or 0,0 coordinates (which indicate "use geocoding").
+     */
+    private fun parseCoordinates(coordinatesPart: String): Location? {
+        val parts = coordinatesPart.split(",")
+        if (parts.size != 2) return null
+
+        val lat = parts[0].toDoubleOrNull() ?: return null
+        val lon = parts[1].toDoubleOrNull() ?: return null
+
+        // Treat 0,0 as "no coordinates" - it means use geocoding for the query
+        if (lat == 0.0 && lon == 0.0) {
+            return null
+        }
+
+        return Location(lat, lon)
+    }
+
     private val sessionLifecycleObserver = object : DefaultLifecycleObserver {
         override fun onCreate(owner: LifecycleOwner) {
             sessions[moduleName]?.state = VisibilityState.WILLAPPEAR
@@ -201,7 +259,7 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         }
 
         fun getCarContext(marker: String): CarContext? {
-            return sessions.get(marker)?.carContext
+            return sessions[marker]?.carContext
         }
 
         fun getRootContext(): CarContext? {

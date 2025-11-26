@@ -27,6 +27,7 @@ export * from './components/SafeAreaView';
 export * from './hooks/useAndroidAutoTelemetry';
 export * from './hooks/useMapTemplate';
 export * from './hooks/useSafeAreaInsets';
+export * from './hooks/useVoiceInput';
 export * from './scenes/AutoPlayCluster';
 export * from './scenes/CarPlayDashboardScene';
 export * from './templates/GridTemplate';

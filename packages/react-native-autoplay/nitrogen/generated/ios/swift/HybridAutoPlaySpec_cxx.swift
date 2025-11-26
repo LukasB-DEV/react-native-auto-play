@@ -159,6 +159,38 @@ open class HybridAutoPlaySpec_cxx {
   }
   
   @inline(__always)
+  public final func addListenerVoiceInput(callback: bridge.Func_void_std__optional_Location__std__optional_std__string_) -> bridge.Result_std__function_void____ {
+    do {
+      let __result = try self.__implementation.addListenerVoiceInput(callback: { () -> (Location?, String?) -> Void in
+        let __wrappedFunction = bridge.wrap_Func_void_std__optional_Location__std__optional_std__string_(callback)
+        return { (__coordinates: Location?, __query: String?) -> Void in
+          __wrappedFunction.call({ () -> bridge.std__optional_Location_ in
+            if let __unwrappedValue = __coordinates {
+              return bridge.create_std__optional_Location_(__unwrappedValue)
+            } else {
+              return .init()
+            }
+          }(), { () -> bridge.std__optional_std__string_ in
+            if let __unwrappedValue = __query {
+              return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+            } else {
+              return .init()
+            }
+          }())
+        }
+      }())
+      let __resultCpp = { () -> bridge.Func_void in
+        let __closureWrapper = Func_void(__result)
+        return bridge.create_Func_void(__closureWrapper.toUnsafe())
+      }()
+      return bridge.create_Result_std__function_void____(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__function_void____(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
   public final func setRootTemplate(templateId: std.string) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
       let __result = try self.__implementation.setRootTemplate(templateId: String(templateId))

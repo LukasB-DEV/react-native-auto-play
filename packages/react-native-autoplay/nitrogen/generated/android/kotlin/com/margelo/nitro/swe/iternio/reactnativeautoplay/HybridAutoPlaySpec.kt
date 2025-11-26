@@ -64,6 +64,15 @@ abstract class HybridAutoPlaySpec: HybridObject() {
     return Func_void_java(__result)
   }
   
+  abstract fun addListenerVoiceInput(callback: (coordinates: Location?, query: String?) -> Unit): () -> Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun addListenerVoiceInput_cxx(callback: Func_void_std__optional_Location__std__optional_std__string_): Func_void {
+    val __result = addListenerVoiceInput(callback)
+    return Func_void_java(__result)
+  }
+  
   @DoNotStrip
   @Keep
   abstract fun setRootTemplate(templateId: String): Promise<Unit>
