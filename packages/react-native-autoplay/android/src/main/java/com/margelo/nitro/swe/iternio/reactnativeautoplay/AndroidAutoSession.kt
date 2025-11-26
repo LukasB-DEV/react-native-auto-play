@@ -140,20 +140,57 @@ class AndroidAutoSession(sessionInfo: SessionInfo, private val reactApplication:
         val action = intent.action ?: return
 
         if (action == CarContext.ACTION_NAVIGATE) {
-            intent.data?.schemeSpecificPart?.let {
-                val parts = it.split("?q=")
-                if (parts.size > 1) {
-                    val (coordinates, query) = parts
+            intent.data?.schemeSpecificPart?.let { schemeSpecificPart ->
+                try {
+                    // Parse the geo URI format: lat,lon?q=query&mode=x&intent=y
+                    val queryIndex = schemeSpecificPart.indexOf("?q=")
 
-                    val (latString, lonString) = coordinates.split(",")
-                    val location = Location(latString.toDouble(), lonString.toDouble())
+                    val location = if (queryIndex > 0) {
+                        val coordinatesPart = schemeSpecificPart.substring(0, queryIndex)
+                        parseCoordinates(coordinatesPart)
+                    } else {
+                        null
+                    }
 
-                    HybridAutoPlay.emitVoiceInput(location, query.replace("+", " "))
-                } else {
-                    HybridAutoPlay.emitVoiceInput(null, it.replace("+", " "))
+                    val query = if (queryIndex >= 0) {
+                        val queryPart = schemeSpecificPart.substring(queryIndex + 3) // Skip "?q="
+                        val additionalParamsIndex = queryPart.indexOf('&')
+
+                        if (additionalParamsIndex >= 0) {
+                            val rawQuery = queryPart.substring(0, additionalParamsIndex)
+                            java.net.URLDecoder.decode(rawQuery, "UTF-8")
+                        } else {
+                            java.net.URLDecoder.decode(queryPart, "UTF-8")
+                        }
+                    } else {
+                        java.net.URLDecoder.decode(schemeSpecificPart, "UTF-8")
+                    }
+
+                    HybridAutoPlay.emitVoiceInput(location, query)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to parse navigation intent: ${e.message}")
                 }
             }
         }
+    }
+
+    /**
+     * Parses coordinates from a string in format "lat,lon".
+     * Returns null for invalid formats or 0,0 coordinates (which indicate "use geocoding").
+     */
+    private fun parseCoordinates(coordinatesPart: String): Location? {
+        val parts = coordinatesPart.split(",")
+        if (parts.size != 2) return null
+
+        val lat = parts[0].toDoubleOrNull() ?: return null
+        val lon = parts[1].toDoubleOrNull() ?: return null
+
+        // Treat 0,0 as "no coordinates" - it means use geocoding for the query
+        if (lat == 0.0 && lon == 0.0) {
+            return null
+        }
+
+        return Location(lat, lon)
     }
 
     private val sessionLifecycleObserver = object : DefaultLifecycleObserver {

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import { HybridAutoPlay } from '..';
+import { HybridAutoPlay, type Location } from '..';
 
 export const useVoiceInput = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [voiceInputResult, setVoiceInputResult] = useState<
-    { coordinates: { lat: number; lon: number } | undefined; query: string | undefined } | undefined
+    | {
+        coordinates: Location | undefined;
+        query: string | undefined;
+      }
+    | undefined
   >();
 
   useEffect(() => {
@@ -27,7 +31,6 @@ export const useVoiceInput = () => {
     }
 
     const remove = HybridAutoPlay.addListenerVoiceInput((coordinates, query) => {
-      console.log('*** voiceInput', coordinates, query);
       if (coordinates || query) {
         setVoiceInputResult({ coordinates, query });
       } else {

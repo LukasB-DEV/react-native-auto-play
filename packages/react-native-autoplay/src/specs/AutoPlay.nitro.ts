@@ -1,15 +1,16 @@
 import type { HybridObject } from 'react-native-nitro-modules';
 import type { TemplateConfig } from '../templates/Template';
-import type { CleanupCallback, EventName, SafeAreaInsets, VisibilityState } from '../types/Event';
+import type {
+  CleanupCallback,
+  EventName,
+  Location,
+  SafeAreaInsets,
+  VisibilityState,
+} from '../types/Event';
 import type { NitroAction } from '../utils/NitroAction';
 
 export interface NitroTemplateConfig extends TemplateConfig {
   id: string;
-}
-
-interface Location {
-  lat: number;
-  lon: number;
 }
 
 export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift' }> {
@@ -33,9 +34,10 @@ export interface AutoPlay extends HybridObject<{ android: 'kotlin'; ios: 'swift'
   ): CleanupCallback;
 
   /**
-   * Adds a listener for voice input events.
+   * Adds a listener for voice input events. Not implemented on iOS.
    * @param callback the callback to receive the voice input
    * @returns callback to remove the listener
+   * @namespace Android
    */
   addListenerVoiceInput(
     callback: (coordinates: Location | undefined, query: string | undefined) => void

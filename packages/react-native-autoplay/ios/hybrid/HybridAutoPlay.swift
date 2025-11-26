@@ -111,6 +111,7 @@ class HybridAutoPlay: HybridAutoPlaySpec {
         callback: @escaping (Location?, String?) -> Void
     ) throws -> () -> Void {
         // TODO: Inplement voice input
+        return {}
     }
 
     // MARK: set/push/pop templates

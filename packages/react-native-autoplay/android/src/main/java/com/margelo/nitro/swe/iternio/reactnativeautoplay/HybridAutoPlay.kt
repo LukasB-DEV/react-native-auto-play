@@ -242,7 +242,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         private val renderStateListeners =
             mutableMapOf<String, MutableList<(VisibilityState) -> Unit>>()
 
-        private val voiceInputListeners =  mutableListOf<(Location?, String?) -> Unit>()
+        private val voiceInputListeners = mutableListOf<(Location?, String?) -> Unit>()
 
         private val safeAreaInsetsListeners =
             mutableMapOf<String, MutableList<(SafeAreaInsets) -> Unit>>()
