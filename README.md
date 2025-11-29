@@ -119,6 +119,14 @@ This should cover old and new architecture, adjust to your needs!
     initialProperties: [String: Any]?
   ) -> UIView? {
     if RCTIsNewArchEnabled() {
+      if let factory = reactNativeFactory?.rootViewFactory as? ExpoReactRootViewFactory {
+         return factory.superView(
+          withModuleName: moduleName,
+          initialProperties: initialProperties,
+          launchOptions: nil
+        )
+      }
+      
       return reactNativeFactory?.rootViewFactory.view(
         withModuleName: moduleName,
         initialProperties: initialProperties
