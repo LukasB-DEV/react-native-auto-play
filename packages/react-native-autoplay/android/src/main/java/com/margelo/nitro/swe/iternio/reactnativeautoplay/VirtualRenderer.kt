@@ -43,6 +43,10 @@ class VirtualRenderer(
     private val isCluster: Boolean = false
 ) {
     private lateinit var uiManager: FabricUIManager
+    private fun isUiManagerInitialized(): Boolean {
+        return ::uiManager.isInitialized
+    }
+
     private lateinit var display: Display
     private lateinit var reactContext: ReactContext
 
@@ -51,6 +55,9 @@ class VirtualRenderer(
     private var reactSurfaceId: Int? = null
 
     private lateinit var reactRootView: ReactRootView
+    private fun isReactRootViewInitialized(): Boolean {
+        return ::reactRootView.isInitialized
+    }
 
     private var height: Int = 0
     private var width: Int = 0
@@ -270,7 +277,7 @@ class VirtualRenderer(
         val reactNativeScale = virtualScreenDensity / mainScreenDensity * BuildConfig.SCALE_FACTOR
 
         if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            if (!this::uiManager.isInitialized) {
+            if (!isUiManagerInitialized()) {
                 // this makes sure we have all required instances
                 // no matter if the app is launched on the phone or AA first
                 return
@@ -299,7 +306,7 @@ class VirtualRenderer(
 
             var splashScreenView: View? = null
 
-            if (!this@VirtualRenderer::reactRootView.isInitialized) {
+            if (!isReactRootViewInitialized()) {
                 splashScreenView =
                     if (isCluster) getClusterSplashScreen(context, height, width) else null
 
@@ -470,11 +477,15 @@ class VirtualRenderer(
             val renderer = virtualRenderer[moduleId]
 
             if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-                renderer?.reactSurfaceId?.let {
-                    renderer.uiManager.stopSurface(it)
+                if (renderer?.isUiManagerInitialized() == true) {
+                    renderer.reactSurfaceId?.let {
+                        renderer.uiManager.stopSurface(it)
+                    }
                 }
             } else {
-                renderer?.reactRootView?.unmountReactApplication()
+                if (renderer?.isReactRootViewInitialized() == true) {
+                    renderer.reactRootView.unmountReactApplication()
+                }
             }
 
             virtualRenderer.remove(moduleId)
