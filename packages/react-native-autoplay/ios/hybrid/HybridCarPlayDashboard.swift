@@ -30,9 +30,13 @@ class HybridCarPlayDashboard: HybridCarPlayDashboardSpec {
         }
     }
 
-    func initRootView() throws {
-        let scene = try SceneStore.getDashboardScene()
-        scene?.initRootView()
+    func initRootView() throws -> Promise<Void> {
+        return Promise.async {
+            guard let scene = try SceneStore.getDashboardScene() else { return }
+            try await MainActor.run {
+                try scene.initRootView()
+            }
+        }
     }
 
     func setButtons(buttons: [NitroCarPlayDashboardButton]) throws -> Promise<

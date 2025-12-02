@@ -60,7 +60,7 @@ class HybridCluster: HybridClusterSpec {
                     let scene = try SceneStore.getClusterScene(
                         clusterId: clusterId
                     )
-                    scene?.initRootView()
+                    try scene?.initRootView()
                 }
             } else {
                 throw AutoPlayError.unsupportedVersion(

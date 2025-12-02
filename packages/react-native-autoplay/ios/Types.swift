@@ -18,4 +18,6 @@ enum AutoPlayError: Error {
     case propertyNotFoundError(String)
     case unsupportedVersion(String)
     case invalidTemplateType(String)
+    case noUiWindow(String)
+    case initReactRootViewFailed(String)
 }

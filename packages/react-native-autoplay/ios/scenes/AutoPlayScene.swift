@@ -9,7 +9,7 @@ import CarPlay
 
 class AutoPlayScene: UIResponder {
     var initialProperties: [String: Any] = [:]
-    var moduleName: String?
+    let moduleName: String
     var window: UIWindow?
     var isConnected = false
     var interfaceController: AutoPlayInterfaceController?
@@ -17,7 +17,11 @@ class AutoPlayScene: UIResponder {
     var traitCollection = UIScreen.main.traitCollection
     var safeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
-    override init() {}
+    override init() {
+        fatalError(
+            "init() should never be called - use init(moduleName: String) instead"
+        )
+    }
 
     init(moduleName: String) {
         self.moduleName = moduleName
@@ -46,43 +50,37 @@ class AutoPlayScene: UIResponder {
         self.window = nil
         isConnected = false
 
-        guard let moduleName = self.moduleName else {
-            return
-        }
-
         SceneStore.removeScene(moduleName: moduleName)
     }
 
     func setState(state: VisibilityState) {
-        guard let moduleName = self.moduleName else {
-            return
-        }
-
         SceneStore.setState(moduleName: moduleName, state: state)
     }
 
-    func initRootView() {
-        DispatchQueue.main.async {
-            guard let window = self.window else {
-                return
-            }
-            guard let moduleName = self.moduleName else {
-                return
-            }
-
-            guard
-                let rootView = ViewUtils.getRootView(
-                    moduleName: moduleName,
-                    initialProps: self.initialProperties
-                )
-            else { return }
-
-            window.rootViewController = AutoPlaySceneViewController(
-                view: rootView,
-                moduleName: moduleName
+    @MainActor
+    func initRootView() throws {
+        guard let window = self.window else {
+            throw AutoPlayError.noUiWindow(
+                "window nil for module: \(moduleName)"
             )
-            window.makeKeyAndVisible()
         }
+        
+        guard
+            let rootView = ViewUtils.getRootView(
+                moduleName: moduleName,
+                initialProps: self.initialProperties
+            )
+        else {
+            throw AutoPlayError.initReactRootViewFailed(
+                "could not create react root view for module: \(moduleName)"
+            )
+        }
+
+        window.rootViewController = AutoPlaySceneViewController(
+            view: rootView,
+            moduleName: moduleName
+        )
+        window.makeKeyAndVisible()
     }
 
     open func traitCollectionDidChange(traitCollection: UITraitCollection) {
@@ -93,7 +91,7 @@ class AutoPlayScene: UIResponder {
     open func safeAreaInsetsDidChange(safeAreaInsets: UIEdgeInsets) {
         self.safeAreaInsets = safeAreaInsets
         HybridAutoPlay.emitSafeAreaInsets(
-            moduleName: moduleName!,
+            moduleName: moduleName,
             safeAreaInsets: safeAreaInsets
         )
     }

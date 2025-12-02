@@ -131,8 +131,8 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                 let carPlayTemplate = template.getTemplate()
                 
                 if carPlayTemplate is CPMapTemplate {
-                    await MainActor.run {
-                        scene.initRootView()
+                    try await MainActor.run {
+                        try scene.initRootView()
                     }
                 }
 

@@ -98,11 +98,13 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline void initRootView() override {
+    inline std::shared_ptr<Promise<void>> initRootView() override {
       auto __result = _swiftPart.initRootView();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
+      auto __value = std::move(__result.value());
+      return __value;
     }
     inline std::function<void()> addListenerColorScheme(const std::function<void(ColorScheme /* payload */)>& callback) override {
       auto __result = _swiftPart.addListenerColorScheme(callback);

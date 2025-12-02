@@ -60,7 +60,7 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       // Methods
       virtual std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) = 0;
       virtual std::shared_ptr<Promise<void>> setButtons(const std::vector<NitroCarPlayDashboardButton>& buttons) = 0;
-      virtual void initRootView() = 0;
+      virtual std::shared_ptr<Promise<void>> initRootView() = 0;
       virtual std::function<void()> addListenerColorScheme(const std::function<void(ColorScheme /* payload */)>& callback) = 0;
 
     protected:

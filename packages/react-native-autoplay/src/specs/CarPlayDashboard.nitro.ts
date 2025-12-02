@@ -17,6 +17,6 @@ interface NitroCarPlayDashboardButton extends BaseCarPlayDashboardButton {
 export interface CarPlayDashboard extends HybridObject<{ ios: 'swift' }> {
   addListener(eventType: EventName, callback: () => void): CleanupCallback;
   setButtons(buttons: Array<NitroCarPlayDashboardButton>): Promise<void>;
-  initRootView(): void;
+  initRootView(): Promise<void>;
   addListenerColorScheme(callback: (payload: ColorScheme) => void): CleanupCallback;
 }
