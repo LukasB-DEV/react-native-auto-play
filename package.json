@@ -11,9 +11,13 @@
     "start": "yarn workspace example start",
     "ios": "yarn workspace example ios",
     "android": "yarn workspace example android",
-    "android:adb": "./adb_port_setup.sh"
+    "android:adb": "./adb_port_setup.sh",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4"
+  },
+  "dependencies": {
+    "patch-package": "^8.0.1"
   }
 }
