@@ -384,8 +384,8 @@ useEffect(() => {
 
 -   `useMapTemplate()`: Get a reference to the parent `MapTemplate` instance.
 -   `useVoiceInput()`: Access voice input functionality - Android Auto only.
--   `useSafeAreaInsets()`: Get safe area insets for the car screen.
--   `useFocusedEffect()`: A useEffect alternative that executes when the specified component is visible to the user - use any of the `AutoPlayModules` enum or a cluster uuid.
+-   `useSafeAreaInsets()`: Get safe area insets for any root component.
+-   `useFocusedEffect()`: A useEffect alternative that executes when the specified component is visible to the user - use any of the `AutoPlayModules` enum or a cluster uuid to sepcify the component the effect should listen for.
 -   `useAndroidAutoTelemetry()`: Access to car telemetry data on Android Auto.
     ```tsx
     import {
