@@ -9,7 +9,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@iternio/react-native-auto-play.svg)](https://www.npmjs.com/package/@iternio/react-native-auto-play)
 [![npm downloads](https://img.shields.io/npm/dm/@iternio/react-native-auto-play.svg)](https://www.npmjs.com/package/@iternio/react-native-auto-play)
-[![License](https://img.shields.io/npm/l/@iternio/react-native-auto-play.svg)](https://github.com/Iternio-Planning-AB/react-native-auto-play/blob/main/LICENSE)
+[![License](https://img.shields.io/npm/l/@iternio/react-native-auto-play.svg)](https://github.com/Iternio-Planning-AB/react-native-auto-play/blob/master/LICENSE.md)
 
 ## Features
 
