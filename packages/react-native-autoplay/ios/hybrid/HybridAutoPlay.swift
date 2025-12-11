@@ -141,6 +141,14 @@ class HybridAutoPlay: HybridAutoPlaySpec {
                     animated: false
                 )
             }
+
+            DispatchQueue.main.async {
+                if let template = TemplateStore.getTemplate(
+                    templateId: templateId
+                ) {
+                    template.invalidate()
+                }
+            }
         }
     }
 
