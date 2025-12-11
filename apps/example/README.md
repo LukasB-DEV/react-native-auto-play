@@ -1,6 +1,10 @@
 # React Native Auto Play Example
 
 This example app showcases the features of the `react-native-autoplay` library.
+<div>
+    <img alt="image" src="https://github.com/user-attachments/assets/10565e63-8918-44f9-aad4-1e9c256cd713" style="width: 45%" />
+    <img alt="image" src="https://github.com/user-attachments/assets/de4720f5-87a1-470c-960d-aa04c7446765" style="width: 45%" />
+</div>
 
 ## Getting Started
 
