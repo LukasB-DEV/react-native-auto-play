@@ -12,7 +12,7 @@
     "ios": "yarn workspace example ios",
     "android": "yarn workspace example android",
     "android:adb": "./adb_port_setup.sh",
-    "postinstall": "patch-package"
+    "postinstall": "node scripts/conditional-patch.js"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4"

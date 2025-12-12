@@ -442,6 +442,17 @@ useEffect(() => {
 -   **Broken exceptions with `react-native-skia`**: When using `react-native-skia` up to version `2.4.7`, exceptions on iOS are not reported correctly. This is fixed in newer versions of `react-native-skia`. For more details, see this [pull request](https://github.com/Shopify/react-native-skia/pull/3595).
 -   **AppState on iOS**: The `AppState` module from React Native does not work correctly on iOS because this library uses scenes, which are not supported by the stock `AppState` module. This library provides a custom state listener that works for both Android and iOS. Use `HybridAutoPlay.addListenerRenderState` instead of `AppState`.
 -   **Timers stop on screen lock**: iOS stops all timers when the device's main screen is turned off. To ensure timers continue to run (which is often necessary for background tasks related to autoplay), a patch for `react-native` is required. A patch is included in the root `patches/` directory and can be applied using `patch-package`.
+-   **expo-splash-screen stuck on iOS**: The `expo-splash-screen` module is broken on iOS because it does not support scenes, which are used by this library. This can cause the splash screen to be stuck on either the mobile device or on CarPlay. To fix this, a patch for `expo-splash-screen` is included in the root `patches/` directory and can be applied using `patch-package`. After applying the patch, you can hide the splash screen for a specific scene by passing the module name to the `hide` or `hideAsync` function. The module name can be one of the values from the `AutoPlayModules` enum or the UUID of a cluster screen.
+    ```tsx
+    import { hideAsync } from 'expo-splash-screen';
+    import { AutoPlayModules } from '@iternio/react-native-auto-play';
+
+    // Hide the splash screen for the main app
+    hideAsync(AutoPlayModules.App);
+
+    // Hide the splash screen for the CarPlay screen
+    hideAsync(AutoPlayModules.AutoPlayRoot);
+    ```
 
 ## Contributing
 
@@ -450,3 +461,4 @@ Contributions are welcome! Please submit a pull request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
