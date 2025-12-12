@@ -196,6 +196,30 @@ In case you wanna open up your CarPlay app from one of the CarPlay dashboard but
 ### Android Auto
 No platform specific setup required - we got you covered with all the required stuff.
 
+### Android Auto Customization
+You can customize certain behaviors of the library on Android Auto by setting properties in your app's `android/gradle.properties` file.
+
+-   **Telemetry Update Interval**: Control how often telemetry data is updated.
+    ```properties
+    ReactNativeAutoPlay_androidTelemetryUpdateInterval=4000
+    ```
+    The value is in milliseconds. The default is `4000`.
+
+-   **UI Scale Factor**: Apply a scaling factor to the React Native UI rendered on the car screen. This does not affect the templates.
+    ```properties
+    ReactNativeAutoPlay_androidAutoScaleFactor=1.5f
+    ```
+    The default value is `1.5`.
+
+-   **Cluster Splash Screen**: Customize the splash screen shown on the instrument cluster.
+    ```properties
+    # Delay in milliseconds after the root component is rendered before the splash screen hides.
+    ReactNativeAutoPlay_clusterSplashDelayMs=1000
+    # Duration of the splash screen fade out animation in milliseconds.
+    ReactNativeAutoPlay_clusterSplashDurationMs=500
+    ```
+    The default values are `1000` for the delay and `500` for the duration.
+
 ## Icons
 The library is using [Material Symbols](https://fonts.google.com/icons) for iconography. The font is bundled with the library, so no extra setup is required. You can use these icons on both Android Auto and CarPlay.
 
