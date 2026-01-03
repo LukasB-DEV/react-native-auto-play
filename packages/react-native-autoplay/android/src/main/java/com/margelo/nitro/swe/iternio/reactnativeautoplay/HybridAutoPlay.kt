@@ -5,12 +5,14 @@ import com.margelo.nitro.core.Promise
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.MessageTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.utils.ThreadUtil
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 class HybridAutoPlay : HybridAutoPlaySpec() {
     override fun addListener(
         eventType: EventName, callback: () -> Unit
     ): () -> Unit {
-        val callbacks = listeners.getOrPut(eventType) { mutableListOf() }
+        val callbacks = listeners.getOrPut(eventType) { CopyOnWriteArrayList() }
         callbacks.add(callback)
 
         if (eventType == EventName.DIDCONNECT && AndroidAutoSession.getIsConnected()) {
@@ -30,7 +32,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         moduleName: String, callback: (VisibilityState) -> Unit
     ): () -> Unit {
         val callbacks = renderStateListeners.getOrPut(moduleName) {
-            mutableListOf()
+            CopyOnWriteArrayList()
         }
         callbacks.add(callback)
 
@@ -56,7 +58,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         moduleName: String, callback: (SafeAreaInsets) -> Unit
     ): () -> Unit {
         val callbacks = safeAreaInsetsListeners.getOrPut(moduleName) {
-            mutableListOf()
+            CopyOnWriteArrayList()
         }
         callbacks.add(callback)
 
@@ -224,7 +226,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
     }
 
 
-
     override fun addListenerVoiceInput(callback: (Location?, String?) -> Unit): () -> Unit {
         voiceInputListeners.add(callback)
 
@@ -236,15 +237,15 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
     companion object {
         const val TAG = "HybridAutoPlay"
 
-        private val listeners = mutableMapOf<EventName, MutableList<() -> Unit>>()
+        private val listeners = ConcurrentHashMap<EventName, CopyOnWriteArrayList<() -> Unit>>()
 
         private val renderStateListeners =
-            mutableMapOf<String, MutableList<(VisibilityState) -> Unit>>()
+            ConcurrentHashMap<String, CopyOnWriteArrayList<(VisibilityState) -> Unit>>()
 
-        private val voiceInputListeners = mutableListOf<(Location?, String?) -> Unit>()
+        private val voiceInputListeners = CopyOnWriteArrayList<(Location?, String?) -> Unit>()
 
         private val safeAreaInsetsListeners =
-            mutableMapOf<String, MutableList<(SafeAreaInsets) -> Unit>>()
+            ConcurrentHashMap<String, CopyOnWriteArrayList<(SafeAreaInsets) -> Unit>>()
 
 
         fun removeListeners(templateId: String) {

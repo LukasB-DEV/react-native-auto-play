@@ -2,12 +2,14 @@ package com.margelo.nitro.swe.iternio.reactnativeautoplay
 
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.utils.ThreadUtil
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 class HybridCluster : HybridClusterSpec() {
     override fun addListener(
         eventType: ClusterEventName, callback: (String) -> Unit
     ): () -> Unit {
-        val callbacks = listeners.getOrPut(eventType) { mutableListOf() }
+        val callbacks = listeners.getOrPut(eventType) { CopyOnWriteArrayList() }
         callbacks.add(callback)
 
         eventQueue[eventType]?.forEach {
@@ -67,8 +69,8 @@ class HybridCluster : HybridClusterSpec() {
         const val TAG = "HybridCluster"
 
         private val listeners =
-            mutableMapOf<ClusterEventName, MutableList<(clusterId: String) -> Unit>>()
-        private val eventQueue = mutableMapOf<ClusterEventName, Array<String>>()
+            ConcurrentHashMap<ClusterEventName, CopyOnWriteArrayList<(clusterId: String) -> Unit>>()
+        private val eventQueue = ConcurrentHashMap<ClusterEventName, Array<String>>()
 
         private val colorSchemeListeners =
             mutableListOf<(clusterId: String, colorScheme: ColorScheme) -> Unit>()
