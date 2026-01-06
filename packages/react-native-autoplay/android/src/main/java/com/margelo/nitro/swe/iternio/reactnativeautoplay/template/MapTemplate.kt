@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.car.app.AppManager
 import androidx.car.app.CarContext
 import androidx.car.app.model.Action
+import androidx.car.app.model.ActionStrip
 import androidx.car.app.model.Alert
 import androidx.car.app.model.AlertCallback
 import androidx.car.app.model.CarColor
@@ -73,8 +74,10 @@ class MapTemplate(
             config.mapButtons?.let { buttons ->
                 setMapActionStrip(Parser.parseMapActions(context, buttons))
             }
-            config.headerActions?.let { headerActions ->
-                setActionStrip(Parser.parseMapHeaderActions(context, headerActions))
+            val headerActionStrip = config.headerActions?.let { headerActions ->
+                Parser.parseMapHeaderActions(context, headerActions)
+             }
+            setActionStrip(headerActionStrip ?: ActionStrip.Builder().build())
             }
             val travelEstimates =
                 if (config.visibleTravelEstimate == VisibleTravelEstimate.FIRST) destinationTravelEstimates.firstOrNull() else destinationTravelEstimates.lastOrNull()
