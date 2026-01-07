@@ -63,7 +63,8 @@ class TripPreviewTemplate(
 
         return MapWithContentTemplate.Builder().apply {
             val pane = Pane.Builder().apply {
-                selectedRoute.additionalInformationVariants[0]?.let {
+                selectedRoute.additionalInformationVariants.firstOrNull()
+                    ?.takeIf { it.isNotEmpty() }?.let {
                     addRow(Row.Builder().apply {
                         setTitle(Parser.parseText(selectedRoute.additionalInformationVariants))
                         addText(Parser.parseText(selectedRoute.selectionSummaryVariants))
