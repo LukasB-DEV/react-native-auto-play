@@ -77,8 +77,18 @@ class MapTemplate(
             val headerActionStrip = config.headerActions?.let { headerActions ->
                 Parser.parseMapHeaderActions(context, headerActions)
             } ?: run {
-                Log.w("MapTemplate", "No header actions provided, using empty ActionStrip")
-                ActionStrip.Builder().build()
+                Log.w("MapTemplate", "No header actions provided, using app icon as fallback")
+                ActionStrip.Builder()
+                    .addAction(
+                        Action.Builder()
+                            .setIcon(
+                                CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_launcher))
+                                    .build()
+                            )
+                            .setOnClickListener { /* No-op, just satisfies requirement */ }
+                            .build()
+                    )
+                    .build()
             }
             setActionStrip(headerActionStrip)
             
