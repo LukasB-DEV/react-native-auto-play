@@ -74,23 +74,15 @@ class MapTemplate(
             config.mapButtons?.let { buttons ->
                 setMapActionStrip(Parser.parseMapActions(context, buttons))
             }
-            val headerActionStrip = config.headerActions?.let { headerActions ->
-                Parser.parseMapHeaderActions(context, headerActions)
+                        config.headerActions?.let { headerActions ->
+                setActionStrip(Parser.parseMapHeaderActions(context, headerActions))
             } ?: run {
-                ActionStrip.Builder()
-                    .addAction(
-                        Action.Builder()
-                            .setIcon(
-                                CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_launcher))
-                                    .build()
-                            )
-                            .setOnClickListener { /* No-op, just satisfies requirement */ }
-                            .build()
-                    )
-                    .build()
+                setActionStrip(
+                    ActionStrip.Builder()
+                        .addAction(Action.APP_ICON)
+                        .build()
+                )
             }
-            setActionStrip(headerActionStrip)
-            
             val travelEstimates =
                 if (config.visibleTravelEstimate == VisibleTravelEstimate.FIRST) destinationTravelEstimates.firstOrNull() else destinationTravelEstimates.lastOrNull()
             travelEstimates?.let {
