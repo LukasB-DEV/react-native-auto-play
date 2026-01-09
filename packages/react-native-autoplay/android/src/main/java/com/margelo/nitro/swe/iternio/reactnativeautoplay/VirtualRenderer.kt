@@ -90,9 +90,14 @@ class VirtualRenderer(
                     reactContext, UIManagerType.FABRIC
                 ) as FabricUIManager
             } else {
-                uiManager = UIManagerHelper.getUIManager(
-                    reactContext, UIManagerType.LEGACY
-                ) as UIManager
+                // UIManagerType.DEFAULT was deprecated and will eventually be removed, but LEGACY is not available in lower RN versions. 
+                // So make sure both work to be backwards compatible
+                val legacyType = try {
+                    UIManagerType::class.java.getField("LEGACY").getInt(null)
+                } catch (e: NoSuchFieldException) {
+                    UIManagerType.DEFAULT
+                }
+                uiManager = UIManagerHelper.getUIManager(reactContext, legacyType) as UIManager
             }
 
             initRenderer()
