@@ -347,6 +347,232 @@ export default registerAutoPlay;
 
 -   `HybridAutoPlay`: The primary interface for interacting with the native module, handling connection status and events.
 
+### Core Types
+
+#### AutoText
+Most text props accept `AutoText` so you can localize and provide variants. You can pass either a string or an object with `text`/`variants` as used throughout the example app.
+
+#### AutoImage
+Images are provided as `AutoImage` objects with a `type` and `name`. The built-in icon set is Material Symbols (see **Icons**). You can also use bundled images from your native project.
+
+#### RootComponentInitialProps
+All root components rendered by templates/scenes receive `RootComponentInitialProps`:
+
+-   `id`: Module identifier (e.g. `AutoPlayRoot`, `CarPlayDashboard`, or a cluster UUID).
+-   `rootTag`: React Native root tag.
+-   `colorScheme`: `'light' | 'dark'` initial color scheme (listen to `onAppearanceDidChange` on `MapTemplate` for updates).
+-   `window`: `{ width, height, scale }`.
+
+### Template Configs (Props)
+
+Below is a concise overview of the most important props per template. Optional props are marked as **optional**. Required props are marked as **required**.
+
+#### MapTemplateConfig
+
+| Prop | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `component` | `React.ComponentType<RootComponentInitialProps>` | ✅ | React component to render on the map surface. |
+| `onStopNavigation` | `(template: MapTemplate) => void` | ✅ | Called when navigation is stopped by the system. |
+| `headerActions` | `MapHeaderActions<MapTemplate>` | ❌ | Top action strip. See **Header Actions** below. |
+| `mapButtons` | `MapButtons<MapTemplate>` | ❌ | 1–4 map buttons shown on the map. |
+| `visibleTravelEstimate` | `'first' | 'last'` | ❌ | Which travel estimate to display. |
+| `onDidPan` / `onDidUpdateZoomGestureWithCenter` | callbacks | ❌ | Map gesture events. |
+| `onAppearanceDidChange` | `(colorScheme) => void` | ❌ | Listen for light/dark mode changes. |
+| `onAutoDriveEnabled` | `(template) => void` | ❌ | Android-only auto drive callback. |
+
+#### ListTemplateConfig
+
+| Prop | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | `AutoText` | ✅ | Header title. |
+| `sections` | `Section<ListTemplate>` | ❌ | List sections/rows. |
+| `headerActions` | `HeaderActions<ListTemplate>` | ❌ | Header actions. See **Header Actions** below. |
+| `mapConfig` | `BaseMapTemplateConfig<ListTemplate>` | ❌ | Android map-with-content layout. |
+
+#### GridTemplateConfig
+
+| Prop | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | `AutoText` | ✅ | Header title. |
+| `buttons` | `GridButton<GridTemplate>[]` | ✅ | Grid items. |
+| `headerActions` | `HeaderActions<GridTemplate>` | ❌ | Header actions. See **Header Actions** below. |
+| `mapConfig` | `BaseMapTemplateConfig<GridTemplate>` | ❌ | Android map-with-content layout. |
+
+#### SearchTemplateConfig
+
+| Prop | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | `AutoText` | ✅ | Header title. |
+| `results` | `SearchSection<SearchTemplate>` | ❌ | Initial results. |
+| `headerActions` | `HeaderActions<SearchTemplate>` | ❌ | Header actions. See **Header Actions** below. |
+| `searchHint` | `string` | ❌ | Android-only placeholder. |
+| `initialSearchText` | `string` | ❌ | Android-only initial value. |
+| `onSearchTextChanged` | `(text) => void` | ✅ | Fired on text input changes. |
+| `onSearchTextSubmitted` | `(text) => void` | ✅ | Fired on submit. |
+
+#### InformationTemplateConfig
+
+| Prop | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | `AutoText` | ✅ | Header title. |
+| `items` | `InformationItems` | ❌ | 1–4 rows. |
+| `actions` | platform-specific | ❌ | Up to 2 buttons on Android, up to 3 on iOS. |
+| `headerActions` | `HeaderActions<InformationTemplate>` | ❌ | Header actions. See **Header Actions** below. |
+| `mapConfig` | `BaseMapTemplateConfig<InformationTemplate>` | ❌ | Android map-with-content layout. |
+
+#### MessageTemplateConfig
+
+| Prop | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `message` | `AutoText` | ✅ | Main message text. |
+| `title` | `AutoText` | ❌ | Android header title. |
+| `image` | `AutoImage` | ❌ | Android-only image above the message. |
+| `actions` | platform-specific | ❌ | Up to 2 buttons on Android, up to 3 on iOS. |
+| `headerActions` | `HeaderActionsAndroid<MessageTemplate>` | ❌ | Android-only header actions. |
+| `mapConfig` | `BaseMapTemplateConfig<MessageTemplate>` | ❌ | Android map-with-content layout. |
+
+### Header Actions (Important)
+
+On Android, header actions are now **safe to omit**: if `headerActions` is `undefined`, the system will render the **app icon** automatically. If you _do_ pass actions, they must include alignment information to avoid native errors.
+
+**Use these rules to avoid crashes:**
+
+1. **For List/Grid/Information/Search/Message templates on Android**, always pass the structured object format (alignment is implicit via `startHeaderAction`/`endHeaderActions`):
+
+```ts
+const headerActions: HeaderActions<MyTemplate> = {
+  android: {
+    startHeaderAction: { type: 'back', onPress: (t) => HybridAutoPlay.popTemplate() },
+    endHeaderActions: [
+      { type: 'image', image: { name: 'help', type: 'glyph' }, onPress: () => {} },
+    ],
+  },
+  ios: {
+    backButton: { type: 'back', onPress: (t) => HybridAutoPlay.popTemplate() },
+    trailingNavigationBarButtons: [
+      { type: 'image', image: { name: 'close', type: 'glyph' }, onPress: () => {} },
+    ],
+  },
+};
+```
+
+⚠️ **Do not pass a raw array of actions** to `headerActions` on Android for these templates. Arrays are only valid for **MapTemplate** header actions (see below). Passing an array for header-based templates results in actions without alignment and can crash on Android.
+
+2. **For MapTemplate on Android**, you can use the array format (1–4 actions) for the action strip:
+
+```ts
+const mapHeaderActions: MapTemplateConfig['headerActions'] = {
+  android: [
+    { type: 'image', image: { name: 'list', type: 'glyph' }, onPress: () => {} },
+    { type: 'image', image: { name: 'search', type: 'glyph' }, onPress: () => {} },
+  ],
+  ios: {
+    leadingNavigationBarButtons: [
+      { type: 'image', image: { name: 'list', type: 'glyph' }, onPress: () => {} },
+    ],
+  },
+};
+```
+
+**Header action shapes (structured overview):**
+
+| Platform | Property | Shape | Limits / Notes |
+| --- | --- | --- | --- |
+| Android (header templates) | `headerActions.android` | `{ startHeaderAction?, endHeaderActions? }` | `endHeaderActions`: 1–2 buttons. `startHeaderAction` can be `appIcon`/`back`/custom. |
+| Android (MapTemplate) | `headerActions.android` | `ActionButton[]` | 1–4 action strip buttons. |
+| iOS | `headerActions.ios` | `{ backButton?, leadingNavigationBarButtons?, trailingNavigationBarButtons? }` | Each list supports 1–2 buttons. `backButton` optional (system back is added if omitted). |
+
+### Actions & Button Types (Quick Reference)
+
+-   **Android header actions** use `startHeaderAction` + `endHeaderActions`:
+    - `startHeaderAction`: `AppButton | BackButton | ActionButton`
+    - `endHeaderActions`: 1–2 buttons
+    - **If `headerActions` is omitted**: Android renders the **app icon** automatically.
+-   **iOS header actions** use:
+    - `backButton` (optional, otherwise iOS provides a default back action)
+    - `leadingNavigationBarButtons` (1–2)
+    - `trailingNavigationBarButtons` (1–2)
+-   **MapTemplate map buttons**: 1–4 buttons, including the special `pan` button.
+
+### Event & Listener APIs
+
+This section lists the available listeners and lifecycle callbacks so you can wire up connection state, visibility, cluster settings, and system events.
+
+#### HybridAutoPlay listeners
+
+| API | Payload | Notes |
+| --- | --- | --- |
+| `HybridAutoPlay.addListener(event, cb)` | `event: 'didConnect' | 'didDisconnect'` | Connection changes for the head unit. |
+| `HybridAutoPlay.addListenerRenderState(moduleName, cb)` | `cb(visibility: 'willAppear' \| 'didAppear' \| 'willDisappear' \| 'didDisappear')` | Use `AutoPlayModules.*` or a cluster UUID. |
+| `HybridAutoPlay.addListenerVoiceInput(cb)` | `cb(location?, query?)` | Android-only voice input. |
+| `HybridAutoPlay.addSafeAreaInsetsListener(moduleName, cb)` | `cb(insets)` | Safe area inset changes for any module. |
+
+```ts
+import { AutoPlayModules, HybridAutoPlay } from '@iternio/react-native-auto-play';
+
+const cleanup = HybridAutoPlay.addListener('didConnect', () => {
+  console.log('Head unit connected');
+});
+
+const removeVisibility = HybridAutoPlay.addListenerRenderState(
+  AutoPlayModules.AutoPlayRoot,
+  (state) => console.log('AutoPlayRoot state', state)
+);
+```
+
+#### Template lifecycle callbacks
+
+All templates accept these lifecycle callbacks in their config:
+
+- `onWillAppear(animated?)`
+- `onDidAppear(animated?)`
+- `onWillDisappear(animated?)`
+- `onDidDisappear(animated?)`
+- `onPopped()` (not supported on all iOS templates, see notes in code)
+
+```ts
+const template = new ListTemplate({
+  title: { text: 'Menu' },
+  onWillAppear: () => console.log('will appear'),
+  onPopped: () => console.log('popped forever'),
+});
+```
+
+#### MapTemplate callbacks
+
+Map-specific callbacks live on `MapTemplateConfig`:
+
+- `onDidPan({ x, y })`
+- `onDidUpdateZoomGestureWithCenter({ x, y }, scale)`
+- `onClick({ x, y })` (Android)
+- `onDoubleClick({ x, y })` (Android)
+- `onAppearanceDidChange(colorScheme)`
+- `onAutoDriveEnabled(template)` (Android)
+- `onStopNavigation(template)` (**required**)
+
+#### AutoPlayCluster listeners (instrument cluster)
+
+| API | Payload | Notes |
+| --- | --- | --- |
+| `AutoPlayCluster.addListenerColorScheme(cb)` | `(clusterId, colorScheme)` | iOS + Android. |
+| `AutoPlayCluster.addListenerZoom(cb)` | `(clusterId, zoomEvent)` | iOS only. |
+| `AutoPlayCluster.addListenerCompass(cb)` | `(clusterId, enabled)` | iOS only. |
+| `AutoPlayCluster.addListenerSpeedLimit(cb)` | `(clusterId, enabled)` | iOS only. |
+
+```ts
+const removeCompass = AutoPlayCluster.addListenerCompass((clusterId, enabled) => {
+  console.log('Cluster', clusterId, 'compass', enabled);
+});
+```
+
+#### CarPlayDashboard listeners (iOS)
+
+| API | Payload | Notes |
+| --- | --- | --- |
+| `CarPlayDashboard.addListener(event, cb)` | `event: 'didConnect' | 'didDisconnect'` | Connection changes for the dashboard scene. |
+| `CarPlayDashboard.addListenerRenderState(cb)` | `cb(visibility)` | Scene visibility changes. |
+| `CarPlayDashboard.addListenerColorScheme(cb)` | `cb(colorScheme)` | Light/dark changes. |
+
 ### Localization
 The library allows you to pass distances and durations and formats them according to the system defaults.
 For iOS make sure to provide all supported app languages in Info.plist CFBundleLocalizations for this to work properly, missing languages will use CFBundleDevelopmentRegion as fallback which is **en** most of the time. This results in a mix up with the region which might result in **en**_AT instead of **de**_AT for example.
@@ -397,12 +623,33 @@ useEffect(() => {
 
 ### Templates
 
--   `MapTemplate`: For navigation apps.
--   `ListTemplate`: To display a list of items.
--   `GridTemplate`: To display a grid of items.
--   `SearchTemplate`: For search functionality.
--   `InformationTemplate`: For showing information with actions.
--   `MessageTemplate`: For displaying messages.
+| Template | Purpose | Notes |
+| --- | --- | --- |
+| `MapTemplate` | Navigation, map rendering | Use as root; supports map buttons & navigation APIs. |
+| `ListTemplate` | Lists/menus | Supports sections, radio/toggle rows. |
+| `GridTemplate` | Action grid | Use `GridButton` items. |
+| `SearchTemplate` | Search UI | Android-only search bar callbacks. |
+| `InformationTemplate` | Info panels | Android uses PaneTemplate; iOS uses InformationTemplate. |
+| `MessageTemplate` | Modal messages | Always shown on top until popped. |
+
+**Template quick examples:**
+
+```ts
+// MapTemplate
+const map = new MapTemplate({
+  component: MapScreen,
+  onStopNavigation: () => {},
+  headerActions: { android: [{ type: 'image', image: { name: 'list', type: 'glyph' }, onPress: () => {} }] },
+});
+map.setRootTemplate();
+
+// ListTemplate
+new ListTemplate({
+  title: { text: 'Destinations' },
+  sections: [{ type: 'default', title: 'Recent', items: [{ type: 'default', title: { text: 'Home' }, onPress: () => {} }] }],
+  headerActions: { android: { startHeaderAction: { type: 'back', onPress: () => {} } } },
+}).push();
+```
 
 ### Hooks
 
@@ -459,6 +706,31 @@ useEffect(() => {
 -   `CarPlayDashboard`: A component to render content on the CarPlay dashboard (CarPlay only).
 -   `AutoPlayCluster`: A component to render content on the instrument cluster (CarPlay & Android Auto).
 
+**Scene APIs (overview):**
+
+**CarPlayDashboard (iOS)**
+- `setComponent(component)` — register the React component (call once).
+- `setButtons(buttons)` — **required** to make the dashboard visible.
+- `addListener(event, cb)` — `didConnect` / `didDisconnect`.
+- `addListenerRenderState(cb)` — scene visibility callbacks.
+- `addListenerColorScheme(cb)` — light/dark changes.
+
+```ts
+CarPlayDashboard.setButtons([
+  {
+    titleVariants: ['Open App'],
+    subtitleVariants: ['Dashboard shortcut'],
+    image: { name: 'directions_car', type: 'glyph' },
+    onPress: () => console.log('open app'),
+  },
+]);
+```
+
+**AutoPlayCluster**
+- `setComponent(component)` — register the cluster component.
+- `setAttributedInactiveDescriptionVariants(variants)` — iOS only inactive text.
+- `addListenerColorScheme(cb)` / `addListenerZoom(cb)` / `addListenerCompass(cb)` / `addListenerSpeedLimit(cb)`.
+
 ## Known Issues
 
 ### iOS
@@ -485,4 +757,3 @@ Contributions are welcome! Please submit a pull request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](../../LICENSE.md) file for details.
-
