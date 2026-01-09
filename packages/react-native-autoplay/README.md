@@ -375,7 +375,7 @@ Below is a concise overview of the most important props per template. Optional p
 | `onStopNavigation` | `(template: MapTemplate) => void` | ✅ | Called when navigation is stopped by the system. |
 | `headerActions` | `MapHeaderActions<MapTemplate>` | ❌ | Top action strip. See **Header Actions** below. |
 | `mapButtons` | `MapButtons<MapTemplate>` | ❌ | 1–4 map buttons shown on the map. |
-| `visibleTravelEstimate` | `'first' | 'last'` | ❌ | Which travel estimate to display. |
+| `visibleTravelEstimate` | `'first'` `'last'` | ❌ | Which travel estimate to display. |
 | `onDidPan` / `onDidUpdateZoomGestureWithCenter` | callbacks | ❌ | Map gesture events. |
 | `onAppearanceDidChange` | `(colorScheme) => void` | ❌ | Listen for light/dark mode changes. |
 | `onAutoDriveEnabled` | `(template) => void` | ❌ | Android-only auto drive callback. |
@@ -502,7 +502,7 @@ This section lists the available listeners and lifecycle callbacks so you can wi
 
 | API | Payload | Notes |
 | --- | --- | --- |
-| `HybridAutoPlay.addListener(event, cb)` | `event: 'didConnect' | 'didDisconnect'` | Connection changes for the head unit. |
+| `HybridAutoPlay.addListener(event, cb)` | event: `'didConnect'` `'didDisconnect'` | Connection changes for the head unit. |
 | `HybridAutoPlay.addListenerRenderState(moduleName, cb)` | `cb(visibility: 'willAppear' \| 'didAppear' \| 'willDisappear' \| 'didDisappear')` | Use `AutoPlayModules.*` or a cluster UUID. |
 | `HybridAutoPlay.addListenerVoiceInput(cb)` | `cb(location?, query?)` | Android-only voice input. |
 | `HybridAutoPlay.addSafeAreaInsetsListener(moduleName, cb)` | `cb(insets)` | Safe area inset changes for any module. |
@@ -569,7 +569,7 @@ const removeCompass = AutoPlayCluster.addListenerCompass((clusterId, enabled) =>
 
 | API | Payload | Notes |
 | --- | --- | --- |
-| `CarPlayDashboard.addListener(event, cb)` | `event: 'didConnect' | 'didDisconnect'` | Connection changes for the dashboard scene. |
+| `CarPlayDashboard.addListener(event, cb)` | event: `'didConnect'` `'didDisconnect'` | Connection changes for the dashboard scene. |
 | `CarPlayDashboard.addListenerRenderState(cb)` | `cb(visibility)` | Scene visibility changes. |
 | `CarPlayDashboard.addListenerColorScheme(cb)` | `cb(colorScheme)` | Light/dark changes. |
 
