@@ -394,7 +394,7 @@ Below is a concise overview of the most important props per template. Optional p
 | Prop | Type | Required | Notes |
 | --- | --- | --- | --- |
 | `title` | `AutoText` | ✅ | Header title. |
-| `buttons` | `GridButton<GridTemplate>[]` | ✅ | Grid items. |
+| `buttons` | `GridButton<GridTemplate>[]` | ✅ | Grid items. Providing an empty array will result in a loading indicator on Android and an empty template on iOS. |
 | `headerActions` | `HeaderActions<GridTemplate>` | ❌ | Header actions. See **Header Actions** below. |
 | `mapConfig` | `BaseMapTemplateConfig<GridTemplate>` | ❌ | Android map-with-content layout. |
 
