@@ -433,7 +433,7 @@ Below is a concise overview of the most important props per template. Optional p
 
 ### Header Actions (Important)
 
-On Android, header actions are now **safe to omit**: if `headerActions` is `undefined`, the system will render the **app icon** automatically. If you _do_ pass actions, they must include alignment information to avoid native errors.
+On Android, header actions may be omitted, although this is not recommended. If `headerActions` is `undefined`, the system automatically renders the app icon in the header. Because Android Auto enforces monochrome icons, this can result in a poor-looking button.
 
 **Use these rules to avoid crashes:**
 
