@@ -378,7 +378,7 @@ Below is a concise overview of the most important props per template. Optional p
 | `visibleTravelEstimate` | `'first'` `'last'` | ❌ | Which travel estimate to display. |
 | `onDidPan` / `onDidUpdateZoomGestureWithCenter` | callbacks | ❌ | Map gesture events. |
 | `onAppearanceDidChange` | `(colorScheme) => void` | ❌ | Listen for light/dark mode changes. |
-| `onAutoDriveEnabled` | `(template) => void` | ❌ | Android-only auto drive callback. |
+| `onAutoDriveEnabled` | `(template) => void` | ⚠️ | Android-only auto drive callback. Make sure to take action when receiving this and simulate a drive to the set destination. [Check Android docs for details](https://developer.android.com/reference/androidx/car/app/navigation/NavigationManagerCallback#onAutoDriveEnabled()) |
 
 #### ListTemplateConfig
 
