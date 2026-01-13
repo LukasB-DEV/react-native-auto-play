@@ -385,7 +385,7 @@ Below is a concise overview of the most important props per template. Optional p
 | Prop | Type | Required | Notes |
 | --- | --- | --- | --- |
 | `title` | `AutoText` | ✅ | Header title. |
-| `sections` | `Section<ListTemplate>` | ❌ | List sections/rows. |
+| `sections` | `Section<ListTemplate>` | ❌ | List sections/rows. Not providing anything here will result in a loading indicator on Android and an empty list on iOS. |
 | `headerActions` | `HeaderActions<ListTemplate>` | ❌ | Header actions. See **Header Actions** below. |
 | `mapConfig` | `BaseMapTemplateConfig<ListTemplate>` | ❌ | Android map-with-content layout. |
 
