@@ -31,7 +31,6 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay { struct NitroAction
 #include "Location.hpp"
 #include <optional>
 #include <NitroModules/Promise.hpp>
-#include <NitroModules/ArrayBuffer.hpp>
 #include "SafeAreaInsets.hpp"
 #include "NitroAction.hpp"
 #include <vector>
@@ -70,10 +69,6 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       virtual std::function<void()> addListener(EventName eventType, const std::function<void()>& callback) = 0;
       virtual std::function<void()> addListenerRenderState(const std::string& moduleName, const std::function<void(VisibilityState /* payload */)>& callback) = 0;
       virtual std::function<void()> addListenerVoiceInput(const std::function<void(const std::optional<Location>& /* coordinates */, const std::optional<std::string>& /* query */)>& callback) = 0;
-      virtual bool hasVoiceInputPermission() = 0;
-      virtual std::shared_ptr<Promise<bool>> requestVoiceInputPermission() = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> startVoiceInput(std::optional<double> silenceThresholdMs, std::optional<double> maxDurationMs, const std::optional<std::string>& listeningText) = 0;
-      virtual void stopVoiceInput() = 0;
       virtual std::shared_ptr<Promise<void>> setRootTemplate(const std::string& templateId) = 0;
       virtual std::shared_ptr<Promise<void>> pushTemplate(const std::string& templateId) = 0;
       virtual std::shared_ptr<Promise<void>> popTemplate(std::optional<bool> animate) = 0;
@@ -82,6 +77,7 @@ namespace margelo::nitro::swe::iternio::reactnativeautoplay {
       virtual std::function<void()> addSafeAreaInsetsListener(const std::string& moduleName, const std::function<void(const SafeAreaInsets& /* insets */)>& callback) = 0;
       virtual std::shared_ptr<Promise<void>> setTemplateHeaderActions(const std::string& templateId, const std::optional<std::vector<NitroAction>>& headerActions) = 0;
       virtual bool isConnected() = 0;
+      virtual bool isCarServiceRunning() = 0;
 
     protected:
       // Hybrid Setup

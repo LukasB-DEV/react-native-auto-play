@@ -8,21 +8,21 @@
 import NitroModules
 
 /**
- * Wraps a Swift `(_ isPanningInterfaceVisible: Bool) -> Void` as a class.
+ * Wraps a Swift `(_ value: Bool) -> Void` as a class.
  * This class can be used from C++, e.g. to wrap the Swift closure as a `std::function`.
  */
 public final class Func_void_bool {
   public typealias bridge = margelo.nitro.swe.iternio.reactnativeautoplay.bridge.swift
 
-  private let closure: (_ isPanningInterfaceVisible: Bool) -> Void
+  private let closure: (_ value: Bool) -> Void
 
-  public init(_ closure: @escaping (_ isPanningInterfaceVisible: Bool) -> Void) {
+  public init(_ closure: @escaping (_ value: Bool) -> Void) {
     self.closure = closure
   }
 
   @inline(__always)
-  public func call(isPanningInterfaceVisible: Bool) -> Void {
-    self.closure(isPanningInterfaceVisible)
+  public func call(value: Bool) -> Void {
+    self.closure(value)
   }
 
   /**

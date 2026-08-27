@@ -1,19 +1,11 @@
 package com.margelo.nitro.swe.iternio.reactnativeautoplay
 
-import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.content.ContextCompat
 import com.facebook.react.bridge.UiThreadUtil
-import com.facebook.react.modules.core.PermissionAwareActivity
-import com.facebook.react.modules.core.PermissionListener
-import com.margelo.nitro.NitroModules
-import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.AndroidAutoTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.template.MessageTemplate
 import com.margelo.nitro.swe.iternio.reactnativeautoplay.utils.ThreadUtil
-import kotlinx.coroutines.suspendCancellableCoroutine
-import java.nio.ByteBuffer
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.coroutines.resume
@@ -43,6 +35,10 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
     override fun isConnected(): Boolean {
         return AndroidAutoSession.getIsConnected()
+    }
+
+    override fun isCarServiceRunning(): Boolean {
+        return AndroidAutoService.instance != null
     }
 
     override fun addListenerRenderState(
@@ -104,7 +100,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
     override fun setRootTemplate(templateId: String): Promise<Unit> {
         return Promise.async {
             val template = AndroidAutoTemplate.getTemplate(templateId)
-                ?: throw IllegalArgumentException("setRootTemplate failed, $templateId template not found")
+                ?: throw TemplateNotFoundException(templateId)
 
             if (template.isRenderTemplate) {
                 val screen = AndroidAutoScreen.getScreen(templateId)
@@ -152,7 +148,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
             val context = AndroidAutoSession.getRootContext()
                 ?: throw IllegalArgumentException("pushTemplate failed, carContext not found")
             val template = AndroidAutoTemplate.getTemplate(templateId)
-                ?: throw IllegalArgumentException("pushTemplate failed, template $templateId not found")
+                ?: throw TemplateNotFoundException(templateId)
             val screenManager = AndroidAutoScreen.getScreenManager()
                 ?: throw IllegalArgumentException("pushTemplate failed, screenManager not found")
 
@@ -251,84 +247,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         }
     }
 
-    override fun hasVoiceInputPermission(): Boolean {
-        val context = NitroModules.applicationContext ?: return false
-        return ContextCompat.checkSelfPermission(
-            context, android.Manifest.permission.RECORD_AUDIO
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    override fun requestVoiceInputPermission(): Promise<Boolean> {
-        return Promise.async {
-            if (hasVoiceInputPermission()) {
-                return@async true
-            }
-
-            val carContext = AndroidAutoSession.getRootContext()
-
-            if (carContext != null) {
-                suspendCancellableCoroutine {
-                    carContext.requestPermissions(listOf(android.Manifest.permission.RECORD_AUDIO)) { approved, _ ->
-                        it.resume(approved.contains(android.Manifest.permission.RECORD_AUDIO))
-                    }
-                }
-            } else {
-                val context = NitroModules.applicationContext ?: return@async false
-                val activity =
-                    context.currentActivity as? PermissionAwareActivity ?: return@async false
-                val code = (Math.random() * 10000).toInt()
-
-                suspendCancellableCoroutine {
-                    activity.requestPermissions(
-                        arrayOf(android.Manifest.permission.RECORD_AUDIO),
-                        code,
-                        PermissionListener { requestCode, _, grantResults ->
-                            if (requestCode != code) {
-                                return@PermissionListener false
-                            }
-
-                            val granted =
-                                grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED
-
-                            it.resume(granted)
-
-                            return@PermissionListener true
-                        })
-                }
-            }
-        }
-    }
-
-    override fun startVoiceInput(
-        silenceThresholdMs: Double?, maxDurationMs: Double?, listeningText: String?
-    ): Promise<ArrayBuffer> {
-        return Promise.async {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                throw UnsupportedOperationException("startVoiceInput requires at least API level ${Build.VERSION_CODES.O}")
-            }
-
-            val manager = VoiceInputManager(AndroidAutoSession.getRootContext())
-            voiceInputManager = manager
-
-            try {
-                val pcmBytes = manager.start(
-                    silenceThresholdMs = silenceThresholdMs?.toLong() ?: 1_500L,
-                    maxDurationMs = maxDurationMs?.toLong() ?: 10_000L,
-                )
-                val directBuffer =
-                    ByteBuffer.allocateDirect(pcmBytes.size).put(pcmBytes).rewind() as ByteBuffer
-                ArrayBuffer.wrap(directBuffer)
-            } finally {
-                voiceInputManager = null
-                manager.dispose()
-            }
-        }
-    }
-
-    override fun stopVoiceInput() {
-        voiceInputManager?.stop()
-    }
-
     companion object {
         const val TAG = "HybridAutoPlay"
 
@@ -339,9 +257,6 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
 
         private val voiceInputListeners = CopyOnWriteArrayList<(Location?, String?) -> Unit>()
 
-        @Volatile
-        private var voiceInputManager: VoiceInputManager? = null
-
         private val safeAreaInsetsListeners =
             ConcurrentHashMap<String, CopyOnWriteArrayList<(SafeAreaInsets) -> Unit>>()
 
@@ -349,6 +264,7 @@ class HybridAutoPlay : HybridAutoPlaySpec() {
         fun removeListeners(templateId: String) {
             renderStateListeners.remove(templateId)
             safeAreaInsetsListeners.remove(templateId)
+            HybridAndroidWindowInformation.removeListeners(templateId)
         }
 
         fun emit(event: EventName) {

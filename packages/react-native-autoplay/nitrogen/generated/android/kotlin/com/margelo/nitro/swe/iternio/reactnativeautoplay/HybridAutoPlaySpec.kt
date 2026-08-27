@@ -11,7 +11,6 @@ import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
 import com.margelo.nitro.core.Promise
-import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -59,22 +58,6 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun hasVoiceInputPermission(): Boolean
-  
-  @DoNotStrip
-  @Keep
-  abstract fun requestVoiceInputPermission(): Promise<Boolean>
-  
-  @DoNotStrip
-  @Keep
-  abstract fun startVoiceInput(silenceThresholdMs: Double?, maxDurationMs: Double?, listeningText: String?): Promise<ArrayBuffer>
-  
-  @DoNotStrip
-  @Keep
-  abstract fun stopVoiceInput(): Unit
-  
-  @DoNotStrip
-  @Keep
   abstract fun setRootTemplate(templateId: String): Promise<Unit>
   
   @DoNotStrip
@@ -109,6 +92,10 @@ abstract class HybridAutoPlaySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun isConnected(): Boolean
+  
+  @DoNotStrip
+  @Keep
+  abstract fun isCarServiceRunning(): Boolean
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

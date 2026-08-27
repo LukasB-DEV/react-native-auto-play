@@ -35,6 +35,7 @@ target_sources(
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridAndroidAutomotiveSpec.cpp
   ../nitrogen/generated/shared/c++/HybridAndroidAutoTelemetrySpec.cpp
+  ../nitrogen/generated/shared/c++/HybridAndroidWindowInformationSpec.cpp
   ../nitrogen/generated/shared/c++/HybridAutoPlaySpec.cpp
   ../nitrogen/generated/shared/c++/HybridCarPlayDashboardSpec.cpp
   ../nitrogen/generated/shared/c++/HybridClusterSpec.cpp
@@ -45,9 +46,11 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridMessageTemplateSpec.cpp
   ../nitrogen/generated/shared/c++/HybridSearchTemplateSpec.cpp
   ../nitrogen/generated/shared/c++/HybridSignInTemplateSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridVoiceSpec.cpp
   # Android-specific Nitrogen C++ sources
   ../nitrogen/generated/android/c++/JHybridAndroidAutomotiveSpec.cpp
   ../nitrogen/generated/android/c++/JHybridAndroidAutoTelemetrySpec.cpp
+  ../nitrogen/generated/android/c++/JHybridAndroidWindowInformationSpec.cpp
   ../nitrogen/generated/android/c++/JHybridAutoPlaySpec.cpp
   ../nitrogen/generated/android/c++/JVariant_GlyphImage_AssetImage_RemoteImage.cpp
   ../nitrogen/generated/android/c++/JHybridClusterSpec.cpp
@@ -62,6 +65,7 @@ target_sources(
   ../nitrogen/generated/android/c++/JHybridSearchTemplateSpec.cpp
   ../nitrogen/generated/android/c++/JHybridSignInTemplateSpec.cpp
   ../nitrogen/generated/android/c++/JVariant_QrSignIn_PinSignIn_InputSignIn_GoogleSignIn.cpp
+  ../nitrogen/generated/android/c++/JHybridVoiceSpec.cpp
 )
 
 # From node_modules/react-native/ReactAndroid/cmake-utils/folly-flags.cmake

@@ -2,12 +2,14 @@ import { Platform } from 'react-native';
 import { NitroModules } from 'react-native-nitro-modules';
 import AutoPlayHeadlessJsTask from './AutoPlayHeadlessJsTask';
 import { HybridAndroidAutoTelemetry } from './hybrid/HybridAndroidAutoTelemetry';
+import { HybridAndroidWindowInformation } from './hybrid/HybridAndroidWindowInformation';
 import { HybridAutoPlay } from './hybrid/HybridAutoPlay';
+import { HybridVoice } from './hybrid/HybridVoice';
 import type { AndroidAutomotive } from './specs/AndroidAutomotive.nitro';
 
 AutoPlayHeadlessJsTask.registerHeadlessTask(HybridAutoPlay);
 
-export { HybridAndroidAutoTelemetry, HybridAutoPlay };
+export { HybridAndroidAutoTelemetry, HybridAndroidWindowInformation, HybridAutoPlay, HybridVoice };
 
 export const HybridAndroidAutomotive =
   Platform.OS === 'android'
@@ -54,6 +56,8 @@ export * from './types/SignInMethod';
 export * from './types/Telemetry';
 export * from './types/Text';
 export * from './types/Trip';
+export type { VoiceInputChunk, VoiceInputOptions, VoiceInputResult } from './types/Voice';
+export * from './utils/ErrorUtil';
 export type {
   AlertPriority,
   NavigationAlert as Alert,

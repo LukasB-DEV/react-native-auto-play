@@ -2,8 +2,10 @@ import {
   type Alert,
   type BackButton,
   CarPlayDashboard,
+  ErrorUtil,
   type HeaderActions,
   HybridAutoPlay,
+  HybridVoice,
   type ImageButton,
   type MapTemplate,
   type MapTemplateConfig,
@@ -236,24 +238,46 @@ const mapButtonHandler: (template: MapTemplate) => void = (template) => {
   });
 };
 
+const voiceInputButton: ImageButton = {
+  type: 'image',
+  image: { name: 'mic', type: 'glyph' },
+  onPress: () => {
+    void HybridVoice.requestVoiceInputPermission().then((isGranted) => {
+      if (!isGranted) {
+        return;
+      }
+
+      void HybridVoice.startVoiceInput({
+        preferSpeechToText: true,
+        listeningImage: {
+          type: 'asset',
+          image: require('../../assets/Microphone.webp'),
+        },
+        startSound: require('../../assets/voice-input/start.mp3'),
+        endSound: require('../../assets/voice-input/end.mp3'),
+      })
+        .then((result) => {
+          if (result.audio) {
+            console.log(`received ${result.audio.byteLength} bytes`);
+            dispatch(setRecording(Buffer.from(new Uint8Array(result.audio)).toString('base64')));
+          } else {
+            console.log(`received ${result.transcription}`);
+          }
+        })
+        .catch((e) => {
+          if (ErrorUtil.isVoiceInputCanceledError(e)) {
+            console.log('user canceled');
+          } else {
+            console.error(e);
+          }
+        });
+    });
+  },
+};
+
 const mapHeaderActions: MapTemplateConfig['headerActions'] = {
   android: [
-    {
-      type: 'image',
-      image: { name: 'mic', type: 'glyph' },
-      onPress: () => {
-        void HybridAutoPlay.requestVoiceInputPermission().then((isGranted) => {
-          if (!isGranted) {
-            return;
-          }
-
-          void HybridAutoPlay.startVoiceInput().then((audio) => {
-            console.log(`received ${audio.byteLength} bytes`);
-            dispatch(setRecording(Buffer.from(new Uint8Array(audio)).toString('base64')));
-          });
-        });
-      },
-    },
+    voiceInputButton,
     {
       type: 'image',
       image: {
@@ -281,25 +305,7 @@ const mapHeaderActions: MapTemplateConfig['headerActions'] = {
   ],
   ios: {
     leadingNavigationBarButtons: [
-      {
-        type: 'image',
-        image: {
-          name: 'mic',
-          type: 'glyph',
-        },
-        onPress: () => {
-          void HybridAutoPlay.requestVoiceInputPermission().then((isGranted) => {
-            if (!isGranted) {
-              return;
-            }
-
-            void HybridAutoPlay.startVoiceInput().then((audio) => {
-              console.log(`received ${audio.byteLength} bytes`);
-              dispatch(setRecording(Buffer.from(new Uint8Array(audio)).toString('base64')));
-            });
-          });
-        },
-      },
+      voiceInputButton,
       {
         type: 'image',
         image: {

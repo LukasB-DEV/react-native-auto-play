@@ -16,10 +16,6 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func addListener(eventType: EventName, callback: @escaping () -> Void) throws -> () -> Void
   func addListenerRenderState(moduleName: String, callback: @escaping (_ payload: VisibilityState) -> Void) throws -> () -> Void
   func addListenerVoiceInput(callback: @escaping (_ coordinates: Location?, _ query: String?) -> Void) throws -> () -> Void
-  func hasVoiceInputPermission() throws -> Bool
-  func requestVoiceInputPermission() throws -> Promise<Bool>
-  func startVoiceInput(silenceThresholdMs: Double?, maxDurationMs: Double?, listeningText: String?) throws -> Promise<ArrayBuffer>
-  func stopVoiceInput() throws -> Void
   func setRootTemplate(templateId: String) throws -> Promise<Void>
   func pushTemplate(templateId: String) throws -> Promise<Void>
   func popTemplate(animate: Bool?) throws -> Promise<Void>
@@ -28,6 +24,7 @@ public protocol HybridAutoPlaySpec_protocol: HybridObject {
   func addSafeAreaInsetsListener(moduleName: String, callback: @escaping (_ insets: SafeAreaInsets) -> Void) throws -> () -> Void
   func setTemplateHeaderActions(templateId: String, headerActions: [NitroAction]?) throws -> Promise<Void>
   func isConnected() throws -> Bool
+  func isCarServiceRunning() throws -> Bool
 }
 
 public extension HybridAutoPlaySpec_protocol {
